@@ -1,0 +1,59 @@
+.general_form {
+  width: 60%;
+  margin: 50px auto;
+}
+
+.upload_inputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+.text_inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.text_inputs input {
+  margin-bottom: 15px;
+}
+
+.submit_inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.submit_inputs input {
+  width: 50%;
+  height: 35px;
+  border-radius: 10px;
+  border: 0;
+  margin: 15px auto 0;
+  background-color: rgb(40, 255, 205);
+}
+
+.submit_inputs input:hover {
+  background-color: red;
+  transition: 1s;
+  cursor: pointer;
+}
+
+.json_file {
+  display: flex;
+  flex-direction: column;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.session_file {
+  display: flex;
+  flex-direction: column;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.session_file label {
+  margin-bottom: 10px;
+}
+
+.json_file label {
+  margin-bottom: 10px;
+}

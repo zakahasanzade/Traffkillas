@@ -1,0 +1,52 @@
+.date {
+  color: white;
+}
+
+.tasks_page_div {
+  width: 50%;
+  margin: 0 auto;
+}
+.tasks_div {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  color: white;
+  border-radius: 25px;
+  justify-content: space-between;
+  padding: 18px;
+  margin-top: 10px;
+}
+
+.first_task_time {
+  border-radius: 25px;
+  background-color: #ed2709;
+  padding: 8px;
+  font-size: 20px;
+}
+
+.tasks_footer {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ea9127;
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+.tasks_header {
+  font-size: 24px;
+  font-weight: 700;
+  color: black;
+}
+.second_task_time {
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #16c784;
+  border-radius: 25px;
+  padding: 4px 8px;
+}
+.second_task_time p {
+  margin-right: 10px;
+}

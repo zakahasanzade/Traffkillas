@@ -1,0 +1,99 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 50px;
+}
+
+.header_logo img {
+  width: 400px;
+}
+
+.header_profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+#mode_button {
+  width: 32px;
+  background-color: #222226;
+  border: 0;
+  cursor: pointer;
+  align-items: center;
+  margin-top: 6px;
+  border-radius: 100%;
+}
+
+#profile_button {
+  width: 295px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #141414;
+  border-radius: 25px;
+  border: 0;
+  margin-left: 12px;
+  color: white;
+}
+
+#profile_button p {
+  margin-left: 23px;
+  margin-bottom: 0;
+  font-weight: 600;
+  cursor: pointer;
+
+}
+
+#profile_button img {
+  margin-right: 3px;
+  cursor: pointer;
+
+}
+.profile_button_info {
+  position: absolute;
+  top: 50px;
+  left: 45px;
+  background-color: #141414 !important;
+  border-radius: 25px;
+  padding: 12px;
+  width: 295px;
+  color: white;
+  margin-top: 5px;
+  /* transition: visibility 0s, opacity 0.5s; */
+  transition: opacity 1s ease-out;
+  /* opacity: 1 !important;
+  -moz-opacity: 0;
+  background: #141414 !important; */
+}
+.profile_button_info_li {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+.profile_button_info_li:first-child {
+  margin-top: 0;
+}
+
+/* CSS TRANSITION */
+.alert-enter{
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.alert-enter-active{
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.alert-exit{
+  opacity: 1;
+}
+
+.alert-exit-active{
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}

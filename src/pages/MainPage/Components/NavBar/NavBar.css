@@ -1,0 +1,25 @@
+.navbar_list {
+  display: flex;
+  width: 55%;
+  margin: 24px auto 15px;
+  align-items: center;
+  justify-content: center;
+}
+.navbar_list button {
+  background-color: #222226;
+  border: 0;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  margin-left: 30px;
+  cursor: pointer;
+}
+/* .navbar_list button:hover {
+  background-color: orange;
+  opacity: 0.5;
+  font-size: 23px;
+  transition: 1s;
+} */
+#news {
+  margin-left: 0;
+}

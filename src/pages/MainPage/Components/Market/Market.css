@@ -1,0 +1,31 @@
+
+.market_products{
+    width: 1010px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.market_product{
+    background-color: #141414;
+    border-radius: 25px;
+    padding: 16px 24px;
+    width: 240px;
+    text-align: center;
+    word-spacing: 5px;
+    margin-bottom: 15px;
+    cursor:wait
+}
+.market_product p{
+    font-weight: 700;
+    font-size: 24px;
+    color: white;
+    margin:10px 0;
+}
+.market_product a{
+    font-weight: 700;
+    font-size: 16px;
+    color: #EA9127;
+    line-height: 150%;
+}

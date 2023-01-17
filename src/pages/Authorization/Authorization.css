@@ -1,0 +1,167 @@
+/* import BackgroundImage from "../../assets/BackgroundImage" */
+
+.page_autorization {
+  background-color: #050d21;
+  width: 100%;
+  height: 100vh;
+}
+
+.page_autorization_main {
+  width: 60%;
+  margin: 0 auto;
+}
+.page_autorization_logo img {
+  width: 806px;
+  margin: 150px auto 100px;
+}
+
+.page_autorization_logo {
+  text-align: center;
+}
+
+.page_autorization_inputs {
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  width: 330px;
+  margin: 0 auto;
+  justify-content: center;
+}
+.page_autorization_inputs input {
+  width: 330px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  padding-left: 130px;
+  border: 0;
+  margin-bottom: 10px;
+}
+.page_autorization_inputs {
+  position: relative;
+}
+.page_autorization_inputs button {
+  width: 32px;
+  height: 32px;
+  top: 68px;
+  position: absolute;
+  border: 0;
+  right: 9px;
+  background: url("./Authorization-Assets/Arrow\ Right.svg") no-repeat;
+  cursor: pointer;
+}
+
+/* .ui.icon.input>i.icon{
+  border-radius: 25px;
+} */
+
+.page_autorization_footer {
+  text-align: center;
+  color: #ffffff;
+  opacity: 0.7;
+  transition: 0.5s;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.page_autorization_footer:hover {
+  transition: 1s;
+}
+
+/* section {
+  width: 100%;
+  max-width: 420px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1rem;
+  /* background-color: rgba(0, 0, 0, 0.4); */
+/* }
+.main-page {
+  background-color: red;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-grow: 1;
+  padding-bottom: 1rem;
+}
+
+a,
+a:visited {
+  color: #fff;
+}
+
+input[type="text"],
+input[type="password"],
+button,
+textarea {
+  font-family: "Nunito", sans-serif;
+  font-size: 22px;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+}
+
+label,
+button {
+  margin-top: 1rem;
+}
+
+button {
+  padding: 0.5rem;
+}
+
+.instructions {
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  background: #000;
+  color: #fff;
+  padding: 0.25rem;
+  position: relative;
+  bottom: -10px;
+}
+
+.instructions > svg {
+  margin-right: 0.25rem;
+}
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
+}
+
+.hide {
+  display: none;
+}
+
+.valid {
+  color: limegreen;
+  margin-left: 0.25rem;
+}
+
+.invalid {
+  color: red;
+  margin-left: 0.25rem;
+}
+
+.errmsg {
+  background-color: lightpink;
+  color: firebrick;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.line {
+  display: inline-block;
+}
+
+.flexGrow {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+} */
