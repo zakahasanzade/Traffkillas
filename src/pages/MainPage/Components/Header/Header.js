@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 import "./Header.css";
 import MainLogo from "../../../../assets/MainLogo.svg";
 import LightMode from "../../../../assets/LightMode.svg";
@@ -20,7 +20,7 @@ const Header = () => {
   const [show, setShow] = useState(false);
 
   return (
-    <div className="header">
+    <div className="header" >
       <div className="header_logo">
         <img src={MainLogo} alt="MainLogo" />
       </div>
@@ -35,7 +35,12 @@ const Header = () => {
           <img src={ProfilePhoto} alt="ProfilePhoto" onClick={ViewProfile} />
         </button>
 
-        <CSSTransition in={show} classNames="alert" timeout={1000} unmountOnExit>
+        <CSSTransition
+          in={show}
+          classNames="alert"
+          timeout={1000}
+          unmountOnExit
+        >
           <ul className="profile_button_info" id="time">
             <li className="profile_button_info_li">
               <p className="red">₸ 1 200 000</p>

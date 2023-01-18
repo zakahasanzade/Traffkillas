@@ -3,7 +3,8 @@
 }
 
 .tasks_page_div {
-  width: 50%;
+  margin: 0 auto;
+  width: 806px;
   margin: 0 auto;
 }
 .tasks_div {
@@ -16,11 +17,59 @@
   padding: 18px;
   margin-top: 10px;
 }
+.task_div img {
+  width: 30px;
+}
 
+.task_sendData {
+  display: flex;
+  flex-direction: column;
+  background-color: #141414;
+  color: white;
+  font-weight: 700;
+  border-radius: 25px;
+  margin: 0 auto;
+  width: 806px;
+  /* overflow: hidden; */
+  padding: 16px;
+}
+.sendData_taskTitle {
+  background-color: #141414;
+  border: 0;
+  color: white;
+  opacity: 0.5;
+  font-size: 32px;
+}
+.sendData_taskCcontent {
+  background-color: #141414;
+  border: 0;
+  color: white;
+  opacity: 0.2;
+  font-size: 20px;
+  /* overflow: hidden; */
+  border: 0;
+}
+.sendData_tasks {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 7px;
+}
+.sendData_task {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  gap: 20px;
+}
+.sendData_task img {
+  color: red;
+}
+.css-13cymwt-control {
+  display: block;
+}
 .first_task_time {
   border-radius: 25px;
   background-color: #ed2709;
-  padding: 8px;
   font-size: 20px;
 }
 

@@ -1,11 +1,6 @@
-import React, { Component, useEffect, useState } from "react";
+import React from "react";
 import "./Authorization.css";
 import MainLogo from "./../../assets/MainLogo.svg";
-// import FormData from "form-data";
-import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { AiArrowRight } from "react-icons/ai";
-import { Input } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
 
 /* A function declaration. */
@@ -25,9 +20,9 @@ const Authorization = () => {
     e.preventDefault();
 
     // const formData = new FormData(form);
-    const data = new FormData(e.target);
+    // const data = new FormData(e.target);
 
-    const value = Object.fromEntries(data.entries());
+    // const value = Object.fromEntries(data.entries());
 
     const username = document.querySelector(".username").value;
     const password = document.querySelector(".password").value;
@@ -38,7 +33,7 @@ const Authorization = () => {
       username: username,
       password: password,
     };
-    fetch("https://6953-5-133-14-197.eu.ngrok.io/login", {
+    fetch("https://a98c-89-77-236-116.eu.ngrok.io/login", {
       method: "POST",
       headers: headers,
       body: JSON.stringify(raw),

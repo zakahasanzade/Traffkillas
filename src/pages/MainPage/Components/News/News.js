@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import Header from "../Header/Header";
-import NavBar from "../NavBar/NavBar";
 import "./News.css";
 import rightArrow from "./News Assets/Arrow Right.svg";
-import { cloneElement } from "react";
-import axios from "axios";
-import { text } from "@fortawesome/fontawesome-svg-core";
 import { TagsInput } from "react-tag-input-component";
+import { motion } from "framer-motion/dist/framer-motion";
 
 const News = () => {
   const [show, setShow] = useState(false);
@@ -31,7 +27,7 @@ const News = () => {
   // SEND VALUES FROM ELEMENT TO SERVER //
   const [post, setPost] = useState(getArray);
   const SendTitlePageData = (e) => {
-    const newsTitle = document.querySelector(".newsTitle").innerHTML;
+    const newsTitle = document.querySelector(".newsTitle").value;
     const newsTag = tags;
     const newsContent = document.querySelector(".newsContent").value;
     const newsColor = getComputedStyle(
@@ -47,42 +43,56 @@ const News = () => {
     console.log(raw);
     setPost([...post, raw]);
 
-    // fetch("https://6953-5-133-14-197.eu.ngrok.io/post_news", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(raw),
-    // })
-    //   .then((response) => {
-    //     console.log(response.status);
-    //     response.text();
-    //   })
-    //   .then((result) => {
-    //     console.log(result);
-    //   })
-    //   .catch((err) => {
-    //     alert(err);
-    //   });
+    fetch("https://a98c-89-77-236-116.eu.ngrok.io/post_news", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(raw),
+    })
+      .then((response) => {
+        console.log(response.status);
+        response.text();
+      })
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        alert(err);
+      });
 
-    // fetch("https://httpbin.org/get", {
-    //   method: "GET",
-    // })
-    //   .then((response) => response.text())
-    //   .then((result) => {
-    // console.log(result);
-    //   });
+    fetch("https://httpbin.org/get", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((response) => {
+        // console.log(response.status);
+        response.text();
+      })
+      .then((result) => {
+        result.JSON();
+        console.log(result);
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 
   return (
-    <div className="main" id="active">
-
+    <motion.div
+      className="main"
+      id="active"
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{opacity:0,x:-100 }}
+      transition={{duration:0.3}}
+    >
       <div className="news_page">
         <div className="news_page_titles">
           <div className="news_page_title">
             <div className="news_page_title_dot">
               <div className="newsColor"></div>
-              <h1 className="newsTitle">Заголовок</h1>
+              <input className="newsTitle" placeholder="Заголовок" />
             </div>
             <div className="news_page_title_input">
               <input
@@ -153,7 +163,7 @@ const News = () => {
           </div>
         </div> */}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

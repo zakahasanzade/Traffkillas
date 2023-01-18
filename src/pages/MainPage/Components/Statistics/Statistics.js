@@ -1,15 +1,10 @@
-import React, { useState } from "react";
-import Header from "../Header/Header";
-import NavBar from "../NavBar/NavBar";
+import React from "react";
 import ProfileImage from "./Statistics Assets/Profile Img.svg";
 import ProfileImage2 from "./Statistics Assets/Profile Img2.svg";
 import Graph from "./Statistics Assets/Statistics Graph.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 import "react-pro-sidebar/dist/css/styles.css";
-import { CSSTransition } from "react-transition-group";
-
+import { motion } from "framer-motion/dist/framer-motion";
 import { piggyBank } from "./Statistics Assets/piggyBank.svg";
 
 import {
@@ -17,21 +12,17 @@ import {
   Menu,
   MenuItem,
   SubMenu,
-  SidebarHeader,
   SidebarContent,
-  SidebarFooter,
 } from "react-pro-sidebar";
 import {
   faCaretUp,
   faTicket,
   faEye,
   faMars,
-  faRotateLeft,
   faClock,
   faPiggyBank,
 } from "@fortawesome/free-solid-svg-icons";
 import "./Statistics.css";
-import { from } from "form-data";
 
 const SubMenuTitle = (
   /* DROPDOWN SIDEBAR */
@@ -93,7 +84,14 @@ const Statistics = () => {
   );
 
   return (
-    <div className="main" id="active">
+    <motion.div
+      className="main"
+      id="active"
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ duration: 0.3 }}
+    >
       {/* <div className="main_header">{<Header />}</div>
       <div className="NavBar">{<NavBar />}</div> */}
       <div className="statistics">
@@ -514,7 +512,7 @@ const Statistics = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

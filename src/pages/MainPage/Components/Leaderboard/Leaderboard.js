@@ -6,10 +6,18 @@ import Leader from "./Leaderboard Assets/Leader_Photo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { motion } from "framer-motion/dist/framer-motion";
 
 const Leaderboard = () => {
   return (
-    <div className="main" id="active">
+    <motion.div
+      className="main"
+      id="active"
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ duration: 0.3 }}
+    >
       {/* <div className="main_header">{<Header />}</div>
       <div className="NavBar">{<NavBar />}</div> */}
       <div className="leader_date">
@@ -115,7 +123,7 @@ const Leaderboard = () => {
           <div className="leader_balance">26 депозит</div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

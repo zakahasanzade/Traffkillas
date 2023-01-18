@@ -1,7 +1,5 @@
 import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
-import News from "./Components/News/News";
-import Tasks from "./Components/Tasks/Tasks";
+import { Outlet } from "react-router-dom";
 import "./MainPage.css";
 import Header from "./Components/Header/Header";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
