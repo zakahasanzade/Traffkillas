@@ -60,6 +60,7 @@
   color: white;
   margin-top: 5px;
   transition: opacity 1s ease-out;
+  z-index: 1;
 }
 .profile_button_info_li {
   font-size: 20px;

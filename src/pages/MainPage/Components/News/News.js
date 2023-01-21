@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./News.css";
 import rightArrow from "./News Assets/Arrow Right.svg";
 import { TagsInput } from "react-tag-input-component";
@@ -8,24 +8,33 @@ const News = () => {
   const [show, setShow] = useState(false);
   // CREATE A NEW BLOCK WITH THE RECEIVED DATA   //
   const [tags, setTags] = useState([]);
-  const getArray = () => [
-    {
-      color: "red",
-      title: "Важный день сегодня",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      hashtag: ["#проекты", "jdnsc"],
-    },
-    {
-      color: "black",
-      title: "Обновление платформы",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-      hashtag: ["#проекты", "jdnsc"],
-    },
-  ];
-  // const handleAddition = (tag) => {
-  //x
+  let getArray = [];
+  const [post, setPost] = useState();
+
   // SEND VALUES FROM ELEMENT TO SERVER //
-  const [post, setPost] = useState(getArray);
+
+  const getData = () => {
+    fetch("http://94.103.90.6:5000/get_news", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // credentials: "include",
+    })
+      .then((response) => {
+        // console.log(response.status);
+        return response.text();
+      })
+      .then((result) => {
+        // console.log(result);
+        getArray = JSON.parse(result)["data"];
+        setPost(getArray);
+        // console.log(getArray);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
   const SendTitlePageData = (e) => {
     const newsTitle = document.querySelector(".newsTitle").value;
     const newsTag = tags;
@@ -40,10 +49,9 @@ const News = () => {
       hashtag: newsTag,
       text: newsContent,
     };
-    console.log(raw);
-    setPost([...post, raw]);
+    // console.log(raw);
 
-    fetch("https://a98c-89-77-236-116.eu.ngrok.io/post_news", {
+    fetch("http://94.103.90.6:5000/post_news", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -51,32 +59,26 @@ const News = () => {
       body: JSON.stringify(raw),
     })
       .then((response) => {
-        console.log(response.status);
-        response.text();
-      })
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => {
-        alert(err);
-      });
-
-    fetch("https://httpbin.org/get", {
-      method: "GET",
-      credentials: "include",
-    })
-      .then((response) => {
         // console.log(response.status);
-        response.text();
+        return response.text();
       })
       .then((result) => {
-        result.JSON();
-        console.log(result);
+        // console.log(result);
       })
       .catch((err) => {
         alert(err);
       });
+    getData();
+    // setPost([...post, raw]);
+    console.log(post);
   };
+  useEffect(() => {
+    return getData();
+  }, []);
+  // return getData();
+  // console.log(getArray);
+
+  // console.log(post);
 
   return (
     <motion.div
@@ -84,8 +86,8 @@ const News = () => {
       id="active"
       initial={{ opacity: 0, x: 100 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{opacity:0,x:-100 }}
-      transition={{duration:0.3}}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ duration: 0.3 }}
     >
       <div className="news_page">
         <div className="news_page_titles">

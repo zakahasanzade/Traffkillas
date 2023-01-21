@@ -29,14 +29,13 @@ const Authorization = () => {
     const headers = {
       "Content-type": "application/json",
     };
-    var raw = {
-      username: username,
-      password: password,
-    };
-    fetch("https://a98c-89-77-236-116.eu.ngrok.io/login", {
+    fetch("http://94.103.90.6:5000/login", {
       method: "POST",
       headers: headers,
-      body: JSON.stringify(raw),
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
     })
       .then((response) => {
         console.log(response.status);

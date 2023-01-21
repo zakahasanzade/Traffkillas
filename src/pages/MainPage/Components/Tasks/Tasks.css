@@ -1,26 +1,72 @@
 .date {
   color: white;
 }
-
+.tasks {
+  gap: 15px;
+}
 .tasks_page_div {
   margin: 0 auto;
   width: 806px;
   margin: 0 auto;
-}
-.tasks_div {
-  display: flex;
-  align-items: center;
   background-color: white;
   color: white;
   border-radius: 25px;
+  margin: 10px auto;
+}
+.tasks_div {
+  padding: 16px;
+  padding-bottom: 12px;
+  display: flex;
   justify-content: space-between;
-  padding: 18px;
-  margin-top: 10px;
+  align-items: center;
 }
 .task_div img {
   width: 30px;
 }
-
+.tasks_div_submit {
+  padding: 0 16px 16px;
+  display: flex;
+  justify-content: center;
+}
+.tasks_div_submit i {
+  font-size: 10px;
+  border-radius: 25px;
+  background-color: white;
+  padding: 5px;
+  padding-bottom: 3.5px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #0f82f5;
+}
+.tasks_div_submit textarea {
+  background-color: #ebedf0;
+  border: 0;
+  width: 25px;
+  width: 770px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  /* opacity: 20%; */
+  font-size: 16px;
+  font-weight: 700;
+  padding: 6.5px 8px;
+  outline: none;
+  resize: none;
+  padding: 8px 0 8px 12px;
+}
+.tasks_div_submit button {
+  border: 0;
+  background-color: #ebedf0;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  padding-right: 8px;
+  cursor: pointer;
+}
+.tasks_div_submit img {
+  width: 16px;
+  height: 16px;
+}
 .task_sendData {
   display: flex;
   flex-direction: column;
@@ -32,6 +78,7 @@
   width: 806px;
   /* overflow: hidden; */
   padding: 16px;
+  margin-bottom: 10px;
 }
 .sendData_taskTitle {
   background-color: #141414;
@@ -39,8 +86,14 @@
   color: white;
   opacity: 0.5;
   font-size: 32px;
+  outline: none;
+  margin-bottom: 5px;
 }
-.sendData_taskCcontent {
+
+/* .menu {
+  animation: fadeIn 0.2s ease-in-out;
+} */
+.sendData_taskContent {
   background-color: #141414;
   border: 0;
   color: white;
@@ -48,7 +101,49 @@
   font-size: 20px;
   /* overflow: hidden; */
   border: 0;
+  outline: none;
+  margin-bottom: 2px;
 }
+.sendData_task select {
+  border: 0;
+  background-color: #141414;
+  color: white;
+  outline: none;
+  font-size: 16px;
+  font-weight: 700;
+}
+.sendData_task p:nth-child(2) {
+  background-color: white;
+  color: black;
+  padding: 4px;
+  border-radius: 15px;
+}
+.sendData_task p:nth-child(3) {
+  background-color: red;
+  color: black;
+  padding: 4px 8px;
+  border-radius: 15px;
+}
+/* .sendData_task i {
+  background-color: white;
+  color: black;
+  border-radius: 25px;
+  padding: 2px;
+  font-size: 13px;
+} */
+.sendData_submit button {
+  border-radius: 25px;
+  background-color: #0f82f5;
+  padding: 4px 8px;
+  color: white;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .sendData_tasks {
   display: flex;
   align-items: center;
@@ -64,9 +159,7 @@
 .sendData_task img {
   color: red;
 }
-.css-13cymwt-control {
-  display: block;
-}
+
 .first_task_time {
   border-radius: 25px;
   background-color: #ed2709;
@@ -94,8 +187,13 @@
   align-items: center;
   background-color: #16c784;
   border-radius: 25px;
-  padding: 4px 8px;
+  padding: 4px 8px 4px 8px ;
 }
-.second_task_time p {
-  margin-right: 10px;
+.second_task_time i{
+  background-color: white;
+  color: #16c784;
+  padding: 5px;
+  font-size: 15px;
+  border-radius: 25px;
+  margin-left: 10px;
 }

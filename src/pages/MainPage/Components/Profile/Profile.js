@@ -5,6 +5,7 @@ import BackButton from "./Profile Assets/Back Button.svg";
 import ProfileImg from "./Profile Assets/Profile Img.svg";
 import Rank from "./Profile Assets/Rank.svg";
 import { useNavigate } from "react-router-dom";
+import Corrector from "./Profile Assets/Corrector.svg";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 let progressInterval = null;
@@ -14,7 +15,7 @@ const Profile = () => {
   useEffect(() => {
     progressInterval = setInterval(() => {
       setProgress((prev) => prev + 1);
-    }, 70);
+    }, 50);
   }, []);
   useEffect(() => {
     if (progress >= 70) {
@@ -43,8 +44,8 @@ const Profile = () => {
           <div className="profile_header_right_info">
             <p>Абобус_2002</p>
             <div className="profile_header_right_info_footer">
-              <p>250 MMR</p>
-              <p>2500 TTK</p>
+              <p>редактировать профиль </p>
+              <img src={Corrector} />
             </div>
           </div>
           <div className="profile_header_right_img">
@@ -77,13 +78,18 @@ const Profile = () => {
           </div>
         </div>
         <div className="profile_main_right">
+          <p className="profile_title">Баланс</p>
+          <div className="profile_balance">
+            <p style={{ color: "#EA9127" }}>54 TTK</p>
+            <p style={{ color: "#AB16CD" }}>1 200 000</p>
+          </div>
           <p className="profile_title">Ваш уровень</p>
           <div className="profile_main_right_text">
             <div className="profile_level">
               <div className="profile_level_rank">
                 <div className="profile_level_rank_info">
                   <div className="profile_level_rank_info_img">
-                    <p>Rank II</p>
+                    <p>448 MMR</p>
                     <img src={Rank} alt="Rank"></img>
                   </div>
                   <div className="profile_level_rank_info_num">

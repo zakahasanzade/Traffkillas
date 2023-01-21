@@ -1,11 +1,12 @@
 import React from "react";
-import ProfileImage from "./Statistics Assets/Profile Img.svg";
-import ProfileImage2 from "./Statistics Assets/Profile Img2.svg";
-import Graph from "./Statistics Assets/Statistics Graph.svg";
+import ProfileImage from "./StatisticsAssets/Profile Img.svg";
+import ProfileImage2 from "./StatisticsAssets/Profile Img2.svg";
+import Graph from "./StatisticsAssets/Statistics Graph.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "react-pro-sidebar/dist/css/styles.css";
 import { motion } from "framer-motion/dist/framer-motion";
-import { piggyBank } from "./Statistics Assets/piggyBank.svg";
+import { piggyBank } from "./StatisticsAssets/piggyBank.svg";
+import ReverseVector from "./StatisticsAssets/Vector.svg";
 
 import {
   ProSidebar,
@@ -44,7 +45,9 @@ const SubMenuTitle = (
       <div className="statistics_submenu_div black">
         <FontAwesomeIcon icon={faClock} /> 5 минут
       </div>
-      <div className="statistics_submenu_div red">500 000₸</div>
+      <div className="statistics_submenu_div" style={{ color: "purple" }}>
+        500 000₸
+      </div>
       <div className="statistics_submenu_div pink">
         <FontAwesomeIcon icon={faPiggyBank} /> 32
       </div>
@@ -75,7 +78,9 @@ const Statistics = () => {
         <div className="statistics_submenu_div black">
           <FontAwesomeIcon icon={faClock} /> 5 минут
         </div>
-        <div className="statistics_submenu_div red">500 000₸</div>
+        <div className="statistics_submenu_div" style={{ color: "purple" }}>
+          500 000₸
+        </div>
         <div className="statistics_submenu_div pink">
           <FontAwesomeIcon icon={faPiggyBank} /> 32
         </div>
@@ -139,11 +144,10 @@ const Statistics = () => {
           <div className="statistics_grapgh_info">
             <div className="statistics_graph_left">
               <p>Выручка</p>
-              <p>190,090.36₸</p>
+              <p style={{color:"purple"}}>190,090.36₸</p>
             </div>
             <div className="statistics_graph_right">
-              {/* <FontAwesomeIcon icon={piggyBank} /> */}
-              <img src={piggyBank}></img>
+              <img src={ReverseVector}></img>
             </div>
           </div>
           <div className="statistics_grapg_img">
@@ -154,7 +158,8 @@ const Statistics = () => {
         <div className="statistics_general">
           <h2>Общая статистика</h2>
           <p>
-            Сумма депозитов: <span className="red">13 200 000₸</span>
+            Сумма депозитов:{" "}
+            <span style={{ color: "purple" }}>13 200 000₸</span>
           </p>
           <p>Обработано тикетов: 2150</p>
           <p>Суммарное кол-во просмотров: 546 340</p>
@@ -186,7 +191,10 @@ const Statistics = () => {
                           <div className="statistics_submenu_div black">
                             <FontAwesomeIcon icon={faClock} /> 5 минут
                           </div>
-                          <div className="statistics_submenu_div red">
+                          <div
+                            className="statistics_submenu_div"
+                            style={{ color: "purple" }}
+                          >
                             500 000₸
                           </div>
                           <div className="statistics_submenu_div pink">
@@ -216,7 +224,10 @@ const Statistics = () => {
                           <div className="statistics_submenu_div black">
                             <FontAwesomeIcon icon={faClock} /> 5 минут
                           </div>
-                          <div className="statistics_submenu_div red">
+                          <div
+                            className="statistics_submenu_div"
+                            style={{ color: "purple" }}
+                          >
                             500 000₸
                           </div>
                           <div className="statistics_submenu_div pink">
@@ -246,7 +257,10 @@ const Statistics = () => {
                           <div className="statistics_submenu_div black">
                             <FontAwesomeIcon icon={faClock} /> 5 минут
                           </div>
-                          <div className="statistics_submenu_div red">
+                          <div
+                            className="statistics_submenu_div"
+                            style={{ color: "purple" }}
+                          >
                             500 000₸
                           </div>
                           <div className="statistics_submenu_div pink">
@@ -276,7 +290,10 @@ const Statistics = () => {
                           <div className="statistics_submenu_div black">
                             <FontAwesomeIcon icon={faClock} /> 5 минут
                           </div>
-                          <div className="statistics_submenu_div red">
+                          <div
+                            className="statistics_submenu_div"
+                            style={{ color: "purple" }}
+                          >
                             500 000₸
                           </div>
                           <div className="statistics_submenu_div pink">
@@ -307,7 +324,10 @@ const Statistics = () => {
                           <div className="statistics_submenu_div black">
                             <FontAwesomeIcon icon={faClock} /> 5 минут
                           </div>
-                          <div className="statistics_submenu_div red">
+                          <div
+                            className="statistics_submenu_div"
+                            style={{ color: "purple" }}
+                          >
                             500 000₸
                           </div>
                           <div className="statistics_submenu_div pink">
@@ -345,7 +365,10 @@ const Statistics = () => {
                           <div className="statistics_submenu_div black">
                             <FontAwesomeIcon icon={faClock} /> 5 минут
                           </div>
-                          <div className="statistics_submenu_div red">
+                          <div
+                            className="statistics_submenu_div"
+                            style={{ color: "purple" }}
+                          >
                             500 000₸
                           </div>
                           <div className="statistics_submenu_div pink">
@@ -375,7 +398,10 @@ const Statistics = () => {
                           <div className="statistics_submenu_div black">
                             <FontAwesomeIcon icon={faClock} /> 5 минут
                           </div>
-                          <div className="statistics_submenu_div red">
+                          <div
+                            className="statistics_submenu_div"
+                            style={{ color: "purple" }}
+                          >
                             500 000₸
                           </div>
                           <div className="statistics_submenu_div pink">
@@ -405,7 +431,10 @@ const Statistics = () => {
                           <div className="statistics_submenu_div black">
                             <FontAwesomeIcon icon={faClock} /> 5 минут
                           </div>
-                          <div className="statistics_submenu_div red">
+                          <div
+                            className="statistics_submenu_div"
+                            style={{ color: "purple" }}
+                          >
                             500 000₸
                           </div>
                           <div className="statistics_submenu_div pink">
@@ -435,7 +464,10 @@ const Statistics = () => {
                           <div className="statistics_submenu_div black">
                             <FontAwesomeIcon icon={faClock} /> 5 минут
                           </div>
-                          <div className="statistics_submenu_div red">
+                          <div
+                            className="statistics_submenu_div"
+                            style={{ color: "purple" }}
+                          >
                             500 000₸
                           </div>
                           <div className="statistics_submenu_div pink">
@@ -466,7 +498,10 @@ const Statistics = () => {
                           <div className="statistics_submenu_div black">
                             <FontAwesomeIcon icon={faClock} /> 5 минут
                           </div>
-                          <div className="statistics_submenu_div red">
+                          <div
+                            className="statistics_submenu_div"
+                            style={{ color: "purple" }}
+                          >
                             500 000₸
                           </div>
                           <div className="statistics_submenu_div pink">
@@ -508,7 +543,9 @@ const Statistics = () => {
             <div className="statistics_submenu_div blue">
               <FontAwesomeIcon icon={faMars} /> 54.2%
             </div>
-            <div className="statistics_submenu_div red">1 200 000₸</div>
+            <div className="statistics_submenu_div" style={{ color: "purple" }}>
+              1 200 000₸
+            </div>
           </div>
         </div>
       </div>

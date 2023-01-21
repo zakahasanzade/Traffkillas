@@ -1,5 +1,5 @@
 .profile_header {
-  max-width: 1214px;
+  width: 1214px;
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
@@ -39,17 +39,18 @@
   align-items: center;
 }
 .profile_header_right_info p {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 700;
 }
-.profile_header_right_info_footer {
+.profile_header_right_info_footer{
   display: flex;
-  align-items: center;
-  margin-top: 37px;
+  margin-top: 8px;
 }
-.profile_header_right_info_footer p:last-child {
-  color: white;
-  margin-left: 10px;
+.profile_header_right_info_footer p{
+  font-size: 16px;
+  color:white;
+  opacity: 0.3;
+
 }
 .profile_header_right_img img {
   width: 84px;
@@ -67,7 +68,6 @@
   margin-bottom: 10px;
   margin-left: 20px;
   display: flex;
-  justify-content: center;
 }
 .profile_main_left_text {
   width: 806px;
@@ -162,6 +162,17 @@
   justify-content: space-between;
   padding: 8px 20px;
   font-weight: 700;
+}
+.profile_balance {
+  background-color: #141414;
+  border-radius: 25px;
+  padding: 16px 20px;
+  font-weight: 700;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 .profile_messages p {
   margin-bottom: 0;

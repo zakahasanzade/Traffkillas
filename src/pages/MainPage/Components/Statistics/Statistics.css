@@ -106,14 +106,17 @@
   margin-top: 10px;
   padding-bottom: 10px;
 }
-.statistics_graph_right svg {
-  width: 15px;
-  cursor: pointer;
-}
-.statistics_graph_right svg {
+
+.statistics_graph_right {
+  padding: 8px;
   background-color: #ebedf0;
-  padding: 5px 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 8px;
+  cursor: pointer;
 }
 .statistics_general {
   padding: 15px;

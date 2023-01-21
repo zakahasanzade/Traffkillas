@@ -7,7 +7,7 @@ import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import NavBar from "./Components/NavBar/NavBar";
 
 const MainPage = () => {
-  // fetch("https://6953-5-133-14-197.eu.ngrok.io/login", {
+  // fetch("http://94.103.90.6:5000/login", {
   //   method: "GET",
   //   headers: {
   //     "Token": localStorage.getItem("token"),
