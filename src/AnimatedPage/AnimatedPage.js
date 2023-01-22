@@ -19,18 +19,17 @@ import NavBar from "../pages/MainPage/Components/NavBar/NavBar";
 import { AnimatePresence } from "framer-motion/dist/framer-motion";
 
 const AnimatedPage = () => {
-  fetch("http://94.103.90.6:5000/login", {
-    method: "GET",
-    headers: {
-      "Token": localStorage.getItem("token"),
-    },
-  })
-    .then((response) => response.text())
-    .then((result) => {
-      console.log(result)
-    });
+  // fetch("http://94.103.90.6:5000/login", {
+  //   method: "GET",
+  //   headers: {
+  //     "Token": localStorage.getItem("token"),
+  //   },
+  // })
+  //   .then((response) => response.text())
+  //   .then((result) => {
+  //     console.log(result)
+  //   });
   const location = useLocation();
- 
 
   return (
     <AnimatePresence exitBeforeEnter>

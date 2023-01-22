@@ -3,7 +3,7 @@ import React from "react";
 import "./reset.css";
 import "./common.css";
 
-import AnimatedPage from "./Animated Page/AnimatedPage";
+import AnimatedPage from "./AnimatedPage/AnimatedPage";
 
 const App = () => {
   return (
