@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import "./MainPage.css";
 import Header from "./Components/Header/Header";
@@ -7,16 +7,8 @@ import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import NavBar from "./Components/NavBar/NavBar";
 
 const MainPage = () => {
-  // fetch("http://94.103.90.6:5000/login", {
-  //   method: "GET",
-  //   headers: {
-  //     "Token": localStorage.getItem("token"),
-  //   },
-  // })
-  //   .then((response) => response.text())
-  //   .then((result) => {
-  //     console.log(result)
-  //   });
+
+  
 
   return (
     <>

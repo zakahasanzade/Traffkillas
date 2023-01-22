@@ -48,6 +48,7 @@ const Authorization = () => {
       .then((result) => {
         console.log(result);
         localStorage.setItem("token", JSON.parse(result).token);
+        localStorage.setItem("position", JSON.parse(result).position);
         navigate("/MainPage");
       })
       .catch((err) => {

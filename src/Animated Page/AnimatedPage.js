@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 // import { motion } from "framer-motion";
 import { Navbar } from "react-bootstrap";
@@ -19,7 +19,18 @@ import NavBar from "../pages/MainPage/Components/NavBar/NavBar";
 import { AnimatePresence } from "framer-motion/dist/framer-motion";
 
 const AnimatedPage = () => {
+  fetch("http://94.103.90.6:5000/login", {
+    method: "GET",
+    headers: {
+      "Token": localStorage.getItem("token"),
+    },
+  })
+    .then((response) => response.text())
+    .then((result) => {
+      console.log(result)
+    });
   const location = useLocation();
+ 
 
   return (
     <AnimatePresence exitBeforeEnter>
@@ -31,7 +42,7 @@ const AnimatedPage = () => {
           {/* <Route path="/" element={<UserPage />} />
           <Route path="/SecondPage" element={<SecondPage />} /> */}
           <Route index element={<News />} />
-          <Route path="/MainPage/Tasks" element={<Tasks />} />
+          <Route path="/MainPage/Tasks" element={<Tasks example="admin" />} />
           <Route path="/MainPage/Statistics" element={<Statistics />} />
           <Route path="/MainPage/Leaderboard" element={<Leaderboard />} />
           <Route path="/MainPage/Market" element={<Market />} />
