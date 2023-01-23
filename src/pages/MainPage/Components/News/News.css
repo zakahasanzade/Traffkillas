@@ -34,8 +34,6 @@
   width: 806px;
   border-radius: 25px;
   padding: 16px;
-  margin-top: 20px;
-  margin-bottom: 10px;
   justify-content: space-between;
 }
 
@@ -66,12 +64,7 @@
 .news_page_title_dot select {
   background-color: none;
 }
-.news_page_title_dot option {
-  /* width: 16px;
-  height: 16px;
-  border-radius: 100%;
-  margin-right: 10px; */
-}
+
 .news_page_title_dot input {
   font-size: 32px;
   font-weight: 700;

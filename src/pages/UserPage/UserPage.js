@@ -1,6 +1,5 @@
-import React, { Component, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import Axios from "axios";
 import axios from "axios";
 import FormData from "form-data";
 import "./UserPage.css";

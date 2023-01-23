@@ -1,6 +1,4 @@
 import React from "react";
-import Header from "../Header/Header";
-import NavBar from "../NavBar/NavBar";
 import "./Instruments.css";
 import { motion } from "framer-motion/dist/framer-motion";
 

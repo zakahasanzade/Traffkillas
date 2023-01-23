@@ -5,13 +5,8 @@ import { TagsInput } from "react-tag-input-component";
 import { motion } from "framer-motion/dist/framer-motion";
 import { CSSTransition } from "react-transition-group";
 
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-];
 const News = () => {
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
   // CREATE A NEW BLOCK WITH THE RECEIVED DATA   //
   const [tags, setTags] = useState([]);
   let getArray = [];
@@ -100,8 +95,8 @@ const News = () => {
   // console.log(getArray);
 
   // console.log(post);
-  const [back, SetBack] = useState("green");
-  console.log(back);
+  // const [back, SetBack] = useState("green");
+  // console.log(back);
   const setBack = (col) => {
     document.querySelector(".back").style.backgroundColor = col;
   };
@@ -241,7 +236,7 @@ const News = () => {
             });
             return (
               <>
-                {index == 0 || array[index - 1].date != date ? (
+                {index === 0 || array[index - 1].date !== date ? (
                   <p className="date" style={{ marginTop: "10px" }}>
                     {date.substring(0, 2)}{" "}
                     {now.toLocaleString("ru-ru", { month: "long" })}
@@ -258,7 +253,7 @@ const News = () => {
                   </h1>
                   <p className="news_page_text">{text}</p>
                   <div className="news_page_footer">
-                    <a className="date">{time}</a>
+                    <p className="date">{time}</p>
                     <div className="news_page_footer_p">
                       <p style={{ display: "flex" }}>{tag}</p>
                     </div>

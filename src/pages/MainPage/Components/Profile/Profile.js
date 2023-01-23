@@ -37,7 +37,7 @@ const Profile = () => {
           <p>Аккаунт</p>
           <div className="profile_back_button" onClick={BackButtonClick}>
             <img src={BackButton} alt="BackButton" className="BackButton"></img>
-            <a>на главную</a>
+            <p href="#">на главную</p>
           </div>
         </div>
         <div className="profile_header_right">
@@ -45,7 +45,7 @@ const Profile = () => {
             <p>Абобус_2002</p>
             <div className="profile_header_right_info_footer">
               <p>редактировать профиль </p>
-              <img src={Corrector} />
+              <img src={Corrector} alt="Corrector" />
             </div>
           </div>
           <div className="profile_header_right_img">
@@ -60,20 +60,20 @@ const Profile = () => {
             <h5>31 декабря</h5>
             <div className="profile_main_left_text_div">
               <p>16:45 Штраф за пропуск сроков по проекту</p>
-              <a className="red">-500₸</a>
+              <p className="red">-500₸</p>
             </div>
             <div className="profile_main_left_text_div">
               <p>16:45 Штраф за пропуск сроков по проекту</p>
-              <a className="red">-500₸</a>
+              <p className="red">-500₸</p>
             </div>
             <div className="profile_main_left_text_div">
               <p>10:11 Выполнение контетнт-плана</p>
-              <a className="green">+2 500₸</a>
+              <p className="green">+2 500₸</p>
             </div>
             <h5>31 декабря</h5>
             <div className="profile_main_left_text_div">
               <p>10:11 Выполнение контетнт-плана</p>
-              <a className="green">+2 500₸</a>
+              <p className="green">+2 500₸</p>
             </div>
           </div>
         </div>

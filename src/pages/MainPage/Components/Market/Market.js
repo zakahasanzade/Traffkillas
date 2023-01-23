@@ -1,9 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PS5 from "./Market_Assets/Playstation-5.svg";
-import XBox from "./Market_Assets/XBox-X.svg";
-import Iphone14 from "./Market_Assets/Iphone-14.svg";
-import SamsungS22 from "./Market_Assets/Samsung-S22.svg";
-import MacBookM1 from "./Market_Assets/MacBook-M1.svg";
 import { motion } from "framer-motion/dist/framer-motion";
 import "./Market.css";
 

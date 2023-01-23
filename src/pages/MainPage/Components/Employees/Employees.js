@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Input } from "semantic-ui-react";
 import ProfilePhoto1 from "./Employee Assets/Profile Photo 1.svg";
-import ProfilePhoto2 from "./Employee Assets/Profile Photo 2.svg";
-import ProfilePhoto3 from "./Employee Assets/Profile Photo 3.svg";
+// import ProfilePhoto2 from "./Employee Assets/Profile Photo 2.svg";
+// import ProfilePhoto3 from "./Employee Assets/Profile Photo 3.svg";
 import "./Employees.css";
 import { CSSTransition } from "react-transition-group";
 import { motion } from "framer-motion/dist/framer-motion";
 
 const Employees = () => {
   const [show1, setShow1] = useState(false);
-  const [show2, setShow2] = useState(false);
-  const [show3, setShow3] = useState(false);
+  // const [show2, setShow2] = useState(false);
+  // const [show3, setShow3] = useState(false);
   const [showQuestion1, deleteEmployee1] = useState(false);
-  const [showQuestion2, deleteEmployee2] = useState(false);
-  const [showQuestion3, deleteEmployee3] = useState(false);
-  const DeleteIcon = document.querySelector("employee_account_list_question");
+  // const [showQuestion2, deleteEmployee2] = useState(false);
+  // const [showQuestion3, deleteEmployee3] = useState(false);
+  // const DeleteIcon = document.querySelector("employee_account_list_question");
   let EmployeeArr = [];
   const [employee, SetEmployee] = useState();
 

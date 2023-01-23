@@ -1,15 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 import "./MainPage.css";
 import Header from "./Components/Header/Header";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 
-import NavBar from "./Components/NavBar/NavBar";
-
 const MainPage = () => {
-
-  
-
   return (
     <>
       <div className="main_header">{<Header />}</div>

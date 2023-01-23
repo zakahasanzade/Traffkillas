@@ -5,9 +5,8 @@ import Graph from "./StatisticsAssets/Statistics Graph.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "react-pro-sidebar/dist/css/styles.css";
 import { motion } from "framer-motion/dist/framer-motion";
-import { piggyBank } from "./StatisticsAssets/piggyBank.svg";
+// import { piggyBank } from "./StatisticsAssets/piggyBank.svg";
 import ReverseVector from "./StatisticsAssets/Vector.svg";
-
 import {
   ProSidebar,
   Menu,
@@ -106,7 +105,7 @@ const Statistics = () => {
           //  onClick={() => setGraph(!graph)}
         >
           <div className="statistics_account_left">
-            <img src={ProfileImage} alt="Profile Image"></img>
+            <img src={ProfileImage} alt="Profile"></img>
             <div className="statistics_account_info">
               <div className="statistics_account_info_up">
                 <p>AKOSYBAY</p>
@@ -144,14 +143,14 @@ const Statistics = () => {
           <div className="statistics_grapgh_info">
             <div className="statistics_graph_left">
               <p>Выручка</p>
-              <p style={{color:"purple"}}>190,090.36₸</p>
+              <p style={{ color: "purple" }}>190,090.36₸</p>
             </div>
             <div className="statistics_graph_right">
-              <img src={ReverseVector}></img>
+              <img src={ReverseVector} alt="ReverseVector"></img>
             </div>
           </div>
           <div className="statistics_grapg_img">
-            <img src={Graph}></img>
+            <img src={Graph} alt="Graph"></img>
           </div>
         </div>
         {/* </CSSTransition> */}
@@ -519,7 +518,7 @@ const Statistics = () => {
         <p className="profile_title">Все проекты</p>
         <div className="statistics_account statistics_footer">
           <div className="statistics_account_left">
-            <img src={ProfileImage2} alt="Profile Image 2"></img>
+            <img src={ProfileImage2} alt="Profile 2"></img>
             <div className="statistics_account_info">
               <div className="statistics_account_info_up">
                 <p>MYRAVEL...</p>

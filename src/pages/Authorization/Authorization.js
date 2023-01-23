@@ -39,10 +39,9 @@ const Authorization = () => {
     })
       .then((response) => {
         console.log(response.status);
-        if (response.status != "200") {
+        if (response.status !== "200") {
           throw new Error("Wrong user or password");
         }
-
         return response.text();
       })
       .then((result) => {
@@ -101,7 +100,7 @@ const Authorization = () => {
           )}
         </div> */}
         <div className="page_autorization_footer">
-          <a>Забыли пароль?</a>
+          <p>Забыли пароль?</p>
         </div>
       </main>
     </div>

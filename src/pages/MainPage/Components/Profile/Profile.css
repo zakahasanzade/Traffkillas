@@ -20,7 +20,7 @@
   align-items: center;
   margin-top: 5px;
 }
-.profile_back_button a {
+.profile_back_button p {
   font-size: 16px;
   font-weight: 700;
   color: white;
@@ -42,15 +42,14 @@
   font-size: 32px;
   font-weight: 700;
 }
-.profile_header_right_info_footer{
+.profile_header_right_info_footer {
   display: flex;
   margin-top: 8px;
 }
-.profile_header_right_info_footer p{
+.profile_header_right_info_footer p {
   font-size: 16px;
-  color:white;
+  color: white;
   opacity: 0.3;
-
 }
 .profile_header_right_img img {
   width: 84px;

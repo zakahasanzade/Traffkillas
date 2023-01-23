@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 // import { motion } from "framer-motion";
-import { Navbar } from "react-bootstrap";
 import Profile from "../pages/MainPage/Components/Profile/Profile";
 import Authorization from "../pages/Authorization/Authorization";
-import UserPage from "../pages/UserPage/UserPage";
-import SecondPage from "../pages/UserPage/Components/SecondPage";
 import MainPage from "../pages/MainPage/MainPage";
 import News from "../pages/MainPage/Components/News/News";
 import Tasks from "../pages/MainPage/Components/Tasks/Tasks";
@@ -14,8 +11,6 @@ import Leaderboard from "../pages/MainPage/Components/Leaderboard/Leaderboard";
 import Market from "../pages/MainPage/Components/Market/Market";
 import Instruments from "../pages/MainPage/Components/Instruments/Instruments";
 import Employees from "../pages/MainPage/Components/Employees/Employees";
-import Header from "../pages/MainPage/Components/Header/Header";
-import NavBar from "../pages/MainPage/Components/NavBar/NavBar";
 import { AnimatePresence } from "framer-motion/dist/framer-motion";
 
 const AnimatedPage = () => {

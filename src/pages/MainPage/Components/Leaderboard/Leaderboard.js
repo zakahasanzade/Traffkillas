@@ -1,6 +1,4 @@
 import React from "react";
-import Header from "../Header/Header";
-import NavBar from "../NavBar/NavBar";
 import "./Leaderboard.css";
 import Leader from "./Leaderboard Assets/Leader_Photo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -32,7 +30,7 @@ const Leaderboard = () => {
               <p>1</p>
             </div>
             <div className="leader_img">
-              <img src={Leader} alt="Leader Photo"></img>
+              <img src={Leader} alt="Leader" />
             </div>
             <div className="leader_info">
               <div className="leader_info_header">
@@ -56,7 +54,7 @@ const Leaderboard = () => {
               <p>2</p>
             </div>
             <div className="leader_img">
-              <img src={Leader} alt="Leader Photo"></img>
+              <img src={Leader} alt="Leader"></img>
             </div>
             <div className="leader_info">
               <div className="leader_info_header">
@@ -80,7 +78,7 @@ const Leaderboard = () => {
               <p>3</p>
             </div>
             <div className="leader_img">
-              <img src={Leader} alt="Leader Photo"></img>
+              <img src={Leader} alt="Leader"></img>
             </div>
             <div className="leader_info">
               <div className="leader_info_header">
@@ -104,7 +102,7 @@ const Leaderboard = () => {
               <p>4</p>
             </div>
             <div className="leader_img">
-              <img src={Leader} alt="Leader Photo"></img>
+              <img src={Leader} alt="Leader"></img>
             </div>
             <div className="leader_info">
               <div className="leader_info_header">

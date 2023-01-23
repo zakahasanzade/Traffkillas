@@ -1,34 +1,13 @@
-import React, { useState } from "react";
-import { AiFillCheckCircle } from "react-icons/ai";
-import Mark from "./Tasks Assets/Mark.svg";
-import Dropdown from "./Tasks Assets/Dropdown arrow bottom.svg";
-import BlackMark from "./Tasks Assets/Black Mark.svg";
+import React from "react";
 import ArrowRight from "./Tasks Assets/Arrow Right.svg";
 import TextareaAutosize from "react-textarea-autosize";
-import TimePicker from "react-time-picker";
-// import Select from "react-select";
-// import { CSSTransition } from "react-transition-group";
 import { motion } from "framer-motion/dist/framer-motion";
-// import {
-//   ProSidebar,
-//   Menu,
-//   MenuItem,
-//   SubMenu,
-//   SidebarContent,
-// } from "react-pro-sidebar";
 import "./Tasks.css";
-// import TextField from '@mui/material/TextField';
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { borderRadius } from "@mui/system";
-const sendTask = () => {
-  const taskTitle = document.querySelector(".sendData_taskTitle").value;
-  const taskContent = document.querySelector(".sendData_taskContent").value;
-  const autorSelect = document.querySelector(".autorSelect").value;
 
+const sendTask = () => {
+  // const taskTitle = document.querySelector(".sendData_taskTitle").value;
+  // const taskContent = document.querySelector(".sendData_taskContent").value;
+  // const autorSelect = document.querySelector(".autorSelect").value;
   // fetch("http://94.103.90.6:5000/post_news", {
   //   method: "POST",
   //   headers: {
@@ -52,9 +31,9 @@ const sendTask = () => {
   //   });
 };
 const Tasks = (props) => {
-  const [value, onChange] = useState("10:00");
+  // const [value, onChange] = useState("10:00");
   const position = props.example;
-  if (position == "employee") {
+  if (position === "employee") {
     return (
       <motion.div
         className="main"
@@ -191,7 +170,7 @@ const Tasks = (props) => {
         </div>
       </motion.div>
     );
-  } else if (position == "teamlead") {
+  } else if (position === "teamlead") {
     return (
       <motion.div
         className="main"
@@ -334,7 +313,14 @@ const Tasks = (props) => {
         </div>
       </motion.div>
     );
-  } else if (position == "admin") {
+  } else if (position === "admin") {
+    const dataExample = () => {
+      console.log(
+        document.querySelector(".firstinput").value +
+          ":" +
+          document.querySelector(".secondinput").value
+      );
+    };
     return (
       <motion.div
         className="main"
@@ -365,10 +351,11 @@ const Tasks = (props) => {
                   <option value="Исполнитель2">Исполнитель2</option>
                   <option value="Исполнитель3">Исполнитель3</option>
                 </select>
-                <TimePicker
-                  onChange={onChange}
-                  value={value}
-                />
+                <form className="dataExample" style={{ display: "flex" }}>
+                  <input type="number" className="firstinput" />:
+                  <input type="number" className="secondinput" />
+                </form>
+                <button onClick={dataExample}>Get number</button>
                 <p>-600 MMR</p>
                 <p>
                   Feedback <i className="fa-solid fa-check"></i>
@@ -483,57 +470,3 @@ const Tasks = (props) => {
 };
 
 export default Tasks;
-
-{
-  /* <div class=" css-b62m3t-container">
-  <span
-    id="react-select-2-live-region"
-    class="css-1f43avz-a11yText-A11yText"
-  ></span>
-  <span
-    aria-live="polite"
-    aria-atomic="false"
-    aria-relevant="additions text"
-    class="css-1f43avz-a11yText-A11yText"
-  ></span>
-  <div class=" css-13cymwt-control">
-    <div class=" css-1fdsijx-ValueContainer">
-      <div class=" css-1dimb5e-singleValue">Cocos Islands</div>
-      <div class=" css-qbdosj-Input" data-value="">
-        <input
-          class=""
-          autocapitalize="none"
-          autocomplete="off"
-          autocorrect="off"
-          id="react-select-2-input"
-          spellcheck="false"
-          tabindex="0"
-          type="text"
-          aria-autocomplete="list"
-          aria-expanded="false"
-          aria-haspopup="true"
-          role="combobox"
-          value=""
-          style="color: inherit; background: 0px center; opacity: 1; width: 100%; grid-area: 1 / 2 / auto / auto; font: inherit; min-width: 2px; border: 0px; margin: 0px; outline: 0px; padding: 0px;"
-          fdprocessedid="l6j4ku"
-        />
-      </div>
-    </div>
-    <div class=" css-1hb7zxy-IndicatorsContainer">
-      <span class=" css-1u9des2-indicatorSeparator"></span>
-      <div class=" css-1xc3v61-indicatorContainer" aria-hidden="true">
-        <svg
-          height="20"
-          width="20"
-          viewBox="0 0 20 20"
-          aria-hidden="true"
-          focusable="false"
-          class="css-tj5bde-Svg"
-        >
-          <path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path>
-        </svg>
-      </div>
-    </div>
-  </div>
-</div>; */
-}
