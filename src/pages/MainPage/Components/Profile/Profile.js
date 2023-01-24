@@ -5,6 +5,7 @@ import BackButton from "./Profile Assets/Back Button.svg";
 import ProfileImg from "./Profile Assets/Profile Img.svg";
 import Rank from "./Profile Assets/Rank.svg";
 import { useNavigate } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
 import Corrector from "./Profile Assets/Corrector.svg";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -29,6 +30,29 @@ const Profile = () => {
     navigate("/MainPage");
   };
 
+  const [edit, SetEdit] = useState(false);
+
+  const [check, SetCheck] = useState(false);
+  const editResult = document.querySelector(".profile_editResult");
+  const checkLogin = (e) => {
+    let value = e.target.value;
+    console.log(value.length);
+    if (
+      e.target.value.length < 2 ||
+      e.target.value.length > 10 ||
+      value.match(/(\d+)/).length !== 0
+    ) {
+      editResult.innerHTML = "";
+      editResult.innerHTML += "Unvaild Username Length<br/>";
+      console.log(value.match(/(\d+)/));
+    } else {
+      editResult.innerHTML = "";
+    }
+    // if (value.match(/(\d+)/).length == 0) {
+    //   editResult.innerHTML += "Username Must Contains At Least 1 Number<br/>";
+    // }
+  };
+
   return (
     <div className="profile">
       <div className="profile_header">
@@ -43,10 +67,59 @@ const Profile = () => {
         <div className="profile_header_right">
           <div className="profile_header_right_info">
             <p>Абобус_2002</p>
-            <div className="profile_header_right_info_footer">
-              <p>редактировать профиль </p>
+            <div
+              className="profile_header_right_info_footer"
+              onClick={() => {
+                SetEdit(!edit);
+              }}
+            >
+              <p>редактировать профиль </p>{" "}
               <img src={Corrector} alt="Corrector" />
             </div>
+            <CSSTransition
+              in={edit}
+              classNames="alert"
+              timeout={300}
+              unmountOnExit
+            >
+              <form className="profile_edtForm">
+                <div className="profile_editResult"></div>
+                <ul>
+                  <li>
+                    <p>Логин</p>
+                    <input placeholder="Логин" onChange={checkLogin} />
+                  </li>
+                  <li>
+                    <p>Пароль</p>
+                    <input placeholder="Пароль" />
+                  </li>
+                  <li>
+                    <p>Повторите пароль</p>
+                    <input placeholder="Повторите пароль" />
+                  </li>
+                  <li>
+                    <p>ФИО</p>
+                    <input placeholder="ФИО" />
+                  </li>
+                  <li>
+                    <p>Дата рождения</p>
+                    <input placeholder="Дата рождения" />
+                  </li>
+                  <li>
+                    <p>E-mail</p>
+                    <input placeholder="E-mail" />
+                  </li>
+                  <li>
+                    <p>Номер</p>
+                    <input placeholder="Номер" />
+                  </li>
+                  <li>
+                    <p>Адрес</p>
+                    <input placeholder="Адрес" />
+                  </li>
+                </ul>
+              </form>
+            </CSSTransition>
           </div>
           <div className="profile_header_right_img">
             <img src={ProfileImg} alt="Profile Img"></img>
@@ -81,7 +154,7 @@ const Profile = () => {
           <p className="profile_title">Баланс</p>
           <div className="profile_balance">
             <p style={{ color: "#EA9127" }}>54 TTK</p>
-            <p style={{ color: "#AB16CD" }}>1 200 000</p>
+            <p style={{ color: "#AB16CD" }}>₸ 1 200 000</p>
           </div>
           <p className="profile_title">Ваш уровень</p>
           <div className="profile_main_right_text">

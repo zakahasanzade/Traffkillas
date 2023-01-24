@@ -43,6 +43,7 @@ const News = () => {
     document.querySelector(".newsTitle").value = "";
     const newsTag = tags;
     setTags([]);
+    setBack("green");
     console.log(tags);
     const newsContent = document.querySelector(".newsContent").value;
     document.querySelector(".newsContent").value = "";
@@ -80,13 +81,37 @@ const News = () => {
     // setPost([...post, raw]);
     console.log(post);
   };
+  const DeletePost = (e) => {
+    e.preventDefault();
+    fetch("http://94.103.90.6:5000/delete_news", {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        Token: localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        _id: e.target.id,
+      }),
+    })
+      .then((response) => {
+        // console.log(response.status);
+        return response.text();
+      })
+      .then((result) => {})
+      .catch((err) => {
+        alert(err);
+      });
+
+    console.log(e.target.id);
+    getData();
+  };
   useEffect(() => {
     getData();
 
     const closeDropdown = (e) => {
       // console.log(e.srcElement.className!=="back")
       if (e.srcElement.className !== "back") {
-        SetColor(false);
+        SetColor();
       }
     };
     document.body.addEventListener("click", closeDropdown);
@@ -123,6 +148,7 @@ const News = () => {
                   backgroundColor: "green",
                   borderRadius: "100%",
                   marginRight: "10px",
+                  cursor: "pointer",
                 }}
               ></div>
               <CSSTransition
@@ -227,7 +253,10 @@ const News = () => {
         </div>
         {post &&
           post.map((block, index, array) => {
-            const { color, title, text, hashtag, time, date } = block;
+            const { color, title, text, hashtag, time, date, _id } = block;
+            {
+              /* console.log(JSON.parse(_id)["$oid"]) */
+            }
             let now = new Date();
             let tag = [];
             now.setMonth(date.substring(3) - 1);
@@ -244,12 +273,18 @@ const News = () => {
                 ) : null}
                 <div className="news_page_div">
                   <h1>
-                    <div
-                      className="news_page_div_dot"
-                      style={{ backgroundColor: color }}
-                    ></div>
-
-                    {title}
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <div
+                        className="news_page_div_dot"
+                        style={{ backgroundColor: color }}
+                      ></div>
+                      {title}
+                    </div>
+                    <i
+                      onClick={DeletePost}
+                      class="fa-solid fa-trash-can"
+                      id={_id.$oid}
+                    ></i>
                   </h1>
                   <p className="news_page_text">{text}</p>
                   <div className="news_page_footer">

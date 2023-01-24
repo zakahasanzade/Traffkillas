@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import ProfileImage from "./StatisticsAssets/Profile Img.svg";
 import ProfileImage2 from "./StatisticsAssets/Profile Img2.svg";
 import Graph from "./StatisticsAssets/Statistics Graph.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "react-pro-sidebar/dist/css/styles.css";
 import { motion } from "framer-motion/dist/framer-motion";
+import { CSSTransition } from "react-transition-group";
 // import { piggyBank } from "./StatisticsAssets/piggyBank.svg";
 import ReverseVector from "./StatisticsAssets/Vector.svg";
 import {
@@ -55,9 +56,9 @@ const SubMenuTitle = (
 );
 
 // const [show1, setShow1] = useState(false);
-// const [graph, setGraph] = useState(false);
 
 const Statistics = () => {
+  const [graph, setGraph] = useState(false);
   const SubMenuSecondTitle = (
     <div className="statistics_submenu">
       <div className="statistics_submenu">
@@ -99,11 +100,8 @@ const Statistics = () => {
       {/* <div className="main_header">{<Header />}</div>
       <div className="NavBar">{<NavBar />}</div> */}
       <div className="statistics">
-        <p className="profile_title">Мои проекты</p>
-        <div
-          className="statistics_account"
-          //  onClick={() => setGraph(!graph)}
-        >
+        <p className="statistics_title">Мои проекты</p>
+        <div className="statistics_account" onClick={() => setGraph(!graph)}>
           <div className="statistics_account_left">
             <img src={ProfileImage} alt="Profile"></img>
             <div className="statistics_account_info">
@@ -132,390 +130,398 @@ const Statistics = () => {
             <div className="statistics_submenu_div red">1 200 000₸</div>
           </div>
         </div>
-
-        {/* <CSSTransition
+        <CSSTransition
           in={graph}
           classNames="alert"
           timeout={300}
           unmountOnExit
-        > */}
-        <div className="statistics_graph">
-          <div className="statistics_grapgh_info">
-            <div className="statistics_graph_left">
-              <p>Выручка</p>
-              <p style={{ color: "purple" }}>190,090.36₸</p>
+        >
+          <div>
+            <div className="statistics_graph">
+              <div className="statistics_grapgh_info">
+                <div className="statistics_graph_left">
+                  <p>Выручка</p>
+                  <p style={{ color: "purple" }}>190,090.36₸</p>
+                </div>
+                <div className="statistics_graph_right">
+                  <img src={ReverseVector} alt="ReverseVector"></img>
+                </div>
+              </div>
+              <div className="statistics_grapg_img">
+                <img src={Graph} alt="Graph"></img>
+              </div>
             </div>
-            <div className="statistics_graph_right">
-              <img src={ReverseVector} alt="ReverseVector"></img>
+            <div className="statistics_general">
+              <h2>Общая статистика</h2>
+              <p>
+                Сумма депозитов:{" "}
+                <span style={{ color: "purple" }}>13 200 000₸</span>
+              </p>
+              <p>Обработано тикетов: 2150</p>
+              <p>Суммарное кол-во просмотров: 546 340</p>
+              <p>Количество публикаций: 1567</p>
+            </div>
+            <div className="statistics_hours">
+              <h2>Дневная/часовая статистика</h2>
+              <div className="statistics_hours_div">
+                {/* DROPDOWN SIDEBAR */}
+                <ProSidebar>
+                  <SidebarContent>
+                    <Menu>
+                      <SubMenu title={SubMenuTitle}>
+                        <MenuItem>
+                          <div className="statistics_submenu">
+                            <div className="statistics_submenu">
+                              <div className="statistics_submenu_div yellow">
+                                23:00
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                806{" "}
+                                <span
+                                  className="red"
+                                  style={{ fontSize: "16px" }}
+                                >
+                                  -20
+                                </span>
+                              </div>
+                              <div className="statistics_submenu_div orange">
+                                <FontAwesomeIcon icon={faTicket} /> 54
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                <FontAwesomeIcon icon={faClock} /> 5 минут
+                              </div>
+                              <div
+                                className="statistics_submenu_div"
+                                style={{ color: "purple" }}
+                              >
+                                500 000₸
+                              </div>
+                              <div className="statistics_submenu_div pink">
+                                <FontAwesomeIcon icon={faPiggyBank} /> 32
+                              </div>
+                            </div>
+                          </div>
+                        </MenuItem>
+                        <MenuItem>
+                          <div className="statistics_s`ubmenu">
+                            <div className="statistics_submenu">
+                              <div className="statistics_submenu_div yellow">
+                                22:00
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                806{" "}
+                                <span
+                                  className="green"
+                                  style={{ fontSize: "16px" }}
+                                >
+                                  +46
+                                </span>
+                              </div>
+                              <div className="statistics_submenu_div orange">
+                                <FontAwesomeIcon icon={faTicket} /> 54
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                <FontAwesomeIcon icon={faClock} /> 5 минут
+                              </div>
+                              <div
+                                className="statistics_submenu_div"
+                                style={{ color: "purple" }}
+                              >
+                                500 000₸
+                              </div>
+                              <div className="statistics_submenu_div pink">
+                                <FontAwesomeIcon icon={faPiggyBank} /> 32
+                              </div>
+                            </div>
+                          </div>
+                        </MenuItem>
+                        <MenuItem>
+                          <div className="statistics_submenu">
+                            <div className="statistics_submenu">
+                              <div className="statistics_submenu_div yellow">
+                                21:00
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                806{" "}
+                                <span
+                                  className="green"
+                                  style={{ fontSize: "16px" }}
+                                >
+                                  +46
+                                </span>
+                              </div>
+                              <div className="statistics_submenu_div orange">
+                                <FontAwesomeIcon icon={faTicket} /> 54
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                <FontAwesomeIcon icon={faClock} /> 5 минут
+                              </div>
+                              <div
+                                className="statistics_submenu_div"
+                                style={{ color: "purple" }}
+                              >
+                                500 000₸
+                              </div>
+                              <div className="statistics_submenu_div pink">
+                                <FontAwesomeIcon icon={faPiggyBank} /> 32
+                              </div>
+                            </div>
+                          </div>
+                        </MenuItem>
+                        <MenuItem>
+                          <div className="statistics_submenu">
+                            <div className="statistics_submenu">
+                              <div className="statistics_submenu_div yellow">
+                                20:00
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                806{" "}
+                                <span
+                                  className="green"
+                                  style={{ fontSize: "16px" }}
+                                >
+                                  +46
+                                </span>
+                              </div>
+                              <div className="statistics_submenu_div orange">
+                                <FontAwesomeIcon icon={faTicket} /> 54
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                <FontAwesomeIcon icon={faClock} /> 5 минут
+                              </div>
+                              <div
+                                className="statistics_submenu_div"
+                                style={{ color: "purple" }}
+                              >
+                                500 000₸
+                              </div>
+                              <div className="statistics_submenu_div pink">
+                                <FontAwesomeIcon icon={faPiggyBank} /> 32
+                              </div>
+                            </div>
+                          </div>
+                        </MenuItem>
+                        <MenuItem>
+                          <div className="statistics_submenu">
+                            <div className="statistics_submenu">
+                              <div className="statistics_submenu_div yellow">
+                                00:00
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                806{" "}
+                                <span
+                                  className="green"
+                                  style={{ fontSize: "16px" }}
+                                >
+                                  {" "}
+                                  +46
+                                </span>
+                              </div>
+                              <div className="statistics_submenu_div orange">
+                                <FontAwesomeIcon icon={faTicket} /> 54
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                <FontAwesomeIcon icon={faClock} /> 5 минут
+                              </div>
+                              <div
+                                className="statistics_submenu_div"
+                                style={{ color: "purple" }}
+                              >
+                                500 000₸
+                              </div>
+                              <div className="statistics_submenu_div pink">
+                                <FontAwesomeIcon icon={faPiggyBank} /> 32
+                              </div>
+                            </div>
+                          </div>
+                        </MenuItem>
+                      </SubMenu>
+                    </Menu>
+                  </SidebarContent>
+                </ProSidebar>
+              </div>
+              <div className="statistics_hours_div">
+                {/* DROPDOWN SIDEBAR */}
+                <ProSidebar>
+                  <SidebarContent>
+                    <Menu>
+                      <SubMenu title={SubMenuSecondTitle}>
+                        <MenuItem>
+                          <div className="statistics_submenu">
+                            <div className="statistics_submenu">
+                              <div className="statistics_submenu_div yellow">
+                                23:00
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                806{" "}
+                                <span
+                                  className="red"
+                                  style={{ fontSize: "16px" }}
+                                >
+                                  -20
+                                </span>
+                              </div>
+                              <div className="statistics_submenu_div orange">
+                                <FontAwesomeIcon icon={faTicket} /> 54
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                <FontAwesomeIcon icon={faClock} /> 5 минут
+                              </div>
+                              <div
+                                className="statistics_submenu_div"
+                                style={{ color: "purple" }}
+                              >
+                                500 000₸
+                              </div>
+                              <div className="statistics_submenu_div pink">
+                                <FontAwesomeIcon icon={faPiggyBank} /> 32
+                              </div>
+                            </div>
+                          </div>
+                        </MenuItem>
+                        <MenuItem>
+                          <div className="statistics_submenu">
+                            <div className="statistics_submenu">
+                              <div className="statistics_submenu_div yellow">
+                                22:00
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                806{" "}
+                                <span
+                                  className="green"
+                                  style={{ fontSize: "16px" }}
+                                >
+                                  +46
+                                </span>
+                              </div>
+                              <div className="statistics_submenu_div orange">
+                                <FontAwesomeIcon icon={faTicket} /> 54
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                <FontAwesomeIcon icon={faClock} /> 5 минут
+                              </div>
+                              <div
+                                className="statistics_submenu_div"
+                                style={{ color: "purple" }}
+                              >
+                                500 000₸
+                              </div>
+                              <div className="statistics_submenu_div pink">
+                                <FontAwesomeIcon icon={faPiggyBank} /> 32
+                              </div>
+                            </div>
+                          </div>
+                        </MenuItem>
+                        <MenuItem>
+                          <div className="statistics_submenu">
+                            <div className="statistics_submenu">
+                              <div className="statistics_submenu_div yellow">
+                                21:00
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                806{" "}
+                                <span
+                                  className="green"
+                                  style={{ fontSize: "16px" }}
+                                >
+                                  +46
+                                </span>
+                              </div>
+                              <div className="statistics_submenu_div orange">
+                                <FontAwesomeIcon icon={faTicket} /> 54
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                <FontAwesomeIcon icon={faClock} /> 5 минут
+                              </div>
+                              <div
+                                className="statistics_submenu_div"
+                                style={{ color: "purple" }}
+                              >
+                                500 000₸
+                              </div>
+                              <div className="statistics_submenu_div pink">
+                                <FontAwesomeIcon icon={faPiggyBank} /> 32
+                              </div>
+                            </div>
+                          </div>
+                        </MenuItem>
+                        <MenuItem>
+                          <div className="statistics_submenu">
+                            <div className="statistics_submenu">
+                              <div className="statistics_submenu_div yellow">
+                                20:00
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                806{" "}
+                                <span
+                                  className="green"
+                                  style={{ fontSize: "16px" }}
+                                >
+                                  +46
+                                </span>
+                              </div>
+                              <div className="statistics_submenu_div orange">
+                                <FontAwesomeIcon icon={faTicket} /> 54
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                <FontAwesomeIcon icon={faClock} /> 5 минут
+                              </div>
+                              <div
+                                className="statistics_submenu_div"
+                                style={{ color: "purple" }}
+                              >
+                                500 000₸
+                              </div>
+                              <div className="statistics_submenu_div pink">
+                                <FontAwesomeIcon icon={faPiggyBank} /> 32
+                              </div>
+                            </div>
+                          </div>
+                        </MenuItem>
+                        <MenuItem>
+                          <div className="statistics_submenu">
+                            <div className="statistics_submenu">
+                              <div className="statistics_submenu_div yellow">
+                                00:00
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                806{" "}
+                                <span
+                                  className="green"
+                                  style={{ fontSize: "16px" }}
+                                >
+                                  {" "}
+                                  +46
+                                </span>
+                              </div>
+                              <div className="statistics_submenu_div orange">
+                                <FontAwesomeIcon icon={faTicket} /> 54
+                              </div>
+                              <div className="statistics_submenu_div black">
+                                <FontAwesomeIcon icon={faClock} /> 5 минут
+                              </div>
+                              <div
+                                className="statistics_submenu_div"
+                                style={{ color: "purple" }}
+                              >
+                                500 000₸
+                              </div>
+                              <div className="statistics_submenu_div pink">
+                                <FontAwesomeIcon icon={faPiggyBank} /> 32
+                              </div>
+                            </div>
+                          </div>
+                        </MenuItem>
+                      </SubMenu>
+                    </Menu>
+                  </SidebarContent>
+                </ProSidebar>
+              </div>
             </div>
           </div>
-          <div className="statistics_grapg_img">
-            <img src={Graph} alt="Graph"></img>
-          </div>
-        </div>
-        {/* </CSSTransition> */}
-        <div className="statistics_general">
-          <h2>Общая статистика</h2>
-          <p>
-            Сумма депозитов:{" "}
-            <span style={{ color: "purple" }}>13 200 000₸</span>
-          </p>
-          <p>Обработано тикетов: 2150</p>
-          <p>Суммарное кол-во просмотров: 546 340</p>
-          <p>Количество публикаций: 1567</p>
-        </div>
-        <div className="statistics_hours">
-          <h2>Дневная/часовая статистика</h2>
-          <div className="statistics_hours_div">
-            {/* DROPDOWN SIDEBAR */}
-            <ProSidebar>
-              <SidebarContent>
-                <Menu>
-                  <SubMenu title={SubMenuTitle}>
-                    <MenuItem>
-                      <div className="statistics_submenu">
-                        <div className="statistics_submenu">
-                          <div className="statistics_submenu_div yellow">
-                            23:00
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            806{" "}
-                            <span className="red" style={{ fontSize: "16px" }}>
-                              -20
-                            </span>
-                          </div>
-                          <div className="statistics_submenu_div orange">
-                            <FontAwesomeIcon icon={faTicket} /> 54
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            <FontAwesomeIcon icon={faClock} /> 5 минут
-                          </div>
-                          <div
-                            className="statistics_submenu_div"
-                            style={{ color: "purple" }}
-                          >
-                            500 000₸
-                          </div>
-                          <div className="statistics_submenu_div pink">
-                            <FontAwesomeIcon icon={faPiggyBank} /> 32
-                          </div>
-                        </div>
-                      </div>
-                    </MenuItem>
-                    <MenuItem>
-                      <div className="statistics_s`ubmenu">
-                        <div className="statistics_submenu">
-                          <div className="statistics_submenu_div yellow">
-                            22:00
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            806{" "}
-                            <span
-                              className="green"
-                              style={{ fontSize: "16px" }}
-                            >
-                              +46
-                            </span>
-                          </div>
-                          <div className="statistics_submenu_div orange">
-                            <FontAwesomeIcon icon={faTicket} /> 54
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            <FontAwesomeIcon icon={faClock} /> 5 минут
-                          </div>
-                          <div
-                            className="statistics_submenu_div"
-                            style={{ color: "purple" }}
-                          >
-                            500 000₸
-                          </div>
-                          <div className="statistics_submenu_div pink">
-                            <FontAwesomeIcon icon={faPiggyBank} /> 32
-                          </div>
-                        </div>
-                      </div>
-                    </MenuItem>
-                    <MenuItem>
-                      <div className="statistics_submenu">
-                        <div className="statistics_submenu">
-                          <div className="statistics_submenu_div yellow">
-                            21:00
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            806{" "}
-                            <span
-                              className="green"
-                              style={{ fontSize: "16px" }}
-                            >
-                              +46
-                            </span>
-                          </div>
-                          <div className="statistics_submenu_div orange">
-                            <FontAwesomeIcon icon={faTicket} /> 54
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            <FontAwesomeIcon icon={faClock} /> 5 минут
-                          </div>
-                          <div
-                            className="statistics_submenu_div"
-                            style={{ color: "purple" }}
-                          >
-                            500 000₸
-                          </div>
-                          <div className="statistics_submenu_div pink">
-                            <FontAwesomeIcon icon={faPiggyBank} /> 32
-                          </div>
-                        </div>
-                      </div>
-                    </MenuItem>
-                    <MenuItem>
-                      <div className="statistics_submenu">
-                        <div className="statistics_submenu">
-                          <div className="statistics_submenu_div yellow">
-                            20:00
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            806{" "}
-                            <span
-                              className="green"
-                              style={{ fontSize: "16px" }}
-                            >
-                              +46
-                            </span>
-                          </div>
-                          <div className="statistics_submenu_div orange">
-                            <FontAwesomeIcon icon={faTicket} /> 54
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            <FontAwesomeIcon icon={faClock} /> 5 минут
-                          </div>
-                          <div
-                            className="statistics_submenu_div"
-                            style={{ color: "purple" }}
-                          >
-                            500 000₸
-                          </div>
-                          <div className="statistics_submenu_div pink">
-                            <FontAwesomeIcon icon={faPiggyBank} /> 32
-                          </div>
-                        </div>
-                      </div>
-                    </MenuItem>
-                    <MenuItem>
-                      <div className="statistics_submenu">
-                        <div className="statistics_submenu">
-                          <div className="statistics_submenu_div yellow">
-                            00:00
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            806{" "}
-                            <span
-                              className="green"
-                              style={{ fontSize: "16px" }}
-                            >
-                              {" "}
-                              +46
-                            </span>
-                          </div>
-                          <div className="statistics_submenu_div orange">
-                            <FontAwesomeIcon icon={faTicket} /> 54
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            <FontAwesomeIcon icon={faClock} /> 5 минут
-                          </div>
-                          <div
-                            className="statistics_submenu_div"
-                            style={{ color: "purple" }}
-                          >
-                            500 000₸
-                          </div>
-                          <div className="statistics_submenu_div pink">
-                            <FontAwesomeIcon icon={faPiggyBank} /> 32
-                          </div>
-                        </div>
-                      </div>
-                    </MenuItem>
-                  </SubMenu>
-                </Menu>
-              </SidebarContent>
-            </ProSidebar>
-          </div>
-          <div className="statistics_hours_div">
-            {/* DROPDOWN SIDEBAR */}
-            <ProSidebar>
-              <SidebarContent>
-                <Menu>
-                  <SubMenu title={SubMenuSecondTitle}>
-                    <MenuItem>
-                      <div className="statistics_submenu">
-                        <div className="statistics_submenu">
-                          <div className="statistics_submenu_div yellow">
-                            23:00
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            806{" "}
-                            <span className="red" style={{ fontSize: "16px" }}>
-                              -20
-                            </span>
-                          </div>
-                          <div className="statistics_submenu_div orange">
-                            <FontAwesomeIcon icon={faTicket} /> 54
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            <FontAwesomeIcon icon={faClock} /> 5 минут
-                          </div>
-                          <div
-                            className="statistics_submenu_div"
-                            style={{ color: "purple" }}
-                          >
-                            500 000₸
-                          </div>
-                          <div className="statistics_submenu_div pink">
-                            <FontAwesomeIcon icon={faPiggyBank} /> 32
-                          </div>
-                        </div>
-                      </div>
-                    </MenuItem>
-                    <MenuItem>
-                      <div className="statistics_submenu">
-                        <div className="statistics_submenu">
-                          <div className="statistics_submenu_div yellow">
-                            22:00
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            806{" "}
-                            <span
-                              className="green"
-                              style={{ fontSize: "16px" }}
-                            >
-                              +46
-                            </span>
-                          </div>
-                          <div className="statistics_submenu_div orange">
-                            <FontAwesomeIcon icon={faTicket} /> 54
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            <FontAwesomeIcon icon={faClock} /> 5 минут
-                          </div>
-                          <div
-                            className="statistics_submenu_div"
-                            style={{ color: "purple" }}
-                          >
-                            500 000₸
-                          </div>
-                          <div className="statistics_submenu_div pink">
-                            <FontAwesomeIcon icon={faPiggyBank} /> 32
-                          </div>
-                        </div>
-                      </div>
-                    </MenuItem>
-                    <MenuItem>
-                      <div className="statistics_submenu">
-                        <div className="statistics_submenu">
-                          <div className="statistics_submenu_div yellow">
-                            21:00
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            806{" "}
-                            <span
-                              className="green"
-                              style={{ fontSize: "16px" }}
-                            >
-                              +46
-                            </span>
-                          </div>
-                          <div className="statistics_submenu_div orange">
-                            <FontAwesomeIcon icon={faTicket} /> 54
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            <FontAwesomeIcon icon={faClock} /> 5 минут
-                          </div>
-                          <div
-                            className="statistics_submenu_div"
-                            style={{ color: "purple" }}
-                          >
-                            500 000₸
-                          </div>
-                          <div className="statistics_submenu_div pink">
-                            <FontAwesomeIcon icon={faPiggyBank} /> 32
-                          </div>
-                        </div>
-                      </div>
-                    </MenuItem>
-                    <MenuItem>
-                      <div className="statistics_submenu">
-                        <div className="statistics_submenu">
-                          <div className="statistics_submenu_div yellow">
-                            20:00
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            806{" "}
-                            <span
-                              className="green"
-                              style={{ fontSize: "16px" }}
-                            >
-                              +46
-                            </span>
-                          </div>
-                          <div className="statistics_submenu_div orange">
-                            <FontAwesomeIcon icon={faTicket} /> 54
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            <FontAwesomeIcon icon={faClock} /> 5 минут
-                          </div>
-                          <div
-                            className="statistics_submenu_div"
-                            style={{ color: "purple" }}
-                          >
-                            500 000₸
-                          </div>
-                          <div className="statistics_submenu_div pink">
-                            <FontAwesomeIcon icon={faPiggyBank} /> 32
-                          </div>
-                        </div>
-                      </div>
-                    </MenuItem>
-                    <MenuItem>
-                      <div className="statistics_submenu">
-                        <div className="statistics_submenu">
-                          <div className="statistics_submenu_div yellow">
-                            00:00
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            806{" "}
-                            <span
-                              className="green"
-                              style={{ fontSize: "16px" }}
-                            >
-                              {" "}
-                              +46
-                            </span>
-                          </div>
-                          <div className="statistics_submenu_div orange">
-                            <FontAwesomeIcon icon={faTicket} /> 54
-                          </div>
-                          <div className="statistics_submenu_div black">
-                            <FontAwesomeIcon icon={faClock} /> 5 минут
-                          </div>
-                          <div
-                            className="statistics_submenu_div"
-                            style={{ color: "purple" }}
-                          >
-                            500 000₸
-                          </div>
-                          <div className="statistics_submenu_div pink">
-                            <FontAwesomeIcon icon={faPiggyBank} /> 32
-                          </div>
-                        </div>
-                      </div>
-                    </MenuItem>
-                  </SubMenu>
-                </Menu>
-              </SidebarContent>
-            </ProSidebar>
-          </div>
-        </div>
-        <p className="profile_title">Все проекты</p>
+        </CSSTransition>
+
+        <p className="statistics_title">Все проекты</p>
         <div className="statistics_account statistics_footer">
           <div className="statistics_account_left">
             <img src={ProfileImage2} alt="Profile 2"></img>

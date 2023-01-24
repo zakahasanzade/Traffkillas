@@ -187,9 +187,9 @@
   align-items: center;
   background-color: #16c784;
   border-radius: 25px;
-  padding: 4px 8px 4px 8px ;
+  padding: 4px 8px 4px 8px;
 }
-.second_task_time i{
+.second_task_time i {
   background-color: white;
   color: #16c784;
   padding: 5px;
@@ -197,7 +197,8 @@
   border-radius: 25px;
   margin-left: 10px;
 }
-.tasks_teamlead, .task_admin{
+.tasks_teamlead,
+.task_admin {
   background-color: white;
   border-radius: 25px;
   font-size: 16px;
@@ -208,4 +209,35 @@
   padding: 16px;
   margin-right: 10px;
   height: max-content;
+}
+.senData_task_inputsForm {
+  display: flex;
+}
+.senData_task_inputsForm input {
+  width: 24px;
+  height: 16px;
+  outline: none;
+  background-color: #141414;
+  border: 0;
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+}
+.senData_task_inputsForm input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+.SendData_fine {
+  color: white !important;
+}
+.SendData_fine input {
+  color: white;
+  background-color: red;
+  border: 0;
+  outline: none;
+  text-align: center;
+  width: 55px;
+  font-size: 16px;
+  font-weight: 700;
 }

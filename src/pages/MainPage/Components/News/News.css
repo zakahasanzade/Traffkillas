@@ -181,6 +181,17 @@
   margin-top: 15px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+.news_page_div i {
+  font-size: 20px;
+  cursor: pointer;
+  color: red;
+  transition: all 0.5s;
+}
+.news_page_div i:hover {
+  font-size: 30px;
+  transition: all 0.5s;
 }
 .news_page_text {
   font-size: 20px;

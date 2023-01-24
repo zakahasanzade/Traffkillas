@@ -39,7 +39,7 @@ const Authorization = () => {
     })
       .then((response) => {
         console.log(response.status);
-        if (response.status !== "200") {
+        if (response.status != 200) {
           throw new Error("Wrong user or password");
         }
         return response.text();

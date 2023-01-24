@@ -314,13 +314,6 @@ const Tasks = (props) => {
       </motion.div>
     );
   } else if (position === "admin") {
-    const dataExample = () => {
-      console.log(
-        document.querySelector(".firstinput").value +
-          ":" +
-          document.querySelector(".secondinput").value
-      );
-    };
     return (
       <motion.div
         className="main"
@@ -351,12 +344,48 @@ const Tasks = (props) => {
                   <option value="Исполнитель2">Исполнитель2</option>
                   <option value="Исполнитель3">Исполнитель3</option>
                 </select>
-                <form className="dataExample" style={{ display: "flex" }}>
-                  <input type="number" className="firstinput" />:
-                  <input type="number" className="secondinput" />
+                <form className="senData_task_inputsForm">
+                  <input
+                    type="text"
+                    className="firstinput"
+                    placeholder="Ч"
+                    maxlength="2"
+                    onInput={(e) => {
+                      e.target.value = e.target.value
+                        .replace(/[^0-9.]/g, "")
+                        .replace(/(\..*)\./g, "$1")
+                        .slice(0, 11);
+                    }}
+                  />
+                  :
+                  <input
+                    type="text"
+                    className="secondinput"
+                    placeholder="М"
+                    maxlength="2"
+                    onInput={(e) => {
+                      e.target.value = e.target.value
+                        .replace(/[^0-9.]/g, "")
+                        .replace(/(\..*)\./g, "$1")
+                        .slice(0, 11);
+                    }}
+                  />
                 </form>
-                <button onClick={dataExample}>Get number</button>
-                <p>-600 MMR</p>
+                <p className="SendData_fine">
+                  -{" "}
+                  <input
+                    type="text"
+                    placeholder="Штраф"
+                    maxlength="5"
+                    onInput={(e) => {
+                      e.target.value = e.target.value
+                        .replace(/[^0-9.]/g, "")
+                        .replace(/(\..*)\./g, "$1")
+                        .slice(0, 11);
+                    }}
+                  />{" "}
+                  MMR
+                </p>
                 <p>
                   Feedback <i className="fa-solid fa-check"></i>
                 </p>

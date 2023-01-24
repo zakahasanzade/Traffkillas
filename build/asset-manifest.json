@@ -1,0 +1,40 @@
+{
+  "files": {
+    "main.css": "/static/css/main.52d5dde1.chunk.css",
+    "main.js": "/static/js/main.9dbd3683.chunk.js",
+    "main.js.map": "/static/js/main.9dbd3683.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.b904160b.js",
+    "runtime-main.js.map": "/static/js/runtime-main.b904160b.js.map",
+    "static/css/2.78a68eda.chunk.css": "/static/css/2.78a68eda.chunk.css",
+    "static/js/2.0a508126.chunk.js": "/static/js/2.0a508126.chunk.js",
+    "static/js/2.0a508126.chunk.js.map": "/static/js/2.0a508126.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.8c2b2e5e9064905e3e9ab0fade8cb558.js": "/precache-manifest.8c2b2e5e9064905e3e9ab0fade8cb558.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.78a68eda.chunk.css.map": "/static/css/2.78a68eda.chunk.css.map",
+    "static/css/main.52d5dde1.chunk.css.map": "/static/css/main.52d5dde1.chunk.css.map",
+    "static/js/2.0a508126.chunk.js.LICENSE.txt": "/static/js/2.0a508126.chunk.js.LICENSE.txt",
+    "static/media/Arrow Right.svg": "/static/media/Arrow Right.4237d424.svg",
+    "static/media/Authorization.css": "/static/media/Arrow Right.b8eaed68.svg",
+    "static/media/Back Button.svg": "/static/media/Back Button.e6367cab.svg",
+    "static/media/Corrector.svg": "/static/media/Corrector.08b0915c.svg",
+    "static/media/Leader_Photo.svg": "/static/media/Leader_Photo.dd2d7377.svg",
+    "static/media/LightMode.svg": "/static/media/LightMode.46c18710.svg",
+    "static/media/MainLogo.svg": "/static/media/MainLogo.b3895219.svg",
+    "static/media/Profile Img.svg": "/static/media/Profile Img.534a4cda.svg",
+    "static/media/Profile Img2.svg": "/static/media/Profile Img2.3be4edd0.svg",
+    "static/media/Profile Photo 1.svg": "/static/media/Profile Photo 1.0955d93e.svg",
+    "static/media/ProfilePhoto.svg": "/static/media/ProfilePhoto.92ff15f8.svg",
+    "static/media/Rank.svg": "/static/media/Rank.9dec5e5d.svg",
+    "static/media/Statistics Graph.svg": "/static/media/Statistics Graph.014398cf.svg",
+    "static/media/Vector.svg": "/static/media/Vector.065b05f9.svg",
+    "static/media/semantic.min.css": "/static/media/outline-icons.ef60a4f6.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b904160b.js",
+    "static/css/2.78a68eda.chunk.css",
+    "static/js/2.0a508126.chunk.js",
+    "static/css/main.52d5dde1.chunk.css",
+    "static/js/main.9dbd3683.chunk.js"
+  ]
+}
