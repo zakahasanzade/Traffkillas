@@ -83,18 +83,6 @@ const UserPage = () => {
 
     e.preventDefault();
 
-    // const json = document.getElementById("json");
-    // const session = document.getElementById("sesssion");
-    // const formData = new FormData();
-    // formData.append("id", form);
-    // formData.append("port", form);
-    // formData.append("user", form);
-    // formData.append("pwd", form);
-    // formData.append("json",json)
-    // formData.append("session",session)
-    // formData.append("session-id", "12345");
-    // formData.append("json", form[0].files[0]);
-    // formData.append("session",form[1].files[0])
     const formData = new FormData(form);
 
     e.preventDefault();

@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion/dist/framer-motion";
+import { Uploader } from "rsuite";
+import TextareaAutosize from "react-textarea-autosize";
+import CameraRetroIcon from "@rsuite/icons/legacy/CameraRetro";
+import dropify from "dropify";
+import notify from "devextreme/ui/notify";
+import FileUploader from "devextreme-react/file-uploader";
+import ImageUploading from "react-images-uploading";
+import Dropzone from "react-dropzone";
+import axios from "axios";
+
 import "./Market.css";
 
 const Market = () => {
@@ -28,6 +38,25 @@ const Market = () => {
     getAssets();
   }, []);
   console.log(assets);
+
+  const SendMarketData = (e) => {
+    e.preventDefault();
+    const form = document.getElementById("form");
+
+    const formData = new FormData(form);
+
+    e.preventDefault();
+    axios
+      .post("https://22f3-89-77-236-116.eu.ngrok.io/check", formData.values)
+      .then((res) => {
+        console.log(res.data.status);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    console.log(formData.values);
+  };
+
   return (
     <motion.div
       className="main"
@@ -37,6 +66,28 @@ const Market = () => {
       exit={{ opacity: 0, x: -100 }}
       transition={{ duration: 0.3 }}
     >
+      <form
+        className="market_send"
+        id="form"
+        onSubmit={(e) => SendMarketData(e)}
+      >
+        <div className="market_send_title">
+          <TextareaAutosize placeholder="Заголовок товара"></TextareaAutosize>
+          <p>
+            <input placeholder="Цена" cla /> TTK
+          </p>
+        </div>
+        <TextareaAutosize
+          placeholder="Полное название товара..."
+          className="market_send_nameProduct"
+        ></TextareaAutosize>
+        <div className="market_send_submit">
+          <p>
+            Изображение товара: <input type="file" multiple accept="image/*" />
+          </p>
+          <button>Добавить товар</button>
+        </div>
+      </form>
       <div className="market_products">
         {assets &&
           assets.map((product) => {

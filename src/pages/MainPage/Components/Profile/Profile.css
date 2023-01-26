@@ -195,30 +195,50 @@
   position: absolute;
   left: 0;
   top: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
 }
-.profile_edtForm ul{
+.profile_edtForm ul {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.profile_edtForm li{
+.profile_edtForm li {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
-.profile_edtForm p{
+.profile_edtForm p {
   font-size: 14px;
   color: black;
   opacity: 0.3;
   font-weight: 400;
 }
-.profile_edtForm input{
+.profile_edtForm input {
   width: 298px;
   font-size: 16px;
   font-weight: 600;
   opacity: 0.7;
   padding: 4px 10px;
   border-radius: 15px;
-  border: 1px solid #16C784;
+  border: 1px solid #16c784;
   outline: none;
+}
+.profile_edtForm button{
+  background-color: #16C784;
+  border-radius: 15px;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  margin-top: 16px;
+  color: white;
+  cursor: pointer;
 }

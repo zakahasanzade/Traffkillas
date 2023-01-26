@@ -1,31 +1,84 @@
-
-.market_products{
-    width: 1010px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+.market_products {
+  width: 1010px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-.market_product{
-    background-color: #141414;
-    border-radius: 25px;
-    padding: 16px 24px;
-    width: 240px;
-    text-align: center;
-    word-spacing: 5px;
-    margin-bottom: 15px;
-    cursor:wait
+.market_product {
+  background-color: #141414;
+  border-radius: 25px;
+  padding: 16px 24px;
+  width: 240px;
+  text-align: center;
+  word-spacing: 5px;
+  margin-bottom: 15px;
+  cursor: wait;
 }
-.market_product p{
-    font-weight: 700;
-    font-size: 24px;
-    color: white;
-    margin:10px 0;
+.market_product p {
+  font-weight: 700;
+  font-size: 24px;
+  color: white;
+  margin: 10px 0;
 }
-.market_product a{
-    font-weight: 700;
-    font-size: 16px;
-    color: #EA9127;
-    line-height: 150%;
+.market_product a {
+  font-weight: 700;
+  font-size: 16px;
+  color: #ea9127;
+  line-height: 150%;
+}
+.market_send {
+  width: 1010px;
+  border-radius: 25px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background-color: #141414;
+  margin: 0 auto;
+  color: white;
+}
+.market_send_title {
+  display: flex;
+  align-items: center;
+}
+.market_send_title p {
+  background-color: #ea9127;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  padding: 4px 8px;
+  /* width: 130px; */
+}
+.market_send_title p input {
+  background-color: #ea9127;
+  border: 0;
+  outline: none;
+  width: 80px;
+  color: white;
+}
+.market_send_title textarea {
+  background-color: #141414;
+  border: 0;
+  resize: none;
+  outline: none;
+  color: white;
+}
+.market_send_nameProduct {
+  background-color: #141414;
+  border: 0;
+  resize: none;
+  outline: none;
+  color: white;
+}
+.market_send_submit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.market_send_submit p {
+  display: flex;
+  align-items: center;
 }

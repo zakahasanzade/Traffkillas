@@ -32,8 +32,8 @@ const sendTask = () => {
 };
 const Tasks = (props) => {
   // const [value, onChange] = useState("10:00");
-  const position = props.example;
-  if (position === "employee") {
+  const position = props.status;
+  if (position == "3") {
     return (
       <motion.div
         className="main"
@@ -170,7 +170,7 @@ const Tasks = (props) => {
         </div>
       </motion.div>
     );
-  } else if (position === "teamlead") {
+  } else if (position == "2") {
     return (
       <motion.div
         className="main"
@@ -313,7 +313,7 @@ const Tasks = (props) => {
         </div>
       </motion.div>
     );
-  } else if (position === "admin") {
+  } else if (position === "1") {
     return (
       <motion.div
         className="main"

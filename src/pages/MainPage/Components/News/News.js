@@ -5,6 +5,7 @@ import { TagsInput } from "react-tag-input-component";
 import { motion } from "framer-motion/dist/framer-motion";
 import { CSSTransition } from "react-transition-group";
 
+
 const News = () => {
   // const [show, setShow] = useState(false);
   // CREATE A NEW BLOCK WITH THE RECEIVED DATA   //
@@ -43,21 +44,19 @@ const News = () => {
     document.querySelector(".newsTitle").value = "";
     const newsTag = tags;
     setTags([]);
-    setBack("green");
     console.log(tags);
     const newsContent = document.querySelector(".newsContent").value;
     document.querySelector(".newsContent").value = "";
     const newsColor = getComputedStyle(
       document.querySelector(".back")
     ).getPropertyValue("background-color");
-    // console.log(newsColor);
     var raw = {
       color: newsColor,
       title: newsTitle,
       hashtag: newsTag,
       text: newsContent,
     };
-    // console.log(raw);
+    setBack("green");
 
     fetch("http://94.103.90.6:5000/post_news", {
       method: "POST",
@@ -68,17 +67,13 @@ const News = () => {
       body: JSON.stringify(raw),
     })
       .then((response) => {
-        // console.log(response.status);
         return response.text();
       })
-      .then((result) => {
-        // console.log(result);
-      })
+      .then((result) => {})
       .catch((err) => {
         alert(err);
       });
     getData();
-    // setPost([...post, raw]);
     console.log(post);
   };
   const DeletePost = (e) => {
@@ -94,7 +89,6 @@ const News = () => {
       }),
     })
       .then((response) => {
-        // console.log(response.status);
         return response.text();
       })
       .then((result) => {})

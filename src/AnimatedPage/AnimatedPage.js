@@ -24,24 +24,37 @@ const AnimatedPage = () => {
   //   .then((result) => {
   //     console.log(result)
   //   });
+  const status = localStorage.status;
   const location = useLocation();
 
   return (
     <AnimatePresence exitBeforeEnter>
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Authorization />}></Route>
-        <Route path="/MainPage/" element={<MainPage />}></Route>
-        <Route path="/MainPage/Profile" element={<Profile />} />
-        <Route path="/MainPage/" element={<MainPage />}>
+        <Route path="/" element={<Authorization status={status} />}></Route>
+        <Route path="/MainPage/" element={<MainPage status={status} />}></Route>
+        <Route path="/MainPage/Profile" element={<Profile status={status} />} />
+        <Route path="/MainPage/" element={<MainPage status={status} />}>
           {/* <Route path="/" element={<UserPage />} />
           <Route path="/SecondPage" element={<SecondPage />} /> */}
-          <Route index element={<News />} />
-          <Route path="/MainPage/Tasks" element={<Tasks example="admin" />} />
-          <Route path="/MainPage/Statistics" element={<Statistics />} />
-          <Route path="/MainPage/Leaderboard" element={<Leaderboard />} />
-          <Route path="/MainPage/Market" element={<Market />} />
-          <Route path="/MainPage/Instruments" element={<Instruments />} />
-          <Route path="/MainPage/Employees" element={<Employees />} />
+          <Route index element={<News status={status} />} />
+          <Route path="/MainPage/Tasks" element={<Tasks status={status} />} />
+          <Route
+            path="/MainPage/Statistics"
+            element={<Statistics status={status} />}
+          />
+          <Route
+            path="/MainPage/Leaderboard"
+            element={<Leaderboard status={status} />}
+          />
+          <Route path="/MainPage/Market" element={<Market status={status} />} />
+          <Route
+            path="/MainPage/Instruments"
+            element={<Instruments status={status} />}
+          />
+          <Route
+            path="/MainPage/Employees"
+            element={<Employees status={status} />}
+          />
         </Route>
       </Routes>
     </AnimatePresence>

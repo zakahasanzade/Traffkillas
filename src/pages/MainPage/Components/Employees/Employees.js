@@ -24,6 +24,7 @@ const Employees = () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
       },
       // credentials: "include",
     })
@@ -40,8 +41,8 @@ const Employees = () => {
         alert(err);
       });
   }, []);
+  console.log(employee);
   let employeeUsername = document.getElementById("employeeUsername");
-  console.log(employeeUsername);
   const SubmitDelete = (e) => {
     // e.preventDefault();
     // fetch("http://94.103.90.6:5000/delete_user", {
