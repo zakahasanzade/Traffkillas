@@ -7,8 +7,9 @@ import dropify from "dropify";
 import notify from "devextreme/ui/notify";
 import FileUploader from "devextreme-react/file-uploader";
 import ImageUploading from "react-images-uploading";
-import Dropzone from "react-dropzone";
 import axios from "axios";
+import "react-dropzone-uploader/dist/styles.css";
+import Dropzone from "react-dropzone-uploader";
 
 import "./Market.css";
 
@@ -56,7 +57,14 @@ const Market = () => {
       });
     console.log(formData.values);
   };
+  // specify upload params and url for your files
 
+  // called every time a file's `status` changes
+  const handleChangeStatus = ({ meta, file }, status) => {
+    console.log(status, meta, file);
+  };
+
+  const icon = <i class="fa-solid fa-paperclip"> Закрепить Файл </i>;
   return (
     <motion.div
       className="main"
@@ -74,7 +82,7 @@ const Market = () => {
         <div className="market_send_title">
           <TextareaAutosize placeholder="Заголовок товара"></TextareaAutosize>
           <p>
-            <input placeholder="Цена" cla /> TTK
+            <input placeholder="Цена" /> TTK
           </p>
         </div>
         <TextareaAutosize
@@ -83,9 +91,17 @@ const Market = () => {
         ></TextareaAutosize>
         <div className="market_send_submit">
           <p>
-            Изображение товара: <input type="file" multiple accept="image/*" />
+            Изображение товара:{" "}
+            <Dropzone
+              onChangeStatus={handleChangeStatus}
+              accept="image/*"
+              maxFiles="1"
+              inputContent={icon}
+            />
           </p>
-          <button>Добавить товар</button>
+          <button className="market_send_submit_button">
+            <i class="fa-solid fa-cart-plus"> Добавить товар </i>
+          </button>
         </div>
       </form>
       <div className="market_products">
