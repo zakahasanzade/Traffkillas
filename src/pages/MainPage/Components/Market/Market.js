@@ -112,7 +112,8 @@ const Market = () => {
               <div className="market_product">
                 <img src={url} alt={url}></img>
                 <p>{name}</p>
-                <a href="/">{price}</a>
+                <a>{price}</a>{" "}
+                <i class="fa-solid fa-trash-can market_product_delete"></i>
               </div>
             );
           })}

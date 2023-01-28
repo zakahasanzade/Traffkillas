@@ -19,6 +19,7 @@
   display: flex;
   align-items: center;
   margin-top: 5px;
+  cursor: pointer;
 }
 .profile_back_button p {
   font-size: 16px;
@@ -26,7 +27,6 @@
   color: white;
   opacity: 0.3;
   margin-left: 6px;
-  cursor: pointer;
 }
 .profile_header_right {
   background-color: #ea9127;
@@ -199,7 +199,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
 }
 .profile_edtForm ul {
   display: flex;
@@ -227,8 +226,8 @@
   border: 1px solid #16c784;
   outline: none;
 }
-.profile_edtForm button{
-  background-color: #16C784;
+.profile_edtForm button {
+  background-color: #16c784;
   border-radius: 15px;
   padding: 8px;
   display: flex;

@@ -151,7 +151,7 @@ const News = () => {
                 timeout={1000}
                 unmountOnExit
               >
-                <ul>
+                <ul onClick={(e)=>{e.stopPropagation()}}>
                   <li
                     onClick={() => {
                       setBack("green");

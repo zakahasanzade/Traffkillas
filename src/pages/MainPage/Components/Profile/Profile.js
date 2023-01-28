@@ -56,7 +56,16 @@ const Profile = (status) => {
     // }
   };
 
-  let MarketArr = [];
+  var ProfileArr = [];
+  let example = [
+    {
+      address: "test",
+      birth_date: "test",
+      email: "test",
+      first_name: "cart",
+      last_name: "test",
+    },
+  ];
   const [profileInfo, SetProfileInfo] = useState();
   useEffect(() => {
     fetch("http://94.103.90.6:5000/get_profile_info", {
@@ -71,39 +80,59 @@ const Profile = (status) => {
       })
       .then((result) => {
         // MarketArr = JSON.parse(result).data;
-        MarketArr[0] = JSON.parse(result).data;
-        SetProfileInfo(MarketArr);
+        ProfileArr[0] = JSON.parse(result).data;
+        SetProfileInfo(ProfileArr);
       })
       .catch((err) => {
         alert(err);
       });
+    console.log(ProfileArr);
+    console.log(example[0].address);
   }, []);
-  let arr = [];
+
+  var InputData = {
+    username: null,
+    pwd: null,
+    first_name: null,
+    middle_name: null,
+    last_name: null,
+    birth_date: null,
+    email: null,
+    phone: null,
+    address: null,
+  };
   const EditProfile = (e) => {
     e.preventDefault();
-    console.log(e.target);
-    // console.log(e.target[0].value);
-    const data = new FormData(document.querySelector(".form"));
-    console.log(FormData.get("login"));
-    // console.log(arr);
-    // fetch("http://94.103.90.6:5000/edit_profile_info", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-type": "application/json",
-    //     Token: localStorage.getItem("token"),
-    //   },
-    //   body: {
 
-    // },
-    // })
-    //   .then((response) => {
-    //     return response.text();
-    //   })
-    //   .then((result) => {})
-    //   .catch((err) => {
-    //     alert(err);
-    //   });
+    fetch("http://94.103.90.6:5000/edit_profile_info", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Token: localStorage.getItem("token"),
+      },
+      body: JSON.stringify(InputData),
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
+  useEffect(() => {
+    const closeDropdown = (e) => {
+      e.stopPropagation();
+      // console.log(e.srcElement.className!=="back")
+      if (e.srcElement.className !== "dropdown") {
+        console.log(e.target);
+        SetEdit();
+      }
+    };
+    document.body.addEventListener("click", closeDropdown);
+  }, []);
   return (
     <div className="profile">
       {profileInfo &&
@@ -125,9 +154,14 @@ const Profile = (status) => {
             ttk,
             username,
           } = element;
-          {
-            /* console.log(phone); */
-          }
+          InputData.username = username;
+          InputData.first_name = first_name;
+          InputData.middle_name = middle_name;
+          InputData.last_name = last_name;
+          InputData.birth_date = birth_date;
+          InputData.email = email;
+          InputData.phone = phone;
+          InputData.address = address;
           return (
             <>
               <div className="profile_header">
@@ -150,13 +184,17 @@ const Profile = (status) => {
                   <div className="profile_header_right_info">
                     <p>{username}</p>
                     <div
-                      className="profile_header_right_info_footer"
+                      className="profile_header_right_info_footer dropdown"
                       onClick={() => {
                         SetEdit(!edit);
                       }}
                     >
-                      <p>редактировать профиль </p>{" "}
-                      <img src={Corrector} alt="Corrector" />
+                      <p className="dropdown">редактировать профиль </p>&nbsp;
+                      <img
+                        src={Corrector}
+                        alt="Corrector"
+                        className="dropdown"
+                      />
                     </div>
                     <CSSTransition
                       in={edit}
@@ -166,8 +204,9 @@ const Profile = (status) => {
                     >
                       <form
                         action="PUT"
-                        className="profile_edtForm profile_form"
+                        className="profile_edtForm profile_form dropdown"
                         onSubmit={EditProfile}
+                        onClick={(e)=>{e.stopPropagation()}}
                       >
                         <div className="profile_checkResult"></div>
                         <ul>
@@ -176,7 +215,11 @@ const Profile = (status) => {
                             <input
                               placeholder="Логин"
                               name="login"
-                              onChange={checkLogin}
+                              onChange={(e) => {
+                                // checkLogin;
+                                InputData.username = e.target.value;
+                                console.log(InputData);
+                              }}
                               defaultValue={username}
                             />
                           </li>
@@ -186,6 +229,11 @@ const Profile = (status) => {
                               placeholder="Пароль"
                               name="password"
                               defaultValue={pwd}
+                              type="password"
+                              onChange={(e) => {
+                                InputData.pwd = e.target.value;
+                                console.log(InputData);
+                              }}
                             />
                           </li>
                           <li>
@@ -193,6 +241,8 @@ const Profile = (status) => {
                             <input
                               placeholder="Повторите пароль"
                               name="repeatPassword"
+                              defaultValue={pwd}
+                              type="password"
                             />
                           </li>
                           <li>
@@ -202,6 +252,13 @@ const Profile = (status) => {
                               defaultValue={
                                 first_name + " " + middle_name + " " + last_name
                               }
+                              onChange={(e) => {
+                                let fullName = e.target.value.split(" ");
+                                InputData.first_name = fullName[0];
+                                InputData.middle_name = fullName[1];
+                                InputData.last_name = fullName[2];
+                                console.log(InputData);
+                              }}
                             />
                           </li>
                           <li>
@@ -210,6 +267,10 @@ const Profile = (status) => {
                               placeholder="Дата рождения"
                               name="birthdayDay"
                               defaultValue={birth_date}
+                              onChange={(e) => {
+                                InputData.birth_date = e.target.value;
+                                console.log(InputData);
+                              }}
                             />
                           </li>
                           <li>
@@ -218,6 +279,10 @@ const Profile = (status) => {
                               placeholder="E-mail"
                               name="email"
                               defaultValue={email}
+                              onChange={(e) => {
+                                InputData.email = e.target.value;
+                                console.log(InputData);
+                              }}
                             />
                           </li>
                           <li>
@@ -226,6 +291,10 @@ const Profile = (status) => {
                               placeholder="fs"
                               name="Номер"
                               defaultValue={phone}
+                              onChange={(e) => {
+                                InputData.phone = e.target.value;
+                                console.log(InputData);
+                              }}
                             />
                           </li>
                           <li>
@@ -234,11 +303,16 @@ const Profile = (status) => {
                               placeholder="Адрес"
                               name="adress"
                               defaultValue={address}
+                              onChange={(e) => {
+                                InputData.address = e.target.value;
+                                console.log(InputData);
+                              }}
                             />
                           </li>
                         </ul>
                         <button type="submit">
-                          <i className="fa-solid fa-check"></i> Сохранить данные
+                          <i className="fa-solid fa-check"></i>&nbsp;Сохранить
+                          данные
                         </button>
                       </form>
                     </CSSTransition>
