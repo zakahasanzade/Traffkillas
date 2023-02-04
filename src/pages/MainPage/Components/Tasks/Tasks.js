@@ -32,7 +32,7 @@ const sendTask = () => {
 };
 const Tasks = (props) => {
   // const [value, onChange] = useState("10:00");
-  const position = props.status;
+  const position = "2";
   if (position == "3") {
     return (
       <motion.div

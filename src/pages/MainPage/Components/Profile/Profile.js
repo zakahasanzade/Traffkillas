@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import Corrector from "./Profile Assets/Corrector.svg";
 import FormData from "form-data";
+import axios from "axios";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 let progressInterval = null;
@@ -27,7 +28,9 @@ const Profile = (status) => {
   }, [progress]);
 
   // console.log(marketAsset);
-
+  const refreshPage = () => {
+    window.location.reload();
+  };
   const navigate = useNavigate();
   const BackButtonClick = () => {
     navigate("/MainPage");
@@ -37,37 +40,47 @@ const Profile = (status) => {
 
   const [check, SetCheck] = useState(false);
   const editResult = document.querySelector(".profile_checkResult");
+  // VALIDATION FORM //
+  const [usernameCheck, SetUsername] = useState(true);
+  const [passwordCheck, SetPassword] = useState(true);
+  const [repeatPasswordCheck, SetRepeatPassword] = useState(true);
   const checkLogin = (e) => {
-    // let value = e.target.value;
-    // console.log(value.length);
-    // if (
-    //   e.target.value.length < 2 ||
-    //   e.target.value.length > 10 ||
-    //   value.match(/(\d+)/).length !== 0
-    // ) {
-    //   editResult.innerHTML = "";
-    //   editResult.innerHTML += "Unvaild Username Length<br/>";
-    //   console.log(value.match(/(\d+)/));
-    // } else {
-    //   editResult.innerHTML = "";
-    // }
-    // if (value.match(/(\d+)/).length == 0) {
-    //   editResult.innerHTML += "Username Must Contains At Least 1 Number<br/>";
-    // }
+    const usernameRegex = /^[a-z0-9_\.]+$/;
+    var validUsername = usernameRegex.test(e.target.value);
+    if (validUsername == false) {
+      e.target.style.border = "red solid 1px";
+      SetUsername(false);
+    } else if (validUsername != false) {
+      e.target.style.border = "1px solid #16c784";
+      SetUsername(true);
+    }
   };
-
+  const checkPassword = (e) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    var validPassword = passwordRegex.test(e.target.value);
+    if (validPassword == false) {
+      e.target.style.border = "red solid 1px";
+      SetPassword(false);
+    } else if (validPassword != false) {
+      e.target.style.border = "1px solid #16c784";
+      SetPassword(true);
+    }
+  };
+  const checkRepeatPassword = (e) => {
+    console.log(e.target.value);
+    console.log(InputData.pwd);
+    if (e.target.value == InputData.pwd) {
+      SetRepeatPassword(true);
+      e.target.style.border = "1px solid #16c784";
+    } else {
+      SetRepeatPassword(false);
+      e.target.style.border = "red solid 1px";
+    }
+  };
+  // GET DATA FROM SERVER //
   var ProfileArr = [];
-  let example = [
-    {
-      address: "test",
-      birth_date: "test",
-      email: "test",
-      first_name: "cart",
-      last_name: "test",
-    },
-  ];
   const [profileInfo, SetProfileInfo] = useState();
-  useEffect(() => {
+  const GetProfileData = () => {
     fetch("http://94.103.90.6:5000/get_profile_info", {
       method: "GET",
       headers: {
@@ -86,41 +99,43 @@ const Profile = (status) => {
       .catch((err) => {
         alert(err);
       });
+  };
+  useEffect(() => {
+    GetProfileData();
     console.log(ProfileArr);
-    console.log(example[0].address);
   }, []);
 
-  var InputData = {
-    username: null,
-    pwd: null,
-    first_name: null,
-    middle_name: null,
-    last_name: null,
-    birth_date: null,
-    email: null,
-    phone: null,
-    address: null,
+  const InputData = {
+    username: "test",
+    pwd: "test",
+    first_name: "test",
+    middle_name: "test",
+    last_name: "test",
+    birth_date: "test",
+    email: "test",
+    phone: "test",
+    address: "test",
   };
   const EditProfile = (e) => {
     e.preventDefault();
+    const form = document.getElementById("form");
+    const formData = new FormData(form);
+    console.log(formData);
 
-    fetch("http://94.103.90.6:5000/edit_profile_info", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Token: localStorage.getItem("token"),
-      },
-      body: JSON.stringify(InputData),
-    })
-      .then((response) => {
-        return response.text();
+    axios
+      .post("http://94.103.90.6:5000/edit_profile_info", formData, {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
       })
-      .then((result) => {
-        console.log(result);
+      .then((res) => {
+        console.log(res.data.status);
       })
-      .catch((err) => {
-        alert(err);
+      .catch((error) => {
+        console.log(error);
       });
+    // refreshPage()
   };
   useEffect(() => {
     const closeDropdown = (e) => {
@@ -154,14 +169,17 @@ const Profile = (status) => {
             ttk,
             username,
           } = element;
-          InputData.username = username;
+          {
+            /* InputData.username = username;
+          InputData.pwd = pwd;
           InputData.first_name = first_name;
           InputData.middle_name = middle_name;
           InputData.last_name = last_name;
           InputData.birth_date = birth_date;
           InputData.email = email;
           InputData.phone = phone;
-          InputData.address = address;
+          InputData.address = address; */
+          }
           return (
             <>
               <div className="profile_header">
@@ -203,10 +221,13 @@ const Profile = (status) => {
                       unmountOnExit
                     >
                       <form
-                        action="PUT"
+                        // action="PUT"
                         className="profile_edtForm profile_form dropdown"
-                        onSubmit={EditProfile}
-                        onClick={(e)=>{e.stopPropagation()}}
+                        onSubmit={(e) => EditProfile(e)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                        id="form"
                       >
                         <div className="profile_checkResult"></div>
                         <ul>
@@ -214,36 +235,89 @@ const Profile = (status) => {
                             <p>Логин</p>
                             <input
                               placeholder="Логин"
-                              name="login"
-                              onChange={(e) => {
-                                // checkLogin;
-                                InputData.username = e.target.value;
-                                console.log(InputData);
-                              }}
+                              // name="login"
                               defaultValue={username}
+                              onChange={(e) => {
+                                // InputData.username = e.target.value;
+                                // console.log(InputData);
+                                checkLogin(e);
+                              }}
+                              name="username"
                             />
+                            {usernameCheck ? (
+                              ""
+                            ) : (
+                              <p
+                                style={{
+                                  color: "red",
+                                  opacity: "0.5",
+                                  fontStyle: "oblique",
+                                }}
+                              >
+                                Имя пользователя может иметь только:
+                                <br />- Строчные буквы (a-z)
+                                <br />- Числа (0-9)
+                                <br />- Точки (.)
+                                <br /> - Подчеркивание (_)
+                              </p>
+                            )}
                           </li>
                           <li>
                             <p>Пароль</p>
                             <input
                               placeholder="Пароль"
-                              name="password"
+                              // name="password"
                               defaultValue={pwd}
                               type="password"
                               onChange={(e) => {
-                                InputData.pwd = e.target.value;
-                                console.log(InputData);
+                                // InputData.pwd = e.target.value;
+                                // console.log(InputData);
+                                checkPassword(e);
                               }}
+                              name="pwd"
                             />
+                            {passwordCheck ? (
+                              ""
+                            ) : (
+                              <p
+                                style={{
+                                  color: "red",
+                                  opacity: "0.5",
+                                  fontStyle: "oblique",
+                                }}
+                              >
+                                Пароль должен иметь:
+                                <br />- Минимум 8 символов
+                                <br />- Минимум одну заглавную букву (A-Z)
+                                {/* <br />- Минимум одну строчную букву (a-z) */}
+                                <br />- Минимум одну цифру (0-9)
+                              </p>
+                            )}
                           </li>
                           <li>
                             <p>Повторите пароль</p>
                             <input
                               placeholder="Повторите пароль"
-                              name="repeatPassword"
+                              // name="repeatPassword"
                               defaultValue={pwd}
                               type="password"
+                              onChange={(e) => {
+                                checkRepeatPassword(e);
+                              }}
                             />
+                            {repeatPasswordCheck ? (
+                              ""
+                            ) : (
+                              <p
+                                style={{
+                                  color: "red",
+                                  opacity: "0.5",
+                                  fontStyle: "oblique",
+                                }}
+                              >
+                                Пароль не совпадает
+                              </p>
+                            )}
                           </li>
                           <li>
                             <p>ФИО</p>
@@ -252,61 +326,65 @@ const Profile = (status) => {
                               defaultValue={
                                 first_name + " " + middle_name + " " + last_name
                               }
-                              onChange={(e) => {
-                                let fullName = e.target.value.split(" ");
-                                InputData.first_name = fullName[0];
-                                InputData.middle_name = fullName[1];
-                                InputData.last_name = fullName[2];
-                                console.log(InputData);
-                              }}
+                              // onChange={(e) => {
+                              //   let fullName = e.target.value.split(" ");
+                              //   InputData.first_name = fullName[0];
+                              //   InputData.middle_name = fullName[1];
+                              //   InputData.last_name = fullName[2];
+                              //   console.log(InputData);
+                              // }}
                             />
                           </li>
                           <li>
                             <p>Дата рождения</p>
                             <input
                               placeholder="Дата рождения"
-                              name="birthdayDay"
+                              // name="birthdayDay"
                               defaultValue={birth_date}
-                              onChange={(e) => {
-                                InputData.birth_date = e.target.value;
-                                console.log(InputData);
-                              }}
+                              // onChange={(e) => {
+                              //   InputData.birth_date = e.target.value;
+                              //   console.log(InputData);
+                              // }}
+                              name="birth_date"
                             />
                           </li>
                           <li>
                             <p>E-mail</p>
                             <input
                               placeholder="E-mail"
-                              name="email"
+                              // name="email"
                               defaultValue={email}
-                              onChange={(e) => {
-                                InputData.email = e.target.value;
-                                console.log(InputData);
-                              }}
+                              // onChange={(e) => {
+                              //   InputData.email = e.target.value;
+                              //   console.log(InputData);
+                              // }}
+                              name="email"
                             />
                           </li>
                           <li>
                             <p>Номер</p>
                             <input
                               placeholder="fs"
-                              name="Номер"
+                              // name="Номер"
                               defaultValue={phone}
-                              onChange={(e) => {
-                                InputData.phone = e.target.value;
-                                console.log(InputData);
-                              }}
+                              // onChange={(e) => {
+                              //   InputData.phone = e.target.value;
+                              //   console.log(InputData);
+                              // }}
+                              name="phone"
                             />
                           </li>
                           <li>
                             <p>Адрес</p>
                             <input
                               placeholder="Адрес"
-                              name="adress"
+                              // name="adress"
                               defaultValue={address}
-                              onChange={(e) => {
-                                InputData.address = e.target.value;
-                                console.log(InputData);
-                              }}
+                              // onChange={(e) => {
+                              //   InputData.address = e.target.value;
+                              //   console.log(InputData);
+                              // }}
+                              name="address"
                             />
                           </li>
                         </ul>

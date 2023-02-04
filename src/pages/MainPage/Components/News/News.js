@@ -5,7 +5,6 @@ import { TagsInput } from "react-tag-input-component";
 import { motion } from "framer-motion/dist/framer-motion";
 import { CSSTransition } from "react-transition-group";
 
-
 const News = () => {
   // const [show, setShow] = useState(false);
   // CREATE A NEW BLOCK WITH THE RECEIVED DATA   //
@@ -103,7 +102,6 @@ const News = () => {
     getData();
 
     const closeDropdown = (e) => {
-      // console.log(e.srcElement.className!=="back")
       if (e.srcElement.className !== "back") {
         SetColor();
       }
@@ -151,7 +149,11 @@ const News = () => {
                 timeout={1000}
                 unmountOnExit
               >
-                <ul onClick={(e)=>{e.stopPropagation()}}>
+                <ul
+                  onClick={(e) => {
+                    // e.stopPropagation();
+                  }}
+                >
                   <li
                     onClick={() => {
                       setBack("green");

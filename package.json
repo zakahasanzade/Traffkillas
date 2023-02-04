@@ -22,6 +22,7 @@
     "font-awesome": "^4.7.0",
     "fontawesome": "^5.6.3",
     "form-data": "^4.0.0",
+    "fortawesome": "^0.0.1-security",
     "framer-motion": "^8.4.6",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
@@ -45,7 +46,8 @@
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4",
     "styled-components": "^5.3.6",
-    "uploader": "^3.3.0"
+    "uploader": "^3.3.0",
+    "xtypejs": "^0.7.1"
   },
   "scripts": {
     "start": "react-scripts start",

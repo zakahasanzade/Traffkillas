@@ -11,6 +11,7 @@ import Leaderboard from "../pages/MainPage/Components/Leaderboard/Leaderboard";
 import Market from "../pages/MainPage/Components/Market/Market";
 import Instruments from "../pages/MainPage/Components/Instruments/Instruments";
 import Employees from "../pages/MainPage/Components/Employees/Employees";
+import ProjectLeaderboard from "../pages/MainPage/Components/Leaderboard/ProjectLeaderboard/ProjectLeaderboard";
 import { AnimatePresence } from "framer-motion/dist/framer-motion";
 
 const AnimatedPage = () => {
@@ -43,8 +44,8 @@ const AnimatedPage = () => {
             element={<Statistics status={status} />}
           />
           <Route
-            path="/MainPage/Leaderboard"
-            element={<Leaderboard status={status} />}
+            path="/MainPage/ProjectLeaderboard"
+            element={<ProjectLeaderboard status={status} />}
           />
           <Route path="/MainPage/Market" element={<Market status={status} />} />
           <Route
