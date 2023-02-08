@@ -1,38 +1,50 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ArrowRight from "./Tasks Assets/Arrow Right.svg";
 import TextareaAutosize from "react-textarea-autosize";
 import { motion } from "framer-motion/dist/framer-motion";
+import FormData from "form-data";
+import axios from "axios";
 import "./Tasks.css";
 
-const sendTask = () => {
-  // const taskTitle = document.querySelector(".sendData_taskTitle").value;
-  // const taskContent = document.querySelector(".sendData_taskContent").value;
-  // const autorSelect = document.querySelector(".autorSelect").value;
-  // fetch("http://94.103.90.6:5000/post_news", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     taskTitle: taskTitle,
-  //     taskContent: taskContent,
-  //     autorSelect: autorSelect,
-  //   }),
-  // })
-  //   .then((response) => {
-  //     // console.log(response.status);
-  //     return response.text();
-  //   })
-  //   .then((result) => {
-  //     console.log(result);
-  //   })
-  //   .catch((err) => {
-  //     alert(err);
-  //   });
+const getTaskData = () => {
+  fetch("http://94.103.90.6:5000/get_task", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      token: localStorage.getItem("token"),
+    },
+  })
+    .then((response) => {
+      return response.text();
+    })
+
+    .catch((err) => {
+      alert(err);
+    });
+};
+const sendTask = (e) => {
+  e.preventDefault();
+  const form = document.getElementById("form");
+  const formData = new FormData(form);
+  axios
+    .post("https://httpbin.org/post_task", formData, {
+      headers: {},
+    })
+    .then((res) => {
+      console.log(res.data.status);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  console.log(formData);
 };
 const Tasks = (props) => {
+  useEffect(() => {
+    getTaskData();
+    console.log(localStorage.getItem("token"))
+  }, []);
   // const [value, onChange] = useState("10:00");
-  const position = "2";
+  const position = "1";
   if (position == "3") {
     return (
       <motion.div
@@ -44,7 +56,7 @@ const Tasks = (props) => {
         transition={{ duration: 0.3 }}
       >
         <div className="tasks">
-          <div className="task_sendData">
+          <form className="task_sendData">
             <input className="sendData_taskTitle" placeholder="Название" />
             <input
               className="sendData_taskContent"
@@ -66,12 +78,12 @@ const Tasks = (props) => {
                 </p>
               </div>
               <div className="sendData_submit">
-                <button type="submit" onClick={sendTask}>
+                <button type="submit">
                   Отправить задание <img src={ArrowRight} alt="rightArrow" />
                 </button>
               </div>
             </div>
-          </div>
+          </form>
           <p className="date">В работе</p>
           <div className="tasks_page_div">
             <div className="tasks_div">
@@ -329,11 +341,19 @@ const Tasks = (props) => {
           <p>Выполенные</p>
         </div>
         <div className="tasks">
-          <div className="task_sendData">
-            <input className="sendData_taskTitle" placeholder="Название" />
+          <form
+            className="task_sendData"
+            onSubmit={(e) => {
+              sendTask(e);
+              console.log("Hello");
+            }}
+            id="form"
+          >
+            <input className="sendData_taskTitle" name="Title" placeholder="Название" />
             <input
               className="sendData_taskContent"
               placeholder="Описание задания..."
+              name="Description"
             />
             <hr style={{ opacity: 0.5 }} />
             <div className="sendData_tasks">
@@ -344,11 +364,12 @@ const Tasks = (props) => {
                   <option value="Исполнитель2">Исполнитель2</option>
                   <option value="Исполнитель3">Исполнитель3</option>
                 </select>
-                <form className="senData_task_inputsForm">
+                <div className="senData_task_inputsForm">
                   <input
                     type="text"
                     className="firstinput"
                     placeholder="Ч"
+                    name="TimerHours"
                     maxlength="2"
                     onInput={(e) => {
                       e.target.value = e.target.value
@@ -363,6 +384,7 @@ const Tasks = (props) => {
                     className="secondinput"
                     placeholder="М"
                     maxlength="2"
+                    name="TimerMinut"
                     onInput={(e) => {
                       e.target.value = e.target.value
                         .replace(/[^0-9.]/g, "")
@@ -370,13 +392,14 @@ const Tasks = (props) => {
                         .slice(0, 11);
                     }}
                   />
-                </form>
+                </div>
                 <p className="SendData_fine">
                   -{" "}
                   <input
                     type="text"
                     placeholder="Штраф"
                     maxlength="5"
+                    name="Fine"
                     onInput={(e) => {
                       e.target.value = e.target.value
                         .replace(/[^0-9.]/g, "")
@@ -386,17 +409,20 @@ const Tasks = (props) => {
                   />{" "}
                   MMR
                 </p>
-                <p>
+                <p name="Checked">
                   Feedback <i className="fa-solid fa-check"></i>
                 </p>
               </div>
               <div className="sendData_submit">
-                <button type="submit" onClick={sendTask}>
+                <button
+                  type="submit"
+                  // onClick={sendTask}
+                >
                   Отправить задание <img src={ArrowRight} alt="rightArrow" />
                 </button>
               </div>
             </div>
-          </div>
+          </form>
           <p className="date">В работе</p>
           <div className="tasks_page_div">
             <div className="tasks_div">

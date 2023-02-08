@@ -131,11 +131,11 @@ const Profile = (status) => {
       })
       .then((res) => {
         console.log(res.data.status);
+        refreshPage();
       })
       .catch((error) => {
         console.log(error);
       });
-    // refreshPage()
   };
   useEffect(() => {
     const closeDropdown = (e) => {

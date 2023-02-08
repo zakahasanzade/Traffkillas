@@ -32,13 +32,14 @@ const Authorization = () => {
     fetch("http://94.103.90.6:5000/login", {
       method: "POST",
       headers: headers,
+      withCredentials: true,
       body: JSON.stringify({
         username: username,
         password: password,
       }),
     })
       .then((response) => {
-        console.log(response.status);
+        console.log(response);
         if (response.status != 200) {
           throw new Error("Wrong user or password");
         }
@@ -47,6 +48,7 @@ const Authorization = () => {
       .then((result) => {
         console.log(result);
         localStorage.setItem("token", JSON.parse(result).token);
+        // document.cookie = "token=" + localStorage.getItem("token");
         localStorage.setItem("position", JSON.parse(result).position);
         navigate("/MainPage");
       })

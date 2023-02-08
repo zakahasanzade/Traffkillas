@@ -7,6 +7,7 @@ import { CSSTransition } from "react-transition-group";
 import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
+  // document.cookie = localStorage.getItem("token");
   const [dropdownMenu, SetDropdownMenu] = useState(false);
   const navigate = useNavigate();
   // useEffect(() => {
@@ -27,7 +28,13 @@ const MainPage = () => {
             <CustomLink to="/MainPage/">Новости</CustomLink>
             <CustomLink to="/MainPage/Tasks">Задания</CustomLink>
             <CustomLink to="/MainPage/Statistics">Статистика</CustomLink>
-            <CustomLink to="/MainPage/ProjectLeaderboard" onClick={()=>{console.log("Hello World")}}>
+            <CustomLink
+              to="/MainPage/ProjectLeaderboard"
+              onClick={(e) => {
+                SetDropdownMenu(!dropdownMenu);
+                e.stopPropagation();
+              }}
+            >
               Лидерборд
             </CustomLink>
             <CustomLink to="/MainPage/Market">Маркет</CustomLink>
@@ -36,6 +43,7 @@ const MainPage = () => {
           </ul>
         </nav>
       </div>
+      {dropdownMenu ? <p>Hello</p> : ""}
       <Outlet />
     </>
   );
@@ -52,22 +60,4 @@ function CustomLink({ to, children, ...props }) {
       </Link>
     </li>
   );
-}
-
-{
-  /* <li
-className={
-  dropdownMenu ? "navbar_dropdown active" : "navbar_dropdown"
-}
->
-  <a
-    onClick={() => {
-      SetDropdownMenu(!dropdownMenu);
-    }}
-    >
-    <span>Лидерборд</span>
-  </a> */
-}
-{
-  /* </li> */
 }

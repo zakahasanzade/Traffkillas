@@ -10,20 +10,24 @@ import ImageUploading from "react-images-uploading";
 import axios from "axios";
 import "react-dropzone-uploader/dist/styles.css";
 import Dropzone from "react-dropzone-uploader";
+import { CSSTransition } from "react-transition-group";
 import FormData from "form-data";
+import { useRef } from "react";
 
 import "./Market.css";
-import { image } from "fontawesome";
+import { cookie, image } from "fontawesome";
 
 const Market = () => {
   let AssetsArr = [];
   const [assets, SetAssets] = useState();
   const getAssets = () => {
+    document.cookie = "test=hello;";
     fetch("http://94.103.90.6:5000/get_market", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("token"),
+        Cookie: document.cookie,
       },
     })
       .then((response) => {
@@ -41,30 +45,36 @@ const Market = () => {
   useEffect(() => {
     getAssets();
   }, []);
-  console.log(assets);
+  // console.log(assets);
 
   function submit(e) {
     e.preventDefault();
     const form = document.getElementById("form");
-
     const formData = new FormData(form);
+    document.cookie = "token=hello;";
     axios
-    .post(
-      "http://94.103.90.6:5000/add_market",
-        // {
-        //   headers: {
-        //     Authorization: localStorage.getItem("token"),
-        //   },
-        // },
-        formData
+      .post(
+        "http://94.103.90.6:5000/test_cookie",
+
+        formData,
+        { withCredentials: true },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+            Cookie:
+              "id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Secure; HttpOnly",
+          },
+          credentials: "include",
+        },
+        { withCredentials: true }
       )
       .then((res) => {
-        console.log(res.data.status);
+        console.log(res);
       })
       .catch((error) => {
         console.log(error);
       });
-      console.log(formData);
+    console.log(formData);
     // getAssets();
   }
   const DeletePost = (e) => {
@@ -89,6 +99,35 @@ const Market = () => {
     console.log(e.target);
     getAssets();
   };
+  const headers = new Headers();
+  headers.append("Cookie", "name1=value1; name2=value2");
+  const [ProofProduct, SetProofProduct] = useState();
+  const [SubmitProduct, SetSubmitProduct] = useState();
+  const [PoductName, SetProductName] = useState();
+  const [PoductId, SetProductId] = useState();
+  const [getCode,SetGetCode]=useState()
+  const BuyProduct = (e) => {
+    fetch("http://94.103.90.6:5000/buy_market", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json",
+        Token: localStorage.getItem("token"),
+      },
+      withCredentials: true,
+      body: JSON.stringify({ _id: PoductId }),
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        SetGetCode(JSON.parse(result).code)
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+
   // const handleChangeStatus = ({ meta, file }, status) => {
   //   return status, meta, file;
   // };
@@ -128,7 +167,17 @@ const Market = () => {
   // DropzoneElement.setAttribute("name", "horse");
   // DropzoneElement.setAttribute('name', 'Image')
   const icon = <i className="fa-solid fa-paperclip"> Закрепить Файл </i>;
+  useEffect(() => {
+    const closeWindow = (e) => {
+      if ( ProofProduct==true) {
+        SetProofProduct();
+        SetSubmitProduct()
+      }
+    };
+    document.body.addEventListener("click", closeWindow);
+  }, []);
   return (
+    <>
     <motion.div
       className="main"
       id="active"
@@ -188,22 +237,74 @@ const Market = () => {
         {assets &&
           assets.map((product) => {
             const { name, price, url, _id, content } = product;
-            console.log(url);
             return (
-              <div className="market_product">
-                <img src={url} alt={url}></img>
+              <div
+                className="market_product"
+                async
+                onClick={() => {
+                  SetProofProduct(!ProofProduct);
+                  SetProductName(product.name);
+                  SetProductId(product._id);
+                }}
+              >
+                <img src={url} alt={url} id={_id}></img>
                 <p>{name}</p>
-                <a>{price}</a>{" "}
+                <a>{price} TTK</a>{" "}
                 <i
-                  id={_id}
                   className="fa-solid fa-trash-can market_product_delete"
-                  onClick={DeletePost}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // DeletePost;
+                  }}
                 ></i>
               </div>
             );
           })}
+        <CSSTransition
+          in={ProofProduct}
+          classNames="alert"
+          timeout={1000}
+          unmountOnExit
+        >
+          <div className="ProofBuy">
+            <p style={{ fontSize: "24px" }}>{PoductName}</p>
+            <div className="ProofBuy_submit">
+              <p style={{ fontSize: "20px" }}>Оформление покупки</p>
+              <button
+                onClick={(e) => {SetSubmitProduct(!SubmitProduct);BuyProduct()}}
+                type="submit"
+                style={{ fontSize: "16px", color: "red" }}
+              >
+                -50 000 TTK
+              </button>
+              <p style={{ fontSize: "12px" }}>550 000 TTK = 500 000 TTK</p>
+            </div>
+          </div>
+        </CSSTransition>
+        
       </div>
     </motion.div>
+    <CSSTransition
+          in={SubmitProduct}
+          classNames="alert"
+          timeout={1000}
+          unmountOnExit
+        >
+          <div className="ProofBuy">
+            <p style={{ fontSize: "24px" }}>{PoductName}</p>
+            <div className="ProofBuy_submit">
+              <p style={{ fontSize: "20px" }}>Успешно!</p>
+              <button
+                type="submit"
+                style={{ fontSize: "16px", color: "red" }}
+              >
+                {getCode}
+              </button>
+              <p style={{ fontSize: "12px" }}>скопируйте код покупки</p>
+            </div>
+          </div>
+        </CSSTransition>
+        </>
   );
 };
 
