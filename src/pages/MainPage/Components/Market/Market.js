@@ -57,14 +57,10 @@ const Market = () => {
         "http://94.103.90.6:5000/test_cookie",
 
         formData,
-        { withCredentials: true },
         {
           headers: {
-            Authorization: localStorage.getItem("token"),
-            Cookie:
-              "id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Secure; HttpOnly",
+            token: localStorage.getItem("token"),
           },
-          credentials: "include",
         },
         { withCredentials: true }
       )
@@ -105,14 +101,14 @@ const Market = () => {
   const [SubmitProduct, SetSubmitProduct] = useState();
   const [PoductName, SetProductName] = useState();
   const [PoductId, SetProductId] = useState();
-  const [getCode,SetGetCode]=useState()
+  const [getCode, SetGetCode] = useState();
   const BuyProduct = (e) => {
     fetch("http://94.103.90.6:5000/buy_market", {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-type": "application/json",
-        Token: localStorage.getItem("token"),
+        token: localStorage.getItem("token"),
       },
       withCredentials: true,
       body: JSON.stringify({ _id: PoductId }),
@@ -121,7 +117,7 @@ const Market = () => {
         return response.text();
       })
       .then((result) => {
-        SetGetCode(JSON.parse(result).code)
+        SetGetCode(JSON.parse(result).code);
       })
       .catch((err) => {
         alert(err);
@@ -168,45 +164,42 @@ const Market = () => {
   // DropzoneElement.setAttribute('name', 'Image')
   const icon = <i className="fa-solid fa-paperclip"> Закрепить Файл </i>;
   useEffect(() => {
-    const closeWindow = (e) => {
-      if ( ProofProduct==true) {
-        SetProofProduct();
-        SetSubmitProduct()
-      }
+    const closeWindow = () => {
+      console.log(document.querySelector(".ProofBuy").taget.value);
     };
     document.body.addEventListener("click", closeWindow);
   }, []);
   return (
     <>
-    <motion.div
-      className="main"
-      id="active"
-      initial={{ opacity: 0, x: 100 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -100 }}
-      transition={{ duration: 0.3 }}
-    >
-      <form className="market_send" id="form" onSubmit={(e) => submit(e)}>
-        <div className="market_send_title">
+      <motion.div
+        className="main"
+        id="active"
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: -100 }}
+        transition={{ duration: 0.3 }}
+      >
+        <form className="market_send" id="form" onSubmit={(e) => submit(e)}>
+          <div className="market_send_title">
+            <TextareaAutosize
+              className="TitleText"
+              placeholder="Заголовок товара"
+              name="Name"
+            ></TextareaAutosize>
+            <p>
+              <input placeholder="Цена" className="ProductPrice" name="Price" />{" "}
+              TTK
+            </p>
+          </div>
           <TextareaAutosize
-            className="TitleText"
-            placeholder="Заголовок товара"
-            name="Name"
+            placeholder="Полное название товара..."
+            className="market_send_nameProduct"
+            name="Content"
           ></TextareaAutosize>
-          <p>
-            <input placeholder="Цена" className="ProductPrice" name="Price" />{" "}
-            TTK
-          </p>
-        </div>
-        <TextareaAutosize
-          placeholder="Полное название товара..."
-          className="market_send_nameProduct"
-          name="Content"
-        ></TextareaAutosize>
-        <div className="market_send_submit">
-          <p>
-            Изображение товара:{" "}
-            {/* <Dropzone
+          <div className="market_send_submit">
+            <p>
+              Изображение товара:{" "}
+              {/* <Dropzone
               onChangeStatus={handleChangeStatus}
               accept="image/*"
               maxFiles="1"
@@ -215,96 +208,96 @@ const Market = () => {
               type="file"
               name="Image"
             ></Dropzone> */}
-            <input
-              // onChangeStatus={handleChangeStatus}
-              accept="image/*"
-              maxfiles="1"
-              inputcontent={icon}
-              id="Image"
-              type="file"
-              name="Image"
-            ></input>
-          </p>
-          <button
-            className="market_send_submit_button"
-            // onClick={SendProductInfo}
-          >
-            <i className="fa-solid fa-cart-plus"> Добавить товар </i>
-          </button>
-        </div>
-      </form>
-      <div className="market_products">
-        {assets &&
-          assets.map((product) => {
-            const { name, price, url, _id, content } = product;
-            return (
-              <div
-                className="market_product"
-                async
-                onClick={() => {
-                  SetProofProduct(!ProofProduct);
-                  SetProductName(product.name);
-                  SetProductId(product._id);
-                }}
-              >
-                <img src={url} alt={url} id={_id}></img>
-                <p>{name}</p>
-                <a>{price} TTK</a>{" "}
-                <i
-                  className="fa-solid fa-trash-can market_product_delete"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    // DeletePost;
+              <input
+                // onChangeStatus={handleChangeStatus}
+                accept="image/*"
+                maxfiles="1"
+                inputcontent={icon}
+                id="Image"
+                type="file"
+                name="Image"
+              ></input>
+            </p>
+            <button
+              className="market_send_submit_button"
+              // onClick={SendProductInfo}
+            >
+              <i className="fa-solid fa-cart-plus"> Добавить товар </i>
+            </button>
+          </div>
+        </form>
+        <div className="market_products">
+          {assets &&
+            assets.map((product) => {
+              const { name, price, url, _id, content } = product;
+              return (
+                <div
+                  className="market_product"
+                  async
+                  onClick={() => {
+                    SetProofProduct(!ProofProduct);
+                    SetProductName(product.name);
+                    SetProductId(product._id);
                   }}
-                ></i>
-              </div>
-            );
-          })}
-        <CSSTransition
-          in={ProofProduct}
-          classNames="alert"
-          timeout={1000}
-          unmountOnExit
-        >
-          <div className="ProofBuy">
-            <p style={{ fontSize: "24px" }}>{PoductName}</p>
-            <div className="ProofBuy_submit">
-              <p style={{ fontSize: "20px" }}>Оформление покупки</p>
-              <button
-                onClick={(e) => {SetSubmitProduct(!SubmitProduct);BuyProduct()}}
-                type="submit"
-                style={{ fontSize: "16px", color: "red" }}
-              >
-                -50 000 TTK
-              </button>
-              <p style={{ fontSize: "12px" }}>550 000 TTK = 500 000 TTK</p>
-            </div>
+                >
+                  <img src={url} alt={url} id={_id}></img>
+                  <p>{name}</p>
+                  <a>{price} TTK</a>{" "}
+                  <i
+                    className="fa-solid fa-trash-can market_product_delete"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      // DeletePost;
+                    }}
+                  ></i>
+                </div>
+              );
+            })}
+        </div>
+      </motion.div>
+      <CSSTransition
+        in={ProofProduct}
+        classNames="alert"
+        timeout={1000}
+        unmountOnExit
+      >
+        <div className="ProofBuy">
+          <p style={{ fontSize: "24px" }}>{PoductName}</p>
+          <div className="ProofBuy_submit">
+            <p style={{ fontSize: "20px" }}>Оформление покупки</p>
+            <button
+              onClick={(e) => {
+                SetSubmitProduct(!SubmitProduct);
+                SetProofProduct(!ProofProduct);
+                BuyProduct();
+              }}
+              type="submit"
+              style={{ fontSize: "16px", color: "red" }}
+            >
+              -50 000 TTK
+            </button>
+            <p style={{ fontSize: "12px" }}>550 000 TTK = 500 000 TTK</p>
           </div>
-        </CSSTransition>
-        
-      </div>
-    </motion.div>
-    <CSSTransition
-          in={SubmitProduct}
-          classNames="alert"
-          timeout={1000}
-          unmountOnExit
-        >
-          <div className="ProofBuy">
-            <p style={{ fontSize: "24px" }}>{PoductName}</p>
-            <div className="ProofBuy_submit">
-              <p style={{ fontSize: "20px" }}>Успешно!</p>
-              <button
-                type="submit"
-                style={{ fontSize: "16px", color: "red" }}
-              >
-                {getCode}
-              </button>
-              <p style={{ fontSize: "12px" }}>скопируйте код покупки</p>
-            </div>
+        </div>
+      </CSSTransition>
+      <CSSTransition
+        in={SubmitProduct}
+        classNames="alert"
+        timeout={1000}
+        unmountOnExit
+      >
+        <div className="ProofBuy">
+          <p style={{ fontSize: "24px" }}>{PoductName}</p>
+          <div className="ProofBuy_submit">
+            <p style={{ fontSize: "20px" }}>Успешно!</p>
+            <button type="submit" style={{ fontSize: "16px", color: "red" }}>
+              {getCode}
+            </button>
+            <p style={{ fontSize: "12px" }}>скопируйте код покупки</p>
           </div>
-        </CSSTransition>
-        </>
+        </div>
+      </CSSTransition>
+    </>
   );
 };
 

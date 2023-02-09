@@ -85,7 +85,7 @@ const Profile = (status) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
+        token: localStorage.getItem("token"),
       },
     })
       .then((response) => {
@@ -126,7 +126,7 @@ const Profile = (status) => {
       .post("http://94.103.90.6:5000/edit_profile_info", formData, {
         headers: {
           "Content-type": "application/json",
-          Authorization: localStorage.getItem("token"),
+          token: localStorage.getItem("token"),
         },
       })
       .then((res) => {

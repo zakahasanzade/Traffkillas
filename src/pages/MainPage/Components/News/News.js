@@ -117,6 +117,7 @@ const News = () => {
   const setBack = (col) => {
     document.querySelector(".back").style.backgroundColor = col;
   };
+  console.log(typeof(post))
   return (
     <motion.div
       className="main"

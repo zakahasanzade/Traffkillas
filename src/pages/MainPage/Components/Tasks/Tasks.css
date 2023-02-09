@@ -27,6 +27,21 @@
   padding: 0 16px 16px;
   display: flex;
   justify-content: center;
+  color: "black";
+}
+.tasks_content {
+  padding: 16px;
+  padding-top: 0;
+}
+.tasks_content p {
+  background-color: #ebedf0;
+  padding: 8px 12px;
+  color: #000000;
+  opacity: 0.4;
+  font-weight: 700;
+  line-height: 19.36px;
+  font-size: 16px;
+  border-radius: 25px;
 }
 .tasks_div_submit i {
   font-size: 10px;
@@ -45,8 +60,7 @@
   border: 0;
   width: 25px;
   width: 770px;
-  border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px;
+  border-radius: 25px;
   /* opacity: 20%; */
   font-size: 16px;
   font-weight: 700;
