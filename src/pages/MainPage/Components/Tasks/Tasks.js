@@ -19,7 +19,7 @@ const Tasks = (props) => {
       document.querySelector(".PrivateSwitchBase-input").checked
     );
     axios
-      .post("https://httpbin.org/post_task", formData, {
+      .post("http://94.103.90.6:5000/post_task", formData, {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -47,17 +47,17 @@ const Tasks = (props) => {
         return response.text();
       })
       .then((result) => {
-        WorkDataArr = [JSON.parse(result).work[0]];
-        SetWorkData(WorkDataArr);
+        WorkDataArr = [JSON.parse(result).work];
+        SetWorkData(JSON.parse(result).work);
         console.log(WorkDataArr);
       })
       .catch((err) => {
         alert(err);
       });
   };
+
   let ManageDataArr = [];
   const [ManageData, SetManageData] = useState();
-
   const getManageData = () => {
     fetch("http://94.103.90.6:5000/get_task", {
       method: "GET",
@@ -70,9 +70,31 @@ const Tasks = (props) => {
         return response.text();
       })
       .then((result) => {
-        ManageDataArr = [JSON.parse(result).manage[0]];
-        SetManageData(ManageDataArr);
-        console.log(ManageDataArr);
+        ManageDataArr = [JSON.parse(result).manage];
+        SetManageData(JSON.parse(result).manage);
+        console.log(JSON.parse(result).manage);
+        console.log(ManageData);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+
+  const [Workers, SetWorkers] = useState();
+  const getWorkers = () => {
+    fetch("http://94.103.90.6:5000/get_workers", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        token: localStorage.getItem("token"),
+      },
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        SetWorkers(JSON.parse(result)["data"]);
+        console.log(Workers);
       })
       .catch((err) => {
         alert(err);
@@ -81,6 +103,7 @@ const Tasks = (props) => {
   useEffect(() => {
     getWorkData();
     getManageData();
+    getWorkers();
   }, []);
   const [counter, setCounter] = useState("22:22");
   useEffect(() => {
@@ -447,10 +470,18 @@ const Tasks = (props) => {
             <div className="sendData_tasks">
               <div className="sendData_task">
                 <select name="worker" className="autorSelect">
-                  <option value="Исполнитель">Исполнитель</option>
-                  <option value="Исполнитель1">Исполнитель1</option>
+                  {Workers &&
+                    Workers.map((el) => {
+                      const { _id, username } = el;
+                      return (
+                        <option id={_id} value={_id}>
+                          {username}
+                        </option>
+                      );
+                    })}
+                  {/* <option value="Исполнитель1">Исполнитель1</option>
                   <option value="Исполнитель2">Исполнитель2</option>
-                  <option value="Исполнитель3">Исполнитель3</option>
+                  <option value="Исполнитель3">Исполнитель3</option> */}
                 </select>
                 <div className="senData_task_inputsForm">
                   <input
@@ -601,6 +632,7 @@ const Tasks = (props) => {
                 );
               }
             })}
+          {ManageData ? <p className="date">Созданные</p> : ""}
           {ManageData &&
             ManageData.map((block) => {
               const {
@@ -619,7 +651,6 @@ const Tasks = (props) => {
               if (state == 0 || state == 1) {
                 return (
                   <>
-                    <p className="date">Созданные</p>
                     <div className="tasks_page_div">
                       <div className="tasks_div">
                         <p className="tasks_header">{title}</p>
