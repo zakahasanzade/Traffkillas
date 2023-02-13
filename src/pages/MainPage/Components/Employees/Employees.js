@@ -41,7 +41,6 @@ const Employees = () => {
         alert(err);
       });
   }, []);
-  console.log(employee);
   let employeeUsername = document.getElementById("employeeUsername");
   const SubmitDelete = (e) => {
     // e.preventDefault();
@@ -63,8 +62,15 @@ const Employees = () => {
     //     alert(err);
     //   });
   };
+  
+  useEffect(()=>{
+    const ShowCard=(e,index)=>{
+      console.log(e.target)
+      console.log(index)
+    }
+    document.addEventListener("click", ShowCard)
+  })
   useEffect(SubmitDelete, []);
-  console.log(employee);
   return (
     <motion.div
       className="main"
@@ -98,7 +104,7 @@ const Employees = () => {
           <p>Продакшн</p>
         </div>
         {employee &&
-          employee.map((person) => {
+          employee.map((person, index) => {
             const {
               address,
               birth_date,
@@ -119,9 +125,12 @@ const Employees = () => {
             } = person;
             return (
               <div className="wrapper">
-                <button
+                <button id={index}
                   className="button employee_account"
-                  onClick={() => setShow1(!show1)}
+                  onClick={(e) => {
+                    setShow1(!show1);
+                    // ShowCard(e,index)
+                  }}
                 >
                   <div className="employee_account_left">
                     <img src={ProfilePhoto1} alt="ProfilePhoto1"></img>

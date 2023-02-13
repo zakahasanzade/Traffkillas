@@ -12,14 +12,15 @@ import "react-dropzone-uploader/dist/styles.css";
 import Dropzone from "react-dropzone-uploader";
 import { CSSTransition } from "react-transition-group";
 import FormData from "form-data";
+import ReactCardFlip from "react-card-flip";
 import { useRef } from "react";
-
 import "./Market.css";
 import { cookie, image } from "fontawesome";
 
 const Market = () => {
   let AssetsArr = [];
   const [assets, SetAssets] = useState();
+  const [isFlipped, setIsFlipped] = useState(false);
   const getAssets = () => {
     document.cookie = "test=hello;";
     fetch("http://94.103.90.6:5000/get_market", {
@@ -36,6 +37,7 @@ const Market = () => {
       .then((result) => {
         // const getArray = JSON.parse(result)["data"];
         AssetsArr = JSON.parse(result)["data"];
+        setIsFlipped(Array(AssetsArr.length).fill(false));
         SetAssets(AssetsArr);
       })
       .catch((err) => {
@@ -74,11 +76,12 @@ const Market = () => {
     // getAssets();
   }
   const DeletePost = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     fetch("http://94.103.90.6:5000/delete_market", {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
+        token: localStorage.getItem("token"),
       },
       body: JSON.stringify({
         _id: e.target.id,
@@ -92,7 +95,7 @@ const Market = () => {
         alert(err);
       });
 
-    console.log(e.target);
+    console.log("e.target");
     getAssets();
   };
   const headers = new Headers();
@@ -101,6 +104,7 @@ const Market = () => {
   const [SubmitProduct, SetSubmitProduct] = useState();
   const [PoductName, SetProductName] = useState();
   const [PoductId, SetProductId] = useState();
+  const [ProductPrice, SetProductPrice] = useState();
   const [getCode, SetGetCode] = useState();
   const BuyProduct = (e) => {
     fetch("http://94.103.90.6:5000/buy_market", {
@@ -153,22 +157,35 @@ const Market = () => {
   //       alert(err);
   //     });
   // };
-  // specify upload params and url for your files
-  // useEffect(() => {
-  //   const DropzoneElement = document.querySelector(".dzu-input");
-  //   DropzoneElement.setAttribute("name", "Image");
-  //   DropzoneElement.setAttribute("id", "json");
-  //   console.log(DropzoneElement);
-  // });
-  // DropzoneElement.setAttribute("name", "horse");
-  // DropzoneElement.setAttribute('name', 'Image')
+
+  const handleClick = (e, index) => {
+    var temp = isFlipped.map((el, i) => {
+      el = false;
+      if (i == index) {
+        return !el;
+      }
+
+      return el;
+    });
+    setIsFlipped(temp);
+    console.log(isFlipped);
+  };
+  const ReturnCard = () => {
+    var temp = isFlipped.map((el, i) => {
+      el = false;
+      return el;
+    });
+    setIsFlipped(temp);
+  };
   const icon = <i className="fa-solid fa-paperclip"> Закрепить Файл </i>;
-  useEffect(() => {
-    const closeWindow = () => {
-      console.log(document.querySelector(".ProofBuy").taget.value);
-    };
-    document.body.addEventListener("click", closeWindow);
-  }, []);
+  useEffect(()=>{
+    let secund=2645
+    let minute=0
+    let hours=0
+    for(let i=secund;i<60;i=i-60){
+      
+    }
+  },[])
   return (
     <>
       <motion.div
@@ -199,21 +216,10 @@ const Market = () => {
           <div className="market_send_submit">
             <p>
               Изображение товара:{" "}
-              {/* <Dropzone
-              onChangeStatus={handleChangeStatus}
-              accept="image/*"
-              maxFiles="1"
-              inputContent={icon}
-              id="Image"
-              type="file"
-              name="Image"
-            ></Dropzone> */}
               <input
-                // onChangeStatus={handleChangeStatus}
+                className="testinput"
                 accept="image/*"
                 maxfiles="1"
-                inputcontent={icon}
-                id="Image"
                 type="file"
                 name="Image"
               ></input>
@@ -228,34 +234,68 @@ const Market = () => {
         </form>
         <div className="market_products">
           {assets &&
-            assets.map((product) => {
+            assets.map((product, index) => {
               const { name, price, url, _id, content } = product;
               return (
-                <div
-                  className="market_product"
-                  async
-                  onClick={() => {
-                    SetProofProduct(!ProofProduct);
-                    SetProductName(product.name);
-                    SetProductId(product._id);
-                  }}
+                <ReactCardFlip
+                  isFlipped={isFlipped[index]}
+                  flipDirection="horizontal"
                 >
-                  <img src={url} alt={url} id={_id}></img>
-                  <p>{name}</p>
-                  <a>{price} TTK</a>{" "}
-                  <i
-                    className="fa-solid fa-trash-can market_product_delete"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      // DeletePost;
-                    }}
-                  ></i>
-                </div>
+                  <div id={_id} onClick={(e) => handleClick(e, index)}>
+                    <div
+                      className="market_product"
+                      id={_id}
+                      onClick={(e) => {
+                        // BuyElement(e);
+                        SetProofProduct(!ProofProduct);
+                        SetProductName(product.name);
+                        SetProductId(product._id);
+                        SetProductPrice(product.price);
+                      }}
+                    >
+                      <img src={url} alt={url} id={_id}></img>
+                      <p>{name}</p>
+                      <span>{price} TTK</span>{" "}
+                      <i
+                        className="fa-solid fa-trash-can market_product_delete"
+                        id={_id}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          DeletePost(e);
+                        }}
+                      ></i>
+                    </div>
+                  </div>
+
+                  <div
+                    className="ProofBuy"
+                    onClick={(e) => ReturnCard(e, index)}
+                    style={{ width: "240px" }}
+                  >
+                    <p style={{ fontSize: "24px" }}>{PoductName}</p>
+                    <div className="ProofBuy_submit">
+                      <p style={{ fontSize: "20px" }}>Оформление покупки</p>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          BuyProduct();
+                        }}
+                        type="submit"
+                        style={{ fontSize: "16px", color: "red" }}
+                      >
+                        <i class="bi bi-cart-check-fill"></i> -{ProductPrice}
+                      </button>
+                      <p style={{ fontSize: "12px" }}>
+                        550 000 TTK = 500 000 TTK
+                      </p>
+                    </div>
+                  </div>
+                </ReactCardFlip>
               );
             })}
         </div>
       </motion.div>
-      <CSSTransition
+      {/* <CSSTransition
         in={ProofProduct}
         classNames="alert"
         timeout={1000}
@@ -279,8 +319,8 @@ const Market = () => {
             <p style={{ fontSize: "12px" }}>550 000 TTK = 500 000 TTK</p>
           </div>
         </div>
-      </CSSTransition>
-      <CSSTransition
+      </CSSTransition> */}
+      {/* <CSSTransition
         in={SubmitProduct}
         classNames="alert"
         timeout={1000}
@@ -296,7 +336,7 @@ const Market = () => {
             <p style={{ fontSize: "12px" }}>скопируйте код покупки</p>
           </div>
         </div>
-      </CSSTransition>
+      </CSSTransition> */}
     </>
   );
 };

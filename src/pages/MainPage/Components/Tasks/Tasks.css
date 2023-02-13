@@ -1,5 +1,6 @@
 .date {
   color: white;
+  margin-bottom: 10px;
 }
 .tasks {
   gap: 15px;
@@ -195,6 +196,10 @@
   font-weight: 700;
   color: black;
 }
+.tasks_header i {
+  color: red;
+  cursor: pointer;
+}
 .second_task_time {
   font-size: 20px;
   font-weight: 700;
@@ -203,15 +208,16 @@
   align-items: center;
   background-color: #16c784;
   border-radius: 25px;
-  padding: 4px 8px 4px 8px;
+  padding: 4px 4px 4px 8px;
+}
+.second_task_time p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 .second_task_time i {
-  background-color: white;
-  color: #16c784;
-  padding: 5px;
-  font-size: 15px;
-  border-radius: 25px;
-  margin-left: 10px;
+  font-size: 30px;
+  cursor: pointer;
 }
 .tasks_teamlead,
 .task_admin {

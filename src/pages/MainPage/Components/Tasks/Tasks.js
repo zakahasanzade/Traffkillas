@@ -32,6 +32,24 @@ const Tasks = (props) => {
       });
     console.log(formData);
   };
+  const ConfirmAvailableTask = (e) => {
+    console.log();
+    fetch("http://94.103.90.6:5000/confirm_task", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        token: localStorage.getItem("token"),
+      },
+      body: JSON.stringify({ _id: e.target.id }),
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {})
+      .catch((err) => {
+        alert(err);
+      });
+  };
   let WorkDataArr = [];
   const [WorkData, SetWorkData] = useState();
 
@@ -100,6 +118,7 @@ const Tasks = (props) => {
         alert(err);
       });
   };
+
   useEffect(() => {
     getWorkData();
     getManageData();
@@ -112,7 +131,8 @@ const Tasks = (props) => {
     }
   }, [counter]);
   // const [value, onChange] = useState("10:00");
-  const position = props.status;
+  const position = props.position;
+  console.log(props);
   if (position == "3") {
     return (
       <motion.div
@@ -124,6 +144,7 @@ const Tasks = (props) => {
         transition={{ duration: 0.3 }}
       >
         <div className="tasks">
+          <p className="date">В работе</p>
           {WorkData &&
             WorkData.map((block) => {
               const {
@@ -143,7 +164,6 @@ const Tasks = (props) => {
               if (state == 1) {
                 return (
                   <>
-                    <p className="date">В работе</p>
                     <div className="tasks_page_div">
                       <div className="tasks_div">
                         <p className="tasks_header">{title}</p>
@@ -173,11 +193,26 @@ const Tasks = (props) => {
                   </>
                 );
               }
-
+            })}
+          <p className="date">На доработку</p>
+          {WorkData &&
+            WorkData.map((block) => {
+              const {
+                content,
+                feedback,
+                fine,
+                hour,
+                manager,
+                minute,
+                state,
+                title,
+                worker,
+                _id,
+              } = block;
+              const timer = hour + ":" + minute;
               if (state == 3) {
                 return (
                   <>
-                    <p className="date">На доработку</p>
                     <div className="tasks_page_div">
                       <div className="tasks_div">
                         <p className="tasks_header">{title}</p>
@@ -207,10 +242,27 @@ const Tasks = (props) => {
                   </>
                 );
               }
+            })}
+          <p className="date">Доступные</p>
+          {WorkData &&
+            WorkData.map((block) => {
+              const {
+                content,
+                feedback,
+                fine,
+                hour,
+                manager,
+                minute,
+                state,
+                title,
+                worker,
+                _id,
+              } = block;
+              const timer = hour + ":" + minute;
               if (state == 0) {
                 return (
                   <>
-                    <p className="date">Доступные</p>
+                    {console.log(document.querySelector(".date"))}
                     <div className="tasks_page_div">
                       <div className="tasks_div">
                         <p className="tasks_header">{title}</p>
@@ -219,7 +271,14 @@ const Tasks = (props) => {
                             className="second_task_time"
                             style={{ backgroundColor: "red" }}
                           >
-                            <p>{timer}</p>
+                            <p>
+                              {timer}{" "}
+                              <i
+                                id={_id}
+                                className="bi bi-plus-circle-fill"
+                                onClick={(e) => ConfirmAvailableTask(e)}
+                              ></i>
+                            </p>
                           </p>
                           <p
                             className="tasks_footer"
@@ -229,7 +288,7 @@ const Tasks = (props) => {
                           </p>
                         </div>
                       </div>
-                      {feedback ? (
+                      {feedback == "true" ? (
                         <div className="tasks_div_submit">
                           <TextareaAutosize placeholder="Впишите обратную связь..." />
                         </div>
@@ -270,29 +329,34 @@ const Tasks = (props) => {
           >
             <input
               className="sendData_taskTitle"
-              name="Title"
+              name="title"
               placeholder="Название"
             />
             <input
               className="sendData_taskContent"
               placeholder="Описание задания..."
-              name="Description"
+              name="content"
             />
             <hr style={{ opacity: 0.5 }} />
             <div className="sendData_tasks">
               <div className="sendData_task">
-                <select name="pets" className="autorSelect">
-                  <option value="Исполнитель">Исполнитель</option>
-                  <option value="Исполнитель1">Исполнитель1</option>
-                  <option value="Исполнитель2">Исполнитель2</option>
-                  <option value="Исполнитель3">Исполнитель3</option>
+                <select name="worker" className="autorSelect">
+                  {Workers &&
+                    Workers.map((el) => {
+                      const { _id, username } = el;
+                      return (
+                        <option id={_id} value={_id}>
+                          {username}
+                        </option>
+                      );
+                    })}
                 </select>
                 <div className="senData_task_inputsForm">
                   <input
                     type="text"
                     className="firstinput"
                     placeholder="Ч"
-                    name="TimerHours"
+                    name="hour"
                     maxLength="2"
                     onInput={(e) => {
                       e.target.value = e.target.value
@@ -307,7 +371,7 @@ const Tasks = (props) => {
                     className="secondinput"
                     placeholder="М"
                     maxLength="2"
-                    name="TimerMinut"
+                    name="minute"
                     onInput={(e) => {
                       e.target.value = e.target.value
                         .replace(/[^0-9.]/g, "")
@@ -322,7 +386,7 @@ const Tasks = (props) => {
                     type="text"
                     placeholder="Штраф"
                     maxLength="5"
-                    name="Fine"
+                    name="fine"
                     onInput={(e) => {
                       e.target.value = e.target.value
                         .replace(/[^0-9.]/g, "")
@@ -333,7 +397,14 @@ const Tasks = (props) => {
                   MMR
                 </p>
                 <p name="Checked">
-                  Feedback <i className="fa-solid fa-check"></i>
+                  Feedback{" "}
+                  <Checkbox
+                    size="small"
+                    className="feedback"
+                    onChange={(e) => {
+                      console.log(e.target.checked);
+                    }}
+                  />
                 </p>
               </div>
               <div className="sendData_submit">
@@ -346,6 +417,7 @@ const Tasks = (props) => {
               </div>
             </div>
           </form>
+          <p className="date">Созданные</p>
           {ManageData &&
             ManageData.map((block) => {
               const {
@@ -364,7 +436,59 @@ const Tasks = (props) => {
               if (state == 0 || state == 1) {
                 return (
                   <>
-                    <p className="date">Созданные</p>
+                    <div className="tasks_page_div">
+                      <div className="tasks_div">
+                        <p className="tasks_header">
+                          {title} <i className="bi bi-trash3-fill"></i>
+                        </p>
+                        <div>
+                          <p
+                            className="second_task_time"
+                            style={{ backgroundColor: "red" }}
+                          >
+                            <p>
+                              {timer} <i className="bi bi-hourglass-split"></i>
+                            </p>
+                          </p>
+                          <p
+                            className="tasks_footer"
+                            style={{ color: "#EA9127" }}
+                          >
+                            -{fine} MMR
+                          </p>
+                        </div>
+                      </div>
+                      {feedback ? (
+                        <div className="tasks_content">
+                          <p>{content}</p>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  </>
+                );
+              }
+            })}
+          <p className="date">Выполенные</p>
+          {ManageData &&
+            ManageData.map((block) => {
+              const {
+                content,
+                feedback,
+                fine,
+                hour,
+                manager,
+                minute,
+                state,
+                title,
+                worker,
+                _id,
+              } = block;
+              const timer = hour + ":" + minute;
+              if (state == 2) {
+                return (
+                  <>
                     <div className="tasks_page_div">
                       <div className="tasks_div">
                         <p className="tasks_header">{title}</p>
@@ -394,10 +518,26 @@ const Tasks = (props) => {
                   </>
                 );
               }
-              if (state == 2) {
+            })}
+          <p className="date">Доступные</p>
+          {WorkData &&
+            WorkData.map((block) => {
+              const {
+                content,
+                feedback,
+                fine,
+                hour,
+                manager,
+                minute,
+                state,
+                title,
+                worker,
+                _id,
+              } = block;
+              const timer = hour + ":" + minute;
+              if (state == 0) {
                 return (
                   <>
-                    <p className="date">Выполенные</p>
                     <div className="tasks_page_div">
                       <div className="tasks_div">
                         <p className="tasks_header">{title}</p>
@@ -406,7 +546,14 @@ const Tasks = (props) => {
                             className="second_task_time"
                             style={{ backgroundColor: "red" }}
                           >
-                            <p>{timer}</p>
+                            <p>
+                              {timer}{" "}
+                              <i
+                                id={_id}
+                                className="bi bi-plus-circle-fill"
+                                onClick={(e) => ConfirmAvailableTask(e)}
+                              ></i>
+                            </p>
                           </p>
                           <p
                             className="tasks_footer"
@@ -479,9 +626,6 @@ const Tasks = (props) => {
                         </option>
                       );
                     })}
-                  {/* <option value="Исполнитель1">Исполнитель1</option>
-                  <option value="Исполнитель2">Исполнитель2</option>
-                  <option value="Исполнитель3">Исполнитель3</option> */}
                 </select>
                 <div className="senData_task_inputsForm">
                   <input
@@ -549,6 +693,7 @@ const Tasks = (props) => {
               </div>
             </div>
           </form>
+          <p className="date">Мои задания</p>
           {WorkData &&
             WorkData.map((block) => {
               const {
@@ -567,41 +712,6 @@ const Tasks = (props) => {
               if (state == 1) {
                 return (
                   <>
-                    <p className="date">Мои задания</p>
-                    <div className="tasks_page_div">
-                      <div className="tasks_div">
-                        <p className="tasks_header">{title}</p>
-                        <div>
-                          <p
-                            className="second_task_time"
-                            style={{ backgroundColor: "red" }}
-                          >
-                            <p>{timer}</p>
-                          </p>
-                          <p
-                            className="tasks_footer"
-                            style={{ color: "#EA9127" }}
-                          >
-                            -{fine} MMR
-                          </p>
-                        </div>
-                      </div>
-                      {feedback ? (
-                        <div className="tasks_content">
-                          <p>{content}</p>
-                        </div>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  </>
-                );
-              }
-
-              if (state == 3) {
-                return (
-                  <>
-                    <p className="date">На доработку</p>
                     <div className="tasks_page_div">
                       <div className="tasks_div">
                         <p className="tasks_header">{title}</p>
@@ -632,9 +742,9 @@ const Tasks = (props) => {
                 );
               }
             })}
-          {ManageData ? <p className="date">Созданные</p> : ""}
-          {ManageData &&
-            ManageData.map((block) => {
+          <p className="date">На доработку</p>
+          {WorkData &&
+            WorkData.map((block) => {
               const {
                 content,
                 feedback,
@@ -648,7 +758,7 @@ const Tasks = (props) => {
                 _id,
               } = block;
               const timer = hour + ":" + minute;
-              if (state == 0 || state == 1) {
+              if (state == 3) {
                 return (
                   <>
                     <div className="tasks_page_div">
@@ -680,10 +790,79 @@ const Tasks = (props) => {
                   </>
                 );
               }
+            })}
+          <p className="date">Созданные</p>
+          {ManageData &&
+            ManageData.map((block) => {
+              const {
+                content,
+                feedback,
+                fine,
+                hour,
+                manager,
+                minute,
+                state,
+                title,
+                worker,
+                _id,
+              } = block;
+              const timer = hour + ":" + minute;
+              if (state == 0 || state == 1) {
+                return (
+                  <>
+                    <div className="tasks_page_div">
+                      <div className="tasks_div">
+                        <p className="tasks_header">
+                          {title} <i className="bi bi-trash3-fill"></i>
+                        </p>
+                        <div>
+                          <p
+                            className="second_task_time"
+                            style={{ backgroundColor: "red" }}
+                          >
+                            <p>
+                              {timer} <i className="bi bi-hourglass-split"></i>
+                            </p>
+                          </p>
+                          <p
+                            className="tasks_footer"
+                            style={{ color: "#EA9127" }}
+                          >
+                            -{fine} MMR
+                          </p>
+                        </div>
+                      </div>
+                      {feedback ? (
+                        <div className="tasks_content">
+                          <p>{content}</p>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  </>
+                );
+              }
+            })}
+          <p className="date">Выполенные</p>
+          {ManageData &&
+            ManageData.map((block) => {
+              const {
+                content,
+                feedback,
+                fine,
+                hour,
+                manager,
+                minute,
+                state,
+                title,
+                worker,
+                _id,
+              } = block;
+              const timer = hour + ":" + minute;
               if (state == 2) {
                 return (
                   <>
-                    <p className="date">Выполенные</p>
                     <div className="tasks_page_div">
                       <div className="tasks_div">
                         <p className="tasks_header">{title}</p>

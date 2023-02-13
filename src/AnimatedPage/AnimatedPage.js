@@ -25,36 +25,36 @@ const AnimatedPage = () => {
   //   .then((result) => {
   //     console.log(result)
   //   });
-  const status = localStorage.status;
+  const position = localStorage.position;
   const location = useLocation();
 
   return (
     <AnimatePresence exitBeforeEnter>
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Authorization status={status} />}></Route>
-        <Route path="/MainPage/" element={<MainPage status={status} />}></Route>
-        <Route path="/MainPage/Profile" element={<Profile status={status} />} />
-        <Route path="/MainPage/" element={<MainPage status={status} />}>
+        <Route path="/" element={<Authorization position={position} />}></Route>
+        <Route path="/MainPage/" element={<MainPage position={position} />}></Route>
+        <Route path="/MainPage/Profile" element={<Profile position={position} />} />
+        <Route path="/MainPage/" element={<MainPage position={position} />}>
           {/* <Route path="/" element={<UserPage />} />
           <Route path="/SecondPage" element={<SecondPage />} /> */}
-          <Route index element={<News status={status} />} />
-          <Route path="/MainPage/Tasks" element={<Tasks status={status} />} />
+          <Route index element={<News position={position} />} />
+          <Route path="/MainPage/Tasks" element={<Tasks position={position} />} />
           <Route
             path="/MainPage/Statistics"
-            element={<Statistics status={status} />}
+            element={<Statistics position={position} />}
           />
           <Route
             path="/MainPage/ProjectLeaderboard"
-            element={<ProjectLeaderboard status={status} />}
+            element={<ProjectLeaderboard position={position} />}
           />
-          <Route path="/MainPage/Market" element={<Market status={status} />} />
+          <Route path="/MainPage/Market" element={<Market position={position} />} />
           <Route
             path="/MainPage/Instruments"
-            element={<Instruments status={status} />}
+            element={<Instruments position={position} />}
           />
           <Route
             path="/MainPage/Employees"
-            element={<Employees status={status} />}
+            element={<Employees position={position} />}
           />
         </Route>
       </Routes>
