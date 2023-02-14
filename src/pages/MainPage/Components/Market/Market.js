@@ -178,14 +178,7 @@ const Market = () => {
     setIsFlipped(temp);
   };
   const icon = <i className="fa-solid fa-paperclip"> Закрепить Файл </i>;
-  useEffect(()=>{
-    let secund=2645
-    let minute=0
-    let hours=0
-    for(let i=secund;i<60;i=i-60){
-      
-    }
-  },[])
+  
   return (
     <>
       <motion.div

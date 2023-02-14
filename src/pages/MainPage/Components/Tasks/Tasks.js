@@ -4,9 +4,12 @@ import TextareaAutosize from "react-textarea-autosize";
 import { motion } from "framer-motion/dist/framer-motion";
 import FormData from "form-data";
 import axios from "axios";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 // import { Checkmark } from "react-checkmark";
 import Checkbox from "@mui/material/Checkbox";
 import "./Tasks.css";
+import { width } from "@mui/system";
 
 const Tasks = (props) => {
   const sendTask = (e) => {
@@ -33,8 +36,58 @@ const Tasks = (props) => {
     console.log(formData);
   };
   const ConfirmAvailableTask = (e) => {
-    console.log();
     fetch("http://94.103.90.6:5000/confirm_task", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        token: localStorage.getItem("token"),
+      },
+      body: JSON.stringify({ _id: e.target.id }),
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {})
+      .catch((err) => {
+        alert(err);
+      });
+  };
+  const CompleteInProcessTask = (e) => {
+    fetch("http://94.103.90.6:5000/complate_task", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        token: localStorage.getItem("token"),
+      },
+      body: JSON.stringify({ _id: e.target.id }),
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {})
+      .catch((err) => {
+        alert(err);
+      });
+  };
+  const ReopenCompleteTask = (e) => {
+    fetch("http://94.103.90.6:5000/reopen_task", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        token: localStorage.getItem("token"),
+      },
+      body: JSON.stringify({ _id: e.target.id }),
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {})
+      .catch((err) => {
+        alert(err);
+      });
+  };
+  const FinishInProcessTask = (e) => {
+    fetch("http://94.103.90.6:5000/finish_task", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -124,13 +177,47 @@ const Tasks = (props) => {
     getManageData();
     getWorkers();
   }, []);
-  const [counter, setCounter] = useState("22:22");
-  useEffect(() => {
-    if (counter > 0) {
-      setTimeout(() => setCounter(counter - 1), 1000);
-    }
-  }, [counter]);
-  // const [value, onChange] = useState("10:00");
+  const [CalendarValue, ChangeCalendar] = useState(new Date());
+
+  const GetCalendarData = () => {
+    var Date = CalendarValue.toDateString().slice(4);
+    console.log(Date);
+  };
+
+  // useEffect(() => {
+  //   // Set the date we're counting down to
+  //   var countDownDate = new Date("Mar 11 2023 22:30").getTime();
+
+  //   // Update the count down every 1 second
+  //   var x = setInterval(function () {
+  //     // Get today's date and time
+  //     var now = new Date().getTime();
+
+  //     // Find the distance between now and the count down date
+  //     var distance = countDownDate - now;
+
+  //     // If the count down is over, write some text
+  //     if (distance < 0) {
+  //       clearInterval(x);
+  //       console.log("EXPIRED");
+  //     }
+
+  //     // Time calculations for days, hours, minutes and seconds
+  //     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  //     var hours = Math.floor(
+  //       (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  //     );
+  //     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  //     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  //     // Output the result in an element with id="demo"
+  //     document.querySelector(".timer").innerHTML =
+  //       (days != 0 ? days + "д " : "") +
+  //       (hours != 0 ? hours + "ч " : "") +
+  //       (minutes != 0 ? minutes + "м " : "") +
+  //       (seconds != 0 ? seconds + "с " : "");
+  //   }, 1000);
+  // }, []);
   const position = props.position;
   console.log(props);
   if (position == "3") {
@@ -160,7 +247,6 @@ const Tasks = (props) => {
                 _id,
               } = block;
               const timer = hour + ":" + minute;
-              console.log(counter);
               if (state == 1) {
                 return (
                   <>
@@ -172,7 +258,12 @@ const Tasks = (props) => {
                             className="second_task_time"
                             style={{ backgroundColor: "red" }}
                           >
-                            <p>{timer}</p>
+                            <p className="timer">{timer}</p>
+                            <i
+                              id={_id}
+                              class="bi bi-check-circle-fill"
+                              onClick={(e) => CompleteInProcessTask(e)}
+                            ></i>
                           </p>
                           <p
                             className="tasks_footer"
@@ -219,9 +310,14 @@ const Tasks = (props) => {
                         <div>
                           <p
                             className="second_task_time"
-                            style={{ backgroundColor: "red" }}
+                            style={{ backgroundColor: "black" }}
                           >
-                            <p>{timer}</p>
+                            <p className="timer">{timer}</p>
+                            <i
+                              id={_id}
+                              class="bi bi-check-circle-fill"
+                              onClick={(e) => ConfirmAvailableTask(e)}
+                            ></i>
                           </p>
                           <p
                             className="tasks_footer"
@@ -271,7 +367,7 @@ const Tasks = (props) => {
                             className="second_task_time"
                             style={{ backgroundColor: "red" }}
                           >
-                            <p>
+                            <p className="timer">
                               {timer}{" "}
                               <i
                                 id={_id}
@@ -339,73 +435,88 @@ const Tasks = (props) => {
             />
             <hr style={{ opacity: 0.5 }} />
             <div className="sendData_tasks">
-              <div className="sendData_task">
-                <select name="worker" className="autorSelect">
-                  {Workers &&
-                    Workers.map((el) => {
-                      const { _id, username } = el;
-                      return (
-                        <option id={_id} value={_id}>
-                          {username}
-                        </option>
-                      );
-                    })}
-                </select>
-                <div className="senData_task_inputsForm">
-                  <input
-                    type="text"
-                    className="firstinput"
-                    placeholder="Ч"
-                    name="hour"
-                    maxLength="2"
-                    onInput={(e) => {
-                      e.target.value = e.target.value
-                        .replace(/[^0-9.]/g, "")
-                        .replace(/(\..*)\./g, "$1")
-                        .slice(0, 11);
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "20px",
+                }}
+              >
+                <div className="sendData_task">
+                  <select name="worker" className="autorSelect">
+                    {Workers &&
+                      Workers.map((el) => {
+                        const { _id, username } = el;
+                        return (
+                          <option id={_id} value={_id}>
+                            {username}
+                          </option>
+                        );
+                      })}
+                  </select>
+                  <div className="senData_task_inputsForm">
+                    <input
+                      type="text"
+                      className="firstinput"
+                      placeholder="Ч"
+                      name="hour"
+                      maxLength="2"
+                      onInput={(e) => {
+                        e.target.value = e.target.value
+                          .replace(/[^0-9.]/g, "")
+                          .replace(/(\..*)\./g, "$1")
+                          .slice(0, 11);
+                      }}
+                    />
+                    :
+                    <input
+                      type="text"
+                      className="secondinput"
+                      placeholder="М"
+                      maxLength="2"
+                      name="minute"
+                      onInput={(e) => {
+                        e.target.value = e.target.value
+                          .replace(/[^0-9.]/g, "")
+                          .replace(/(\..*)\./g, "$1")
+                          .slice(0, 11);
+                      }}
+                    />
+                  </div>
+
+                  <p
+                    className="SendData_fine"
+                    onClick={() => {
+                      GetCalendarData();
                     }}
-                  />
-                  :
-                  <input
-                    type="text"
-                    className="secondinput"
-                    placeholder="М"
-                    maxLength="2"
-                    name="minute"
-                    onInput={(e) => {
-                      e.target.value = e.target.value
-                        .replace(/[^0-9.]/g, "")
-                        .replace(/(\..*)\./g, "$1")
-                        .slice(0, 11);
-                    }}
-                  />
+                  >
+                    -{" "}
+                    <input
+                      type="text"
+                      placeholder="Штраф"
+                      maxLength="5"
+                      name="fine"
+                      onInput={(e) => {
+                        e.target.value = e.target.value
+                          .replace(/[^0-9.]/g, "")
+                          .replace(/(\..*)\./g, "$1")
+                          .slice(0, 11);
+                      }}
+                    />{" "}
+                    MMR
+                  </p>
+                  <p name="Checked">
+                    Feedback{" "}
+                    <Checkbox
+                      size="small"
+                      className="feedback"
+                      onChange={(e) => {
+                        console.log(e.target.checked);
+                      }}
+                    />
+                  </p>
                 </div>
-                <p className="SendData_fine">
-                  -{" "}
-                  <input
-                    type="text"
-                    placeholder="Штраф"
-                    maxLength="5"
-                    name="fine"
-                    onInput={(e) => {
-                      e.target.value = e.target.value
-                        .replace(/[^0-9.]/g, "")
-                        .replace(/(\..*)\./g, "$1")
-                        .slice(0, 11);
-                    }}
-                  />{" "}
-                  MMR
-                </p>
-                <p name="Checked">
-                  Feedback{" "}
-                  <Checkbox
-                    size="small"
-                    className="feedback"
-                    onChange={(e) => {
-                      console.log(e.target.checked);
-                    }}
-                  />
-                </p>
+                <Calendar onChange={ChangeCalendar} value={CalendarValue} />
               </div>
               <div className="sendData_submit">
                 <button
@@ -417,6 +528,114 @@ const Tasks = (props) => {
               </div>
             </div>
           </form>
+          <p className="date">Мои задания</p>
+          {WorkData &&
+            WorkData.map((block) => {
+              const {
+                content,
+                feedback,
+                fine,
+                hour,
+                manager,
+                minute,
+                state,
+                title,
+                worker,
+                _id,
+              } = block;
+              const timer = hour + ":" + minute;
+              if (state == 1) {
+                return (
+                  <>
+                    <div className="tasks_page_div">
+                      <div className="tasks_div">
+                        <p className="tasks_header">{title}</p>
+                        <div>
+                          <p
+                            className="second_task_time"
+                            style={{ backgroundColor: "red" }}
+                          >
+                            <p className="timer">{timer}</p>
+                            <i
+                              id={_id}
+                              class="bi bi-check-circle-fill"
+                              onClick={(e) => CompleteInProcessTask(e)}
+                            ></i>
+                          </p>
+                          <p
+                            className="tasks_footer"
+                            style={{ color: "#EA9127" }}
+                          >
+                            -{fine} MMR
+                          </p>
+                        </div>
+                      </div>
+                      {feedback ? (
+                        <div className="tasks_content">
+                          <p>{content}</p>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  </>
+                );
+              }
+            })}
+          <p className="date">На доработку</p>
+          {WorkData &&
+            WorkData.map((block) => {
+              const {
+                content,
+                feedback,
+                fine,
+                hour,
+                manager,
+                minute,
+                state,
+                title,
+                worker,
+                _id,
+              } = block;
+              const timer = hour + ":" + minute;
+              if (state == 3) {
+                return (
+                  <>
+                    <div className="tasks_page_div">
+                      <div className="tasks_div">
+                        <p className="tasks_header">{title}</p>
+                        <div>
+                          <p
+                            className="second_task_time"
+                            style={{ backgroundColor: "black" }}
+                          >
+                            <p className="timer">{timer}</p>
+                            <i
+                              id={_id}
+                              class="bi bi-check-circle-fill"
+                              onClick={(e) => ConfirmAvailableTask(e)}
+                            ></i>
+                          </p>
+                          <p
+                            className="tasks_footer"
+                            style={{ color: "#EA9127" }}
+                          >
+                            -{fine} MMR
+                          </p>
+                        </div>
+                      </div>
+                      {feedback ? (
+                        <div className="tasks_content">
+                          <p>{content}</p>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  </>
+                );
+              }
+            })}
           <p className="date">Созданные</p>
           {ManageData &&
             ManageData.map((block) => {
@@ -446,9 +665,8 @@ const Tasks = (props) => {
                             className="second_task_time"
                             style={{ backgroundColor: "red" }}
                           >
-                            <p>
-                              {timer} <i className="bi bi-hourglass-split"></i>
-                            </p>
+                            <p className="timer">{timer} </p>
+                            <i className="bi bi-hourglass-split"></i>
                           </p>
                           <p
                             className="tasks_footer"
@@ -491,19 +709,41 @@ const Tasks = (props) => {
                   <>
                     <div className="tasks_page_div">
                       <div className="tasks_div">
-                        <p className="tasks_header">{title}</p>
-                        <div>
+                        <div className="tasks_div_complete">
+                          <p className="tasks_header">{title}</p>
                           <p
                             className="second_task_time"
                             style={{ backgroundColor: "red" }}
                           >
-                            <p>{timer}</p>
+                            <p className="timer">{timer}</p>
+                          </p>
+                          <i
+                            className="bi bi-trash3-fill"
+                            style={{ color: "red" }}
+                          ></i>
+                        </div>
+                        <div className="tasks_div_complete_submit">
+                          <p
+                            className="second_task_time"
+                            style={{ backgroundColor: "#EA9127" }}
+                          >
+                            <p className="timer">Доработать </p>
+                            <i
+                              class="bi bi-exclamation-circle-fill"
+                              id={_id}
+                              onClick={(e) => ReopenCompleteTask(e)}
+                            ></i>
                           </p>
                           <p
-                            className="tasks_footer"
-                            style={{ color: "#EA9127" }}
+                            className="second_task_time"
+                            style={{ backgroundColor: "#16C784" }}
                           >
-                            -{fine} MMR
+                            <p className="timer">Принять </p>
+                            <i
+                              id={_id}
+                              class="bi bi-check-circle-fill"
+                              onClick={(e) => FinishInProcessTask(e)}
+                            ></i>
                           </p>
                         </div>
                       </div>
@@ -546,7 +786,7 @@ const Tasks = (props) => {
                             className="second_task_time"
                             style={{ backgroundColor: "red" }}
                           >
-                            <p>
+                            <p className="timer">
                               {timer}{" "}
                               <i
                                 id={_id}
@@ -615,73 +855,88 @@ const Tasks = (props) => {
             />
             <hr style={{ opacity: 0.5 }} />
             <div className="sendData_tasks">
-              <div className="sendData_task">
-                <select name="worker" className="autorSelect">
-                  {Workers &&
-                    Workers.map((el) => {
-                      const { _id, username } = el;
-                      return (
-                        <option id={_id} value={_id}>
-                          {username}
-                        </option>
-                      );
-                    })}
-                </select>
-                <div className="senData_task_inputsForm">
-                  <input
-                    type="text"
-                    className="firstinput"
-                    placeholder="Ч"
-                    name="hour"
-                    maxLength="2"
-                    onInput={(e) => {
-                      e.target.value = e.target.value
-                        .replace(/[^0-9.]/g, "")
-                        .replace(/(\..*)\./g, "$1")
-                        .slice(0, 11);
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "20px",
+                }}
+              >
+                <div className="sendData_task">
+                  <select name="worker" className="autorSelect">
+                    {Workers &&
+                      Workers.map((el) => {
+                        const { _id, username } = el;
+                        return (
+                          <option id={_id} value={_id}>
+                            {username}
+                          </option>
+                        );
+                      })}
+                  </select>
+                  <div className="senData_task_inputsForm">
+                    <input
+                      type="text"
+                      className="firstinput"
+                      placeholder="Ч"
+                      name="hour"
+                      maxLength="2"
+                      onInput={(e) => {
+                        e.target.value = e.target.value
+                          .replace(/[^0-9.]/g, "")
+                          .replace(/(\..*)\./g, "$1")
+                          .slice(0, 11);
+                      }}
+                    />
+                    :
+                    <input
+                      type="text"
+                      className="secondinput"
+                      placeholder="М"
+                      maxLength="2"
+                      name="minute"
+                      onInput={(e) => {
+                        e.target.value = e.target.value
+                          .replace(/[^0-9.]/g, "")
+                          .replace(/(\..*)\./g, "$1")
+                          .slice(0, 11);
+                      }}
+                    />
+                  </div>
+
+                  <p
+                    className="SendData_fine"
+                    onClick={() => {
+                      GetCalendarData();
                     }}
-                  />
-                  :
-                  <input
-                    type="text"
-                    className="secondinput"
-                    placeholder="М"
-                    maxLength="2"
-                    name="minute"
-                    onInput={(e) => {
-                      e.target.value = e.target.value
-                        .replace(/[^0-9.]/g, "")
-                        .replace(/(\..*)\./g, "$1")
-                        .slice(0, 11);
-                    }}
-                  />
+                  >
+                    -{" "}
+                    <input
+                      type="text"
+                      placeholder="Штраф"
+                      maxLength="5"
+                      name="fine"
+                      onInput={(e) => {
+                        e.target.value = e.target.value
+                          .replace(/[^0-9.]/g, "")
+                          .replace(/(\..*)\./g, "$1")
+                          .slice(0, 11);
+                      }}
+                    />{" "}
+                    MMR
+                  </p>
+                  <p name="Checked">
+                    Feedback{" "}
+                    <Checkbox
+                      size="small"
+                      className="feedback"
+                      onChange={(e) => {
+                        console.log(e.target.checked);
+                      }}
+                    />
+                  </p>
                 </div>
-                <p className="SendData_fine">
-                  -{" "}
-                  <input
-                    type="text"
-                    placeholder="Штраф"
-                    maxLength="5"
-                    name="fine"
-                    onInput={(e) => {
-                      e.target.value = e.target.value
-                        .replace(/[^0-9.]/g, "")
-                        .replace(/(\..*)\./g, "$1")
-                        .slice(0, 11);
-                    }}
-                  />{" "}
-                  MMR
-                </p>
-                <p name="Checked">
-                  Feedback{" "}
-                  <Checkbox
-                    size="small"
-                    className="feedback"
-                    onChange={(e) => {
-                      console.log(e.target.checked);
-                    }}
-                  />
-                </p>
+                <Calendar onChange={ChangeCalendar} value={CalendarValue} />
               </div>
               <div className="sendData_submit">
                 <button
@@ -720,7 +975,10 @@ const Tasks = (props) => {
                             className="second_task_time"
                             style={{ backgroundColor: "red" }}
                           >
-                            <p>{timer}</p>
+                            <p className="timer">
+                              {timer}
+                              {/* {timer} */}
+                            </p>
                           </p>
                           <p
                             className="tasks_footer"
@@ -769,7 +1027,7 @@ const Tasks = (props) => {
                             className="second_task_time"
                             style={{ backgroundColor: "red" }}
                           >
-                            <p>{timer}</p>
+                            <p className="timer">{timer}</p>
                           </p>
                           <p
                             className="tasks_footer"
@@ -820,9 +1078,8 @@ const Tasks = (props) => {
                             className="second_task_time"
                             style={{ backgroundColor: "red" }}
                           >
-                            <p>
-                              {timer} <i className="bi bi-hourglass-split"></i>
-                            </p>
+                            <p className="timer">{timer} </p>
+                            <i className="bi bi-hourglass-split"></i>
                           </p>
                           <p
                             className="tasks_footer"
@@ -865,19 +1122,41 @@ const Tasks = (props) => {
                   <>
                     <div className="tasks_page_div">
                       <div className="tasks_div">
-                        <p className="tasks_header">{title}</p>
-                        <div>
+                        <div className="tasks_div_complete">
+                          <p className="tasks_header">{title}</p>
                           <p
                             className="second_task_time"
                             style={{ backgroundColor: "red" }}
                           >
-                            <p>{timer}</p>
+                            <p className="timer">{timer}</p>
+                          </p>
+                          <i
+                            className="bi bi-trash3-fill"
+                            style={{ color: "red" }}
+                          ></i>
+                        </div>
+                        <div className="tasks_div_complete_submit">
+                          <p
+                            className="second_task_time"
+                            style={{ backgroundColor: "#EA9127" }}
+                          >
+                            <p className="timer">Доработать </p>
+                            <i
+                              class="bi bi-exclamation-circle-fill"
+                              id={_id}
+                              onClick={(e) => ReopenCompleteTask(e)}
+                            ></i>
                           </p>
                           <p
-                            className="tasks_footer"
-                            style={{ color: "#EA9127" }}
+                            className="second_task_time"
+                            style={{ backgroundColor: "#16C784" }}
                           >
-                            -{fine} MMR
+                            <p className="timer">Принять </p>
+                            <i
+                              id={_id}
+                              class="bi bi-check-circle-fill"
+                              onClick={(e) => FinishInProcessTask(e)}
+                            ></i>
                           </p>
                         </div>
                       </div>

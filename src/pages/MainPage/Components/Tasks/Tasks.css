@@ -1,3 +1,6 @@
+hr {
+  margin: 0;
+}
 .date {
   color: white;
   margin-bottom: 10px;
@@ -20,6 +23,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.tasks_div_complete {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.tasks_div_complete i {
+  color: red;
+  cursor: pointer;
+  font-size: 24px;
+}
+.tasks_div_complete_submit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 .task_div img {
   width: 30px;
@@ -169,6 +187,7 @@
 }
 .sendData_task {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   font-size: 16px;
   gap: 20px;
@@ -206,9 +225,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 10px;
   background-color: #16c784;
   border-radius: 25px;
-  padding: 4px 4px 4px 8px;
+  padding: 4px 8px 4px 8px;
 }
 .second_task_time p {
   display: flex;
@@ -262,4 +282,25 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 55px;
   font-size: 16px;
   font-weight: 700;
+}
+.react-calendar {
+  border-radius: 25px;
+  border: 0;
+  width: 250px;
+  font-size: 17px;
+  height: 100%;
+}
+.react-calendar__month-view__weekdays {
+  display: none !important;
+}
+.react-calendar__navigation {
+  margin-bottom: 5px;
+}
+.react-calendar__tile {
+  padding: 2px 0;
+  line-height: 15px;
+}
+
+.react-calendar__viewContainer {
+  margin-bottom: 5px;
 }
