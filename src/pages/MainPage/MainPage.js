@@ -5,20 +5,14 @@ import Header from "./Components/Header/Header";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import { useNavigate } from "react-router-dom";
+import { windows } from "fontawesome";
 
 const MainPage = () => {
-  // document.cookie = localStorage.getItem("token");
-  const [dropdownMenu, SetDropdownMenu] = useState(false);
-  const navigate = useNavigate();
-  // useEffect(() => {
-  //   const closeDropdown = (e) => {
-  //     if (e.srcElement.className !== "navbar_dropdown_li") {
-  //       document.querySelector(".dropdown").className = "";
-  //       console.log("AAA");
-  //     }
-  //   };
-  //   document.body.addEventListener("click", closeDropdown);
-  // }, []);
+  let isLeaderboard = useMatch({
+    path: "/MainPage/ProjectLeaderboard",
+    end: true,
+  });
+  const [dropdown, setDropdown] = useState(isLeaderboard);
   return (
     <>
       <div className="main_header">{<Header />}</div>
@@ -31,8 +25,7 @@ const MainPage = () => {
             <CustomLink
               to="/MainPage/ProjectLeaderboard"
               onClick={(e) => {
-                SetDropdownMenu(!dropdownMenu);
-                e.stopPropagation();
+                setDropdown(!dropdown);
               }}
             >
               Лидерборд
@@ -42,8 +35,8 @@ const MainPage = () => {
             <CustomLink to="/MainPage/Employees">Соотрудники</CustomLink>
           </ul>
         </nav>
+        {dropdown ? <p>Hello world</p> : ""}
       </div>
-      {dropdownMenu ? <p>Hello</p> : ""}
       <Outlet />
     </>
   );

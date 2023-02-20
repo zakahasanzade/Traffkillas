@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Header.css";
 import MainLogo from "../../../../assets/MainLogo.svg";
 import LightMode from "../../../../assets/LightMode.svg";
@@ -18,9 +18,31 @@ const Header = () => {
   };
 
   const [show, setShow] = useState(false);
+  const [HeaderData, SetHeaderData] = useState();
+  const getHeaderData = () => {
+    let x = null;
+    fetch("http://94.103.90.6:5000/get_profile_info", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        token: localStorage.getItem("token"),
+      },
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        x = JSON.parse(result)["data"];
+        SetHeaderData(x);
+        console.log(x)
+      });
+  };
+  useEffect(() => {
+    getHeaderData();
+  }, []);
 
   return (
-    <div className="header" >
+    <div className="header">
       <div className="header_logo">
         <img src={MainLogo} alt="MainLogo" />
       </div>
@@ -43,13 +65,13 @@ const Header = () => {
         >
           <ul className="profile_button_info" id="time">
             <li className="profile_button_info_li">
-              <p className="red">₸ 1 200 000</p>
+              <p className="red">₸ {HeaderData?.tenge} </p>
             </li>
             <li className="profile_button_info_li">
-              <p>600MMR</p>
+              <p>{HeaderData?.mmr}MMR</p>
             </li>
             <li className="profile_button_info_li">
-              <p className="orange">54TTK</p>
+              <p className="orange">{HeaderData?.ttk}TTK</p>
             </li>
           </ul>
         </CSSTransition>

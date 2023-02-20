@@ -52,6 +52,22 @@ hr {
   padding: 16px;
   padding-top: 0;
 }
+.tasks_content textarea {
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 8px 12px;
+  overflow: hidden;
+  border-radius: 25px;
+  background-color: #ebedf0;
+  resize: none;
+  border: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
 .tasks_content p {
   background-color: #ebedf0;
   padding: 8px 12px;
@@ -119,20 +135,15 @@ hr {
   background-color: #141414;
   border: 0;
   color: white;
-  opacity: 0.5;
   font-size: 32px;
   outline: none;
   margin-bottom: 5px;
 }
 
-/* .menu {
-  animation: fadeIn 0.2s ease-in-out;
-} */
 .sendData_taskContent {
   background-color: #141414;
   border: 0;
   color: white;
-  opacity: 0.2;
   font-size: 20px;
   /* overflow: hidden; */
   border: 0;
@@ -147,25 +158,14 @@ hr {
   font-size: 16px;
   font-weight: 700;
 }
-.sendData_task p:nth-child(2) {
-  background-color: white;
-  color: black;
-  padding: 4px;
-  border-radius: 15px;
-}
+
 .sendData_task p:nth-child(3) {
   background-color: red;
   color: black;
   padding: 4px 8px;
   border-radius: 15px;
 }
-/* .sendData_task i {
-  background-color: white;
-  color: black;
-  border-radius: 25px;
-  padding: 2px;
-  font-size: 13px;
-} */
+
 .sendData_submit button {
   border-radius: 25px;
   background-color: #0f82f5;
@@ -253,7 +253,7 @@ hr {
   height: max-content;
 }
 .senData_task_inputsForm {
-  display: flex;
+  margin-top: 10px;
 }
 .senData_task_inputsForm input {
   width: 24px;
@@ -273,15 +273,48 @@ input[type="number"]::-webkit-outer-spin-button {
 .SendData_fine {
   color: white !important;
 }
+.Tasks_fine {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white !important;
+  margin-top: 10px;
+  position: relative;
+}
+.Tasks_fine_checkbox {
+  margin-top: 10px;
+}
+.SendData_fine_currency {
+  background-color: red !important;
+  cursor: pointer;
+}
+.SendData_fine_currency_dropdown {
+  z-index: 1;
+  position: absolute;
+  top: 40px;
+  left: 61.5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: red;
+  border-radius: 25px;
+  padding: 8px 12px;
+}
+.SendData_fine_currency_dropdown li {
+  cursor: pointer;
+}
 .SendData_fine input {
   color: white;
   background-color: red;
   border: 0;
+  border-radius: 25px;
+  padding: 4px 8px;
   outline: none;
   text-align: center;
   width: 55px;
   font-size: 16px;
   font-weight: 700;
+  min-width: 70px;
 }
 .react-calendar {
   border-radius: 25px;
@@ -289,6 +322,7 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 250px;
   font-size: 17px;
   height: 100%;
+  overflow: hidden;
 }
 .react-calendar__month-view__weekdays {
   display: none !important;
@@ -300,7 +334,49 @@ input[type="number"]::-webkit-outer-spin-button {
   padding: 2px 0;
   line-height: 15px;
 }
-
+.css-ptiqhd-MuiSvgIcon-root {
+  color: white;
+  font-weight: 100;
+}
 .react-calendar__viewContainer {
   margin-bottom: 5px;
+}
+.css-1vr111p-option {
+  color: black !important;
+}
+.MuiInputBase-root {
+  color: white !important;
+}
+.MuiSvgIcon-fontSizeMedium {
+  font-size: 16px !important;
+}
+.css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root {
+  padding: 4 !important;
+}
+.MuiListItemIcon-root {
+  min-width: 0 !important;
+}
+.MuiTypography-displayBlock {
+  font-size: 16px !important;
+}
+.MuiSelect-icon {
+  color: white !important;
+}
+.MuiInput-underline:after {
+  color: 1px solid white !important;
+}
+.MuiInput-underline {
+  border-bottom: 1px solid white !important;
+}
+.MuiListItem-button {
+  padding: 0 !important;
+}
+.MuiList-padding {
+  padding: 5px 0 !important;
+}
+.MuiInputBase-input {
+  font-size: 16px !important;
+}
+.makeStyles-formControl-1 {
+  margin: 0 !important;
 }

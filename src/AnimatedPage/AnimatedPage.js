@@ -32,13 +32,22 @@ const AnimatedPage = () => {
     <AnimatePresence exitBeforeEnter>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Authorization position={position} />}></Route>
-        <Route path="/MainPage/" element={<MainPage position={position} />}></Route>
-        <Route path="/MainPage/Profile" element={<Profile position={position} />} />
+        <Route
+          path="/MainPage/"
+          element={<MainPage position={position} />}
+        ></Route>
+        <Route
+          path="/MainPage/Profile"
+          element={<Profile position={position} />}
+        />
         <Route path="/MainPage/" element={<MainPage position={position} />}>
           {/* <Route path="/" element={<UserPage />} />
           <Route path="/SecondPage" element={<SecondPage />} /> */}
           <Route index element={<News position={position} />} />
-          <Route path="/MainPage/Tasks" element={<Tasks position={position} />} />
+          <Route
+            path="/MainPage/Tasks"
+            element={<Tasks position={position} />}
+          />
           <Route
             path="/MainPage/Statistics"
             element={<Statistics position={position} />}
@@ -47,7 +56,10 @@ const AnimatedPage = () => {
             path="/MainPage/ProjectLeaderboard"
             element={<ProjectLeaderboard position={position} />}
           />
-          <Route path="/MainPage/Market" element={<Market position={position} />} />
+          <Route
+            path="/MainPage/Market"
+            element={<Market position={position} />}
+          />
           <Route
             path="/MainPage/Instruments"
             element={<Instruments position={position} />}

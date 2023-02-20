@@ -1,8 +1,9 @@
 /* import BackgroundImage from "../../assets/BackgroundImage" */
 
 .page_autorization {
-  background-color: #050d21;
-  width: 100%;
+  background-image: url("./Assets/AuthorizationBackground.svg");
+  background-repeat: no-repeat;
+  width: 100vw;
   height: 100vh;
 }
 
@@ -37,6 +38,7 @@
   padding-left: 130px;
   border: 0;
   margin-bottom: 10px;
+  outline: none;
 }
 .page_autorization_inputs {
   position: relative;
