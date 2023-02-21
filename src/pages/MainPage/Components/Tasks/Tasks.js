@@ -498,7 +498,7 @@ const Tasks = (props) => {
               >
                 <div className="sendData_task">
                   <div>
-                    {/* <FormControl
+                    <FormControl
                       className={classes.formControl}
                       onClick={(e) => e.stopPropagation()}
                     >
@@ -556,7 +556,7 @@ const Tasks = (props) => {
                           </MenuItem>
                         ))}
                       </Select>
-                    </FormControl> */}
+                    </FormControl>
                   </div>
                   <div className="senData_task_inputsForm">
                     <input
@@ -976,7 +976,7 @@ const Tasks = (props) => {
               >
                 <div className="sendData_task">
                   <div>
-                    {/* <FormControl
+                    <FormControl
                       className={classes.formControl}
                       onClick={(e) => e.stopPropagation()}
                     >
@@ -1034,7 +1034,7 @@ const Tasks = (props) => {
                           </MenuItem>
                         ))}
                       </Select>
-                    </FormControl> */}
+                    </FormControl>
                   </div>
                   <div className="senData_task_inputsForm">
                     <input
