@@ -20,7 +20,6 @@ import { cookie, image } from "fontawesome";
 const Market = () => {
   let AssetsArr = [];
   const [assets, SetAssets] = useState();
-  const [isFlipped, setIsFlipped] = useState(false);
   const getAssets = () => {
     document.cookie = "test=hello;";
     fetch("http://94.103.90.6:5000/get_market", {
@@ -38,6 +37,7 @@ const Market = () => {
         // const getArray = JSON.parse(result)["data"];
         AssetsArr = JSON.parse(result)["data"];
         setIsFlipped(Array(AssetsArr.length).fill(false));
+        setSubmitProduct(Array(AssetsArr.length).fill(false));
         SetAssets(AssetsArr);
       })
       .catch((err) => {
@@ -53,11 +53,9 @@ const Market = () => {
     e.preventDefault();
     const form = document.getElementById("form");
     const formData = new FormData(form);
-    document.cookie = "token=hello;";
     axios
       .post(
-        "http://94.103.90.6:5000/test_cookie",
-
+        "http://94.103.90.6:5000/add_market",
         formData,
         {
           headers: {
@@ -101,12 +99,11 @@ const Market = () => {
   const headers = new Headers();
   headers.append("Cookie", "name1=value1; name2=value2");
   const [ProofProduct, SetProofProduct] = useState();
-  const [SubmitProduct, SetSubmitProduct] = useState();
   const [PoductName, SetProductName] = useState();
   const [PoductId, SetProductId] = useState();
   const [ProductPrice, SetProductPrice] = useState();
   const [getCode, SetGetCode] = useState();
-  const BuyProduct = (e) => {
+  const BuyProduct = (e, index) => {
     fetch("http://94.103.90.6:5000/buy_market", {
       method: "POST",
       credentials: "include",
@@ -118,10 +115,23 @@ const Market = () => {
       body: JSON.stringify({ _id: PoductId }),
     })
       .then((response) => {
+        console.log(response);
+        if (response.status != 200) {
+          throw new Error("You have not enough money");
+        }
         return response.text();
       })
       .then((result) => {
         SetGetCode(JSON.parse(result).code);
+        var temp = SubmitProduct.map((el, i) => {
+          el = false;
+          if (i == index) {
+            return !el;
+          }
+
+          return el;
+        });
+        setSubmitProduct(temp);
       })
       .catch((err) => {
         alert(err);
@@ -157,7 +167,8 @@ const Market = () => {
   //       alert(err);
   //     });
   // };
-
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [SubmitProduct, setSubmitProduct] = useState(false);
   const handleClick = (e, index) => {
     var temp = isFlipped.map((el, i) => {
       el = false;
@@ -177,8 +188,20 @@ const Market = () => {
     });
     setIsFlipped(temp);
   };
+  const SubmitPurchase = (e, index) => {
+    BuyProduct(e, index);
+
+    console.log(SubmitProduct);
+  };
+  // const ReturnSubmit = () => {
+  //   var temp = SubmitProduct.map((el, i) => {
+  //     el = false;
+  //     return el;
+  //   });
+  //   setSubmitProduct(temp);
+  // };
   const icon = <i className="fa-solid fa-paperclip"> Закрепить Файл </i>;
-  
+
   return (
     <>
       <motion.div
@@ -207,8 +230,8 @@ const Market = () => {
             name="Content"
           ></TextareaAutosize>
           <div className="market_send_submit">
-            <p>
-              Изображение товара:{" "}
+            <p className="market_send_submit_attach">
+              Изображение товара:
               <input
                 className="testinput"
                 accept="image/*"
@@ -239,7 +262,6 @@ const Market = () => {
                       className="market_product"
                       id={_id}
                       onClick={(e) => {
-                        // BuyElement(e);
                         SetProofProduct(!ProofProduct);
                         SetProductName(product.name);
                         SetProductId(product._id);
@@ -266,22 +288,49 @@ const Market = () => {
                     style={{ width: "240px" }}
                   >
                     <p style={{ fontSize: "24px" }}>{PoductName}</p>
-                    <div className="ProofBuy_submit">
-                      <p style={{ fontSize: "20px" }}>Оформление покупки</p>
-                      <button
+                    <ReactCardFlip
+                      isFlipped={SubmitProduct[index]}
+                      flipDirection="horizontal"
+                    >
+                      <div className="ProofBuy_submit">
+                        <p style={{ fontSize: "20px" }}>Оформление покупки</p>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            console.log("kdjfg");
+                            // e.stopPropagation();
+                            SubmitPurchase(e, index);
+                            // BuyProduct();
+                          }}
+                          type="submit"
+                          style={{ fontSize: "16px", color: "red" }}
+                        >
+                          <i class="bi bi-cart-check-fill"></i> -{ProductPrice}
+                        </button>
+                        <p style={{ fontSize: "12px" }}>
+                          550 000 TTK = 500 000 TTK
+                        </p>
+                      </div>
+                      <div
                         onClick={(e) => {
                           e.stopPropagation();
-                          BuyProduct();
+                          // ReturnSubmit(e, index);
                         }}
-                        type="submit"
-                        style={{ fontSize: "16px", color: "red" }}
                       >
-                        <i class="bi bi-cart-check-fill"></i> -{ProductPrice}
-                      </button>
-                      <p style={{ fontSize: "12px" }}>
-                        550 000 TTK = 500 000 TTK
-                      </p>
-                    </div>
+                        <div className="ProofBuy_submit">
+                          <p style={{ fontSize: "20px" }}>Успешно!</p>
+                          <button
+                            type="submit"
+                            style={{ fontSize: "16px", color: "red" }}
+                          >
+                            {getCode}
+                          </button>
+                          <p style={{ fontSize: "12px" }}>
+                            скопируйте код покупки
+                          </p>
+                        </div>
+                      </div>
+                    </ReactCardFlip>
                   </div>
                 </ReactCardFlip>
               );

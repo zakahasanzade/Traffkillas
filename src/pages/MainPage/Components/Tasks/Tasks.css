@@ -29,10 +29,20 @@ hr {
   align-items: center;
   gap: 5px;
 }
+.tasks_div_complete_header {
+  display: flex;
+  flex-direction: row;
+  font-size: black;
+}
 .tasks_div_complete i {
   color: red;
   cursor: pointer;
   font-size: 24px;
+}
+.tasks_div_gap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 .tasks_div_complete_submit {
   display: flex;
@@ -213,6 +223,15 @@ hr {
 .tasks_header {
   font-size: 24px;
   font-weight: 700;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tasks_header_worker {
+  font-size: 16px;
+  font-weight: 700;
+  opacity: 0.5;
   color: black;
 }
 .tasks_header i {

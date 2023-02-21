@@ -15,13 +15,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { CSSTransition } from "react-transition-group";
-import {
-  MenuProps,
-  useStyles,
-  options,
-  App,
-  optionsId,
-} from "./Utilities/utils";
+import { MenuProps, useStyles, options, App } from "./Utilities/utils";
 import "./Tasks.css";
 
 const Tasks = (props) => {
@@ -189,9 +183,9 @@ const Tasks = (props) => {
 
   var arr = [0];
 
-  const setTimer = (date, id) => {
+  const setTimer = (date, className, id) => {
     arr[id - 1] = setInterval(function () {
-      var el = document.querySelector(`.timer-${id}`);
+      var el = document.querySelector(`.${className}${id}`);
 
       var countDownDate = new Date(date).getTime();
       var now = new Date().getTime();
@@ -250,21 +244,21 @@ const Tasks = (props) => {
     console.log(TextCurrency);
   };
 
-  /* Changing the value of TextCurrency to the value of the clicked element. */
-  // var TextCurrency = "MMR";
   const [Currency, SetCurrency] = useState(false);
   const [TextCurrency, SetTextCurrency] = useState("MMR");
   const ChangeCurrency = (e) => {
     SetTextCurrency(e.target.innerHTML);
   };
+  const position = props.position;
   useEffect(() => {
     getWorkData();
     getManageData();
     GetCalendarData();
-    App();
-    document.body.addEventListener("click", closeDropdown);
+    if (position !== "3") {
+      document.body.addEventListener("click", closeDropdown);
+      App();
+    }
   }, []);
-  const position = props.position;
   if (position == "3") {
     console.log("Hi Worker");
     return (
@@ -294,7 +288,7 @@ const Tasks = (props) => {
               } = block;
 
               if (state == 1) {
-                setTimer(date, index);
+                setTimer(date, "timer_inproccess", index);
 
                 var TextArea = "";
                 return (
@@ -307,10 +301,10 @@ const Tasks = (props) => {
                             className="second_task_time"
                             style={{ backgroundColor: "red" }}
                           >
-                            <p className={"timer-" + index}></p>
+                            <p className={"timer_inproccess" + index}></p>
                             <i
                               id={_id}
-                              class="bi bi-check-circle-fill"
+                              className="bi bi-check-circle-fill"
                               onClick={(e) =>
                                 CompleteInProcessTask(e, TextArea)
                               }
@@ -355,13 +349,14 @@ const Tasks = (props) => {
                 manager,
                 messages,
                 state,
+                type,
                 title,
                 worker,
                 _id,
               } = block;
 
               if (state == 3) {
-                setTimer(date, index);
+                setTimer(date, "timer_revision", index);
                 return (
                   <>
                     <div key={block} className="tasks_page_div">
@@ -372,10 +367,10 @@ const Tasks = (props) => {
                             className="second_task_time"
                             style={{ backgroundColor: "black" }}
                           >
-                            <p className={"timer-" + index}></p>
+                            <p className={"timer_revision" + index}></p>
                             <i
                               id={_id}
-                              class="bi bi-check-circle-fill"
+                              className="bi bi-check-circle-fill"
                               onClick={(e) => ConfirmAvailableTask(e)}
                             ></i>
                           </p>
@@ -383,7 +378,7 @@ const Tasks = (props) => {
                             className="tasks_footer"
                             style={{ color: "#EA9127" }}
                           >
-                            -{fine} MMR
+                            -{fine} {type}
                           </p>
                         </div>
                       </div>
@@ -408,6 +403,7 @@ const Tasks = (props) => {
                 feedback,
                 fine,
                 manager,
+                type,
                 state,
                 title,
                 worker,
@@ -415,7 +411,7 @@ const Tasks = (props) => {
               } = block;
 
               if (state == 0) {
-                setTimer(date, index);
+                setTimer(date, "timer_avialable", index);
                 return (
                   <>
                     <div key={block} className="tasks_page_div">
@@ -426,7 +422,7 @@ const Tasks = (props) => {
                             className="second_task_time"
                             style={{ backgroundColor: "#16C784" }}
                           >
-                            <p className={"timer-" + index}></p>
+                            <p className={"timer_avialable" + index}></p>
                             <i
                               id={_id}
                               className="bi bi-plus-circle-fill"
@@ -437,7 +433,7 @@ const Tasks = (props) => {
                             className="tasks_footer"
                             style={{ color: "#EA9127" }}
                           >
-                            -{fine} MMR
+                            -{fine} {type}
                           </p>
                         </div>
                       </div>
@@ -456,7 +452,8 @@ const Tasks = (props) => {
         </div>
       </motion.div>
     );
-  } else if (position == "2") { 
+  } else if (position == "2") {
+    console.log("TeamLead");
     return (
       <motion.div
         className="main"
@@ -688,7 +685,7 @@ const Tasks = (props) => {
 
               if (state == 1) {
                 {
-                  setTimer(date, index);
+                  setTimer(date, "timer_myTask", index);
                 }
                 var TextArea = "";
                 return (
@@ -701,10 +698,10 @@ const Tasks = (props) => {
                             className="second_task_time"
                             style={{ backgroundColor: "red" }}
                           >
-                            <p className={"timer-" + index}></p>
+                            <p className={"timer_myTask" + index}></p>
                             <i
                               id={_id}
-                              class="bi bi-check-circle-fill"
+                              className="bi bi-check-circle-fill"
                               onClick={(e) =>
                                 CompleteInProcessTask(e, TextArea)
                               }
@@ -755,7 +752,7 @@ const Tasks = (props) => {
               } = block;
 
               if (state == 3) {
-                setTimer(date, index);
+                setTimer(date, "timer_revision", index);
                 return (
                   <>
                     <div key={block} className="tasks_page_div">
@@ -766,10 +763,10 @@ const Tasks = (props) => {
                             className="second_task_time"
                             style={{ backgroundColor: "black" }}
                           >
-                            <p className={"timer-" + index}></p>
+                            <p className={"timer_revision" + index}></p>
                             <i
                               id={_id}
-                              class="bi bi-check-circle-fill"
+                              className="bi bi-check-circle-fill"
                               onClick={(e) => ConfirmAvailableTask(e)}
                             ></i>
                           </p>
@@ -806,24 +803,30 @@ const Tasks = (props) => {
                 title,
                 type,
                 worker,
+                worker_username,
                 _id,
               } = block;
 
               if (state == 0 || state == 1) {
-                setTimer(date, index);
+                setTimer(date, "timer_created", index);
                 return (
                   <>
                     <div key={block} className="tasks_page_div">
                       <div className="tasks_div">
                         <p className="tasks_header">
-                          {title} <i className="bi bi-trash3-fill"></i>
+                          <div>
+                            {title} <i className="bi bi-trash3-fill"></i>
+                          </div>
+                          <p className="tasks_header_worker">
+                            {worker_username}
+                          </p>
                         </p>
                         <div>
                           <p
                             className="second_task_time"
                             style={{ backgroundColor: "#EA9127" }}
                           >
-                            <p className={"timer-" + index}></p>
+                            <p className={"timer_created" + index}></p>
                             <i className="bi bi-hourglass-split"></i>
                           </p>
                           <p
@@ -858,28 +861,34 @@ const Tasks = (props) => {
                 messages,
                 state,
                 title,
+                worker_username,
                 worker,
                 _id,
               } = block;
 
               if (state == 2) {
-                setTimer(date, index);
+                setTimer(date, "timer_completed", index);
                 return (
                   <>
                     <div key={block} className="tasks_page_div">
                       <div className="tasks_div">
-                        <div className="tasks_div_complete">
-                          <p className="tasks_header">{title}</p>
-                          <p
-                            className="second_task_time"
-                            style={{ backgroundColor: "red" }}
-                          >
-                            <p className={"timer-" + index}></p>
+                        <div className="tasks_div_gap">
+                          <div className="tasks_div_complete">
+                            <p className="tasks_header">{title}</p>
+                            <p
+                              className="second_task_time"
+                              style={{ backgroundColor: "red" }}
+                            >
+                              <p className={"timer_completed" + index}></p>
+                            </p>
+                            <i
+                              className="bi bi-trash3-fill"
+                              style={{ color: "red" }}
+                            ></i>
+                          </div>
+                          <p className="tasks_header_worker">
+                            {worker_username}
                           </p>
-                          <i
-                            className="bi bi-trash3-fill"
-                            style={{ color: "red" }}
-                          ></i>
                         </div>
                         <div className="tasks_div_complete_submit">
                           <p
@@ -888,7 +897,7 @@ const Tasks = (props) => {
                           >
                             <p className="timer">Доработать </p>
                             <i
-                              class="bi bi-exclamation-circle-fill"
+                              className="bi bi-exclamation-circle-fill"
                               id={_id}
                               onClick={(e) => ReopenCompleteTask(e)}
                             ></i>
@@ -900,7 +909,7 @@ const Tasks = (props) => {
                             <p className="timer">Принять </p>
                             <i
                               id={_id}
-                              class="bi bi-check-circle-fill"
+                              className="bi bi-check-circle-fill"
                               onClick={(e) => FinishInProcessTask(e)}
                             ></i>
                           </p>
@@ -909,61 +918,6 @@ const Tasks = (props) => {
                       {feedback == "true" ? (
                         <div className="tasks_content">
                           <p>{messages}</p>
-                        </div>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  </>
-                );
-              }
-            })}
-          <p className="date">Доступные</p>
-          {WorkData &&
-            WorkData.map((block) => {
-              const {
-                content,
-                date,
-                feedback,
-                fine,
-                manager,
-                state,
-                title,
-                worker,
-                _id,
-              } = block;
-
-              if (state == 0) {
-                return (
-                  <>
-                    <div key={block} className="tasks_page_div">
-                      <div className="tasks_div">
-                        <p className="tasks_header">{title}</p>
-                        <div>
-                          <p
-                            className="second_task_time"
-                            style={{ backgroundColor: "red" }}
-                          >
-                            <p className="timer">
-                              {/*{timer}*/}{" "}
-                              <i
-                                id={_id}
-                                className="bi bi-plus-circle-fill"
-                                onClick={(e) => ConfirmAvailableTask(e)}
-                              ></i>
-                            </p>
-                          </p>
-                          <p
-                            className="tasks_footer"
-                            style={{ color: "#EA9127" }}
-                          >
-                            -{fine} MMR
-                          </p>
-                        </div>
-                      </div>
-                      {feedback ? (
-                        <div className="tasks_content">
-                          <p>{content}</p>
                         </div>
                       ) : (
                         ""
@@ -1192,9 +1146,9 @@ const Tasks = (props) => {
             </div>
           </form>
 
-          <p className="date">На доработку</p>
+          {/* <p className="date">На доработку</p>
           {WorkData &&
-            WorkData.map((block) => {
+            WorkData.map((block, index) => {
               const {
                 content,
                 date,
@@ -1208,6 +1162,7 @@ const Tasks = (props) => {
               } = block;
 
               if (state == 3) {
+                setTimer(date, "timer_revision", index);
                 return (
                   <>
                     <div key={block} className="tasks_page_div">
@@ -1218,7 +1173,7 @@ const Tasks = (props) => {
                             className="second_task_time"
                             style={{ backgroundColor: "red" }}
                           >
-                            <p className="timer"></p>
+                            <p className={"timer_created" + index}></p>
                           </p>
                           <p
                             className="tasks_footer"
@@ -1239,7 +1194,7 @@ const Tasks = (props) => {
                   </>
                 );
               }
-            })}
+            })} */}
           <p className="date">Созданные</p>
           {ManageData &&
             ManageData.map((block, index) => {
@@ -1253,23 +1208,29 @@ const Tasks = (props) => {
                 title,
                 type,
                 worker,
+                worker_username,
                 _id,
               } = block;
               if (state == 0 || state == 1) {
-                setTimer(date, index);
+                setTimer(date, "timer_created", index);
                 return (
                   <>
                     <div key={block} className="tasks_page_div">
                       <div className="tasks_div">
                         <p className="tasks_header">
-                          {title} <i className="bi bi-trash3-fill"></i>
+                          <div>
+                            {title} <i className="bi bi-trash3-fill"></i>
+                          </div>
+                          <p className="tasks_header_worker">
+                            {worker_username}
+                          </p>
                         </p>
                         <div>
                           <p
                             className="second_task_time"
                             style={{ backgroundColor: "#EA9127" }}
                           >
-                            <p className={"timer-" + index}></p>
+                            <p className={"timer_created" + index}></p>
                             <i className="bi bi-hourglass-split"></i>
                           </p>
                           <p
@@ -1305,27 +1266,33 @@ const Tasks = (props) => {
                 state,
                 title,
                 worker,
+                worker_username,
                 _id,
               } = block;
 
               if (state == 2) {
-                setTimer(date, index);
+                setTimer(date, "timer_completed", index);
                 return (
                   <>
                     <div key={block} className="tasks_page_div">
                       <div className="tasks_div">
-                        <div className="tasks_div_complete">
-                          <p className="tasks_header">{title}</p>
-                          <p
-                            className="second_task_time"
-                            style={{ backgroundColor: "red" }}
-                          >
-                            <p className={"timer-" + index}></p>
+                        <div className="tasks_div_gap">
+                          <div className="tasks_div_complete">
+                            <p className="tasks_header">{title}</p>
+                            <p
+                              className="second_task_time"
+                              style={{ backgroundColor: "red" }}
+                            >
+                              <p className={"timer_completed" + index}></p>
+                            </p>
+                            <i
+                              className="bi bi-trash3-fill"
+                              style={{ color: "red" }}
+                            ></i>
+                          </div>
+                          <p className="tasks_header_worker">
+                            {worker_username}
                           </p>
-                          <i
-                            className="bi bi-trash3-fill"
-                            style={{ color: "red" }}
-                          ></i>
                         </div>
                         <div className="tasks_div_complete_submit">
                           <p
@@ -1334,7 +1301,7 @@ const Tasks = (props) => {
                           >
                             <p className="timer">Доработать </p>
                             <i
-                              class="bi bi-exclamation-circle-fill"
+                              className="bi bi-exclamation-circle-fill"
                               id={_id}
                               onClick={(e) => ReopenCompleteTask(e)}
                             ></i>
@@ -1346,7 +1313,7 @@ const Tasks = (props) => {
                             <p className="timer">Принять </p>
                             <i
                               id={_id}
-                              class="bi bi-check-circle-fill"
+                              className="bi bi-check-circle-fill"
                               onClick={(e) => FinishInProcessTask(e)}
                             ></i>
                           </p>

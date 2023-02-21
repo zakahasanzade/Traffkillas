@@ -17,7 +17,7 @@ body {
 .header_navbar_ul {
   display: flex;
   justify-content: space-between;
-  gap: 46px;
+  gap: 23px;
 }
 .header_navbar_ul a {
   font-size: 20px;
