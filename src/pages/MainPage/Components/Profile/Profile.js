@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import MainLogo from "./Profile Assets/MainLogo.svg";
+import AdminTeg from "./Profile Assets/AdminTeg.svg";
 import BackButton from "./Profile Assets/Back Button.svg";
 import ProfileImg from "./Profile Assets/Profile Img.svg";
 import Rank from "./Profile Assets/Rank.svg";
@@ -101,8 +102,32 @@ const Profile = (props) => {
         alert(err);
       });
   };
+  var AdminArr = [];
+  const [AdminInfo, SetAdminInfo] = useState();
+  const GetAdminData = () => {
+    fetch("http://94.103.90.6:5000/get_admin_panel", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        token: localStorage.getItem("token"),
+      },
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        AdminArr[0] = JSON.parse(result)["data"];
+        SetAdminInfo(AdminArr);
+        console.log(AdminInfo);
+        console.log(JSON.parse(result)["data"]);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
   useEffect(() => {
     GetProfileData();
+    GetAdminData();
     console.log(ProfileArr);
   }, []);
 
@@ -149,31 +174,29 @@ const Profile = (props) => {
     };
     document.body.addEventListener("click", closeDropdown);
   }, []);
-  // if (position == 1) {
-    // console.log(position);
-    return (
-      <div className="profile">
-        {profileInfo &&
-          profileInfo.map((element) => {
-            const {
-              address,
-              birth_date,
-              email,
-              first_name,
-              last_name,
-              middle_name,
-              mmr,
-              phone,
-              position,
-              project,
-              pwd,
-              session,
-              tenge,
-              ttk,
-              username,
-            } = element;
-            {
-              /* InputData.username = username;
+  return (
+    <div className="profile">
+      {profileInfo &&
+        profileInfo.map((element) => {
+          const {
+            address,
+            birth_date,
+            email,
+            first_name,
+            last_name,
+            middle_name,
+            mmr,
+            phone,
+            position,
+            project,
+            pwd,
+            session,
+            tenge,
+            ttk,
+            username,
+          } = element;
+          {
+            /* InputData.username = username;
           InputData.pwd = pwd;
           InputData.first_name = first_name;
           InputData.middle_name = middle_name;
@@ -182,235 +205,301 @@ const Profile = (props) => {
           InputData.email = email;
           InputData.phone = phone;
           InputData.address = address; */
-            }
-            return (
-              <>
-                <div className="profile_header">
-                  <div className="profile_header_left">
+          }
+          return (
+            <>
+              <div className="profile_header">
+                <div className="profile_header_left">
+                  <img src={MainLogo} alt="MainLogo" className="MainLogo"></img>
+                  <p>Аккаунт</p>
+                  <div
+                    className="profile_back_button"
+                    onClick={BackButtonClick}
+                  >
                     <img
-                      src={MainLogo}
-                      alt="MainLogo"
-                      className="MainLogo"
+                      src={BackButton}
+                      alt="BackButton"
+                      className="BackButton"
                     ></img>
-                    <p>Аккаунт</p>
-                    <div
-                      className="profile_back_button"
-                      onClick={BackButtonClick}
-                    >
-                      <img
-                        src={BackButton}
-                        alt="BackButton"
-                        className="BackButton"
-                      ></img>
-                      <p href="#">на главную</p>
-                    </div>
-                  </div>
-                  <div className="profile_header_right">
-                    <div className="profile_header_right_info">
-                      <p>{username}</p>
-                      <div
-                        className="profile_header_right_info_footer dropdown"
-                        onClick={() => {
-                          SetEdit(!edit);
-                        }}
-                      >
-                        <p className="dropdown">редактировать профиль </p>&nbsp;
-                        <img
-                          src={Corrector}
-                          alt="Corrector"
-                          className="dropdown"
-                        />
-                      </div>
-                      <CSSTransition
-                        in={edit}
-                        classNames="alert"
-                        timeout={300}
-                        unmountOnExit
-                      >
-                        <form
-                          // action="PUT"
-                          className="profile_edtForm profile_form dropdown"
-                          onSubmit={(e) => EditProfile(e)}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                          }}
-                          id="form"
-                        >
-                          <div className="profile_checkResult"></div>
-                          <ul>
-                            <li>
-                              <p>Логин</p>
-                              <input
-                                placeholder="Логин"
-                                // name="login"
-                                defaultValue={username}
-                                onChange={(e) => {
-                                  // InputData.username = e.target.value;
-                                  // console.log(InputData);
-                                  checkLogin(e);
-                                }}
-                                name="username"
-                              />
-                              {usernameCheck ? (
-                                ""
-                              ) : (
-                                <p
-                                  style={{
-                                    color: "red",
-                                    opacity: "0.5",
-                                    fontStyle: "oblique",
-                                  }}
-                                >
-                                  Имя пользователя может иметь только:
-                                  <br />- Строчные буквы (a-z)
-                                  <br />- Числа (0-9)
-                                  <br />- Точки (.)
-                                  <br /> - Подчеркивание (_)
-                                </p>
-                              )}
-                            </li>
-                            <li>
-                              <p>Пароль</p>
-                              <input
-                                placeholder="Пароль"
-                                // name="password"
-                                defaultValue={pwd}
-                                type="password"
-                                onChange={(e) => {
-                                  // InputData.pwd = e.target.value;
-                                  // console.log(InputData);
-                                  checkPassword(e);
-                                }}
-                                name="pwd"
-                              />
-                              {passwordCheck ? (
-                                ""
-                              ) : (
-                                <p
-                                  style={{
-                                    color: "red",
-                                    opacity: "0.5",
-                                    fontStyle: "oblique",
-                                  }}
-                                >
-                                  Пароль должен иметь:
-                                  <br />- Минимум 8 символов
-                                  <br />- Минимум одну заглавную букву (A-Z)
-                                  {/* <br />- Минимум одну строчную букву (a-z) */}
-                                  <br />- Минимум одну цифру (0-9)
-                                </p>
-                              )}
-                            </li>
-                            <li>
-                              <p>Повторите пароль</p>
-                              <input
-                                placeholder="Повторите пароль"
-                                // name="repeatPassword"
-                                defaultValue={pwd}
-                                type="password"
-                                onChange={(e) => {
-                                  checkRepeatPassword(e);
-                                }}
-                              />
-                              {repeatPasswordCheck ? (
-                                ""
-                              ) : (
-                                <p
-                                  style={{
-                                    color: "red",
-                                    opacity: "0.5",
-                                    fontStyle: "oblique",
-                                  }}
-                                >
-                                  Пароль не совпадает
-                                </p>
-                              )}
-                            </li>
-                            <li>
-                              <p>ФИО</p>
-                              <input
-                                placeholder="ФИО"
-                                defaultValue={
-                                  first_name +
-                                  " " +
-                                  middle_name +
-                                  " " +
-                                  last_name
-                                }
-                                // onChange={(e) => {
-                                //   let fullName = e.target.value.split(" ");
-                                //   InputData.first_name = fullName[0];
-                                //   InputData.middle_name = fullName[1];
-                                //   InputData.last_name = fullName[2];
-                                //   console.log(InputData);
-                                // }}
-                              />
-                            </li>
-                            <li>
-                              <p>Дата рождения</p>
-                              <input
-                                placeholder="Дата рождения"
-                                // name="birthdayDay"
-                                defaultValue={birth_date}
-                                // onChange={(e) => {
-                                //   InputData.birth_date = e.target.value;
-                                //   console.log(InputData);
-                                // }}
-                                name="birth_date"
-                              />
-                            </li>
-                            <li>
-                              <p>E-mail</p>
-                              <input
-                                placeholder="E-mail"
-                                // name="email"
-                                defaultValue={email}
-                                // onChange={(e) => {
-                                //   InputData.email = e.target.value;
-                                //   console.log(InputData);
-                                // }}
-                                name="email"
-                              />
-                            </li>
-                            <li>
-                              <p>Номер</p>
-                              <input
-                                placeholder="fs"
-                                // name="Номер"
-                                defaultValue={phone}
-                                // onChange={(e) => {
-                                //   InputData.phone = e.target.value;
-                                //   console.log(InputData);
-                                // }}
-                                name="phone"
-                              />
-                            </li>
-                            <li>
-                              <p>Адрес</p>
-                              <input
-                                placeholder="Адрес"
-                                // name="adress"
-                                defaultValue={address}
-                                // onChange={(e) => {
-                                //   InputData.address = e.target.value;
-                                //   console.log(InputData);
-                                // }}
-                                name="address"
-                              />
-                            </li>
-                          </ul>
-                          <button type="submit">
-                            <i className="fa-solid fa-check"></i>&nbsp;Сохранить
-                            данные
-                          </button>
-                        </form>
-                      </CSSTransition>
-                    </div>
-                    <div className="profile_header_right_img">
-                      <img src={ProfileImg} alt="Profile Img"></img>
-                    </div>
+                    <p href="#">на главную</p>
                   </div>
                 </div>
+                <div className="profile_header_right">
+                  <div className="profile_header_right_info">
+                    <p>{username}</p>
+                    <div
+                      className="profile_header_right_info_footer dropdown"
+                      onClick={() => {
+                        SetEdit(!edit);
+                      }}
+                    >
+                      <p className="dropdown">редактировать профиль </p>&nbsp;
+                      <img
+                        src={Corrector}
+                        alt="Corrector"
+                        className="dropdown"
+                      />
+                    </div>
+                    <CSSTransition
+                      in={edit}
+                      classNames="alert"
+                      timeout={300}
+                      unmountOnExit
+                    >
+                      <form
+                        // action="PUT"
+                        className="profile_edtForm profile_form dropdown"
+                        onSubmit={(e) => EditProfile(e)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                        id="form"
+                      >
+                        <div className="profile_checkResult"></div>
+                        <ul>
+                          <li>
+                            <p>Логин</p>
+                            <input
+                              placeholder="Логин"
+                              // name="login"
+                              defaultValue={username}
+                              onChange={(e) => {
+                                // InputData.username = e.target.value;
+                                // console.log(InputData);
+                                checkLogin(e);
+                              }}
+                              name="username"
+                            />
+                            {usernameCheck ? (
+                              ""
+                            ) : (
+                              <p
+                                style={{
+                                  color: "red",
+                                  opacity: "0.5",
+                                  fontStyle: "oblique",
+                                }}
+                              >
+                                Имя пользователя может иметь только:
+                                <br />- Строчные буквы (a-z)
+                                <br />- Числа (0-9)
+                                <br />- Точки (.)
+                                <br /> - Подчеркивание (_)
+                              </p>
+                            )}
+                          </li>
+                          <li>
+                            <p>Пароль</p>
+                            <input
+                              placeholder="Пароль"
+                              // name="password"
+                              defaultValue={pwd}
+                              type="password"
+                              onChange={(e) => {
+                                // InputData.pwd = e.target.value;
+                                // console.log(InputData);
+                                checkPassword(e);
+                              }}
+                              name="pwd"
+                            />
+                            {passwordCheck ? (
+                              ""
+                            ) : (
+                              <p
+                                style={{
+                                  color: "red",
+                                  opacity: "0.5",
+                                  fontStyle: "oblique",
+                                }}
+                              >
+                                Пароль должен иметь:
+                                <br />- Минимум 8 символов
+                                <br />- Минимум одну заглавную букву (A-Z)
+                                {/* <br />- Минимум одну строчную букву (a-z) */}
+                                <br />- Минимум одну цифру (0-9)
+                              </p>
+                            )}
+                          </li>
+                          <li>
+                            <p>Повторите пароль</p>
+                            <input
+                              placeholder="Повторите пароль"
+                              // name="repeatPassword"
+                              defaultValue={pwd}
+                              type="password"
+                              onChange={(e) => {
+                                checkRepeatPassword(e);
+                              }}
+                            />
+                            {repeatPasswordCheck ? (
+                              ""
+                            ) : (
+                              <p
+                                style={{
+                                  color: "red",
+                                  opacity: "0.5",
+                                  fontStyle: "oblique",
+                                }}
+                              >
+                                Пароль не совпадает
+                              </p>
+                            )}
+                          </li>
+                          <li>
+                            <p>ФИО</p>
+                            <input
+                              placeholder="ФИО"
+                              defaultValue={
+                                first_name + " " + middle_name + " " + last_name
+                              }
+                              // onChange={(e) => {
+                              //   let fullName = e.target.value.split(" ");
+                              //   InputData.first_name = fullName[0];
+                              //   InputData.middle_name = fullName[1];
+                              //   InputData.last_name = fullName[2];
+                              //   console.log(InputData);
+                              // }}
+                            />
+                          </li>
+                          <li>
+                            <p>Дата рождения</p>
+                            <input
+                              placeholder="Дата рождения"
+                              // name="birthdayDay"
+                              defaultValue={birth_date}
+                              // onChange={(e) => {
+                              //   InputData.birth_date = e.target.value;
+                              //   console.log(InputData);
+                              // }}
+                              name="birth_date"
+                            />
+                          </li>
+                          <li>
+                            <p>E-mail</p>
+                            <input
+                              placeholder="E-mail"
+                              // name="email"
+                              defaultValue={email}
+                              // onChange={(e) => {
+                              //   InputData.email = e.target.value;
+                              //   console.log(InputData);
+                              // }}
+                              name="email"
+                            />
+                          </li>
+                          <li>
+                            <p>Номер</p>
+                            <input
+                              placeholder="fs"
+                              // name="Номер"
+                              defaultValue={phone}
+                              // onChange={(e) => {
+                              //   InputData.phone = e.target.value;
+                              //   console.log(InputData);
+                              // }}
+                              name="phone"
+                            />
+                          </li>
+                          <li>
+                            <p>Адрес</p>
+                            <input
+                              placeholder="Адрес"
+                              // name="adress"
+                              defaultValue={address}
+                              // onChange={(e) => {
+                              //   InputData.address = e.target.value;
+                              //   console.log(InputData);
+                              // }}
+                              name="address"
+                            />
+                          </li>
+                        </ul>
+                        <button type="submit">
+                          <i className="fa-solid fa-check"></i>&nbsp;Сохранить
+                          данные
+                        </button>
+                      </form>
+                    </CSSTransition>
+                  </div>
+                  <div className="profile_header_right_img">
+                    <img src={ProfileImg} alt="Profile Img"></img>
+                  </div>
+                </div>
+              </div>
+              {position == 1 ? (
+                <div className="admin">
+                  {AdminInfo &&
+                    AdminInfo.map((object) => {
+                      const {contentmaker,kpi,prodaction,treat_1,treat_2}=object
+                      return (
+                        <>
+                          <div className="admin_statistics">
+                            <p className="admin_statistics_title">
+                              Статистика партнёрской программы
+                            </p>
+                            <div className="admin_statistics_info">
+                              <div className="admin_statistics_info_teg">
+                                <img src={AdminTeg}></img> <p>PinUp</p>
+                              </div>
+                              <div className="admin_statistics_info_balance">
+                                <p>
+                                  avg <i class="bi bi-piggy-bank-fill"></i> 330
+                                </p>
+                                <p style={{ color: "#C21556" }}>
+                                  <i class="bi bi-piggy-bank-fill"></i> 647
+                                </p>
+                                <p style={{ color: "#AB16CD" }}>₸ 1 200 000</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="admin_payments">
+                            <div className="admin_payments_details">
+                              <p>KPI</p>
+                              <div>
+                                <p>
+                                  {kpi} <i class="bi bi-pencil-square"></i>
+                                </p>
+                              </div>
+                            </div>
+                            <p className="admin_payments_title">Выплаты</p>
+                            <div className="admin_payments_details">
+                              <p>Продакшн</p>
+                              <div>
+                                <p>
+                                  {prodaction} <i class="bi bi-pencil-square"></i>
+                                </p>
+                              </div>
+                            </div>
+                            <div className="admin_payments_details">
+                              <p>Контентмейкер</p>
+                              <div>
+                                <p>
+                                  {contentmaker} <i class="bi bi-pencil-square"></i>
+                                </p>
+                              </div>
+                            </div>
+                            <div className="admin_payments_details">
+                              <p>Обработка(вечер)</p>
+                              <div>
+                                <p>
+                                  {treat_1} <i class="bi bi-pencil-square"></i>
+                                </p>
+                              </div>
+                            </div>
+                            <div className="admin_payments_details">
+                              <p>Обработка(вечер дист.)</p>
+                              <div>
+                                <p>
+                                  {treat_2} <i class="bi bi-pencil-square"></i>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      );
+                    })}
+                </div>
+              ) : (
                 <div className="profile_main">
                   <div className="profile_main_left">
                     <p className="profile_title"> История операций</p>
@@ -491,12 +580,12 @@ const Profile = (props) => {
                     </div>
                   </div>
                 </div>
-              </>
-            );
-          })}
-      </div>
-    );
-  // }
+              )}
+            </>
+          );
+        })}
+    </div>
+  );
 };
 
 export default Profile;
