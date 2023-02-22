@@ -12,7 +12,7 @@
 .profile_header_left p {
   font-size: 32px;
   font-weight: 700;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   color: white;
 }
 .profile_back_button {
@@ -20,13 +20,26 @@
   align-items: center;
   margin-top: 5px;
   cursor: pointer;
+  gap: 6px;
 }
 .profile_back_button p {
-  font-size: 16px;
-  font-weight: 700;
+  margin: 0;
   color: white;
   opacity: 0.3;
-  margin-left: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+.profile_back_button i {
+  margin: 0;
+  color: white;
+  opacity: 0.3;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.019em;
+  cursor: pointer;
+  margin-top: 3px;
 }
 .profile_header_right {
   background-color: #ea9127;
@@ -226,7 +239,7 @@
   border: 1px solid #16c784;
   outline: none;
 }
-.profile_edtForm button {
+.profile_form_submit {
   background-color: #16c784;
   border-radius: 15px;
   padding: 8px;
@@ -241,11 +254,17 @@
   color: white;
   cursor: pointer;
 }
+.form_error {
+  margin-top: 10px;
+  color: red;
+  font-weight: 700;
+  font-size: 20px;
+}
 .admin {
   max-width: 1214px;
   display: flex;
   justify-content: space-between;
-  margin: 0 auto ;
+  margin: 0 auto;
 }
 .admin_statistics {
   width: 806px;
@@ -308,9 +327,48 @@
   border-radius: 50px;
   cursor: pointer;
 }
-.admin_payments_title{
+.admin_payments_title {
   margin-left: 20px;
   font-size: 24px;
   font-weight: 700;
   color: white;
+}
+.admin_payments_details_input {
+  background-color: white;
+  border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 5px;
+  color: black;
+  font-size: 20px;
+  font-weight: 700;
+  width: max-content;
+}
+
+.admin_details_text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.input_enable {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 5px;
+}
+.admin_input_edit {
+  background-color: white;
+  border: 0;
+  color: black;
+  font-size: 20px;
+  font-weight: 700;
+  width: 50px;
+  outline: none;
+}
+
+.input_enable_onclick{
+  display: none;
 }

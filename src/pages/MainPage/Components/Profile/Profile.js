@@ -7,6 +7,7 @@ import ProfileImg from "./Profile Assets/Profile Img.svg";
 import Rank from "./Profile Assets/Rank.svg";
 import { useNavigate } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
+import EdiText from "react-editext";
 import Corrector from "./Profile Assets/Corrector.svg";
 import FormData from "form-data";
 import axios from "axios";
@@ -43,41 +44,70 @@ const Profile = (props) => {
   const [usernameCheck, SetUsername] = useState(true);
   const [passwordCheck, SetPassword] = useState(true);
   const [repeatPasswordCheck, SetRepeatPassword] = useState(true);
+  const [ButtonEnable, SetButtonEnable] = useState(false);
+
   const checkLogin = (e) => {
+    var SubButt = document.querySelector(".profile_form_submit");
     const usernameRegex = /^[a-z0-9_\.]+$/;
     var validUsername = usernameRegex.test(e.target.value);
+
     if (validUsername == false) {
       e.target.style.border = "red solid 1px";
+      SetButtonEnable(true);
+      SubButt.style.opacity = 0.5;
       SetUsername(false);
     } else if (validUsername != false) {
       e.target.style.border = "1px solid #16c784";
+      passwordCheck && repeatPasswordCheck
+        ? SetButtonEnable(false)
+        : SetButtonEnable(true);
+      SubButt.style.opacity = 1;
       SetUsername(true);
     }
   };
   const checkPassword = (e) => {
+    var SubButt = document.querySelector(".profile_form_submit");
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
     var validPassword = passwordRegex.test(e.target.value);
     if (validPassword == false) {
       e.target.style.border = "red solid 1px";
       SetPassword(false);
-    } else if (validPassword != false) {
+      SetButtonEnable(true);
+      SubButt.style.opacity = 0.5;
+    } else if (validPassword == true) {
       e.target.style.border = "1px solid #16c784";
       SetPassword(true);
+      usernameCheck && repeatPasswordCheck
+        ? SetButtonEnable(false)
+        : SetButtonEnable(true);
+      SubButt.style.opacity = 1;
+      checkRepeatPassword();
     }
   };
   const checkRepeatPassword = (e) => {
-    console.log(document.querySelector(".form_repeate_pwd").value);
+    var SubButt = document.querySelector(".profile_form_submit");
+    var RepeatPassword = document.querySelector(".form_repeate_pwd");
     if (
       document.querySelector(".form_repeate_pwd").value ==
       document.querySelector(".form_pwd").value
     ) {
       SetRepeatPassword(true);
-      e.target.style.border = "1px solid #16c784";
+      RepeatPassword.style.border = "1px solid #16c784";
+      usernameCheck && passwordCheck
+        ? SetButtonEnable(false)
+        : SetButtonEnable(true);
+      console.log(usernameCheck);
+      console.log(passwordCheck);
+      console.log(repeatPasswordCheck);
+      SubButt.style.opacity = 1;
     } else {
       SetRepeatPassword(false);
-      e.target.style.border = "red solid 1px";
+      RepeatPassword.style.border = "red solid 1px";
+      SetButtonEnable(true);
+      SubButt.style.opacity = 0.5;
     }
   };
+
   // GET DATA FROM SERVER //
   var ProfileInf = null;
   const [profileInformation, SetProfileInformation] = useState();
@@ -126,6 +156,7 @@ const Profile = (props) => {
         alert(err);
       });
   };
+
   useEffect(() => {
     GetProfileData();
     GetAdminData();
@@ -133,8 +164,13 @@ const Profile = (props) => {
 
   const EditProfile = (e) => {
     e.preventDefault();
+
     const form = document.getElementById("form");
     const formData = new FormData(form);
+    let fullName = document.querySelector(".form_fullName").value.split(" ");
+    formData.append("first_name", fullName[0]);
+    formData.append("middle_name", fullName[1]);
+    formData.append("last_name", fullName[2]);
     console.log(formData);
 
     axios
@@ -152,17 +188,44 @@ const Profile = (props) => {
         console.log(error);
       });
   };
+  const ChangeText = (el) => {
+    console.log(document.querySelector(`.default_${el.target.id}`));
+    document.querySelector(`.default_${el.target.id}`).style.display = "none";
+    document.querySelector(`.onclick_${el.target.id}`).style.display = "block";
+  };
+  const EditSubmit = (el) => {
+    let EditElement = document.querySelector(`.edit_${el.target.id}`).value;
+    let element = el.target.id;
+    let data = `{"${element}": "${EditElement}"}`;
+
+    fetch("http://94.103.90.6:5000/edit_admin_panel", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Token: localStorage.getItem("token"),
+      },
+      body: data,
+    });
+
+    GetAdminData();
+    document.querySelector(`.default_${el.target.id}`).style.display = "block";
+    document.querySelector(`.onclick_${el.target.id}`).style.display = "none";
+  };
+  const CancelEdit = (el) => {
+    document.querySelector(`.default_${el.target.id}`).style.display = "block";
+    document.querySelector(`.onclick_${el.target.id}`).style.display = "none";
+  };
+
   useEffect(() => {
     const closeDropdown = (e) => {
       e.stopPropagation();
-      // console.log(e.srcElement.className!=="back")
       if (e.srcElement.className !== "dropdown") {
-        console.log(e.target);
         SetEdit();
       }
     };
     document.body.addEventListener("click", closeDropdown);
   }, []);
+
   return (
     <div className="profile">
       <>
@@ -171,12 +234,8 @@ const Profile = (props) => {
             <img src={MainLogo} alt="MainLogo" className="MainLogo"></img>
             <p>Аккаунт </p>
             <div className="profile_back_button" onClick={BackButtonClick}>
-              <img
-                src={BackButton}
-                alt="BackButton"
-                className="BackButton"
-              ></img>
-              <p href="#">на главную</p>
+              <i class="bi bi-box-arrow-in-left"></i>
+              <p>Выйти из аккаунта</p>
             </div>
           </div>
           <div className="profile_header_right">
@@ -297,6 +356,7 @@ const Profile = (props) => {
                     <li>
                       <p>ФИО</p>
                       <input
+                        className="form_fullName"
                         placeholder="ФИО"
                         defaultValue={
                           profileInformation?.first_name +
@@ -367,7 +427,12 @@ const Profile = (props) => {
                       />
                     </li>
                   </ul>
-                  <button type="submit">
+                  <span className="form_error"></span>
+                  <button
+                    disabled={ButtonEnable}
+                    className="profile_form_submit"
+                    type="submit"
+                  >
                     <i className="fa-solid fa-check"></i>&nbsp;Сохранить данные
                   </button>
                 </form>
@@ -382,8 +447,14 @@ const Profile = (props) => {
           <div className="admin">
             {AdminInfo &&
               AdminInfo.map((object) => {
-                const { contentmaker, kpi, prodaction, treat_1, treat_2 } =
-                  object;
+                const {
+                  contentmaker,
+                  kpi,
+                  prodaction,
+                  treat_1,
+                  treat_2,
+                  treat_3,
+                } = object;
                 return (
                   <>
                     <div className="admin_statistics">
@@ -406,47 +477,187 @@ const Profile = (props) => {
                       </div>
                     </div>
                     <div className="admin_payments">
-                      <div className="admin_payments_details">
+                      <div className="admin_payments_details ">
                         <p>KPI</p>
-                        <div style={{ backgroundColor: "#EA9127" }}>
-                          <p>
-                            {kpi}₸ <i className="bi bi-pencil-square"></i>
+                        <div className="input_enable_default default_kpi">
+                          <p className="admin_payments_details_input">
+                            {kpi}₸{" "}
+                            <i
+                              className="bi bi-pencil-square"
+                              id="kpi"
+                              onClick={(el) => ChangeText(el)}
+                            >
+                              {" "}
+                            </i>
                           </p>
+                        </div>
+
+                        <div className="input_enable_onclick onclick_kpi">
+                          <input class="admin_input_edit edit_kpi"></input>₸{" "}
+                          <i
+                            class="bi bi-check-circle-fill"
+                            id="kpi"
+                            onClick={(e) => EditSubmit(e)}
+                          ></i>
+                          <i
+                            style={{ marginLeft: "5px" }}
+                            id="kpi"
+                            onClick={(el) => CancelEdit(el)}
+                            class="bi bi-x-circle-fill"
+                          ></i>
                         </div>
                       </div>
                       <p className="admin_payments_title">Выплаты</p>
                       <div className="admin_payments_details">
                         <p>Продакшн</p>
-                        <div>
-                          <p>
+                        <div className="input_enable_default default_prodaction">
+                          <p className="admin_payments_details_input">
                             {prodaction}₸{" "}
-                            <i className="bi bi-pencil-square"></i>
+                            <i
+                              className="bi bi-pencil-square"
+                              id="prodaction"
+                              onClick={(el) => ChangeText(el)}
+                            >
+                              {" "}
+                            </i>
                           </p>
                         </div>
+
+                        <div className="input_enable_onclick onclick_prodaction">
+                          <input class="admin_input_edit edit_prodaction"></input>
+                          ₸{" "}
+                          <i
+                            class="bi bi-check-circle-fill"
+                            id="prodaction"
+                            onClick={(el) => EditSubmit(el)}
+                          ></i>
+                          <i
+                            id="prodaction"
+                            style={{ marginLeft: "5px" }}
+                            onClick={(el) => CancelEdit(el)}
+                            class="bi bi-x-circle-fill"
+                          ></i>
+                        </div>
                       </div>
-                      <div className="admin_payments_details">
+                      <div className="admin_payments_details ">
                         <p>Контентмейкер</p>
-                        <div>
-                          <p>
+                        <div className="input_enable_default default_contentmaker">
+                          <p className="admin_payments_details_input">
                             {contentmaker}₸{" "}
-                            <i className="bi bi-pencil-square"></i>
+                            <i
+                              className="bi bi-pencil-square"
+                              id="contentmaker"
+                              onClick={(el) => ChangeText(el)}
+                            >
+                              {" "}
+                            </i>
                           </p>
                         </div>
+
+                        <div className="input_enable_onclick onclick_contentmaker">
+                          <input class="admin_input_edit edit_contentmaker"></input>
+                          ₸{" "}
+                          <i
+                            class="bi bi-check-circle-fill"
+                            id="contentmaker"
+                            onClick={(e) => EditSubmit(e)}
+                          ></i>
+                          <i
+                            style={{ marginLeft: "5px" }}
+                            id="contentmaker"
+                            onClick={(el) => CancelEdit(el)}
+                            class="bi bi-x-circle-fill"
+                          ></i>
+                        </div>
                       </div>
-                      <div className="admin_payments_details">
+                      <div className="admin_payments_details ">
                         <p>Обработка(вечер)</p>
-                        <div>
-                          <p>
-                            {treat_1}₸ <i className="bi bi-pencil-square"></i>
+                        <div className="input_enable_default default_treat_1">
+                          <p className="admin_payments_details_input">
+                            {treat_1}₸{" "}
+                            <i
+                              className="bi bi-pencil-square"
+                              id="treat_1"
+                              onClick={(el) => ChangeText(el)}
+                            >
+                              {" "}
+                            </i>
                           </p>
                         </div>
+
+                        <div className="input_enable_onclick onclick_treat_1">
+                          <input class="admin_input_edit edit_treat_1"></input>₸{" "}
+                          <i
+                            class="bi bi-check-circle-fill"
+                            id="treat_1"
+                            onClick={(e) => EditSubmit(e)}
+                          ></i>
+                          <i
+                            style={{ marginLeft: "5px" }}
+                            id="treat_1"
+                            onClick={(el) => CancelEdit(el)}
+                            class="bi bi-x-circle-fill"
+                          ></i>
+                        </div>
                       </div>
-                      <div className="admin_payments_details">
+                      <div className="admin_payments_details ">
                         <p>Обработка(вечер дист.)</p>
-                        <div>
-                          <p>
-                            {treat_2}₸ <i className="bi bi-pencil-square"></i>
+                        <div className="input_enable_default default_treat_2">
+                          <p className="admin_payments_details_input">
+                            {treat_2}₸{" "}
+                            <i
+                              className="bi bi-pencil-square"
+                              id="treat_2"
+                              onClick={(el) => ChangeText(el)}
+                            >
+                              {" "}
+                            </i>
                           </p>
+                        </div>
+
+                        <div className="input_enable_onclick onclick_treat_2">
+                          <input class="admin_input_edit edit_treat_2"></input>₸{" "}
+                          <i
+                            class="bi bi-check-circle-fill"
+                            id="treat_2"
+                            onClick={(e) => EditSubmit(e)}
+                          ></i>
+                          <i
+                            style={{ marginLeft: "5px" }}
+                            id="treat_2"
+                            onClick={(el) => CancelEdit(el)}
+                            class="bi bi-x-circle-fill"
+                          ></i>
+                        </div>
+                      </div>
+                      <div className="admin_payments_details ">
+                        <p>Обработка(утрен дист.)</p>
+                        <div className="input_enable_default default_treat_3">
+                          <p className="admin_payments_details_input">
+                            {treat_3}₸{" "}
+                            <i
+                              className="bi bi-pencil-square"
+                              id="treat_3"
+                              onClick={(el) => ChangeText(el)}
+                            >
+                              {" "}
+                            </i>
+                          </p>
+                        </div>
+
+                        <div className="input_enable_onclick onclick_treat_3">
+                          <input class="admin_input_edit edit_treat_3"></input>₸{" "}
+                          <i
+                            class="bi bi-check-circle-fill"
+                            id="treat_3"
+                            onClick={(e) => EditSubmit(e)}
+                          ></i>
+                          <i
+                            style={{ marginLeft: "5px" }}
+                            id="treat_3"
+                            onClick={(el) => CancelEdit(el)}
+                            class="bi bi-x-circle-fill"
+                          ></i>
                         </div>
                       </div>
                     </div>
