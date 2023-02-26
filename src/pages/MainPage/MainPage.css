@@ -8,11 +8,11 @@ body {
 }
 .headet_navbar {
   width: 1000px;
-
   /* display: flex;
   justify-content: center;
   align-items: center; */
   margin: 35px auto 30px;
+  position: relative;
 }
 .header_navbar_ul {
   display: flex;
@@ -39,4 +39,24 @@ body {
   transition: all 1s;
   border-radius: 15px;
   font-size: 25px;
+}
+.navbar_dropdown {
+  padding: 8px 16px;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  background-color: #ea9127;
+  width: max-content;
+  position: absolute;
+  left: 420px;
+  top: 40px;
+  z-index: 999;
+}
+.navbar_dropdown li {
+  font-size: 16px;
+  font-weight: 700;
+  color: black;
 }

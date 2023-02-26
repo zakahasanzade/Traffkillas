@@ -50,7 +50,7 @@
   position: absolute;
   border: 0;
   right: 9px;
-  background: url("./Authorization-Assets/Arrow\ Right.svg") no-repeat;
+  background: url("./Assets/Right.svg") no-repeat;
   cursor: pointer;
 }
 

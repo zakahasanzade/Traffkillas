@@ -4,7 +4,13 @@
 .statistics {
   width: 806px;
   margin: 0 auto;
-  padding-bottom: 40px;
+}
+.statististics_main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 .statistics_account {
   display: flex;
@@ -39,9 +45,10 @@
   margin-bottom: 3px;
 }
 .statistics_account_info_up p:first-child {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
   margin-right: 5px;
+  max-width: 150px;
   color: white;
 }
 .statistics_up {
@@ -74,7 +81,7 @@
 .black {
   color: black;
 }
-.white {
+.white{
   color: white;
 }
 .orange {
@@ -95,7 +102,6 @@
 .statistics_graph_left p:first-child {
   font-size: 20px;
   font-weight: 700;
-  /* color: white; */
   opacity: 0.5;
   margin-bottom: 8px;
 }

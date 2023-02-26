@@ -22,17 +22,13 @@ const News = () => {
         "Content-Type": "application/json",
         Token: localStorage.getItem("token"),
       },
-      // credentials: "include",
     })
       .then((response) => {
-        // console.log(response.status);
         return response.text();
       })
       .then((result) => {
-        // console.log(result);
         getArray = JSON.parse(result)["data"];
         setPost(getArray);
-        // console.log(getArray);
       })
       .catch((err) => {
         alert(err);
@@ -68,11 +64,13 @@ const News = () => {
       .then((response) => {
         return response.text();
       })
-      .then((result) => {})
+      .then((result) => {
+        getData();
+      })
       .catch((err) => {
         alert(err);
       });
-    getData();
+
     console.log(post);
   };
   const DeletePost = (e) => {
@@ -90,13 +88,14 @@ const News = () => {
       .then((response) => {
         return response.text();
       })
-      .then((result) => {})
+      .then((result) => {
+        getData();
+      })
       .catch((err) => {
         alert(err);
       });
 
     console.log(e.target.id);
-    getData();
   };
   useEffect(() => {
     getData();
@@ -108,16 +107,11 @@ const News = () => {
     };
     document.body.addEventListener("click", closeDropdown);
   }, []);
-  // return getData();
-  // console.log(getArray);
 
-  // console.log(post);
-  // const [back, SetBack] = useState("green");
-  // console.log(back);
   const setBack = (col) => {
     document.querySelector(".back").style.backgroundColor = col;
   };
-  console.log(typeof(post))
+  console.log(typeof post);
   return (
     <motion.div
       className="main"
@@ -157,6 +151,45 @@ const News = () => {
                 >
                   <li
                     onClick={() => {
+                      setBack("#0F82F5");
+                    }}
+                  >
+                    <div
+                      className="selCol"
+                      style={{
+                        backgroundColor: "#0F82F5",
+                      }}
+                    ></div>
+                    Уведомления платформы
+                  </li>
+                  <li
+                    onClick={() => {
+                      setBack("#ED2709");
+                    }}
+                  >
+                    <div
+                      className="selCol"
+                      style={{
+                        backgroundColor: "#ED2709",
+                      }}
+                    ></div>
+                    Высокий приоритет
+                  </li>
+                  <li
+                    onClick={() => {
+                      setBack("#EA9127");
+                    }}
+                  >
+                    <div
+                      className="selCol"
+                      style={{
+                        backgroundColor: "#EA9127",
+                      }}
+                    ></div>
+                    Средняя важность
+                  </li>
+                  <li
+                    onClick={() => {
                       setBack("green");
                     }}
                   >
@@ -166,59 +199,7 @@ const News = () => {
                         backgroundColor: "green",
                       }}
                     ></div>
-                    Тема новости 1
-                  </li>
-                  <li
-                    onClick={() => {
-                      setBack("red");
-                    }}
-                  >
-                    <div
-                      className="selCol"
-                      style={{
-                        backgroundColor: "red",
-                      }}
-                    ></div>
-                    Тема новости 2
-                  </li>
-                  <li
-                    onClick={() => {
-                      setBack("blue");
-                    }}
-                  >
-                    <div
-                      className="selCol"
-                      style={{
-                        backgroundColor: "blue",
-                      }}
-                    ></div>
-                    Тема новости 3
-                  </li>
-                  <li
-                    onClick={() => {
-                      setBack("orange");
-                    }}
-                  >
-                    <div
-                      className="selCol"
-                      style={{
-                        backgroundColor: "orange",
-                      }}
-                    ></div>
-                    Тема новости 4
-                  </li>
-                  <li
-                    onClick={() => {
-                      setBack("#FF4B8C");
-                    }}
-                  >
-                    <div
-                      className="selCol"
-                      style={{
-                        backgroundColor: "#FF4B8C",
-                      }}
-                    ></div>
-                    Тема новости 5
+                    Низкий приоритет
                   </li>
                 </ul>
               </CSSTransition>
@@ -248,52 +229,54 @@ const News = () => {
             </button>
           </div>
         </div>
-        {post &&
-          post.map((block, index, array) => {
-            const { color, title, text, hashtag, time, date, _id } = block;
-            {
-              /* console.log(JSON.parse(_id)["$oid"]) */
-            }
-            let now = new Date();
-            let tag = [];
-            now.setMonth(date.substring(3) - 1);
-            hashtag.forEach((element) => {
-              tag.push(<p>#{element} </p>);
-            });
-            return (
-              <>
-                {index === 0 || array[index - 1].date !== date ? (
-                  <p className="date" style={{ marginTop: "10px" }}>
-                    {date.substring(0, 2)}{" "}
-                    {now.toLocaleString("ru-ru", { month: "long" })}
-                  </p>
-                ) : null}
-                <div className="news_page_div">
-                  <h1>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <div
-                        className="news_page_div_dot"
-                        style={{ backgroundColor: color }}
-                      ></div>
-                      {title}
-                    </div>
-                    <i
-                      onClick={DeletePost}
-                      class="fa-solid fa-trash-can"
-                      id={_id.$oid}
-                    ></i>
-                  </h1>
-                  <p className="news_page_text">{text}</p>
-                  <div className="news_page_footer">
-                    <p className="date">{time}</p>
-                    <div className="news_page_footer_p">
-                      <p style={{ display: "flex" }}>{tag}</p>
+        <div className="news_list">
+          {post &&
+            post.map((block, index, array) => {
+              const { color, title, text, hashtag, time, date, _id } = block;
+              {
+                /* console.log(JSON.parse(_id)["$oid"]) */
+              }
+              let now = new Date();
+              let tag = [];
+              now.setMonth(date.substring(3) - 1);
+              hashtag.forEach((element) => {
+                tag.push(<p>#{element} </p>);
+              });
+              return (
+                <>
+                  {index === 0 || array[index - 1].date !== date ? (
+                    <p className="date">
+                      {date.substring(0, 2)}{" "}
+                      {now.toLocaleString("ru-ru", { month: "short" })}
+                    </p>
+                  ) : null}
+                  <div className="news_page_div">
+                    <h1>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <div
+                          className="news_page_div_dot"
+                          style={{ backgroundColor: color }}
+                        ></div>
+                        {title}
+                      </div>
+                      <i
+                        onClick={DeletePost}
+                        class="fa-solid fa-trash-can"
+                        id={_id.$oid}
+                      ></i>
+                    </h1>
+                    <p className="news_page_text">{text}</p>
+                    <div className="news_page_footer">
+                      <p className="date">{time}</p>
+                      <div className="news_page_footer_p">
+                        <p style={{ display: "flex" }}>{tag}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </>
-            );
-          })}
+                </>
+              );
+            })}
+        </div>
       </div>
     </motion.div>
   );

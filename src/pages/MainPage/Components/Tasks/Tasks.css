@@ -7,6 +7,7 @@ hr {
 }
 .tasks {
   gap: 15px;
+  position: relative;
 }
 .tasks_page_div {
   margin: 0 auto;
@@ -187,6 +188,7 @@ hr {
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
+  margin-top: 6px;
 }
 
 .sendData_tasks {
@@ -200,7 +202,7 @@ hr {
   justify-content: space-between;
   align-items: center;
   font-size: 16px;
-  gap: 20px;
+  gap: 13px;
 }
 .sendData_task img {
   color: red;
@@ -289,6 +291,24 @@ hr {
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
+.SendData_calendarDate {
+  margin-top: 10px;
+  background-color: #ea9127;
+  padding: 6px 10px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.calendar_general {
+  position: absolute;
+  z-index: 1;
+  top: 155px;
+  left: 150px;
+}
+.calendar_general .react-calendar {
+  -webkit-box-shadow: 3px 5px 24px -3px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 3px 5px 24px -3px rgba(66, 68, 90, 1);
+  box-shadow: 3px 5px 24px -3px rgba(66, 68, 90, 1);
+}
 .SendData_fine {
   color: white !important;
 }
@@ -300,6 +320,14 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-top: 10px;
   position: relative;
 }
+.SendData_fine_div {
+  display: flex;
+  align-items: center;
+  background-color: red;
+  border-radius: 25px;
+  padding: 4px 8px;
+}
+
 .Tasks_fine_checkbox {
   margin-top: 10px;
 }
@@ -328,6 +356,7 @@ input[type="number"]::-webkit-outer-spin-button {
   border: 0;
   border-radius: 25px;
   padding: 4px 8px;
+  padding-left: 0;
   outline: none;
   text-align: center;
   width: 55px;

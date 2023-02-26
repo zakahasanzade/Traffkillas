@@ -65,6 +65,7 @@
   color: white;
   margin: 10px 0;
   min-height: 72px;
+  overflow-wrap: break-word;
 }
 .market_product span {
   font-weight: 700;

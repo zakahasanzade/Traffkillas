@@ -182,7 +182,8 @@ const Profile = (props) => {
       })
       .then((res) => {
         console.log(res.data.status);
-        refreshPage();
+        form.reset();
+        GetProfileData();
       })
       .catch((error) => {
         console.log(error);
@@ -205,9 +206,17 @@ const Profile = (props) => {
         Token: localStorage.getItem("token"),
       },
       body: data,
-    });
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        GetAdminData();
+      })
+      .catch((err) => {
+        alert(err);
+      });
 
-    GetAdminData();
     document.querySelector(`.default_${el.target.id}`).style.display = "block";
     document.querySelector(`.onclick_${el.target.id}`).style.display = "none";
   };

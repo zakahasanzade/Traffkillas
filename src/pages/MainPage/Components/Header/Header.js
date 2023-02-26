@@ -5,6 +5,7 @@ import LightMode from "../../../../assets/LightMode.svg";
 import ProfilePhoto from "../../../../assets/ProfilePhoto.svg";
 import { useNavigate } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
+import Messenger from "../Messenger/Messenger";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -34,49 +35,60 @@ const Header = () => {
       .then((result) => {
         x = JSON.parse(result)["data"];
         SetHeaderData(x);
-        console.log(x)
+        console.log(x);
       });
   };
+  const OpeanMessenger = () => {};
   useEffect(() => {
     getHeaderData();
   }, []);
 
   return (
-    <div className="header">
-      <div className="header_logo">
-        <img src={MainLogo} alt="MainLogo" />
-      </div>
-      <div className="header_profile">
-        <button onClick={ChangeMode} id="mode_button">
-          <img src={LightMode} alt="LightMode" />
-        </button>
-        <button id="profile_button">
-          <p onClick={() => setShow(!show)}>
-            {show ? "Абабус_2002" : "Абабус_2002"}
-          </p>
-          <img src={ProfilePhoto} alt="ProfilePhoto" onClick={ViewProfile} />
-        </button>
+    <>
+      <div className="header">
+        <div className="header_logo">
+          <img src={MainLogo} alt="MainLogo" />
+        </div>
+        <div className="header_profile">
+          <div className="header_profile_buttons">
+            <button onClick={ChangeMode}>
+              <i class="bi bi-moon-stars-fill"></i>
+            </button>
+            <button onClick={OpeanMessenger}>
+              <i class="bi bi-chat-quote-fill"></i>
+            </button>
+          </div>
+          <button id="profile_button">
+            <p onClick={() => setShow(!show)}>
+              {show ? "Абабус_2002" : "Абабус_2002"}
+            </p>
+            <img src={ProfilePhoto} alt="ProfilePhoto" onClick={ViewProfile} />
+          </button>
 
-        <CSSTransition
-          in={show}
-          classNames="alert"
-          timeout={1000}
-          unmountOnExit
-        >
-          <ul className="profile_button_info" id="time">
-            <li className="profile_button_info_li">
-              <p className="red">₸ {HeaderData?.tenge} </p>
-            </li>
-            <li className="profile_button_info_li">
-              <p>{HeaderData?.mmr}MMR</p>
-            </li>
-            <li className="profile_button_info_li">
-              <p className="orange">{HeaderData?.ttk}TTK</p>
-            </li>
-          </ul>
-        </CSSTransition>
+          <CSSTransition
+            in={show}
+            classNames="alert"
+            timeout={1000}
+            unmountOnExit
+          >
+            <ul className="profile_button_info" id="time">
+              <li className="profile_button_info_li">
+                <p className="red">₸ {HeaderData?.tenge} </p>
+              </li>
+              <li className="profile_button_info_li">
+                <p>{HeaderData?.mmr}MMR</p>
+              </li>
+              <li className="profile_button_info_li">
+                <p className="orange">{HeaderData?.ttk}TTK</p>
+              </li>
+            </ul>
+          </CSSTransition>
+        </div>
       </div>
-    </div>
+      {/* <div className="Messenger">
+        <Messenger/>
+      </div> */}
+    </>
   );
 };
 

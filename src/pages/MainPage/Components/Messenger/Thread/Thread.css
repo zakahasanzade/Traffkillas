@@ -1,0 +1,115 @@
+.thread {
+  width: 75%;
+  display: flex;
+  /* flex: 0.75; */
+  flex-direction: column;
+  height: 100vh;
+  background: url("../Assets/Frame.svg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.thread__header {
+  box-sizing: border-box;
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  background-color: white;
+  padding: 10px 16px;
+}
+.thread__header_left {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.thread__header_left_picture img {
+  border-radius: 100%;
+  max-width: 54px;
+  max-height: 54px;
+}
+.thread__header_left_info h1 {
+  font-size: 18px;
+  font-weight: 700;
+}
+.thread__header_left_info p {
+  font-size: 14px;
+  font-weight: 500;
+}
+.thread__header_right {
+  margin: auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.thread__header_right i {
+  font-size: 32px;
+  opacity: 0.3;
+}
+
+.thread__messages {
+  flex: 1;
+  overflow: scroll;
+}
+
+.thread__messages::-webkit-scrollbar {
+  display: none;
+}
+.thread__input_template {
+  background-color: white;
+  padding: 8px;
+  border-radius: 50px;
+}
+.thread__input_template i {
+  font-size: 32px;
+}
+
+.thread__input {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  width: 580px;
+  margin: 16px auto;
+  background-color: transparent;
+}
+
+.thread__input > form {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}
+.thread__input_type {
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+}
+.thread__input_type i {
+  font-size: 32px;
+  opacity: 0.5;
+  margin-right: 10px;
+}
+.thread__input_type input {
+  width: 100%;
+  outline: none;
+  border: 0;
+  font-size: 16px;
+}
+.thread__input_send {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  padding: 8px 10px 8px 8px;
+  border-radius: 50px;
+}
+.thread__input_send i {
+  font-size: 32px;
+  color: #0f82f5;
+  transform: rotate(45deg) !important;
+}

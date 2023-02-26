@@ -12,8 +12,7 @@ const Instruments = () => {
       exit={{ opacity: 0, x: -100 }}
       transition={{ duration: 0.3 }}
     >
-      {/* <div className="main_header">{<Header />}</div>
-      <div className="NavBar">{<NavBar />}</div> */}
+    
     </motion.div>
   );
 };

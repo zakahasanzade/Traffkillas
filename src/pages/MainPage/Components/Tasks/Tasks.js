@@ -46,16 +46,24 @@ const Tasks = (props) => {
         },
       })
       .then((res) => {
-        console.log(res.data.status);
+        getManageData();
+        getWorkData();
       })
       .catch((error) => {
         console.log(error);
       });
     console.log(formData);
-    console.log(CalendarValue);
+    console.log(CalendarValue.toDateString().slice(4, 10));
     console.log(Currency);
+    ChangeCalendar(new Date());
+    setSelected([]);
+    document.querySelector(".PrivateSwitchBase-input").checked = false;
+
+    console.log(CalendarValue);
+    form.reset();
   };
   const ConfirmAvailableTask = (e) => {
+    e.preventDefault();
     fetch("http://94.103.90.6:5000/confirm_task", {
       method: "POST",
       headers: {
@@ -67,12 +75,16 @@ const Tasks = (props) => {
       .then((response) => {
         return response.text();
       })
-      .then((result) => {})
+      .then((result) => {
+        getManageData();
+        getWorkData();
+      })
       .catch((err) => {
         alert(err);
       });
   };
   const CompleteInProcessTask = (e, TextArea) => {
+    e.preventDefault();
     fetch("http://94.103.90.6:5000/complate_task", {
       method: "POST",
       headers: {
@@ -87,12 +99,16 @@ const Tasks = (props) => {
       .then((response) => {
         return response.text();
       })
-      .then((result) => {})
+      .then((result) => {
+        getManageData();
+        getWorkData();
+      })
       .catch((err) => {
         alert(err);
       });
   };
   const ReopenCompleteTask = (e) => {
+    e.preventDefault();
     fetch("http://94.103.90.6:5000/reopen_task", {
       method: "POST",
       headers: {
@@ -104,12 +120,16 @@ const Tasks = (props) => {
       .then((response) => {
         return response.text();
       })
-      .then((result) => {})
+      .then((result) => {
+        getManageData();
+        getWorkData();
+      })
       .catch((err) => {
         alert(err);
       });
   };
   const FinishInProcessTask = (e) => {
+    e.preventDefault();
     fetch("http://94.103.90.6:5000/finish_task", {
       method: "POST",
       headers: {
@@ -121,7 +141,10 @@ const Tasks = (props) => {
       .then((response) => {
         return response.text();
       })
-      .then((result) => {})
+      .then((result) => {
+        getManageData();
+        getWorkData();
+      })
       .catch((err) => {
         alert(err);
       });
@@ -175,7 +198,7 @@ const Tasks = (props) => {
   };
 
   const [CalendarValue, ChangeCalendar] = useState(new Date());
-
+  const [showCalendar, setShowCalendar] = useState(false);
   const GetCalendarData = () => {
     var Date = CalendarValue.toDateString().slice(4);
     console.log(Date);
@@ -195,6 +218,8 @@ const Tasks = (props) => {
       if (distance < 0) {
         clearInterval(arr[id - 1]);
         console.log("EXPIRED");
+        getManageData();
+        getWorkData();
       }
       if (el === null) {
         clearInterval(arr[id - 1]);
@@ -258,6 +283,11 @@ const Tasks = (props) => {
       document.body.addEventListener("click", closeDropdown);
       App();
     }
+
+    const CloseCalendar = (e) => {
+      setShowCalendar(false);
+    };
+    document.body.addEventListener("click", CloseCalendar);
   }, []);
   if (position == "3") {
     console.log("Hi Worker");
@@ -587,36 +617,41 @@ const Tasks = (props) => {
                       }}
                     />
                   </div>
-
-                  <p
-                    className="SendData_fine Tasks_fine"
-                    onClick={() => {
-                      GetCalendarData();
+                  <div
+                    className="SendData_calendarDate"
+                    onClick={(e) => {
+                      setShowCalendar(!showCalendar);
+                      e.stopPropagation();
                     }}
                   >
-                    -{" "}
-                    <input
-                      type="text"
-                      placeholder="Штраф"
-                      maxLength="5"
-                      name="fine"
-                      onInput={(e) => {
-                        e.target.value = e.target.value
-                          .replace(/[^0-9.]/g, "")
-                          .replace(/(\..*)\./g, "$1")
-                          .slice(0, 11);
-                      }}
-                    />{" "}
-                    <p
-                      className="SendData_fine_currency"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        SetCurrency(!Currency);
-                        console.log(Currency);
-                      }}
-                    >
-                      {TextCurrency}
-                    </p>
+                    {CalendarValue.toDateString().slice(4, 10)}
+                  </div>
+                  <p className="SendData_fine Tasks_fine">
+                    <div className="SendData_fine_div">
+                      -
+                      <input
+                        type="text"
+                        placeholder="Штраф"
+                        maxLength="5"
+                        name="fine"
+                        onInput={(e) => {
+                          e.target.value = e.target.value
+                            .replace(/[^0-9.]/g, "")
+                            .replace(/(\..*)\./g, "$1")
+                            .slice(0, 11);
+                        }}
+                      />{" "}
+                      <p
+                        className="SendData_fine_currency"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          SetCurrency(!Currency);
+                          console.log(Currency);
+                        }}
+                      >
+                        {TextCurrency}
+                      </p>
+                    </div>
                     <CSSTransition
                       in={Currency}
                       classNames="alert"
@@ -658,8 +693,8 @@ const Tasks = (props) => {
                     />
                   </p>
                 </div>
-                <Calendar onChange={ChangeCalendar} value={CalendarValue} />
               </div>
+
               <div className="sendData_submit">
                 <button type="submit">
                   Отправить задание <img src={ArrowRight} alt="rightArrow" />
@@ -667,6 +702,19 @@ const Tasks = (props) => {
               </div>
             </div>
           </form>
+          <div
+            className="calendar_general"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <CSSTransition
+              in={showCalendar}
+              classNames="alert"
+              timeout={1000}
+              unmountOnExit
+            >
+              <Calendar onChange={ChangeCalendar} value={CalendarValue} />
+            </CSSTransition>
+          </div>{" "}
           <p className="date">Мои задания</p>
           {WorkData &&
             WorkData.map((block, index) => {
@@ -1065,36 +1113,41 @@ const Tasks = (props) => {
                       }}
                     />
                   </div>
-
-                  <p
-                    className="SendData_fine Tasks_fine"
-                    onClick={() => {
-                      GetCalendarData();
+                  <div
+                    className="SendData_calendarDate"
+                    onClick={(e) => {
+                      setShowCalendar(!showCalendar);
+                      e.stopPropagation();
                     }}
                   >
-                    -{" "}
-                    <input
-                      type="text"
-                      placeholder="Штраф"
-                      maxLength="5"
-                      name="fine"
-                      onInput={(e) => {
-                        e.target.value = e.target.value
-                          .replace(/[^0-9.]/g, "")
-                          .replace(/(\..*)\./g, "$1")
-                          .slice(0, 11);
-                      }}
-                    />{" "}
-                    <p
-                      className="SendData_fine_currency"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        SetCurrency(!Currency);
-                        console.log(Currency);
-                      }}
-                    >
-                      {TextCurrency}
-                    </p>
+                    {CalendarValue.toDateString().slice(4, 10)}
+                  </div>
+                  <p className="SendData_fine Tasks_fine">
+                    <div className="SendData_fine_div">
+                      -
+                      <input
+                        type="text"
+                        placeholder="Штраф"
+                        maxLength="5"
+                        name="fine"
+                        onInput={(e) => {
+                          e.target.value = e.target.value
+                            .replace(/[^0-9.]/g, "")
+                            .replace(/(\..*)\./g, "$1")
+                            .slice(0, 11);
+                        }}
+                      />{" "}
+                      <p
+                        className="SendData_fine_currency"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          SetCurrency(!Currency);
+                          console.log(Currency);
+                        }}
+                      >
+                        {TextCurrency}
+                      </p>
+                    </div>
                     <CSSTransition
                       in={Currency}
                       classNames="alert"
@@ -1136,8 +1189,8 @@ const Tasks = (props) => {
                     />
                   </p>
                 </div>
-                <Calendar onChange={ChangeCalendar} value={CalendarValue} />
               </div>
+
               <div className="sendData_submit">
                 <button type="submit">
                   Отправить задание <img src={ArrowRight} alt="rightArrow" />
@@ -1145,7 +1198,19 @@ const Tasks = (props) => {
               </div>
             </div>
           </form>
-
+          <div
+            className="calendar_general"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <CSSTransition
+              in={showCalendar}
+              classNames="alert"
+              timeout={1000}
+              unmountOnExit
+            >
+              <Calendar onChange={ChangeCalendar} value={CalendarValue} />
+            </CSSTransition>
+          </div>{" "}
           {/* <p className="date">На доработку</p>
           {WorkData &&
             WorkData.map((block, index) => {

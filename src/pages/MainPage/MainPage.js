@@ -35,7 +35,14 @@ const MainPage = () => {
             <CustomLink to="/MainPage/Employees">Соотрудники</CustomLink>
           </ul>
         </nav>
-        {dropdown ? <p>Hello world</p> : ""}
+        {dropdown ? (
+          <ul className="navbar_dropdown">
+            <li>Проекты</li>
+            <li>Работники</li>
+          </ul>
+        ) : (
+          ""
+        )}
       </div>
       <Outlet />
     </>

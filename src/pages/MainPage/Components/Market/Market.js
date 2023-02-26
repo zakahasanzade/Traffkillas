@@ -66,12 +66,13 @@ const Market = () => {
       )
       .then((res) => {
         console.log(res);
+        getAssets();
       })
       .catch((error) => {
         console.log(error);
       });
     console.log(formData);
-    // getAssets();
+    form.reset();
   }
   const DeletePost = (e) => {
     // e.preventDefault();
@@ -88,13 +89,14 @@ const Market = () => {
       .then((response) => {
         return response.text();
       })
-      .then((result) => {})
+      .then((result) => {
+        getAssets();
+      })
       .catch((err) => {
         alert(err);
       });
 
     console.log("e.target");
-    getAssets();
   };
   const headers = new Headers();
   headers.append("Cookie", "name1=value1; name2=value2");
@@ -287,7 +289,9 @@ const Market = () => {
                     onClick={(e) => ReturnCard(e, index)}
                     style={{ width: "240px" }}
                   >
-                    <p style={{ fontSize: "24px" }}>{PoductName}</p>
+                    <p style={{ fontSize: "24px", overflowWrap: "break-word" }}>
+                      {PoductName}
+                    </p>
                     <ReactCardFlip
                       isFlipped={SubmitProduct[index]}
                       flipDirection="horizontal"

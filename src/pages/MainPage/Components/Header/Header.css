@@ -1,7 +1,8 @@
 .header {
   display: flex;
   justify-content: space-between;
-  padding-top: 50px;
+  padding-top: 35px;
+  align-items: center;
 }
 
 .header_logo img {
@@ -14,15 +15,23 @@
   align-items: center;
   position: relative;
 }
-
-#mode_button {
-  width: 32px;
-  background-color: #222226;
-  border: 0;
-  cursor: pointer;
+.header_profile_buttons {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  margin-top: 6px;
-  border-radius: 100%;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: 25px;
+  background-color: #141414;
+}
+.header_profile_buttons i {
+  color: white;
+  background-color: #141414;
+  border: 0;
+  font-size: 32px;
+}
+.header_profile_buttons button {
+  border: 0;
 }
 
 #profile_button {
@@ -52,7 +61,7 @@
 .profile_button_info {
   position: absolute;
   top: 50px;
-  left: 45px;
+  left: 105px;
   background-color: #141414 !important;
   border-radius: 25px;
   padding: 12px;
@@ -91,4 +100,12 @@
   opacity: 0;
   transform: scale(0.9);
   transition: opacity 300ms, transform 300ms;
+}
+.Messenger {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

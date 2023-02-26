@@ -68,14 +68,7 @@ const Authorization = () => {
           id="form"
           onSubmit={(e) => submit(e)}
         >
-          {/* <Input size="mini" placeholder="Login..." />
-          <br />
-          <Input
-            size="mini"
-            icon="arrow right"
-            className="page_autorization_inputs_submit"
-            placeholder="Password..."
-          /> */}
+         
           <input
             placeholder="логин"
             type="text"
@@ -92,15 +85,7 @@ const Authorization = () => {
           <button type="submit" className="arrow" />
           {/* </div> */}
         </form>
-        {/* <div>
-          {users.length > 0 && (
-            <ul>
-              {users.map((user) => (
-                <li key={user.id}>{user.name}</li>
-              ))}
-            </ul>
-          )}
-        </div> */}
+
         <div className="page_autorization_footer">
           <p>Забыли пароль?</p>
         </div>
