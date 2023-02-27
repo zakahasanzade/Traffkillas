@@ -5,6 +5,11 @@
   background-repeat: no-repeat;
   width: 100vw;
   height: 100vh;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  overflow-wrap: break-word;
 }
 
 .page_autorization_main {
@@ -35,10 +40,12 @@
   align-items: center;
   justify-content: center;
   border-radius: 25px;
-  padding-left: 130px;
+  text-align: center;
   border: 0;
   margin-bottom: 10px;
   outline: none;
+  overflow: hidden;
+  padding: 0 45px;
 }
 .page_autorization_inputs {
   position: relative;
@@ -65,6 +72,7 @@
   transition: 0.5s;
   font-size: 16px;
   font-weight: 300;
+  cursor: pointer;
 }
 
 .page_autorization_footer:hover {

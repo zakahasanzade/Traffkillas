@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion/dist/framer-motion";
+import { Background } from "devextreme-react/range-selector";
+import ProjectPhoto from "../Leaderboard Assets/ProjectPhoto.svg";
 
 const ProjectLeaderboard = () => {
   return (
@@ -119,6 +121,43 @@ const ProjectLeaderboard = () => {
           </div>
 
           <div className="leader_balance">26 депозит</div>
+        </div>
+        <div className="leader_div">
+          <div className="leader_left_div">
+            <div className="first_leader_number">
+              <p>1</p>
+            </div>
+            <div className="leader_img">
+              <img src={ProjectPhoto} alt="Leader"></img>
+            </div>
+            <div className="leader_info">
+              <div className="leader_info_header">
+                <p>Айрат Гашишин</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="leader_balance">600 MMR</div>
+        </div>
+        <div className="leader_div">
+          <div className="leader_left_div">
+            <div
+              className="first_leader_number"
+              style={{ backgroundColor: "#CBCBCB" }}
+            >
+              <p>2</p>
+            </div>
+            <div className="leader_img">
+              <img src={ProjectPhoto} alt="Leader"></img>
+            </div>
+            <div className="leader_info">
+              <div className="leader_info_header">
+                <p>Айрат Гашишин</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="leader_balance">600 MMR</div>
         </div>
       </div>
     </motion.div>

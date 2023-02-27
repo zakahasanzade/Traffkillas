@@ -120,6 +120,31 @@ const Leaderboard = () => {
 
           <div className="leader_balance">26 депозит</div>
         </div>
+        <div className="leader_div">
+          <div className="leader_left_div">
+            <div className="first_leader_number fourth">
+              <p>4</p>
+            </div>
+            <div className="leader_img">
+              <img src={Leader} alt="Leader"></img>
+            </div>
+            <div className="leader_info">
+              <div className="leader_info_header">
+                <p>AKKOSYBAY</p>
+                <p className="leader_info_header_icon">
+                  <FontAwesomeIcon icon={faCaretUp} size="xl" />
+                  <p>5.84%</p>
+                </p>
+              </div>
+              <div className="leader_info_footer">
+                <p>11 867 подписчиков</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="leader_balance">26 депозит</div>
+        </div>
+        
       </div>
     </motion.div>
   );

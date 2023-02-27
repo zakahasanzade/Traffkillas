@@ -1,8 +1,10 @@
 // import { Avatar, IconButton } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import AccountProfile from "../Assets/AccountProfile.svg";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { JsonHubProtocol } from "@microsoft/signalr";
 import "./Thread.css";
+import { ChatsId } from "../Sidebar/Components/AllChats";
 
 // import db from "../firebase";
 // import firebase from "firebase";
@@ -15,59 +17,45 @@ import "./Thread.css";
 // import * as timeago from "timeago.js";
 // import FlipMove from "react-flip-move";
 
-const Thread = () => {
+const Thread = ({ NewChatId, chatMessages, stateChat }) => {
   const [messages, setMessages] = useState([]);
   const [user, setUser] = useState("");
   const [message, setMessage] = useState("");
   const [connection, setConnection] = useState(null);
   const token = localStorage.getItem("token");
-  // const [input, setInput] = useState("");
-  // const [messages, setMessages] = useState([]);
-  // const threadName = useSelector(selectThreadName);
-  // const threadId = useSelector(selectThreadId);
-  // const user = useSelector(selectUser);
+  const [typeMessage, SetTypeMessage] = useState();
+  const chatRef = useRef();
 
-  // useEffect(() => {
-  //   if (threadId) {
-  //     db.collection("threads")
-  //       .doc(threadId)
-  //       .collection("messages")
-  //       .orderBy("timestamp", "desc")
-  //       .onSnapshot((snapshot) =>
-  //         setMessages(
-  //           snapshot.docs.map((doc) => ({
-  //             id: doc.id,
-  //             data: doc.data(),
-  //           }))
-  //         )
-  //       );
-  //   }
-  // }, [threadId]);
+  const GetChatMessages = (e) => {
+    fetch(
+      `http://146.0.78.143:5354/api/v1/messages/fromChat?chat=${NewChatId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    )
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {});
+  };
 
-  // const sendMessage = (e) => {
-  //   e.preventDefault();
-
-  //   db.collection("threads").doc(threadId).collection("messages").add({
-  //     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //     message: input,
-  //     uid: user.uid,
-  //     photo: user.photo,
-  //     email: user.email,
-  //     displayName: user.displayName,
-  //   });
-
-  //   setInput("");
-
-  // };
   useEffect(() => {
     const newConnection = new HubConnectionBuilder()
       .withUrl(`http://146.0.78.143:5354/hubs/messenger?token=${token}`)
+      // .withHubProtocol(protocol)
       .withAutomaticReconnect()
       .build();
 
     setConnection(newConnection);
   }, []);
-
+  const UserArr = [];
+  const [messageGet, setMessageGet] = useState();
+  const [messageGetId, setMessageGetId] = useState();
+  const [TestState, setTestState] = useState(true);
   useEffect(() => {
     if (connection) {
       connection
@@ -84,40 +72,98 @@ const Thread = () => {
           connection.on("messageNotification", (user, message) => {
             const newMessage = `${user}: ${message}`;
             setMessages((messages) => [...messages, newMessage]);
-            console.log(user);
+            console.log(user.messageText);
+            // UserArr = [...user.messageText];
+            setMessageGet(user.messageText);
+            setMessageGetId(user.chatId);
           });
         })
         .catch((error) => console.error(error));
     }
   }, [connection]);
 
+  const sendMessage = (e) => {
+    connection
+      .invoke("sendMessage", typeMessage, NewChatId)
+      .then(() => {
+        document.querySelector(".thread__input_type").reset();
+        document.querySelector(".sent_message").innerHTML = typeMessage;
+      })
+      .catch((error) => console.error(error));
+  };
+  useEffect(() => {
+    TestState && (chatRef.current.scrollTop = chatRef.current.scrollHeight);
+  }, [chatMessages]);
+
   return (
     <div className="thread">
-      <div className="thread__header">
-        <div className="thread__header_left">
-          <div className="thread__header_left_picture">
-            <img src={AccountProfile}></img>
+      {NewChatId && (
+        <div className="thread__header">
+          <div className="thread__header_left">
+            <div className="thread__header_left_picture">
+              <img src={AccountProfile}></img>
+            </div>
+            <div className="thread__header_left_info">
+              <h1>{NewChatId}</h1>
+              <p>service notifications</p>
+            </div>
           </div>
-          <div className="thread__header_left_info">
-            <h1>Telegram</h1>
-            <p>service notifications</p>
+          <div className="thread__header_right">
+            <i class="bi bi-search"></i>
+            <i class="bi bi-telephone-fill"></i>
+            <i class="bi bi-three-dots-vertical"></i>
           </div>
         </div>
-        <div className="thread__header_right">
-          <i class="bi bi-search"></i>
-          <i class="bi bi-telephone-fill"></i>
-          <i class="bi bi-three-dots-vertical"></i>
-        </div>
-      </div>
-      <div className="thread__messages">
+      )}
+      <div
+        className="thread__messages"
+        style={{ display: "flex", flexDirection: "column" }}
+        ref={chatRef}
+      >
+        {console.log(chatRef)}
         {/* <FlipMove>
           {messages.map(({ id, data }) => (
             <Message key={id} id={id} data={data} />
           ))}
         </FlipMove> */}
-        {messages.map((message, index) => (
-          <div key={index}>{message.messageText}</div>
-        ))}
+        {console.log(stateChat)}
+        {chatMessages &&
+          chatMessages.map((messages) => {
+            const { chatId, text, sendTime, direction } = messages;
+            return (
+              <>
+                {/* <div className="received_message">{text}</div> */}
+                {direction === 0 ? (
+                  <span className="received_message">
+                    <span>{text}</span>
+                  </span>
+                ) : (
+                  ""
+                )}
+                {/* <div className="sent_message">{text}</div> */}
+                {direction === 1 ? (
+                  <span className="send_message">
+                    <label
+                      style={{
+                        backgroundColor: "white",
+                        padding: "8px 16px",
+                        borderRadius: "25px",
+                        margin: "5px",
+                        maxWidth:"900px"
+                      }}
+                    >
+                      {text}
+                    </label>{" "}
+                  </span>
+                ) : (
+                  ""
+                )}
+              </>
+            );
+          })}
+        {/* {messageGet && messageGetId === NewChatId && (
+          <div className="received_message">{messageGet}</div>
+        )} */}
       </div>
       <div className="thread__input">
         <div className="thread__input_template">
@@ -125,11 +171,25 @@ const Thread = () => {
         </div>
         <form className="thread__input_type">
           <i class="bi bi-emoji-smile"></i>
-          <input placeholder="Message" type="text" />
+          <input
+            placeholder="Message"
+            type="text"
+            onChange={(e) => {
+              SetTypeMessage(e.target.value);
+              console.log(typeMessage);
+            }}
+          />
           <i class="bi bi-paperclip" style={{ transform: "rotate(45deg)" }}></i>
         </form>
 
-        <div className="thread__input_send">
+        <div
+          onClick={(e) => {
+            sendMessage(e);
+
+            console.log(messageGetId);
+          }}
+          className="thread__input_send"
+        >
           <i class="bi bi-send-fill" style={{ transform: "rotate(90deg)" }}></i>
         </div>
       </div>

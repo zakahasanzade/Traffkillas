@@ -1,15 +1,43 @@
 import React from "react";
-import Sidebar from "./Sidebar/Sidebar";
+import { Sidebar } from "./Sidebar/Sidebar";
 import "./Messenger.css";
 import Thread from "./Thread/Thread.js";
 import { useEffect, useState } from "react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 
-function Messenger() {
+function Messenger({ CloseMessengerWindow }) {
+  const [NewChatId, setNewChatId] = useState();
+  const [chatMessages, SetChatMessages] = useState();
+  const [stateChat, setStateChat] = useState();
+  const [closeMessenger, setCloseMesenger] = useState();
+  const GetchatMessage = (GetMessage) => {
+    SetChatMessages(GetMessage);
+  };
+  const UpdateChatId = (ChatId) => {
+    setNewChatId(ChatId);
+    console.log(ChatId);
+  };
+  const GetStateChat = (StateChat) => {
+    setStateChat(StateChat);
+  };
+  const CloseMessenger = (window) => {
+    setCloseMesenger(window);
+    CloseMessengerWindow(window);
+    console.log(closeMessenger);
+  };
   return (
     <div className="telegram">
-      <Sidebar />
-      <Thread />
+      <Sidebar
+        GetchatMessage={GetchatMessage}
+        UpdateChatId={UpdateChatId}
+        GetStateChat={GetStateChat}
+        CloseMessenger={CloseMessenger}
+      />
+      <Thread
+        NewChatId={NewChatId}
+        chatMessages={chatMessages}
+        stateChat={stateChat}
+      />
     </div>
   );
 }

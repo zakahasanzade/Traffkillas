@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./Sidebar.css";
 import {
   ProSidebar,
@@ -9,8 +9,11 @@ import {
 } from "react-pro-sidebar";
 import AccountProfile from "../Assets/AccountProfile.svg";
 import { Carousel } from "react-responsive-carousel";
-import AllChats from "./Components/AllChats";
+// import { AllChats, ChatsId } from "./Components/AllChats";
+
+import Tasks from "./Components/Tasks";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import Marketing from "./Components/Marketing";
 
 // import SearchIcon from "@material-ui/icons/Search";
 // import { Avatar, IconButton } from "@material-ui/core";
@@ -23,7 +26,18 @@ import { HubConnectionBuilder } from "@microsoft/signalr";
 // import { selectUser } from "../features/counter/userSlice";
 // import Photo from "./Assets/ProfilePhoto.svg";
 
-const Sidebar = () => {
+let ChatId = null;
+
+const Sidebar = ({
+  UpdateChatId,
+  GetchatMessage,
+  GetStateChat,
+  CloseMessenger,
+}) => {
+  const [openChat, SetOpenChat] = useState(false);
+  const chatRef = useRef();
+  let UserMessagesArr = [];
+  const [UserMessages, setUserMessages] = useState();
   //   const user = useSelector(selectUser);
 
   //   useEffect(() => {
@@ -36,7 +50,44 @@ const Sidebar = () => {
   //       )
   //     );
   //   }, []);
-  
+
+  let GetChatArr = [];
+  const [GetChat, setGetChat] = useState([]);
+  const GetChats = () => {
+    fetch("http://146.0.78.143:5354/api/v1/messages/getChats", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        // GetChatArr = JSON.parse(result)["data"];
+        setGetChat(JSON.parse(result));
+      });
+  };
+  const GetChatMessages = () => {
+    fetch(`http://146.0.78.143:5354/api/v1/messages/fromChat?chat=${ChatId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        UserMessagesArr = JSON.parse(result);
+        setUserMessages(UserMessagesArr);
+        GetchatMessage(UserMessagesArr);
+        SetOpenChat(true);
+        GetStateChat(openChat);
+      });
+  };
   const [activeChat, setActiveChat] = useState("All");
   const StyleNav = (e) => {
     console.log(e.target.className);
@@ -74,8 +125,12 @@ const Sidebar = () => {
   useEffect(() => {
     document.querySelector(`.sidebar__threads_navbar_all`).style.borderBottom =
       "2px solid #EA9127";
+    GetChats();
+    // GetChatMessages();
   }, []);
-
+  useEffect(() => {
+    // Scroll to bottom of chat window on page load and when new message is added
+  }, []);
   return (
     <div className="sidebar">
       <div className="sidebar__header">
@@ -119,17 +174,84 @@ const Sidebar = () => {
         </ul>
       </div>
       <div className="sidebar__threads">
-        {activeChat === "All" && <AllChats title="All" />}
-        {activeChat === "Tasks" && <AllChats title="Tasks" />}
-        {activeChat === "Marketing" && <AllChats title="Marketing" />}
+        {activeChat === "All" && (
+          <div className="sidebar__threads_chats">
+            <ProSidebar>
+              <Menu style={{ backgroundColor: "white", padding: 0 }}>
+                <SubMenu
+                  title={<p className="sidebar_sidebar_title">Re-deposit</p>}
+                  defaultOpen={true}
+                >
+                  {GetChat &&
+                    GetChat.map((chats, index) => {
+                      const { chatId } = chats;
+                      return (
+                        <Menu>
+                          <div
+                            id={chatId}
+                            className={"sidebar_sidebar_acoounts chat_" + index}
+                            onClick={(e) => {
+                              ChatId = document.querySelector(
+                                `.chat_${index}`
+                              ).id;
+                              UpdateChatId(ChatId);
+                              GetChatMessages();
+
+                              console.log(ChatId);
+                            }}
+                          >
+                            <div className="sidebar_accounts_img">
+                              <img
+                                src={AccountProfile}
+                                alt="AccountProfile"
+                              ></img>
+                              <div className="sidebar_accounts_info">
+                                <div className="sidebar_accounts_info_title">
+                                  {chatId}
+                                </div>
+                                <div className="sidebar_accounts_info_message">
+                                  Are you going to improve app perfomance?
+                                </div>
+                              </div>
+                            </div>
+                            <div className="sidebar_accounts_notification">
+                              <div className="sidebar_accounts_notification_time">
+                                19:01
+                              </div>
+                              {/* <div className="sidebar_accounts_notification_num">
+                              2
+                            </div> */}
+                            </div>
+                          </div>
+                        </Menu>
+                      );
+                    })}
+                </SubMenu>
+                <SubMenu
+                  title={<p className="sidebar_sidebar_title">Deposit</p>}
+                  defaultOpen={true}
+                ></SubMenu>
+                <SubMenu
+                  title={<p className="sidebar_sidebar_title">Нет ответа</p>}
+                  defaultOpen={true}
+                ></SubMenu>
+              </Menu>
+            </ProSidebar>
+          </div>
+        )}
+        {activeChat === "Tasks" && <Tasks GetChat={GetChat} />}
+        {activeChat === "Marketing" && <Marketing GetChat={GetChat} />}
       </div>
-      <div className="sidebar__bottom"></div>
+      <div
+        className="sidebar__bottom"
+        onClick={() => {
+          CloseMessenger(false);
+        }}
+      >
+        <i class="bi bi-box-arrow-left sidebar__bottom_close"></i>
+      </div>
     </div>
   );
 };
 
-export default Sidebar;
-
-
-
-
+export { Sidebar, ChatId };

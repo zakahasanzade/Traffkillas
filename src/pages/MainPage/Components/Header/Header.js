@@ -9,6 +9,7 @@ import Messenger from "../Messenger/Messenger";
 
 const Header = () => {
   const navigate = useNavigate();
+  const [showMessenger, setShowMessenger] = useState();
 
   const ChangeMode = () => {
     alert("Mode changes will be active very soon");
@@ -19,7 +20,7 @@ const Header = () => {
   };
 
   const [show, setShow] = useState(false);
-  const [HeaderData, SetHeaderData] = useState();
+  const [HeaderData, SetHeaderData] = useState(false);
   const getHeaderData = () => {
     let x = null;
     fetch("http://94.103.90.6:5000/get_profile_info", {
@@ -38,7 +39,13 @@ const Header = () => {
         console.log(x);
       });
   };
-  const OpeanMessenger = () => {};
+  const OpeanMessenger = () => {
+    setShowMessenger(!showMessenger);
+  };
+  const CloseMessengerWindow = (window) => {
+    setShowMessenger(window);
+    console.log(window);
+  };
   useEffect(() => {
     getHeaderData();
   }, []);
@@ -85,9 +92,16 @@ const Header = () => {
           </CSSTransition>
         </div>
       </div>
-      {/* <div className="Messenger">
-        <Messenger/>
-      </div> */}
+      <CSSTransition
+        in={showMessenger}
+        classNames="alert"
+        timeout={1000}
+        unmountOnExit
+      >
+        <div className="Messenger">
+          <Messenger CloseMessengerWindow={CloseMessengerWindow} />
+        </div>
+      </CSSTransition>
     </>
   );
 };

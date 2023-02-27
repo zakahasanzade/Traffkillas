@@ -182,3 +182,8 @@
   flex-direction: column !important;
   gap: 10px !important;
 }
+.sidebar__bottom_close {
+  color: red;
+  font-size: 25px;
+  cursor: pointer;
+}

@@ -9,6 +9,7 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  overflow-wrap: break-word;
 }
 
 .thread__header {
@@ -112,4 +113,25 @@
   font-size: 32px;
   color: #0f82f5;
   transform: rotate(45deg) !important;
+  cursor: pointer;
+}
+
+.received_message {
+  background-color: #ffe8a3;
+  width: max-content;
+  padding: 8px 16px;
+  border-radius: 25px;
+  margin: 5px;
+  max-width: 900px;
+  overflow-wrap: break-word;
+}
+.received_messages {
+  background-color: red;
+  text-align: end;
+}
+.send_message {
+  overflow-wrap: break-word;
+  /* background-color: red; */
+  text-align: end;
+  
 }

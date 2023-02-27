@@ -2,10 +2,25 @@ import React from "react";
 import "./Authorization.css";
 import MainLogo from "./../../assets/MainLogo.svg";
 import { useNavigate } from "react-router-dom";
+import "react-notifications/lib/notifications.css";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
 
 /* A function declaration. */
 const Authorization = () => {
   const navigate = useNavigate();
+
+  const createNotification = (type) => {
+    NotificationManager.info(
+      <div style={{ textAlign: "center" }}>
+        Забыл пароль?
+        <br />
+        <small style={{ fontSize: "18px",fontWeight:"700" }}>Спроси любого тимлида</small>
+      </div>
+    );
+  };
 
   //   const ChangePage = (e) => {
   //     e.preventDefault();
@@ -68,7 +83,6 @@ const Authorization = () => {
           id="form"
           onSubmit={(e) => submit(e)}
         >
-         
           <input
             placeholder="логин"
             type="text"
@@ -87,9 +101,16 @@ const Authorization = () => {
         </form>
 
         <div className="page_autorization_footer">
-          <p>Забыли пароль?</p>
+          <p
+            onClick={() => {
+              createNotification("info");
+            }}
+          >
+            Забыли пароль?
+          </p>
         </div>
       </main>
+      <NotificationContainer />
     </div>
   );
 };
