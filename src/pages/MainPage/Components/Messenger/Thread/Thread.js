@@ -17,7 +17,7 @@ import { ChatsId } from "../Sidebar/Components/AllChats";
 // import * as timeago from "timeago.js";
 // import FlipMove from "react-flip-move";
 
-const Thread = ({ NewChatId, chatMessages, stateChat }) => {
+const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
   const [messages, setMessages] = useState([]);
   const [user, setUser] = useState("");
   const [message, setMessage] = useState("");
@@ -74,6 +74,7 @@ const Thread = ({ NewChatId, chatMessages, stateChat }) => {
             setMessages((messages) => [...messages, newMessage]);
             console.log(user.messageText);
             // UserArr = [...user.messageText];
+            RenderChats(true);
             setMessageGet(user.messageText);
             setMessageGetId(user.chatId);
           });
@@ -87,14 +88,25 @@ const Thread = ({ NewChatId, chatMessages, stateChat }) => {
       .invoke("sendMessage", typeMessage, NewChatId)
       .then(() => {
         document.querySelector(".thread__input_type").reset();
-        document.querySelector(".sent_message").innerHTML = typeMessage;
+        // document.querySelector(".sent_message").innerHTML = typeMessage;
+        RenderChats(true);
       })
       .catch((error) => console.error(error));
   };
   useEffect(() => {
     TestState && (chatRef.current.scrollTop = chatRef.current.scrollHeight);
   }, [chatMessages]);
-
+  useEffect(() => {
+    function handleKeyPress(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+      }
+    }
+    window.addEventListener("keydown", handleKeyPress);
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
   return (
     <div className="thread">
       {NewChatId && (
@@ -120,13 +132,11 @@ const Thread = ({ NewChatId, chatMessages, stateChat }) => {
         style={{ display: "flex", flexDirection: "column" }}
         ref={chatRef}
       >
-        {console.log(chatRef)}
         {/* <FlipMove>
           {messages.map(({ id, data }) => (
             <Message key={id} id={id} data={data} />
           ))}
         </FlipMove> */}
-        {console.log(stateChat)}
         {chatMessages &&
           chatMessages.map((messages) => {
             const { chatId, text, sendTime, direction } = messages;
@@ -149,7 +159,7 @@ const Thread = ({ NewChatId, chatMessages, stateChat }) => {
                         padding: "8px 16px",
                         borderRadius: "25px",
                         margin: "5px",
-                        maxWidth:"900px"
+                        maxWidth: "900px",
                       }}
                     >
                       {text}
@@ -176,17 +186,16 @@ const Thread = ({ NewChatId, chatMessages, stateChat }) => {
             type="text"
             onChange={(e) => {
               SetTypeMessage(e.target.value);
-              console.log(typeMessage);
             }}
           />
           <i class="bi bi-paperclip" style={{ transform: "rotate(45deg)" }}></i>
         </form>
-
         <div
           onClick={(e) => {
             sendMessage(e);
+            // RenderChats("true");
 
-            console.log(messageGetId);
+            // console.log(messageGetId);
           }}
           className="thread__input_send"
         >

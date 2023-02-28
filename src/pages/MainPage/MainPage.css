@@ -33,6 +33,9 @@ body {
   border-radius: 15px;
   font-size: 25px;
 }
+.nav {
+  justify-content: center;
+}
 .nav li.active a {
   background-color: #ea9127;
   color: black;

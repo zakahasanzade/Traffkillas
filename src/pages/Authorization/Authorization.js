@@ -17,7 +17,9 @@ const Authorization = () => {
       <div style={{ textAlign: "center" }}>
         Забыл пароль?
         <br />
-        <small style={{ fontSize: "18px",fontWeight:"700" }}>Спроси любого тимлида</small>
+        <small style={{ fontSize: "18px", fontWeight: "700" }}>
+          Спроси любого тимлида
+        </small>
       </div>
     );
   };

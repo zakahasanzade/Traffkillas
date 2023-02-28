@@ -136,7 +136,7 @@ const Employees = () => {
                 <input placeholder="Введите логин ..." name="username" />
                 <p className="employee_create_employee_title">Авто-пароль:</p>
                 <input placeholder="Введите авто-пароль ..." name="pwd" />
-                <p className="employee_create_employee_title">Поле:</p>
+                <p className="employee_create_employee_title">Должность:</p>
                 <input placeholder="Введите поле ..." name="title" />
                 <button>
                   <i class="bi bi-plus-circle-fill"></i> Добавить сотрудника

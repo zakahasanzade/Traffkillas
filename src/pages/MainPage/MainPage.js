@@ -7,7 +7,7 @@ import { CSSTransition } from "react-transition-group";
 import { useNavigate } from "react-router-dom";
 import { windows } from "fontawesome";
 
-const MainPage = () => {
+const MainPage = (props) => {
   let isLeaderboard = useMatch({
     path: "/MainPage/ProjectLeaderboard",
     end: true,
@@ -31,8 +31,12 @@ const MainPage = () => {
               Лидерборд
             </CustomLink>
             <CustomLink to="/MainPage/Market">Маркет</CustomLink>
-            <CustomLink to="/MainPage/Instruments">Инструменты</CustomLink>
-            <CustomLink to="/MainPage/Employees">Соотрудники</CustomLink>
+            {props.position !== "3" && (
+              <CustomLink to="/MainPage/Instruments">Инструменты</CustomLink>
+            )}
+            {props.position !== "3" && (
+              <CustomLink to="/MainPage/Employees">Соотрудники</CustomLink>
+            )}
           </ul>
         </nav>
         {/* {dropdown ? (

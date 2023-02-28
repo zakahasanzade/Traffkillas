@@ -10,6 +10,7 @@ function Messenger({ CloseMessengerWindow }) {
   const [chatMessages, SetChatMessages] = useState();
   const [stateChat, setStateChat] = useState();
   const [closeMessenger, setCloseMesenger] = useState();
+  const [OnceUpdate, setOnceUpdate] = useState();
   const GetchatMessage = (GetMessage) => {
     SetChatMessages(GetMessage);
   };
@@ -25,6 +26,12 @@ function Messenger({ CloseMessengerWindow }) {
     CloseMessengerWindow(window);
     console.log(closeMessenger);
   };
+  const RenderChats = (chats) => {
+    setOnceUpdate("chats");
+  };
+  const StopRendering = (hook) => {
+    setOnceUpdate(hook);
+  };
   return (
     <div className="telegram">
       <Sidebar
@@ -32,11 +39,14 @@ function Messenger({ CloseMessengerWindow }) {
         UpdateChatId={UpdateChatId}
         GetStateChat={GetStateChat}
         CloseMessenger={CloseMessenger}
+        OnceUpdate={OnceUpdate}
+        StopRendering={StopRendering}
       />
       <Thread
         NewChatId={NewChatId}
         chatMessages={chatMessages}
         stateChat={stateChat}
+        RenderChats={RenderChats}
       />
     </div>
   );

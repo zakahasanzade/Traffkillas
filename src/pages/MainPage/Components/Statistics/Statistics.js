@@ -25,36 +25,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./Statistics.css";
 
-const SubMenuTitle = (
-  /* DROPDOWN SIDEBAR */
-  <div className="statistics_submenu">
-    <div className="statistics_submenu">
-      <div className="statistics_submenu_div blue">11.12</div>
-      <div className="statistics_submenu_div black">
-        11 287{" "}
-        <span className="green" style={{ fontSize: "16px" }}>
-          +46
-        </span>
-      </div>
-      <div className="statistics_submenu_div black">
-        <FontAwesomeIcon icon={faEye} /> 47
-      </div>
-      <div className="statistics_submenu_div orange">
-        <FontAwesomeIcon icon={faTicket} /> 54
-      </div>
-      <div className="statistics_submenu_div black">
-        <FontAwesomeIcon icon={faClock} /> 5 минут
-      </div>
-      <div className="statistics_submenu_div" style={{ color: "purple" }}>
-        500 000₸
-      </div>
-      <div className="statistics_submenu_div pink">
-        <FontAwesomeIcon icon={faPiggyBank} /> 32
-      </div>
-    </div>
-  </div>
-);
-
 const Statistics = (props) => {
   const [graph, setGraph] = useState();
 
@@ -80,6 +50,57 @@ const Statistics = (props) => {
         alert(err);
       });
   };
+
+  // const SubMenuTitle = (
+  //   /* DROPDOWN SIDEBAR */
+
+  //   <div>
+  //     {Statistics &&
+  //       Statistics.map((el, index) => {
+  //         const {
+  //           all_join,
+  //           all_left,
+  //           all_subscribers,
+  //           aud_gender,
+  //           channel_id,
+  //           channel_name,
+  //           date,
+  //           left_join_stat,
+  //         } = el;
+  //         return (
+  //           <>
+  //             <div className="statistics_submenu ">
+  //               <div className="statistics_submenu_div yellow">{date}</div>
+  //               <div className="statistics_submenu_div black">
+  //                 {all_subscribers}{" "}
+  //                 <span className="green" style={{ fontSize: "16px" }}>
+  //                   +{all_join}
+  //                 </span>
+  //                 /
+  //                 <span className="red" style={{ fontSize: "16px" }}>
+  //                   -{all_left}
+  //                 </span>
+  //               </div>
+
+  //               <div className="statistics_submenu_div black">
+  //                 <i class="bi bi-people-fill"></i>
+  //               </div>
+  //               <div className="statistics_submenu_div black">
+  //                 <i class="bi bi-clock-fill"></i> 5 мин
+  //               </div>
+  //               <div className="statistics_submenu_div orange">
+  //                 <i class="bi bi-ticket-perforated-fill"></i> 54
+  //               </div>
+  //               <div className="statistics_submenu_div pink">
+  //                 <i class="bi bi-piggy-bank-fill"></i> 32
+  //               </div>
+  //             </div>
+  //           </>
+  //         );
+  //       })}
+  //   </div>
+  // );
+
   useEffect(() => {
     GetStatisticsData();
   }, []);
@@ -94,13 +115,13 @@ const Statistics = (props) => {
           </span>
         </div>
         <div className="statistics_submenu_div black">
-          <FontAwesomeIcon icon={faEye} /> 47
+          <i class="bi bi-people-fill"></i> 10 000
+        </div>
+        <div className="statistics_submenu_div black">
+          <FontAwesomeIcon icon={faClock} /> 5 мин
         </div>
         <div className="statistics_submenu_div orange">
           <FontAwesomeIcon icon={faTicket} /> 54
-        </div>
-        <div className="statistics_submenu_div black">
-          <FontAwesomeIcon icon={faClock} /> 5 минут
         </div>
         <div className="statistics_submenu_div" style={{ color: "purple" }}>
           500 000₸
@@ -128,6 +149,10 @@ const Statistics = (props) => {
         {Statistics &&
           Statistics.map((el, index) => {
             const {
+              all_join,
+              all_left,
+              all_subscribers,
+              date,
               aud_gender,
               channel_id,
               channel_name,
@@ -222,182 +247,92 @@ const Statistics = (props) => {
                         <ProSidebar>
                           <SidebarContent>
                             <Menu>
-                              <SubMenu title={SubMenuTitle}>
-                                <MenuItem>
-                                  <div className="statistics_submenu">
-                                    <div className="statistics_submenu">
-                                      <div className="statistics_submenu_div yellow">
-                                        23:00
-                                      </div>
-                                      <div className="statistics_submenu_div black">
-                                        806{" "}
-                                        <span
-                                          className="red"
-                                          style={{ fontSize: "16px" }}
-                                        >
-                                          -20
-                                        </span>
-                                      </div>
-                                      <div className="statistics_submenu_div orange">
-                                        <FontAwesomeIcon icon={faTicket} /> 54
-                                      </div>
-                                      <div className="statistics_submenu_div black">
-                                        <FontAwesomeIcon icon={faClock} /> 5
-                                        минут
-                                      </div>
-                                      <div
-                                        className="statistics_submenu_div"
-                                        style={{ color: "purple" }}
+                              <SubMenu
+                                title={
+                                  <div className="statistics_submenu ">
+                                    <div className="statistics_submenu_div yellow black">
+                                      {date}
+                                    </div>
+                                    <div className="statistics_submenu_div black">
+                                      806{" "}
+                                      <span
+                                        className="green"
+                                        style={{ fontSize: "16px" }}
                                       >
-                                        500 000₸
-                                      </div>
-                                      <div className="statistics_submenu_div pink">
-                                        <FontAwesomeIcon icon={faPiggyBank} />{" "}
-                                        32
-                                      </div>
+                                        +{all_join}
+                                      </span>
+                                      /
+                                      <span
+                                        className="red"
+                                        style={{ fontSize: "16px" }}
+                                      >
+                                        -{all_left}
+                                      </span>
+                                    </div>
+
+                                    <div className="statistics_submenu_div black">
+                                      <i class="bi bi-people-fill"></i>{" "}
+                                      {all_subscribers}
+                                    </div>
+                                    <div className="statistics_submenu_div black">
+                                      <i class="bi bi-clock-fill"></i> 5 мин
+                                    </div>
+                                    <div className="statistics_submenu_div orange">
+                                      <i class="bi bi-ticket-perforated-fill"></i>{" "}
+                                      54
+                                    </div>
+                                    <div className="statistics_submenu_div pink">
+                                      <i class="bi bi-piggy-bank-fill"></i> 32
                                     </div>
                                   </div>
-                                </MenuItem>
+                                }
+                              >
                                 <MenuItem>
-                                  <div className="statistics_s`ubmenu">
-                                    <div className="statistics_submenu">
-                                      <div className="statistics_submenu_div yellow">
-                                        22:00
-                                      </div>
-                                      <div className="statistics_submenu_div black">
-                                        806{" "}
-                                        <span
-                                          className="green"
-                                          style={{ fontSize: "16px" }}
-                                        >
-                                          +46
-                                        </span>
-                                      </div>
-                                      <div className="statistics_submenu_div orange">
-                                        <FontAwesomeIcon icon={faTicket} /> 54
-                                      </div>
-                                      <div className="statistics_submenu_div black">
-                                        <FontAwesomeIcon icon={faClock} /> 5
-                                        минут
-                                      </div>
-                                      <div
-                                        className="statistics_submenu_div"
-                                        style={{ color: "purple" }}
-                                      >
-                                        500 000₸
-                                      </div>
-                                      <div className="statistics_submenu_div pink">
-                                        <FontAwesomeIcon icon={faPiggyBank} />{" "}
-                                        32
-                                      </div>
-                                    </div>
-                                  </div>
-                                </MenuItem>
-                                <MenuItem>
-                                  <div className="statistics_submenu">
-                                    <div className="statistics_submenu">
-                                      <div className="statistics_submenu_div yellow">
-                                        21:00
-                                      </div>
-                                      <div className="statistics_submenu_div black">
-                                        806{" "}
-                                        <span
-                                          className="green"
-                                          style={{ fontSize: "16px" }}
-                                        >
-                                          +46
-                                        </span>
-                                      </div>
-                                      <div className="statistics_submenu_div orange">
-                                        <FontAwesomeIcon icon={faTicket} /> 54
-                                      </div>
-                                      <div className="statistics_submenu_div black">
-                                        <FontAwesomeIcon icon={faClock} /> 5
-                                        минут
-                                      </div>
-                                      <div
-                                        className="statistics_submenu_div"
-                                        style={{ color: "purple" }}
-                                      >
-                                        500 000₸
-                                      </div>
-                                      <div className="statistics_submenu_div pink">
-                                        <FontAwesomeIcon icon={faPiggyBank} />{" "}
-                                        32
-                                      </div>
-                                    </div>
-                                  </div>
-                                </MenuItem>
-                                <MenuItem>
-                                  <div className="statistics_submenu">
-                                    <div className="statistics_submenu">
-                                      <div className="statistics_submenu_div yellow">
-                                        20:00
-                                      </div>
-                                      <div className="statistics_submenu_div black">
-                                        806{" "}
-                                        <span
-                                          className="green"
-                                          style={{ fontSize: "16px" }}
-                                        >
-                                          +46
-                                        </span>
-                                      </div>
-                                      <div className="statistics_submenu_div orange">
-                                        <FontAwesomeIcon icon={faTicket} /> 54
-                                      </div>
-                                      <div className="statistics_submenu_div black">
-                                        <FontAwesomeIcon icon={faClock} /> 5
-                                        минут
-                                      </div>
-                                      <div
-                                        className="statistics_submenu_div"
-                                        style={{ color: "purple" }}
-                                      >
-                                        500 000₸
-                                      </div>
-                                      <div className="statistics_submenu_div pink">
-                                        <FontAwesomeIcon icon={faPiggyBank} />{" "}
-                                        32
-                                      </div>
-                                    </div>
-                                  </div>
-                                </MenuItem>
-                                <MenuItem>
-                                  <div className="statistics_submenu">
-                                    <div className="statistics_submenu">
-                                      <div className="statistics_submenu_div yellow">
-                                        00:00
-                                      </div>
-                                      <div className="statistics_submenu_div black">
-                                        806{" "}
-                                        <span
-                                          className="green"
-                                          style={{ fontSize: "16px" }}
-                                        >
-                                          {" "}
-                                          +46
-                                        </span>
-                                      </div>
-                                      <div className="statistics_submenu_div orange">
-                                        <FontAwesomeIcon icon={faTicket} /> 54
-                                      </div>
-                                      <div className="statistics_submenu_div black">
-                                        <FontAwesomeIcon icon={faClock} /> 5
-                                        минут
-                                      </div>
-                                      <div
-                                        className="statistics_submenu_div"
-                                        style={{ color: "purple" }}
-                                      >
-                                        500 000₸
-                                      </div>
-                                      <div className="statistics_submenu_div pink">
-                                        <FontAwesomeIcon icon={faPiggyBank} />{" "}
-                                        32
-                                      </div>
-                                    </div>
-                                  </div>
+                                  {left_join_stat &&
+                                    left_join_stat?.map((object) => {
+                                      const { join, left, subscribers, time } =
+                                        object;
+                                      return (
+                                        <div className="statistics_submenu ">
+                                          <div className="statistics_submenu_div yellow" style={{color:"black",opacity:"0.5"}}>
+                                            {time}
+                                          </div>
+                                          <div className="statistics_submenu_div black">
+                                            806{" "}
+                                            <span
+                                              className="green"
+                                              style={{ fontSize: "16px" }}
+                                            >
+                                              +{join}
+                                            </span>
+                                            /
+                                            <span
+                                              className="red"
+                                              style={{ fontSize: "16px" }}
+                                            >
+                                              -{left}
+                                            </span>
+                                          </div>
+
+                                          <div className="statistics_submenu_div black">
+                                            <i class="bi bi-people-fill"></i>{" "}
+                                            {subscribers}
+                                          </div>
+                                          <div className="statistics_submenu_div black">
+                                            <i class="bi bi-clock-fill"></i> 5
+                                            мин
+                                          </div>
+                                          <div className="statistics_submenu_div orange">
+                                            <i class="bi bi-ticket-perforated-fill"></i>{" "}
+                                            54
+                                          </div>
+                                          <div className="statistics_submenu_div pink">
+                                            <i class="bi bi-piggy-bank-fill"></i>{" "}
+                                            32
+                                          </div>
+                                        </div>
+                                      );
+                                    })}
                                 </MenuItem>
                               </SubMenu>
                             </Menu>

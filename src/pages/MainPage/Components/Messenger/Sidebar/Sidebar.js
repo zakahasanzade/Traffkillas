@@ -33,23 +33,13 @@ const Sidebar = ({
   GetchatMessage,
   GetStateChat,
   CloseMessenger,
+  OnceUpdate,
+  StopRendering
 }) => {
   const [openChat, SetOpenChat] = useState(false);
   const chatRef = useRef();
   let UserMessagesArr = [];
   const [UserMessages, setUserMessages] = useState();
-  //   const user = useSelector(selectUser);
-
-  //   useEffect(() => {
-  //     db.collection("threads").onSnapshot((snapshot) =>
-  //       setThreads(
-  //         snapshot.docs.map((doc) => ({
-  //           id: doc.id,
-  //           data: doc.data(),
-  //         }))
-  //       )
-  //     );
-  //   }, []);
 
   let GetChatArr = [];
   const [GetChat, setGetChat] = useState([]);
@@ -86,8 +76,33 @@ const Sidebar = ({
         GetchatMessage(UserMessagesArr);
         SetOpenChat(true);
         GetStateChat(openChat);
+        StopRendering("lkdfnmc")
       });
   };
+
+  // {
+  //   RenderChats && (GetChatMessages(), (RenderChats = false));
+  // }
+
+  // if (RenderChats) {
+  //   fetch(`http://146.0.78.143:5354/api/v1/messages/fromChat?chat=${ChatId}`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       return response.text();
+  //     })
+  //     .then((result) => {
+  //       UserMessagesArr = JSON.parse(result);
+  //       setUserMessages(UserMessagesArr);
+  //       GetchatMessage(UserMessagesArr);
+  //       SetOpenChat(true);
+  //       GetStateChat(openChat);
+  //     });
+  // }
   const [activeChat, setActiveChat] = useState("All");
   const StyleNav = (e) => {
     console.log(e.target.className);
@@ -121,16 +136,20 @@ const Sidebar = ({
       ).style.borderBottom = "0";
     }
   };
-
+  // useEffect(() => {
+  //   console.log(RenderChats);
+  //   GetChatMessages();
+  // }, 5);
   useEffect(() => {
     document.querySelector(`.sidebar__threads_navbar_all`).style.borderBottom =
       "2px solid #EA9127";
     GetChats();
     // GetChatMessages();
   }, []);
-  useEffect(() => {
-    // Scroll to bottom of chat window on page load and when new message is added
-  }, []);
+  if (OnceUpdate==="chats") {
+    GetChatMessages()
+    
+  }
   return (
     <div className="sidebar">
       <div className="sidebar__header">

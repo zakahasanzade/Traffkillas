@@ -81,7 +81,7 @@
 .black {
   color: black;
 }
-.white{
+.white {
   color: white;
 }
 .orange {
@@ -204,6 +204,11 @@
 }
 .statistics_submenu {
   width: 705px;
+}
+.statistics_hours_div .pro-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 .statistics_icons {
   width: 388px;

@@ -149,6 +149,31 @@ const Tasks = (props) => {
         alert(err);
       });
   };
+  const DeletePost = (e) => {
+    e.preventDefault();
+    fetch("http://94.103.90.6:5000/delete_task", {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        Token: localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        _id: e.target.id,
+      }),
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        getManageData();
+        getWorkData();
+      })
+      .catch((err) => {
+        alert(err);
+      });
+
+    console.log(e.target.id);
+  };
   let WorkDataArr = [];
   const [WorkData, SetWorkData] = useState();
 
@@ -863,7 +888,15 @@ const Tasks = (props) => {
                       <div className="tasks_div">
                         <p className="tasks_header">
                           <div>
-                            {title} <i className="bi bi-trash3-fill"></i>
+                            {title}{" "}
+                            <i
+                              id={_id}
+                              onClick={(e) => {
+                                DeletePost(e);
+                                console.log("lajsdfb");
+                              }}
+                              className="bi bi-trash3-fill"
+                            ></i>
                           </div>
                           <p className="tasks_header_worker">
                             {worker_username}
@@ -930,6 +963,10 @@ const Tasks = (props) => {
                               <p className={"timer_completed" + index}></p>
                             </p>
                             <i
+                              id={_id}
+                              onClick={(e) => {
+                                DeletePost(e);
+                              }}
                               className="bi bi-trash3-fill"
                               style={{ color: "red" }}
                             ></i>
@@ -1284,7 +1321,14 @@ const Tasks = (props) => {
                       <div className="tasks_div">
                         <p className="tasks_header">
                           <div>
-                            {title} <i className="bi bi-trash3-fill"></i>
+                            {title}{" "}
+                            <i
+                              id={_id}
+                              onClick={(e) => {
+                                DeletePost(e);
+                              }}
+                              className="bi bi-trash3-fill"
+                            ></i>
                           </div>
                           <p className="tasks_header_worker">
                             {worker_username}
@@ -1351,6 +1395,10 @@ const Tasks = (props) => {
                               <p className={"timer_completed" + index}></p>
                             </p>
                             <i
+                              id={_id}
+                              onClick={(e) => {
+                                DeletePost(e);
+                              }}
                               className="bi bi-trash3-fill"
                               style={{ color: "red" }}
                             ></i>
