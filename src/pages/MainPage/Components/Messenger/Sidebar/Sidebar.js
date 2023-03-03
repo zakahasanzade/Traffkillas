@@ -34,12 +34,13 @@ const Sidebar = ({
   GetStateChat,
   CloseMessenger,
   OnceUpdate,
-  StopRendering
+  StopRendering,
 }) => {
-  const [openChat, SetOpenChat] = useState(false);
+  // const [openChat, SetOpenChat] = useState(false);
   const chatRef = useRef();
   let UserMessagesArr = [];
   const [UserMessages, setUserMessages] = useState();
+  const [lastOpen, setLastOpen] = useState();
 
   let GetChatArr = [];
   const [GetChat, setGetChat] = useState([]);
@@ -57,6 +58,7 @@ const Sidebar = ({
       .then((result) => {
         // GetChatArr = JSON.parse(result)["data"];
         setGetChat(JSON.parse(result));
+        console.log(Array(GetChatArr.length));
       });
   };
   const GetChatMessages = () => {
@@ -74,35 +76,12 @@ const Sidebar = ({
         UserMessagesArr = JSON.parse(result);
         setUserMessages(UserMessagesArr);
         GetchatMessage(UserMessagesArr);
-        SetOpenChat(true);
-        GetStateChat(openChat);
-        StopRendering("lkdfnmc")
+        // SetOpenChat(true);
+        // GetStateChat(openChat);
+        StopRendering("lkdfnmc");
       });
   };
 
-  // {
-  //   RenderChats && (GetChatMessages(), (RenderChats = false));
-  // }
-
-  // if (RenderChats) {
-  //   fetch(`http://146.0.78.143:5354/api/v1/messages/fromChat?chat=${ChatId}`, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //     },
-  //   })
-  //     .then((response) => {
-  //       return response.text();
-  //     })
-  //     .then((result) => {
-  //       UserMessagesArr = JSON.parse(result);
-  //       setUserMessages(UserMessagesArr);
-  //       GetchatMessage(UserMessagesArr);
-  //       SetOpenChat(true);
-  //       GetStateChat(openChat);
-  //     });
-  // }
   const [activeChat, setActiveChat] = useState("All");
   const StyleNav = (e) => {
     console.log(e.target.className);
@@ -136,22 +115,19 @@ const Sidebar = ({
       ).style.borderBottom = "0";
     }
   };
-  // useEffect(() => {
-  //   console.log(RenderChats);
-  //   GetChatMessages();
-  // }, 5);
+
   useEffect(() => {
     document.querySelector(`.sidebar__threads_navbar_all`).style.borderBottom =
       "2px solid #EA9127";
     GetChats();
     // GetChatMessages();
   }, []);
-  if (OnceUpdate==="chats") {
-    GetChatMessages()
-    
+  if (OnceUpdate === "chats") {
+    GetChatMessages();
   }
   return (
     <div className="sidebar">
+      {console.log(lastOpen)}
       <div className="sidebar__header">
         <div className="sidebar_menu">
           <i class="bi bi-list"></i>
@@ -195,67 +171,52 @@ const Sidebar = ({
       <div className="sidebar__threads">
         {activeChat === "All" && (
           <div className="sidebar__threads_chats">
-            <ProSidebar>
-              <Menu style={{ backgroundColor: "white", padding: 0 }}>
-                <SubMenu
-                  title={<p className="sidebar_sidebar_title">Re-deposit</p>}
-                  defaultOpen={true}
-                >
-                  {GetChat &&
-                    GetChat.map((chats, index) => {
-                      const { chatId } = chats;
-                      return (
-                        <Menu>
-                          <div
-                            id={chatId}
-                            className={"sidebar_sidebar_acoounts chat_" + index}
-                            onClick={(e) => {
-                              ChatId = document.querySelector(
-                                `.chat_${index}`
-                              ).id;
-                              UpdateChatId(ChatId);
-                              GetChatMessages();
-
-                              console.log(ChatId);
-                            }}
-                          >
-                            <div className="sidebar_accounts_img">
-                              <img
-                                src={AccountProfile}
-                                alt="AccountProfile"
-                              ></img>
-                              <div className="sidebar_accounts_info">
-                                <div className="sidebar_accounts_info_title">
-                                  {chatId}
-                                </div>
-                                <div className="sidebar_accounts_info_message">
-                                  Are you going to improve app perfomance?
-                                </div>
-                              </div>
-                            </div>
-                            <div className="sidebar_accounts_notification">
-                              <div className="sidebar_accounts_notification_time">
-                                19:01
-                              </div>
-                              {/* <div className="sidebar_accounts_notification_num">
+            {GetChat &&
+              GetChat.map((chats, index) => {
+                const { chatId, lastMessage } = chats;
+                const standartFormat = new Date(lastMessage.sendTime);
+                const lastTime =
+                  (standartFormat.getHours().toLocaleString().length == 1
+                    ? "0" + standartFormat.getHours()
+                    : standartFormat.getHours()) +
+                  ":" +
+                  (standartFormat.getMinutes().toLocaleString().length == 1
+                    ? "0" + standartFormat.getMinutes()
+                    : standartFormat.getMinutes());
+                return (
+                  <Menu>
+                    <div
+                      id={chatId}
+                      className={"sidebar_sidebar_acoounts chat_" + index}
+                      onClick={(e) => {
+                        ChatId = document.querySelector(`.chat_${index}`).id;
+                        UpdateChatId(ChatId);
+                        GetChatMessages();
+                      }}
+                    >
+                      <div className="sidebar_accounts_img">
+                        <img src={AccountProfile} alt="AccountProfile"></img>
+                        <div className="sidebar_accounts_info">
+                          <div className="sidebar_accounts_info_title">
+                            {chatId}
+                          </div>
+                          <div className="sidebar_accounts_info_message">
+                            {lastMessage.text}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="sidebar_accounts_notification">
+                        <div className="sidebar_accounts_notification_time">
+                          {lastTime}
+                        </div>
+                        {/* <div className="sidebar_accounts_notification_num">
                               2
                             </div> */}
-                            </div>
-                          </div>
-                        </Menu>
-                      );
-                    })}
-                </SubMenu>
-                <SubMenu
-                  title={<p className="sidebar_sidebar_title">Deposit</p>}
-                  defaultOpen={true}
-                ></SubMenu>
-                <SubMenu
-                  title={<p className="sidebar_sidebar_title">Нет ответа</p>}
-                  defaultOpen={true}
-                ></SubMenu>
-              </Menu>
-            </ProSidebar>
+                      </div>
+                    </div>
+                  </Menu>
+                );
+              })}
           </div>
         )}
         {activeChat === "Tasks" && <Tasks GetChat={GetChat} />}

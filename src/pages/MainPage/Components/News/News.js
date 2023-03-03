@@ -248,9 +248,15 @@ const News = () => {
                     <p className="date">
                       {date.substring(0, 2)}{" "}
                       {now.toLocaleString("ru-ru", { month: "short" })}
+                      {console.log(now)}
                     </p>
                   ) : null}
-                  <div className="news_page_div">
+                  <div
+                    className="news_page_div"
+                    style={{
+                      animationDelay: "5s",
+                    }}
+                  >
                     <h1>
                       <div style={{ display: "flex", alignItems: "center" }}>
                         <div

@@ -294,7 +294,13 @@ const Statistics = (props) => {
                                         object;
                                       return (
                                         <div className="statistics_submenu ">
-                                          <div className="statistics_submenu_div yellow" style={{color:"black",opacity:"0.5"}}>
+                                          <div
+                                            className="statistics_submenu_div yellow"
+                                            style={{
+                                              color: "black",
+                                              opacity: "0.5",
+                                            }}
+                                          >
                                             {time}
                                           </div>
                                           <div className="statistics_submenu_div black">

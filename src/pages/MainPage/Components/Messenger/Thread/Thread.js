@@ -1,6 +1,7 @@
 // import { Avatar, IconButton } from "@material-ui/core";
 import React, { useEffect, useState, useRef } from "react";
 import AccountProfile from "../Assets/AccountProfile.svg";
+import { MessageBox } from "react-chat-elements";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import { JsonHubProtocol } from "@microsoft/signalr";
 import "./Thread.css";
@@ -83,30 +84,74 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
     }
   }, [connection]);
 
+  const AppendSendingMessage = () => {
+    var messageBox = document.querySelector(".thread__messages");
+    var message = document.createElement("div");
+    const CurrentTimeForSending =
+      (new Date().getHours().toLocaleString().length == 1
+        ? "0" + new Date().getHours()
+        : new Date().getHours()) +
+      ":" +
+      (new Date().getMinutes().toLocaleString().length == 1
+        ? "0" + new Date().getMinutes()
+        : new Date().getMinutes());
+    message.className = "modal-body";
+    message.innerHTML = `<div class="msg-body">
+            <ul>
+              <li class="repaly">
+                <p>
+                  ${typeMessage}
+                  <br />
+                  <span class="time">${CurrentTimeForSending}</span>
+                </p>
+              </li>
+            </ul>
+          </div>`;
+    messageBox.append(message);
+    console.log(message);
+  };
+  const AppendRecievedMessage = () => {
+    var messageBox = document.querySelector(".thread__messages");
+    var message = document.createElement("div");
+    message.className = "modal-body";
+    message.innerHTML = `<div class="msg-body">
+            <ul>
+              <li class="sender">
+                <p>
+                  ${typeMessage}
+                  <br />
+                  <span class="time chat_time">{lastTime}</span>
+                </p>
+              </li>
+            </ul>
+          </div>`;
+
+    messageBox.append(message);
+    console.log(message);
+  };
+
   const sendMessage = (e) => {
     connection
       .invoke("sendMessage", typeMessage, NewChatId)
       .then(() => {
         document.querySelector(".thread__input_type").reset();
         // document.querySelector(".sent_message").innerHTML = typeMessage;
-        RenderChats(true);
+        // RenderChats(true);
+        AppendSendingMessage();
+        TestState && (chatRef.current.scrollTop = chatRef.current.scrollHeight);
       })
       .catch((error) => console.error(error));
   };
   useEffect(() => {
     TestState && (chatRef.current.scrollTop = chatRef.current.scrollHeight);
   }, [chatMessages]);
-  useEffect(() => {
-    function handleKeyPress(event) {
-      if (event.keyCode === 13) {
-        event.preventDefault();
-      }
+
+  const handleEnterKeyPress = (event) => {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      sendMessage(event);
     }
-    window.addEventListener("keydown", handleKeyPress);
-    return () => {
-      window.removeEventListener("keydown", handleKeyPress);
-    };
-  }, []);
+  };
   return (
     <div className="thread">
       {NewChatId && (
@@ -122,7 +167,6 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
           </div>
           <div className="thread__header_right">
             <i class="bi bi-search"></i>
-            <i class="bi bi-telephone-fill"></i>
             <i class="bi bi-three-dots-vertical"></i>
           </div>
         </div>
@@ -132,48 +176,67 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
         style={{ display: "flex", flexDirection: "column" }}
         ref={chatRef}
       >
-        {/* <FlipMove>
-          {messages.map(({ id, data }) => (
-            <Message key={id} id={id} data={data} />
-          ))}
-        </FlipMove> */}
         {chatMessages &&
-          chatMessages.map((messages) => {
+          chatMessages.map((messages, index, array) => {
             const { chatId, text, sendTime, direction } = messages;
+            const LastDateNum =
+              index == 0 ? null : new Date(array[index - 1].sendTime);
+            const standartFormat = new Date(sendTime);
+            const lastTime =
+              (standartFormat.getHours().toLocaleString().length == 1
+                ? "0" + standartFormat.getHours()
+                : standartFormat.getHours()) +
+              ":" +
+              (standartFormat.getMinutes().toLocaleString().length == 1
+                ? "0" + standartFormat.getMinutes()
+                : standartFormat.getMinutes());
+            const ChatDateNum = standartFormat.getDate();
+            const ChatDate =
+              standartFormat.getDate() +
+              " " +
+              standartFormat.toLocaleString("ru-ru", { month: "short" });
             return (
-              <>
-                {/* <div className="received_message">{text}</div> */}
-                {direction === 0 ? (
-                  <span className="received_message">
-                    <span>{text}</span>
-                  </span>
-                ) : (
-                  ""
-                )}
-                {/* <div className="sent_message">{text}</div> */}
-                {direction === 1 ? (
-                  <span className="send_message">
-                    <label
-                      style={{
-                        backgroundColor: "white",
-                        padding: "8px 16px",
-                        borderRadius: "25px",
-                        margin: "5px",
-                        maxWidth: "900px",
-                      }}
-                    >
-                      {text}
-                    </label>{" "}
-                  </span>
-                ) : (
-                  ""
-                )}
-              </>
+              <div class="modal-body">
+                <div class="msg-body">
+                  <ul>
+                    {index === 0 ||
+                    LastDateNum.getDate() + LastDateNum.getMonth() !==
+                      standartFormat.getDate() + standartFormat.getMonth() ? (
+                      <li>
+                        <div class="divider">
+                          <h6>{ChatDate}</h6>
+                        </div>
+                      </li>
+                    ) : null}
+
+                    {index !== 0 && console.log(LastDateNum)}
+                    {direction === 0 ? (
+                      <li class="sender">
+                        <p>
+                          {" "}
+                          {text}
+                          <span class="time chat_time">{lastTime}</span>
+                        </p>
+                      </li>
+                    ) : (
+                      ""
+                    )}
+                    {direction === 1 ? (
+                      <li class="repaly">
+                        <p>
+                          {text}
+
+                          <span class="time">{lastTime}</span>
+                        </p>
+                      </li>
+                    ) : (
+                      ""
+                    )}
+                  </ul>
+                </div>
+              </div>
             );
           })}
-        {/* {messageGet && messageGetId === NewChatId && (
-          <div className="received_message">{messageGet}</div>
-        )} */}
       </div>
       <div className="thread__input">
         <div className="thread__input_template">
@@ -182,6 +245,7 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
         <form className="thread__input_type">
           <i class="bi bi-emoji-smile"></i>
           <input
+            onKeyDown={(event) => handleEnterKeyPress(event)}
             placeholder="Message"
             type="text"
             onChange={(e) => {
@@ -207,3 +271,49 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
 };
 
 export default Thread;
+{
+  /* <FlipMove>
+          {messages.map(({ id, data }) => (
+            <Message key={id} id={id} data={data} />
+          ))}
+        </FlipMove> */
+}
+{
+  /* {chatMessages &&
+          chatMessages.map((messages) => {
+            const { chatId, text, sendTime, direction } = messages;
+            return (
+              <>
+                {direction === 0 ? (
+                  <span className="received_message">
+                    <span>{text}</span>
+                  </span>
+                ) : (
+                  ""
+                )}
+                {direction === 1 ? (
+                  <span className="send_message">
+                    <label
+                      style={{
+                        backgroundColor: "white",
+                        padding: "8px 16px",
+                        borderRadius: "25px",
+                        margin: "5px",
+                        maxWidth: "900px",
+                      }}
+                    >
+                      {text}
+                    </label>{" "}
+                  </span>
+                ) : (
+                  ""
+                )}
+              </>
+            );
+          })} */
+}
+{
+  /* {messageGet && messageGetId === NewChatId && (
+          <div className="received_message">{messageGet}</div>
+        )} */
+}
