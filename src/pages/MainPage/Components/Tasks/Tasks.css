@@ -330,6 +330,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .Tasks_fine_checkbox {
   margin-top: 10px;
+  font-size: 14px;
 }
 .SendData_fine_currency {
   background-color: red !important;
@@ -399,7 +400,7 @@ input[type="number"]::-webkit-outer-spin-button {
   font-size: 16px !important;
 }
 .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root {
-  padding: 4 !important;
+  padding: 0 !important;
 }
 .MuiListItemIcon-root {
   min-width: 0 !important;

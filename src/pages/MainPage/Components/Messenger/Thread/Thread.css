@@ -68,6 +68,7 @@
 }
 
 .thread__input {
+  position: relative;
   display: flex;
   gap: 8px;
   justify-content: space-between;
@@ -296,3 +297,63 @@ li.repaly .time {
   opacity: 0.5;
   z-index: -1;
 } */
+.messagenger_template {
+  position: absolute;
+  background-color: white;
+  padding: 16px;
+  bottom: 60px;
+  border-radius: 25px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.messagenger_template_newMessage {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.messagenger_template_newMessage p {
+  font-size: 14px;
+  font-weight: 700;
+}
+.messagenger_template_newMessage_input {
+  background-color: #ebedf0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 500;
+}
+.messagenger_template_newMessage_input input {
+  background-color: #ebedf0;
+  border: 0;
+  outline: none;
+  font-size: 16px;
+  font-weight: 500;
+}
+.messagenger_template_newMessage_input i {
+  cursor: pointer;
+}
+.messagenger_template_message {
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.messagenger_template_message p {
+  max-width: 348px;
+  line-height: 19.36px;
+  font-size: 16px;
+  font-weight: 700;
+  overflow-wrap: break-word;
+  cursor: pointer;
+}
+.messagenger_template_message i {
+  color: red;
+  font-size: 16px;
+  cursor: pointer;
+}

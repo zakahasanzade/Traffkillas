@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import AccountProfile from "../Assets/AccountProfile.svg";
 import { MessageBox } from "react-chat-elements";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { CSSTransition } from "react-transition-group";
 import { JsonHubProtocol } from "@microsoft/signalr";
 import "./Thread.css";
 import { ChatsId } from "../Sidebar/Components/AllChats";
@@ -25,9 +26,11 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
   const [connection, setConnection] = useState(null);
   const token = localStorage.getItem("token");
   const [typeMessage, SetTypeMessage] = useState();
+  const [showTemplate, setShowTemplate] = useState();
   const chatRef = useRef();
 
-  const GetChatMessages = (e) => {
+  let UserMessagesArr = [];
+  const GetChatMessages = () => {
     fetch(
       `http://146.0.78.143:5354/api/v1/messages/fromChat?chat=${NewChatId}`,
       {
@@ -41,7 +44,15 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
       .then((response) => {
         return response.text();
       })
-      .then((result) => {});
+      .then((result) => {
+        UserMessagesArr = JSON.parse(result);
+        console.log(messages);
+        setMessages(UserMessagesArr);
+        // GetchatMessage(UserMessagesArr);
+        // SetOpenChat(true);
+        // GetStateChat(openChat);
+        // StopRendering("lkdfnmc");
+      });
   };
 
   useEffect(() => {
@@ -53,6 +64,9 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
 
     setConnection(newConnection);
   }, []);
+  useEffect(() => {
+    GetChatMessages();
+  }, [NewChatId]);
   const UserArr = [];
   const [messageGet, setMessageGet] = useState();
   const [messageGetId, setMessageGetId] = useState();
@@ -71,18 +85,32 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
             })
             .catch((error) => console.error(error));
           connection.on("messageNotification", (user, message) => {
-            const newMessage = `${user}: ${message}`;
-            setMessages((messages) => [...messages, newMessage]);
-            console.log(user.messageText);
+            // const newMessage = `${user}: ${message}`;
+            // setMessages((messages) => [...messages, newMessage]);
+            // console.log(user.messageText);
             // UserArr = [...user.messageText];
-            setMessageGet(user);
+            setMessageGet(user.messageText);
             setMessageGetId(user.chatId);
-            AppendRecievedMessage(user);
+            // AppendRecievedMessage(user);
           });
         })
         .catch((error) => console.error(error));
     }
   }, [connection]);
+
+  useEffect(() => {
+    console.log(messageGet);
+    let sendTime = new Date().getTime();
+    console.log(messages, "Hello1");
+    let newMessage = {
+      chatId: NewChatId,
+      direction: 0,
+      sendTime: sendTime,
+      text: messageGet,
+    };
+    setMessages([...messages, newMessage]);
+    console.log(messages, "Hello2");
+  }, [messageGet]);
 
   const CurrentTimeForSending =
     (new Date().getHours().toLocaleString().length == 1
@@ -93,7 +121,7 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
       ? "0" + new Date().getMinutes()
       : new Date().getMinutes());
   const AppendSendingMessage = () => {
-    var messageBox = document.querySelector(`.thread__messages_${NewChatId}`);
+    var messageBox = document.querySelector(`.thread__messages`);
     var message = document.createElement("div");
 
     message.className = "modal-body";
@@ -111,7 +139,7 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
     return messageBox.append(message);
   };
   const AppendRecievedMessage = (user) => {
-    var messageBox = document.querySelector(`.thread__messages_${user.chatId}`);
+    var messageBox = document.querySelector(`.thread__messages`);
     var message = document.createElement("div");
     message.className = "modal-body";
     message.innerHTML = `<div class="msg-body">
@@ -141,7 +169,18 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
         // document.querySelector(".sent_message").innerHTML = typeMessage;
         // RenderChats(true);
 
-        AppendSendingMessage();
+        // AppendSendingMessage();
+        let sendTime = new Date().getTime();
+        console.log(messages, "Hello1");
+        let newMessage = {
+          chatId: NewChatId,
+          direction: 1,
+          sendTime: sendTime,
+          text: typeMessage,
+        };
+        setMessages([...messages, newMessage]);
+        console.log(messages, "Hello2");
+
         console.log(messageGetId);
         console.log(NewChatId);
         TestState && (chatRef.current.scrollTop = chatRef.current.scrollHeight);
@@ -150,7 +189,7 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
   };
   useEffect(() => {
     TestState && (chatRef.current.scrollTop = chatRef.current.scrollHeight);
-  }, [chatMessages]);
+  }, [messages]);
 
   const handleEnterKeyPress = (event) => {
     if (event.keyCode === 13) {
@@ -158,6 +197,18 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
       sendMessage(event);
     }
   };
+  const TemplateText = useRef(null);
+  const AppendText = () => {
+    console.log(TemplateText.current.textContent);
+    document.querySelector(".thread__input_type_input").value +=
+      TemplateText.current.textContent;
+  };
+  useEffect(() => {
+    const CloseTemplateText = (e) => {
+      setShowTemplate(false);
+    };
+    document.body.addEventListener("click", CloseTemplateText);
+  }, []);
   return (
     <div className="thread">
       {NewChatId && (
@@ -178,12 +229,12 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
         </div>
       )}
       <div
-        className={`thread__messages thread__messages_${NewChatId}`}
+        className={`thread__messages`}
         style={{ display: "flex", flexDirection: "column" }}
         ref={chatRef}
       >
-        {chatMessages &&
-          chatMessages.map((messages, index, array) => {
+        {messages &&
+          messages.map((messages, index, array) => {
             const { chatId, text, sendTime, direction } = messages;
             const LastDateNum =
               index == 0 ? null : new Date(array[index - 1].sendTime);
@@ -244,12 +295,19 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
       </div>
 
       <div className="thread__input">
-        <div className="thread__input_template">
+        <div
+          className="thread__input_template"
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowTemplate(!showTemplate);
+          }}
+        >
           <i class="bi bi-chat-text-fill"></i>
         </div>
         <form className="thread__input_type">
           <i class="bi bi-emoji-smile"></i>
           <input
+            className="thread__input_type_input"
             onKeyDown={(event) => handleEnterKeyPress(event)}
             placeholder="Message"
             type="text"
@@ -259,6 +317,7 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
           />
           <i class="bi bi-paperclip" style={{ transform: "rotate(45deg)" }}></i>
         </form>
+
         <div
           onClick={(e) => {
             sendMessage(e);
@@ -270,6 +329,32 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
         >
           <i class="bi bi-send-fill" style={{ transform: "rotate(90deg)" }}></i>
         </div>
+        <CSSTransition
+          in={showTemplate}
+          classNames="alert"
+          timeout={1000}
+          unmountOnExit
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="messagenger_template"
+          >
+            <div className="messagenger_template_newMessage">
+              <p>Новый шаблон:</p>
+              <div className="messagenger_template_newMessage_input">
+                <input placeholder="Template" />
+                <i class="bi bi-plus-circle-fill"></i>
+              </div>
+            </div>
+            <div className="messagenger_template_message">
+              <p ref={TemplateText} onClick={AppendText}>
+                Я — рэпер, ты — стример Это неуловимый, редкий покемон
+                Оксепаратист Экстримирон
+              </p>
+              <i class="bi bi-trash3-fill"></i>
+            </div>
+          </div>
+        </CSSTransition>
       </div>
     </div>
   );

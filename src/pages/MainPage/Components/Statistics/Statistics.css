@@ -41,7 +41,7 @@
 }
 .statistics_account_info_up {
   display: flex;
-  align-items: center;
+  align-items: start;
   margin-bottom: 3px;
 }
 .statistics_account_info_up p:first-child {
@@ -96,9 +96,9 @@
 .red {
   color: red;
 }
-.statistics_submenu_div {
+/* .statistics_submenu_div {
   margin-right: 20px;
-}
+} */
 .statistics_graph_left p:first-child {
   font-size: 20px;
   font-weight: 700;

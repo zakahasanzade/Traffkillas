@@ -1027,7 +1027,6 @@ const Tasks = (props) => {
         style={{ display: "flex", justifyContent: "center" }}
       >
         <div className="tasks_teamlead">
-          <p>Мои задания</p>
           <p>Созданные</p>
           <p>Выполенные</p>
         </div>
