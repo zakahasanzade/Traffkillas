@@ -193,7 +193,7 @@ const Sidebar = ({
                       onClick={(e) => {
                         ChatId = document.querySelector(`.chat_${index}`).id;
                         UpdateChatId(ChatId);
-                        GetChatMessages();gir
+                        GetChatMessages();
                         let IndexElement = index;
                         var res = navColor.map((e, i) => {
                           if (i === IndexElement) {
