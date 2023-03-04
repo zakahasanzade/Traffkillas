@@ -131,6 +131,10 @@
   background-color: #f0f0f0;
   transition: all 0.5s;
 }
+.active_chat{
+  background-color:#0F82F5;
+  
+}
 .sidebar_accounts_img {
   display: flex;
   align-items: center;

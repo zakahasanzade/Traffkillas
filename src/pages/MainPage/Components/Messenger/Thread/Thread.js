@@ -75,26 +75,27 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
             setMessages((messages) => [...messages, newMessage]);
             console.log(user.messageText);
             // UserArr = [...user.messageText];
-            RenderChats(true);
-            setMessageGet(user.messageText);
+            setMessageGet(user);
             setMessageGetId(user.chatId);
+            AppendRecievedMessage(user);
           });
         })
         .catch((error) => console.error(error));
     }
   }, [connection]);
 
+  const CurrentTimeForSending =
+    (new Date().getHours().toLocaleString().length == 1
+      ? "0" + new Date().getHours()
+      : new Date().getHours()) +
+    ":" +
+    (new Date().getMinutes().toLocaleString().length == 1
+      ? "0" + new Date().getMinutes()
+      : new Date().getMinutes());
   const AppendSendingMessage = () => {
-    var messageBox = document.querySelector(".thread__messages");
+    var messageBox = document.querySelector(`.thread__messages_${NewChatId}`);
     var message = document.createElement("div");
-    const CurrentTimeForSending =
-      (new Date().getHours().toLocaleString().length == 1
-        ? "0" + new Date().getHours()
-        : new Date().getHours()) +
-      ":" +
-      (new Date().getMinutes().toLocaleString().length == 1
-        ? "0" + new Date().getMinutes()
-        : new Date().getMinutes());
+
     message.className = "modal-body";
     message.innerHTML = `<div class="msg-body">
             <ul>
@@ -107,27 +108,29 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
               </li>
             </ul>
           </div>`;
-    messageBox.append(message);
-    console.log(message);
+    return messageBox.append(message);
   };
-  const AppendRecievedMessage = () => {
-    var messageBox = document.querySelector(".thread__messages");
+  const AppendRecievedMessage = (user) => {
+    var messageBox = document.querySelector(`.thread__messages_${user.chatId}`);
     var message = document.createElement("div");
     message.className = "modal-body";
     message.innerHTML = `<div class="msg-body">
             <ul>
               <li class="sender">
                 <p>
-                  ${typeMessage}
+                  ${user.messageText}
                   <br />
-                  <span class="time chat_time">{lastTime}</span>
+                  <span class="time chat_time">${CurrentTimeForSending}</span>
                 </p>
               </li>
             </ul>
           </div>`;
 
     messageBox.append(message);
-    console.log(message);
+    console.log(user.messageText);
+    console.log(user.chatId);
+    console.log(messageBox);
+    console.log(NewChatId);
   };
 
   const sendMessage = (e) => {
@@ -137,7 +140,10 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
         document.querySelector(".thread__input_type").reset();
         // document.querySelector(".sent_message").innerHTML = typeMessage;
         // RenderChats(true);
+
         AppendSendingMessage();
+        console.log(messageGetId);
+        console.log(NewChatId);
         TestState && (chatRef.current.scrollTop = chatRef.current.scrollHeight);
       })
       .catch((error) => console.error(error));
@@ -172,7 +178,7 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
         </div>
       )}
       <div
-        className="thread__messages"
+        className={`thread__messages thread__messages_${NewChatId}`}
         style={{ display: "flex", flexDirection: "column" }}
         ref={chatRef}
       >
@@ -190,13 +196,12 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
               (standartFormat.getMinutes().toLocaleString().length == 1
                 ? "0" + standartFormat.getMinutes()
                 : standartFormat.getMinutes());
-            const ChatDateNum = standartFormat.getDate();
             const ChatDate =
               standartFormat.getDate() +
               " " +
               standartFormat.toLocaleString("ru-ru", { month: "short" });
             return (
-              <div class="modal-body">
+              <div class="modal-body" key={messages + index}>
                 <div class="msg-body">
                   <ul>
                     {index === 0 ||
@@ -209,7 +214,6 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
                       </li>
                     ) : null}
 
-                    {index !== 0 && console.log(LastDateNum)}
                     {direction === 0 ? (
                       <li class="sender">
                         <p>
@@ -238,6 +242,7 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
             );
           })}
       </div>
+
       <div className="thread__input">
         <div className="thread__input_template">
           <i class="bi bi-chat-text-fill"></i>
@@ -311,9 +316,4 @@ export default Thread;
               </>
             );
           })} */
-}
-{
-  /* {messageGet && messageGetId === NewChatId && (
-          <div className="received_message">{messageGet}</div>
-        )} */
 }

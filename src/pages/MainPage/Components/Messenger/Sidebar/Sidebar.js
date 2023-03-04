@@ -41,6 +41,7 @@ const Sidebar = ({
   let UserMessagesArr = [];
   const [UserMessages, setUserMessages] = useState();
   const [lastOpen, setLastOpen] = useState();
+  const [navColor, setNavColor] = useState();
 
   let GetChatArr = [];
   const [GetChat, setGetChat] = useState([]);
@@ -56,9 +57,9 @@ const Sidebar = ({
         return response.text();
       })
       .then((result) => {
-        // GetChatArr = JSON.parse(result)["data"];
+        GetChatArr = new Array(JSON.parse(result)["data"]);
         setGetChat(JSON.parse(result));
-        console.log(Array(GetChatArr.length));
+        setNavColor(Array(JSON.parse(result).length).fill(false));
       });
   };
   const GetChatMessages = () => {
@@ -184,14 +185,25 @@ const Sidebar = ({
                     ? "0" + standartFormat.getMinutes()
                     : standartFormat.getMinutes());
                 return (
-                  <Menu>
+                  <Menu key={chats + index}>
                     <div
                       id={chatId}
-                      className={"sidebar_sidebar_acoounts chat_" + index}
+                     
+                      className={navColor[index]?("sidebar_sidebar_acoounts active_chat chat_" + index):("sidebar_sidebar_acoounts chat_" + index)}
                       onClick={(e) => {
                         ChatId = document.querySelector(`.chat_${index}`).id;
                         UpdateChatId(ChatId);
-                        GetChatMessages();
+                        GetChatMessages();gir
+                        let IndexElement = index;
+                        var res = navColor.map((e, i) => {
+                          if (i === IndexElement) {
+                            return !e;
+                          } else {
+                            return false;
+                          }
+                        });
+                        setNavColor(res);
+                        console.log(navColor);
                       }}
                     >
                       <div className="sidebar_accounts_img">
