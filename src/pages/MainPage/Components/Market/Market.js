@@ -13,12 +13,17 @@ import Dropzone from "react-dropzone-uploader";
 import { CSSTransition } from "react-transition-group";
 import FormData from "form-data";
 import ReactCardFlip from "react-card-flip";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
 import { useRef } from "react";
 import "./Market.css";
 import { cookie, image } from "fontawesome";
 
-const Market = () => {
+const Market = (props) => {
   let AssetsArr = [];
+  const position = props.position;
   const [assets, SetAssets] = useState();
   const getAssets = () => {
     document.cookie = "test=hello;";
@@ -105,6 +110,24 @@ const Market = () => {
   const [PoductId, SetProductId] = useState();
   const [ProductPrice, SetProductPrice] = useState();
   const [getCode, SetGetCode] = useState();
+  const createNotification = (type) => {
+    if (type === "error") {
+      NotificationManager.error(
+        <div
+          style={{ fontSize: "18px", fontWeight: "700", textAlign: "center" }}
+        >
+          Пожалуйста пополните баланс
+        </div>,
+        <div style={{ textAlign: "center" }}>Недостаточно средств</div>,
+        5000,
+        () => {
+          alert("callback");
+        }
+      );
+    } else if (type === "success") {
+      NotificationManager.success("Успешно!");
+    }
+  };
   const BuyProduct = (e, index) => {
     fetch("http://94.103.90.6:5000/buy_market", {
       method: "POST",
@@ -119,7 +142,7 @@ const Market = () => {
       .then((response) => {
         console.log(response);
         if (response.status != 200) {
-          throw new Error("You have not enough money");
+          throw new Error();
         }
         return response.text();
       })
@@ -134,41 +157,13 @@ const Market = () => {
           return el;
         });
         setSubmitProduct(temp);
+        createNotification("success");
       })
-      .catch((err) => {
-        alert(err);
+      .catch(() => {
+        createNotification("error");
       });
   };
 
-  // const handleChangeStatus = ({ meta, file }, status) => {
-  //   return status, meta, file;
-  // };
-  // const SendProductInfo = (e) => {
-  //   e.preventDefault();
-  //   let ProductInfo = {
-  //     Title: document.querySelector(".TitleText").value,
-  //     Price: document.querySelector(".ProductPrice").value,
-  //     Imagere: { handleChangeStatus },
-  //   };
-  //   console.log(ProductInfo);
-  //   fetch("http://94.103.90.6:5000/edit_profile_info", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-type": "application/json",
-  //       Authorization: localStorage.getItem("token"),
-  //     },
-  //     body: JSON.stringify(ProductInfo),
-  //   })
-  //     .then((response) => {
-  //       return response.text();
-  //     })
-  //     .then((result) => {
-  //       // console.log(result);
-  //     })
-  //     .catch((err) => {
-  //       alert(err);
-  //     });
-  // };
   const [isFlipped, setIsFlipped] = useState(false);
   const [SubmitProduct, setSubmitProduct] = useState(false);
   const handleClick = (e, index) => {
@@ -195,13 +190,7 @@ const Market = () => {
 
     console.log(SubmitProduct);
   };
-  // const ReturnSubmit = () => {
-  //   var temp = SubmitProduct.map((el, i) => {
-  //     el = false;
-  //     return el;
-  //   });
-  //   setSubmitProduct(temp);
-  // };
+
   const icon = <i className="fa-solid fa-paperclip"> Закрепить Файл </i>;
 
   return (
@@ -214,42 +203,49 @@ const Market = () => {
         exit={{ opacity: 0, x: -100 }}
         transition={{ duration: 0.3 }}
       >
-        <form className="market_send" id="form" onSubmit={(e) => submit(e)}>
-          <div className="market_send_title">
+        {position !== "3" && (
+          <form className="market_send" id="form" onSubmit={(e) => submit(e)}>
+            <div className="market_send_title">
+              <TextareaAutosize
+                className="TitleText"
+                placeholder="Заголовок товара"
+                name="Name"
+              ></TextareaAutosize>
+              <p>
+                <input
+                  placeholder="Цена"
+                  className="ProductPrice"
+                  name="Price"
+                />{" "}
+                TTK
+              </p>
+            </div>
             <TextareaAutosize
-              className="TitleText"
-              placeholder="Заголовок товара"
-              name="Name"
+              placeholder="Полное название товара..."
+              className="market_send_nameProduct"
+              name="Content"
             ></TextareaAutosize>
-            <p>
-              <input placeholder="Цена" className="ProductPrice" name="Price" />{" "}
-              TTK
-            </p>
-          </div>
-          <TextareaAutosize
-            placeholder="Полное название товара..."
-            className="market_send_nameProduct"
-            name="Content"
-          ></TextareaAutosize>
-          <div className="market_send_submit">
-            <p className="market_send_submit_attach">
-              Изображение товара:
-              <input
-                className="testinput"
-                accept="image/*"
-                maxfiles="1"
-                type="file"
-                name="Image"
-              ></input>
-            </p>
-            <button
-              className="market_send_submit_button"
-              // onClick={SendProductInfo}
-            >
-              <i className="fa-solid fa-cart-plus"> Добавить товар </i>
-            </button>
-          </div>
-        </form>
+            <div className="market_send_submit">
+              <p className="market_send_submit_attach">
+                Изображение товара:
+                <input
+                  className="testinput"
+                  accept="image/*"
+                  maxfiles="1"
+                  type="file"
+                  name="Image"
+                ></input>
+              </p>
+              <button
+                className="market_send_submit_button"
+                // onClick={SendProductInfo}
+              >
+                <i className="fa-solid fa-cart-plus"> Добавить товар </i>
+              </button>
+            </div>
+          </form>
+        )}
+
         <div className="market_products">
           {assets &&
             assets.map((product, index) => {
@@ -340,6 +336,7 @@ const Market = () => {
               );
             })}
         </div>
+        <NotificationContainer />
       </motion.div>
       {/* <CSSTransition
         in={ProofProduct}

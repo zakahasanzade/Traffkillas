@@ -1247,55 +1247,6 @@ const Tasks = (props) => {
               <Calendar onChange={ChangeCalendar} value={CalendarValue} />
             </CSSTransition>
           </div>{" "}
-          {/* <p className="date">На доработку</p>
-          {WorkData &&
-            WorkData.map((block, index) => {
-              const {
-                content,
-                date,
-                feedback,
-                fine,
-                manager,
-                state,
-                title,
-                worker,
-                _id,
-              } = block;
-
-              if (state == 3) {
-                setTimer(date, "timer_revision", index);
-                return (
-                  <>
-                    <div key={block} className="tasks_page_div">
-                      <div className="tasks_div">
-                        <p className="tasks_header">{title}</p>
-                        <div>
-                          <p
-                            className="second_task_time"
-                            style={{ backgroundColor: "red" }}
-                          >
-                            <p className={"timer_created" + index}></p>
-                          </p>
-                          <p
-                            className="tasks_footer"
-                            style={{ color: "#EA9127" }}
-                          >
-                            -{fine} MMR
-                          </p>
-                        </div>
-                      </div>
-                      {feedback ? (
-                        <div className="tasks_content">
-                          <p>{content}</p>
-                        </div>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  </>
-                );
-              }
-            })} */}
           <p className="date">Созданные</p>
           {ManageData &&
             ManageData.map((block, index) => {

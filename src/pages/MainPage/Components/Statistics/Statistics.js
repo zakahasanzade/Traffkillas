@@ -143,10 +143,10 @@ const Statistics = (props) => {
       transition={{ duration: 0.3 }}
     >
       <div className="statististics_main">
-        {position == 3 ? <p className="statistics_title">Мои проекты</p> : ""}
-
-        <p className="statistics_title">Все проекты</p>
-        {Statistics &&
+        {position == 3 && <p className="statistics_title">Мои проекты</p>}
+        {position != 3 && <p className="statistics_title">Все проекты</p>}
+        {position != 3 &&
+          Statistics &&
           Statistics.map((el, index) => {
             const {
               all_join,
@@ -254,7 +254,7 @@ const Statistics = (props) => {
                                       {date}
                                     </div>
                                     <div className="statistics_submenu_div black">
-                                      806{" "}
+                                      {all_subscribers}{" "}
                                       <span
                                         className="green"
                                         style={{ fontSize: "16px" }}
@@ -271,18 +271,17 @@ const Statistics = (props) => {
                                     </div>
 
                                     <div className="statistics_submenu_div black">
-                                      <i class="bi bi-people-fill"></i>{" "}
-                                      {all_subscribers}
-                                    </div>
-                                    <div className="statistics_submenu_div black">
-                                      <i class="bi bi-clock-fill"></i> 5 мин
+                                      <i class="bi bi-clock-fill"></i> 0 мин
                                     </div>
                                     <div className="statistics_submenu_div orange">
                                       <i class="bi bi-ticket-perforated-fill"></i>{" "}
-                                      54
+                                      0
+                                    </div>
+                                    <div className="statistics_submenu_div black">
+                                      <i class="bi bi-people-fill"></i> 0
                                     </div>
                                     <div className="statistics_submenu_div pink">
-                                      <i class="bi bi-piggy-bank-fill"></i> 32
+                                      <i class="bi bi-piggy-bank-fill"></i> 0
                                     </div>
                                   </div>
                                 }
@@ -304,7 +303,7 @@ const Statistics = (props) => {
                                             {time}
                                           </div>
                                           <div className="statistics_submenu_div black">
-                                            806{" "}
+                                            {subscribers}{" "}
                                             <span
                                               className="green"
                                               style={{ fontSize: "16px" }}
@@ -321,20 +320,19 @@ const Statistics = (props) => {
                                           </div>
 
                                           <div className="statistics_submenu_div black">
-                                            <i class="bi bi-people-fill"></i>{" "}
-                                            {subscribers}
-                                          </div>
-                                          <div className="statistics_submenu_div black">
-                                            <i class="bi bi-clock-fill"></i> 5
+                                            <i class="bi bi-clock-fill"></i> 0
                                             мин
                                           </div>
                                           <div className="statistics_submenu_div orange">
                                             <i class="bi bi-ticket-perforated-fill"></i>{" "}
-                                            54
+                                            0
+                                          </div>
+                                          <div className="statistics_submenu_div black">
+                                            <i class="bi bi-people-fill"></i> 0
                                           </div>
                                           <div className="statistics_submenu_div pink">
                                             <i class="bi bi-piggy-bank-fill"></i>{" "}
-                                            32
+                                            0
                                           </div>
                                         </div>
                                       );

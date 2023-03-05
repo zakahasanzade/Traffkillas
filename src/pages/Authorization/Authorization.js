@@ -13,15 +13,30 @@ const Authorization = () => {
   const navigate = useNavigate();
 
   const createNotification = (type) => {
-    NotificationManager.info(
-      <div style={{ textAlign: "center" }}>
-        Забыл пароль?
-        <br />
-        <small style={{ fontSize: "18px", fontWeight: "700" }}>
-          Спроси любого тимлида
-        </small>
-      </div>
-    );
+    if (type === "info") {
+      NotificationManager.info(
+        <div style={{ textAlign: "center" }}>
+          Забыл пароль?
+          <br />
+          <small style={{ fontSize: "18px", fontWeight: "700" }}>
+            Спроси любого тимлида
+          </small>
+        </div>
+      );
+    } else if (type === "error") {
+      NotificationManager.error(
+        <div
+          style={{ fontSize: "18px", fontWeight: "700", textAlign: "center" }}
+        >
+          Неправильный логин или пароль
+        </div>,
+        <div style={{ textAlign: "center" }}>Обойдешься!</div>,
+        5000,
+        () => {
+          alert("callback");
+        }
+      );
+    }
   };
 
   //   const ChangePage = (e) => {
@@ -70,7 +85,7 @@ const Authorization = () => {
         navigate("/MainPage");
       })
       .catch((err) => {
-        alert(err);
+        createNotification("error");
       });
   }
 

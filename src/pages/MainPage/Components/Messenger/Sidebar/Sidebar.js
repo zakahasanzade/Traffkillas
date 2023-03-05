@@ -29,6 +29,7 @@ import Marketing from "./Components/Marketing";
 let ChatId = null;
 
 const Sidebar = ({
+  GetChat,
   UpdateChatId,
   GetchatMessage,
   GetStateChat,
@@ -44,24 +45,24 @@ const Sidebar = ({
   const [navColor, setNavColor] = useState();
 
   let GetChatArr = [];
-  const [GetChat, setGetChat] = useState([]);
-  const GetChats = () => {
-    fetch("http://146.0.78.143:5354/api/v1/messages/getChats", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-      .then((response) => {
-        return response.text();
-      })
-      .then((result) => {
-        GetChatArr = new Array(JSON.parse(result)["data"]);
-        setGetChat(JSON.parse(result));
-        setNavColor(Array(JSON.parse(result).length).fill(false));
-      });
-  };
+  // const [GetChat, setGetChat] = useState([]);
+  // const GetChats = () => {
+  //   fetch("http://146.0.78.143:5354/api/v1/messages/getChats", {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       return response.text();
+  //     })
+  //     .then((result) => {
+  //       GetChatArr = new Array(JSON.parse(result)["data"]);
+  //       setGetChat(JSON.parse(result));
+  //       setNavColor(Array(JSON.parse(result).length).fill(false));
+  //     });
+  // };
   const GetChatMessages = () => {
     fetch(`http://146.0.78.143:5354/api/v1/messages/fromChat?chat=${ChatId}`, {
       method: "GET",
@@ -120,7 +121,7 @@ const Sidebar = ({
   useEffect(() => {
     document.querySelector(`.sidebar__threads_navbar_all`).style.borderBottom =
       "2px solid #EA9127";
-    GetChats();
+    // GetChats();
     // GetChatMessages();
   }, []);
   if (OnceUpdate === "chats") {
@@ -188,8 +189,11 @@ const Sidebar = ({
                   <Menu key={chats + index}>
                     <div
                       id={chatId}
-                     
-                      className={navColor[index]?("sidebar_sidebar_acoounts active_chat chat_" + index):("sidebar_sidebar_acoounts chat_" + index)}
+                      className={
+                        navColor[index]
+                          ? "sidebar_sidebar_acoounts active_chat chat_" + index
+                          : "sidebar_sidebar_acoounts chat_" + index
+                      }
                       onClick={(e) => {
                         ChatId = document.querySelector(`.chat_${index}`).id;
                         UpdateChatId(ChatId);

@@ -1,5 +1,5 @@
 .thread {
-  width: 75%;
+  width: 50%;
   display: flex;
   /* flex: 0.75; */
   flex-direction: column;

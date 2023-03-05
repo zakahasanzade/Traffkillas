@@ -4,8 +4,9 @@ import rightArrow from "./News Assets/Arrow Right.svg";
 import { TagsInput } from "react-tag-input-component";
 import { motion } from "framer-motion/dist/framer-motion";
 import { CSSTransition } from "react-transition-group";
+import TextareaAutosize from "react-textarea-autosize";
 
-const News = () => {
+const News = (props) => {
   // const [show, setShow] = useState(false);
   // CREATE A NEW BLOCK WITH THE RECEIVED DATA   //
   const [tags, setTags] = useState([]);
@@ -112,6 +113,7 @@ const News = () => {
     document.querySelector(".back").style.backgroundColor = col;
   };
   console.log(typeof post);
+  const position = props.position;
   return (
     <motion.div
       className="main"
@@ -122,113 +124,123 @@ const News = () => {
       transition={{ duration: 0.3 }}
     >
       <div className="news_page">
-        <div className="news_page_titles">
-          <div className="news_page_title">
-            <div className="news_page_title_dot">
-              <div
-                ref={btnRef}
-                onClick={() => SetColor(!Color)}
-                className="back"
-                style={{
-                  width: "16px",
-                  height: "16px",
-                  backgroundColor: "green",
-                  borderRadius: "100%",
-                  marginRight: "10px",
-                  cursor: "pointer",
-                }}
-              ></div>
-              <CSSTransition
-                in={Color}
-                classNames="alert"
-                timeout={1000}
-                unmountOnExit
-              >
-                <ul
-                  onClick={(e) => {
-                    // e.stopPropagation();
+        {position !== "3" ? (
+          <div className="news_page_titles">
+            <div className="news_page_title">
+              <div className="news_page_title_dot">
+                <div
+                  ref={btnRef}
+                  onClick={() => SetColor(!Color)}
+                  className="back"
+                  style={{
+                    width: "16px",
+                    height: "16px",
+                    backgroundColor: "green",
+                    borderRadius: "100%",
+                    marginRight: "10px",
+                    cursor: "pointer",
                   }}
+                ></div>
+                <CSSTransition
+                  in={Color}
+                  classNames="alert"
+                  timeout={1000}
+                  unmountOnExit
                 >
-                  <li
-                    onClick={() => {
-                      setBack("#0F82F5");
+                  <ul
+                    onClick={(e) => {
+                      // e.stopPropagation();
                     }}
                   >
-                    <div
-                      className="selCol"
-                      style={{
-                        backgroundColor: "#0F82F5",
+                    <li
+                      onClick={() => {
+                        setBack("#0F82F5");
                       }}
-                    ></div>
-                    Уведомления платформы
-                  </li>
-                  <li
-                    onClick={() => {
-                      setBack("#ED2709");
-                    }}
-                  >
-                    <div
-                      className="selCol"
-                      style={{
-                        backgroundColor: "#ED2709",
+                    >
+                      <div
+                        className="selCol"
+                        style={{
+                          backgroundColor: "#0F82F5",
+                        }}
+                      ></div>
+                      Уведомления платформы
+                    </li>
+                    <li
+                      onClick={() => {
+                        setBack("#ED2709");
                       }}
-                    ></div>
-                    Высокий приоритет
-                  </li>
-                  <li
-                    onClick={() => {
-                      setBack("#EA9127");
-                    }}
-                  >
-                    <div
-                      className="selCol"
-                      style={{
-                        backgroundColor: "#EA9127",
+                    >
+                      <div
+                        className="selCol"
+                        style={{
+                          backgroundColor: "#ED2709",
+                        }}
+                      ></div>
+                      Высокий приоритет
+                    </li>
+                    <li
+                      onClick={() => {
+                        setBack("#EA9127");
                       }}
-                    ></div>
-                    Средняя важность
-                  </li>
-                  <li
-                    onClick={() => {
-                      setBack("green");
-                    }}
-                  >
-                    <div
-                      className="selCol"
-                      style={{
-                        backgroundColor: "green",
+                    >
+                      <div
+                        className="selCol"
+                        style={{
+                          backgroundColor: "#EA9127",
+                        }}
+                      ></div>
+                      Средняя важность
+                    </li>
+                    <li
+                      onClick={() => {
+                        setBack("green");
                       }}
-                    ></div>
-                    Низкий приоритет
-                  </li>
-                </ul>
-              </CSSTransition>
-              <input className="newsTitle" placeholder="Заголовок" />
-            </div>
-            <div className="news_page_title_input">
-              <input
-                className="newsContent"
-                placeholder="Содержание поста..."
-              />
-            </div>
-            <div className="news_page_title_tags">
-              <p>Теги:</p>
-              <TagsInput
-                value={tags}
-                onChange={setTags}
-                name="fruits"
-                placeHolder="#новый_тег"
-                // handleAddition={handleAddition}
-              />
+                    >
+                      <div
+                        className="selCol"
+                        style={{
+                          backgroundColor: "green",
+                        }}
+                      ></div>
+                      Низкий приоритет
+                    </li>
+                  </ul>
+                </CSSTransition>
+                <TextareaAutosize
+                  className="newsTitle"
+                  placeholder="Заголовок"
+                />
+              </div>
+              <div className="news_page_title_input">
+                <TextareaAutosize
+                  className="newsContent"
+                  placeholder="Содержание поста..."
+                />
+              </div>
+              <div className="news_page_title_bottom">
+                <div className="news_page_title_tags">
+                  <p>Теги:</p>
+                  <TagsInput
+                    value={tags}
+                    onChange={setTags}
+                    name="fruits"
+                    placeHolder="#новый_тег"
+                    // handleAddition={handleAddition}
+                  />
+                </div>
+                <div className="news_page_titles_button">
+                  <button type="submit" onClick={SendTitlePageData}>
+                    <p>Опубликовать новость</p>
+                    <img src={rightArrow} alt="rightArrow" />
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="news_page_titles_button">
-            <button type="submit" onClick={SendTitlePageData}>
-              <p>Опубликовать новость</p>
-              <img src={rightArrow} alt="rightArrow" />
-            </button>
-          </div>
-        </div>
+        ) : (
+          ""
+        )}
+
         <div className="news_list">
           {post &&
             post.map((block, index, array) => {
@@ -258,18 +270,23 @@ const News = () => {
                     }}
                   >
                     <h1>
-                      <div style={{ display: "flex", alignItems: "center" }}>
+                      <div
+                        className="news_page_div_content"
+                        style={{ display: "flex", alignItems: "center" }}
+                      >
                         <div
                           className="news_page_div_dot"
                           style={{ backgroundColor: color }}
                         ></div>
-                        {title}
+                        <p>{title}</p>
                       </div>
-                      <i
-                        onClick={DeletePost}
-                        class="fa-solid fa-trash-can"
-                        id={_id.$oid}
-                      ></i>
+                      {position !== "3" ? (
+                        <i
+                          onClick={DeletePost}
+                          class="fa-solid fa-trash-can"
+                          id={_id.$oid}
+                        ></i>
+                      ) : null}
                     </h1>
                     <p className="news_page_text">{text}</p>
                     <div className="news_page_footer">

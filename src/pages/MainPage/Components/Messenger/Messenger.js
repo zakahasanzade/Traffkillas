@@ -1,7 +1,8 @@
 import React from "react";
-import { Sidebar } from "./Sidebar/Sidebar";
+import { ChatId, Sidebar } from "./Sidebar/Sidebar";
 import "./Messenger.css";
 import Thread from "./Thread/Thread.js";
+import SideDropdown from "./SideDropdown/SideDropdown";
 import { useEffect, useState } from "react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 
@@ -11,6 +12,52 @@ function Messenger({ CloseMessengerWindow }) {
   const [stateChat, setStateChat] = useState();
   const [closeMessenger, setCloseMesenger] = useState();
   const [OnceUpdate, setOnceUpdate] = useState();
+  const [allChats, setAllChats] = useState([]);
+  const GetChatId = (ChatId) => {
+    setGetChatId(ChatId);
+    console.log(ChatId);
+  };
+  const GetAllProjects = () => {
+    fetch(`http://146.0.78.143:5355/api/v1/projects/my`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        setAllChats([JSON.parse(result)[0]]);
+      });
+  };
+  const [GetChat, setGetChat] = useState();
+  const [getChatId, setGetChatId] = useState();
+  useEffect(() => {
+    fetch(
+      `http://146.0.78.143:5355/api/v1/messages/getChats?projectId=${getChatId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    )
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        // GetChatArr = new Array(JSON.parse(result)["data"]);
+        console.log(JSON.parse(result));
+        // setNavColor(Array(JSON.parse(result).length).fill(false));
+      });
+  }, [getChatId]);
+
+  useEffect(() => {
+    GetAllProjects();
+  }, []);
   const GetchatMessage = (GetMessage) => {
     SetChatMessages(GetMessage);
   };
@@ -34,6 +81,7 @@ function Messenger({ CloseMessengerWindow }) {
   };
   return (
     <div className="telegram">
+      <SideDropdown allChats={allChats} GetChatId={GetChatId} />
       <Sidebar
         GetchatMessage={GetchatMessage}
         UpdateChatId={UpdateChatId}
@@ -41,6 +89,7 @@ function Messenger({ CloseMessengerWindow }) {
         CloseMessenger={CloseMessenger}
         OnceUpdate={OnceUpdate}
         StopRendering={StopRendering}
+        GetChat={GetChat}
       />
       <Thread
         NewChatId={NewChatId}

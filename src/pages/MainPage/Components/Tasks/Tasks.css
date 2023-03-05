@@ -25,6 +25,10 @@ hr {
   justify-content: space-between;
   align-items: center;
 }
+.tasks_header {
+  width: 71%;
+  overflow-wrap: break-word;
+}
 .tasks_div_complete {
   display: flex;
   align-items: center;
@@ -88,6 +92,7 @@ hr {
   line-height: 19.36px;
   font-size: 16px;
   border-radius: 25px;
+  overflow-wrap: break-word;
 }
 .tasks_div_submit i {
   font-size: 10px;
