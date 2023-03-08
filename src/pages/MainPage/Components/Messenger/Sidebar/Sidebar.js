@@ -29,6 +29,8 @@ import Marketing from "./Components/Marketing";
 let ChatId = null;
 
 const Sidebar = ({
+  navColor,
+  setChangeNavColor,
   GetChat,
   UpdateChatId,
   GetchatMessage,
@@ -42,7 +44,7 @@ const Sidebar = ({
   let UserMessagesArr = [];
   const [UserMessages, setUserMessages] = useState();
   const [lastOpen, setLastOpen] = useState();
-  const [navColor, setNavColor] = useState();
+  // const [navColor, setNavColor] = useState();
 
   let GetChatArr = [];
   // const [GetChat, setGetChat] = useState([]);
@@ -63,26 +65,26 @@ const Sidebar = ({
   //       setNavColor(Array(JSON.parse(result).length).fill(false));
   //     });
   // };
-  const GetChatMessages = () => {
-    fetch(`http://146.0.78.143:5354/api/v1/messages/fromChat?chat=${ChatId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-      .then((response) => {
-        return response.text();
-      })
-      .then((result) => {
-        UserMessagesArr = JSON.parse(result);
-        setUserMessages(UserMessagesArr);
-        GetchatMessage(UserMessagesArr);
-        // SetOpenChat(true);
-        // GetStateChat(openChat);
-        StopRendering("lkdfnmc");
-      });
-  };
+  // const GetChatMessages = () => {
+  //   fetch(`http://146.0.78.143:5354/api/v1/messages/fromChat?chat=${ChatId}`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       return response.text();
+  //     })
+  //     .then((result) => {
+  //       UserMessagesArr = JSON.parse(result);
+  //       setUserMessages(UserMessagesArr);
+  //       GetchatMessage(UserMessagesArr);
+  //       // SetOpenChat(true);
+  //       // GetStateChat(openChat);
+  //       StopRendering("lkdfnmc");
+  //     });
+  // };
 
   const [activeChat, setActiveChat] = useState("All");
   const StyleNav = (e) => {
@@ -124,16 +126,16 @@ const Sidebar = ({
     // GetChats();
     // GetChatMessages();
   }, []);
-  if (OnceUpdate === "chats") {
-    GetChatMessages();
-  }
+  // if (OnceUpdate === "chats") {
+  //   GetChatMessages();
+  // }
   return (
     <div className="sidebar">
       {console.log(lastOpen)}
       <div className="sidebar__header">
-        <div className="sidebar_menu">
+        {/* <div className="sidebar_menu">
           <i class="bi bi-list"></i>
-        </div>
+        </div> */}
         <div className="sidebar__search">
           <i class="bi bi-search"></i>
           <input placeholder="Поиск" className="sidebar__input" />
@@ -174,7 +176,7 @@ const Sidebar = ({
         {activeChat === "All" && (
           <div className="sidebar__threads_chats">
             {GetChat &&
-              GetChat.map((chats, index) => {
+              GetChat?.map((chats, index) => {
                 const { chatId, lastMessage } = chats;
                 const standartFormat = new Date(lastMessage.sendTime);
                 const lastTime =
@@ -197,7 +199,7 @@ const Sidebar = ({
                       onClick={(e) => {
                         ChatId = document.querySelector(`.chat_${index}`).id;
                         UpdateChatId(ChatId);
-                        GetChatMessages();
+                        // GetChatMessages();
                         var res = navColor.map((e, i) => {
                           if (i === index) {
                             return true;
@@ -205,7 +207,7 @@ const Sidebar = ({
                             return false;
                           }
                         });
-                        setNavColor(res);
+                        setChangeNavColor(res);
                         console.log(navColor);
                       }}
                     >
@@ -234,8 +236,8 @@ const Sidebar = ({
               })}
           </div>
         )}
-        {activeChat === "Tasks" && <Tasks GetChat={GetChat} />}
-        {activeChat === "Marketing" && <Marketing GetChat={GetChat} />}
+        {/* {activeChat === "Tasks" && <Tasks GetChat={GetChat} />}
+        {activeChat === "Marketing" && <Marketing GetChat={GetChat} />} */}
       </div>
       <div
         className="sidebar__bottom"

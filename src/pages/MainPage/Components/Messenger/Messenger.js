@@ -8,13 +8,13 @@ import { HubConnectionBuilder } from "@microsoft/signalr";
 
 function Messenger({ CloseMessengerWindow }) {
   const [NewChatId, setNewChatId] = useState();
-  const [chatMessages, SetChatMessages] = useState();
+  const [messages, setMessages] = useState([]);
   const [stateChat, setStateChat] = useState();
   const [closeMessenger, setCloseMesenger] = useState();
   const [OnceUpdate, setOnceUpdate] = useState();
   const [allChats, setAllChats] = useState([]);
-  const GetChatId = (ChatId) => {
-    setGetChatId(ChatId);
+  const GetProjectId = (ChatId) => {
+    setProjcetId(ChatId);
     console.log(ChatId);
   };
   const GetAllProjects = () => {
@@ -29,37 +29,69 @@ function Messenger({ CloseMessengerWindow }) {
         return response.text();
       })
       .then((result) => {
-        setAllChats([JSON.parse(result)[0]]);
+        setAllChats(JSON.parse(result));
       });
   };
-  const [GetChat, setGetChat] = useState();
-  const [getChatId, setGetChatId] = useState();
+  const [GetChat, setGetChat] = useState([]);
+  const [ProjectId, setProjcetId] = useState(null);
+  const [ChatId, setChatId] = useState([]);
+  const [navColor, setNavColor] = useState();
   useEffect(() => {
-    fetch(
-      `http://146.0.78.143:5355/api/v1/messages/getChats?projectId=${getChatId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    )
-      .then((response) => {
-        return response.text();
-      })
-      .then((result) => {
-        // GetChatArr = new Array(JSON.parse(result)["data"]);
-        console.log(JSON.parse(result));
-        // setNavColor(Array(JSON.parse(result).length).fill(false));
-      });
-  }, [getChatId]);
+    ProjectId &&
+      fetch(
+        `http://146.0.78.143:5355/api/v1/messages/getChats?projectId=${ProjectId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+        .then((response) => {
+          return response.text();
+        })
+        .then((result) => {
+          console.log(JSON.parse(result));
+          setGetChat(JSON.parse(result));
+          console.log(GetChat);
+          setNavColor(Array(JSON.parse(result).length).fill(false));
+        });
+  }, [ProjectId]);
+  useEffect(() => {
+    NewChatId &&
+      fetch(
+        `http://146.0.78.143:5355/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+        .then((response) => {
+          return response.text();
+        })
+        .then((result) => {
+          // UserMessagesArr = JSON.parse(result);
+          // setUserMessages(UserMessagesArr);
+          setMessages(JSON.parse(result));
+          console.log(messages);
+          // SetOpenChat(true);
+          // GetStateChat(openChat);
+          // StopRendering("lkdfnmc");
+        });
+  }, [NewChatId]);
 
   useEffect(() => {
     GetAllProjects();
   }, []);
   const GetchatMessage = (GetMessage) => {
-    SetChatMessages(GetMessage);
+    setMessages(GetMessage);
+  };
+  const setChangeNavColor = (nav) => {
+    setNavColor(nav);
   };
   const UpdateChatId = (ChatId) => {
     setNewChatId(ChatId);
@@ -81,7 +113,7 @@ function Messenger({ CloseMessengerWindow }) {
   };
   return (
     <div className="telegram">
-      <SideDropdown allChats={allChats} GetChatId={GetChatId} />
+      <SideDropdown allChats={allChats} GetProjectId={GetProjectId} />
       <Sidebar
         GetchatMessage={GetchatMessage}
         UpdateChatId={UpdateChatId}
@@ -90,12 +122,19 @@ function Messenger({ CloseMessengerWindow }) {
         OnceUpdate={OnceUpdate}
         StopRendering={StopRendering}
         GetChat={GetChat}
+        ChatId={ChatId}
+        ProjectId={ProjectId}
+        navColor={navColor}
+        setChangeNavColor={setChangeNavColor}
       />
       <Thread
         NewChatId={NewChatId}
-        chatMessages={chatMessages}
+        messages={messages}
+        setMessages={setMessages}
         stateChat={stateChat}
         RenderChats={RenderChats}
+        ChatId={ChatId}
+        ProjectId={ProjectId}
       />
     </div>
   );

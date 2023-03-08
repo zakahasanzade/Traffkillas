@@ -78,6 +78,9 @@
   font-weight: 700;
   width: 388px;
 }
+.statistics_account .statistics_submenu {
+  justify-content: end;
+}
 .black {
   color: black;
 }
@@ -100,6 +103,7 @@
   margin-right: 20px;
 } */
 .statistics_graph_left p:first-child {
+  color:white;
   font-size: 20px;
   font-weight: 700;
   opacity: 0.5;
@@ -117,7 +121,7 @@
   padding: 16px 20px;
 }
 .statistics_graph {
-  background-color: white;
+  background-color: #141414;
   border-radius: 16px;
   margin-top: 10px;
   padding-bottom: 10px;

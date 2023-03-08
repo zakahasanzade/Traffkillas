@@ -84,7 +84,7 @@
   border-radius: 25px;
   position: absolute;
   top: 50px;
-  left: 545px;
+  left: 503px;
   z-index: 999;
 }
 .employee_create_employee
@@ -261,4 +261,72 @@
 }
 .employee_account_question_input_button {
   background-color: none;
+}
+.employee_gifts {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 14px 80px rgba(0, 0, 0, 0.1),
+    0px 5.39259px 25.4815px rgba(0, 0, 0, 0.0607407),
+    0px 1.14074px 6.51852px rgba(0, 0, 0, 0.0392593);
+  border-radius: 25px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 452px;
+  left: 353px;
+  top: 50px;
+  gap: 8px;
+}
+.employee_gifts_title {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 700;
+  opacity: 0.3;
+  gap: 20px;
+}
+.employee_gifts_title p {
+  width: 90px;
+  overflow-wrap: break-word;
+}
+.employee_gifts_notgiven {
+  display: flex;
+  font-size: 12px;
+  font-weight: 700;
+  justify-content: space-between;
+  gap: 20px;
+}
+.employee_gifts_notgiven p {
+  width: 90px;
+  overflow-wrap: break-word;
+}
+.employee_gifts_given {
+  display: flex;
+  font-size: 12px;
+  font-weight: 700;
+  justify-content: space-between;
+  gap: 20px;
+}
+.employee_gifts_given p {
+  width: 90px;
+  overflow-wrap: break-word;
+}
+.employee_gifts_code {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.employee_gifts_button {
+  padding: 6px 8px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 0;
+  outline: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 78px;
+  color: white;
 }

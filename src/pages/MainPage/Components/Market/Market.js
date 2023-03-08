@@ -216,7 +216,7 @@ const Market = (props) => {
                   placeholder="Цена"
                   className="ProductPrice"
                   name="Price"
-                />{" "}
+                />
                 TTK
               </p>
             </div>

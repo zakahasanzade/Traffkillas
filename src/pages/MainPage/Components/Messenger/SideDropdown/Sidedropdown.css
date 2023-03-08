@@ -1,9 +1,12 @@
 .sideDropwown {
-  width: 20%;
-  display: flex;
+  /* max-width: 20%; */
   height: 100vh;
   flex-direction: column;
   background-color: white;
-  padding: 16px;
-  gap: 10px;
+}
+.sidenav---sidenav---_2tBP {
+  position: static;
+  height: 100vh;
+  padding-top: 10px;
+  background-color: #4d9dec;
 }

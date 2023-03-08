@@ -19,54 +19,64 @@ import { ChatsId } from "../Sidebar/Components/AllChats";
 // import * as timeago from "timeago.js";
 // import FlipMove from "react-flip-move";
 
-const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
-  const [messages, setMessages] = useState([]);
+const Thread = ({
+  NewChatId,
+  messages,
+  setMessages,
+  stateChat,
+  RenderChats,
+  ChatId,
+  ProjectId,
+}) => {
+  // const [messages, setMessages] = useState([]);
   const [user, setUser] = useState("");
   const [message, setMessage] = useState("");
   const [connection, setConnection] = useState(null);
-  const token = localStorage.getItem("token");
   const [typeMessage, SetTypeMessage] = useState();
   const [showTemplate, setShowTemplate] = useState();
   const chatRef = useRef();
+  const token = localStorage.getItem("token");
 
   let UserMessagesArr = [];
-  const GetChatMessages = () => {
-    fetch(
-      `http://146.0.78.143:5354/api/v1/messages/fromChat?chat=${NewChatId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    )
-      .then((response) => {
-        return response.text();
-      })
-      .then((result) => {
-        UserMessagesArr = JSON.parse(result);
-        console.log(messages);
-        setMessages(UserMessagesArr);
-        // GetchatMessage(UserMessagesArr);
-        // SetOpenChat(true);
-        // GetStateChat(openChat);
-        // StopRendering("lkdfnmc");
-      });
-  };
+  // useEffect(() => {
+  //   // const GetChatMessages = () => {
+  //   fetch(
+  //     `http://146.0.78.143:5355/api/v1/messages/fromChat?chat=${ChatId}&projectId=${ProjectId}`,
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     }
+  //   )
+  //     .then((response) => {
+  //       return response.text();
+  //     })
+  //     .then((result) => {
+  //       UserMessagesArr = JSON.parse(result);
+  //       console.log(messages);
+  //       setMessages(UserMessagesArr);
+  //       // GetchatMessage(UserMessagesArr);
+  //       // SetOpenChat(true);
+  //       // GetStateChat(openChat);
+  //       // StopRendering("lkdfnmc");
+  //     });
+  //   // };
+  // }, [ChatId]);
 
   useEffect(() => {
     const newConnection = new HubConnectionBuilder()
-      .withUrl(`http://146.0.78.143:5354/hubs/messenger?token=${token}`)
+      .withUrl(`http://146.0.78.143:5355/hubs/messenger?token=${token}`)
       // .withHubProtocol(protocol)
       .withAutomaticReconnect()
       .build();
 
     setConnection(newConnection);
   }, []);
-  useEffect(() => {
-    GetChatMessages();
-  }, [NewChatId]);
+  // useEffect(() => {
+  //   GetChatMessages();
+  // }, [ChatId]);
   const UserArr = [];
   const [messageGet, setMessageGet] = useState();
   const [messageGetId, setMessageGetId] = useState();
@@ -81,10 +91,10 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
             .invoke("join")
             .then(() => {
               console.log("Message sent");
-              setMessage("");
+              // setMessage("");
             })
             .catch((error) => console.error(error));
-          connection.on("messageNotification", (user, message) => {
+          connection.on("messageNotification",  (user, message) => {
             // const newMessage = `${user}: ${message}`;
             // setMessages((messages) => [...messages, newMessage]);
             // console.log(user.messageText);
@@ -123,7 +133,6 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
   const AppendSendingMessage = () => {
     var messageBox = document.querySelector(`.thread__messages`);
     var message = document.createElement("div");
-
     message.className = "modal-body";
     message.innerHTML = `<div class="msg-body">
             <ul>
@@ -163,7 +172,7 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
 
   const sendMessage = (e) => {
     connection
-      .invoke("sendMessage", typeMessage, NewChatId)
+      .invoke("sendMessage", typeMessage, ProjectId, NewChatId)
       .then(() => {
         document.querySelector(".thread__input_type").reset();
         // document.querySelector(".sent_message").innerHTML = typeMessage;
@@ -203,11 +212,78 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
     document.querySelector(".thread__input_type_input").value +=
       TemplateText.current.textContent;
   };
+
+  const [chatTemplates, setChatTemplates] = useState([]);
+  const GetChatTemplates = () => {
+    fetch(`http://146.0.78.143:5355/api/v1/templates`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        setChatTemplates(JSON.parse(result));
+        console.log(chatTemplates);
+      });
+  };
+  const SetChatTemplates = (e) => {
+    console.log(chatTemplates);
+    // e.preventDefault();
+    fetch("http://146.0.78.143:5355/api/v1/templates/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({
+        text: document.querySelector(
+          ".messagenger_template_newMessage_inputArea"
+        ).value,
+      }),
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        console.log(result);
+        GetChatTemplates();
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+  const DeleteChatTemplates = (e) => {
+    fetch(`http://146.0.78.143:5355/api/v1/templates/delete/${e.target.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      // body: JSON.stringify({
+      //   id: e.target.id,
+      // }),
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        GetChatTemplates();
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+
   useEffect(() => {
     const CloseTemplateText = (e) => {
       setShowTemplate(false);
     };
     document.body.addEventListener("click", CloseTemplateText);
+    GetChatTemplates();
   }, []);
   return (
     <div className="thread">
@@ -342,17 +418,32 @@ const Thread = ({ NewChatId, chatMessages, stateChat, RenderChats }) => {
             <div className="messagenger_template_newMessage">
               <p>Новый шаблон:</p>
               <div className="messagenger_template_newMessage_input">
-                <input placeholder="Template" />
-                <i class="bi bi-plus-circle-fill"></i>
+                <input
+                  className="messagenger_template_newMessage_inputArea"
+                  placeholder="Template"
+                />
+                <i
+                  onClick={(e) => SetChatTemplates(e)}
+                  class="bi bi-plus-circle-fill"
+                ></i>
               </div>
             </div>
-            <div className="messagenger_template_message">
-              <p ref={TemplateText} onClick={AppendText}>
-                Я — рэпер, ты — стример Это неуловимый, редкий покемон
-                Оксепаратист Экстримирон
-              </p>
-              <i class="bi bi-trash3-fill"></i>
-            </div>
+            {chatTemplates &&
+              chatTemplates.map((temp) => {
+                const { text, id } = temp;
+                return (
+                  <div className="messagenger_template_message">
+                    <p ref={TemplateText} onClick={AppendText}>
+                      {text}
+                    </p>
+                    <i
+                      class="bi bi-trash3-fill"
+                      id={id}
+                      onClick={(e) => DeleteChatTemplates(e)}
+                    ></i>
+                  </div>
+                );
+              })}
           </div>
         </CSSTransition>
       </div>

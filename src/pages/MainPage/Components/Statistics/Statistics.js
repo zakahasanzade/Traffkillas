@@ -8,6 +8,7 @@ import { motion } from "framer-motion/dist/framer-motion";
 import { CSSTransition } from "react-transition-group";
 // import { piggyBank } from "./StatisticsAssets/piggyBank.svg";
 import ReverseVector from "./StatisticsAssets/Vector.svg";
+import StatisticsGraph from "./StatisticsGraph/StatisticsGraph.js";
 import {
   ProSidebar,
   Menu,
@@ -160,6 +161,8 @@ const Statistics = (props) => {
               recent_sub_count,
               sub_count,
               total_posts,
+              reg,
+              dep,
             } = el;
             return (
               <div className="statistics" key={el + index}>
@@ -193,12 +196,12 @@ const Statistics = (props) => {
                     </div>
                   </div>
                   <div className="statistics_submenu statistics_icons">
-                    <div className="statistics_submenu_div white">
+                    {/* <div className="statistics_submenu_div white">
                       <i class="bi bi-eye-fill"></i> 600
-                    </div>
-                    <div className="statistics_submenu_div orange">
+                    </div> */}
+                    {/* <div className="statistics_submenu_div orange">
                       <i class="bi bi-ticket-perforated-fill"></i> 54
-                    </div>
+                    </div> */}
                     <div className="statistics_submenu_div blue">
                       {aud_gender == "male" ? (
                         <i class="bi bi-gender-male"> 54.2%</i>
@@ -206,7 +209,7 @@ const Statistics = (props) => {
                         <i class="bi bi-gender-female"> 54.2%</i>
                       )}
                     </div>
-                    <div className="statistics_submenu_div red">1 200 000₸</div>
+                    {/* <div className="statistics_submenu_div red">1 200 000₸</div> */}
                   </div>
                 </div>
                 <CSSTransition
@@ -219,15 +222,16 @@ const Statistics = (props) => {
                     <div className="statistics_graph">
                       <div className="statistics_grapgh_info">
                         <div className="statistics_graph_left">
-                          <p>Выручка</p>
-                          <p style={{ color: "purple" }}>190,090.36₸</p>
+                          <p>Депозиты</p>
+                          <p style={{ color: "purple" }}>190,090.36</p>
                         </div>
                         <div className="statistics_graph_right">
                           <img src={ReverseVector} alt="ReverseVector"></img>
                         </div>
                       </div>
                       <div className="statistics_grapg_img">
-                        <img src={Graph} alt="Graph"></img>
+                        {/* <img src={Graph} alt="Graph"></img> */}
+                        <StatisticsGraph />
                       </div>
                     </div>
                     <div className="statistics_general">
@@ -254,7 +258,7 @@ const Statistics = (props) => {
                                       {date}
                                     </div>
                                     <div className="statistics_submenu_div black">
-                                      {all_subscribers}{" "}
+                                      {sub_count}{" "}
                                       <span
                                         className="green"
                                         style={{ fontSize: "16px" }}
@@ -278,10 +282,12 @@ const Statistics = (props) => {
                                       0
                                     </div>
                                     <div className="statistics_submenu_div black">
-                                      <i class="bi bi-people-fill"></i> 0
+                                      <i class="bi bi-people-fill"></i>{" "}
+                                      {reg ? reg : 0}
                                     </div>
                                     <div className="statistics_submenu_div pink">
-                                      <i class="bi bi-piggy-bank-fill"></i> 0
+                                      <i class="bi bi-piggy-bank-fill"></i>{" "}
+                                      {dep ? dep : 0}
                                     </div>
                                   </div>
                                 }
