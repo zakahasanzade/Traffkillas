@@ -15,7 +15,7 @@ import ProjectLeaderboard from "../pages/MainPage/Components/Leaderboard/Project
 import { AnimatePresence } from "framer-motion/dist/framer-motion";
 
 const AnimatedPage = () => {
-  // fetch("http://94.103.90.6:5000/login", {
+  // fetch("https://api1.traffkillas.kz/login", {
   //   method: "GET",
   //   headers: {
   //     "Token": localStorage.getItem("token"),

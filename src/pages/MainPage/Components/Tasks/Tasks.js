@@ -40,7 +40,7 @@ const Tasks = (props) => {
     formData.append("type", TextCurrency);
 
     axios
-      .post("http://94.103.90.6:5000/post_task", formData, {
+      .post("https://api1.traffkillas.kz/post_task", formData, {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -64,7 +64,7 @@ const Tasks = (props) => {
   };
   const ConfirmAvailableTask = (e) => {
     e.preventDefault();
-    fetch("http://94.103.90.6:5000/confirm_task", {
+    fetch("https://api1.traffkillas.kz/confirm_task", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -85,7 +85,7 @@ const Tasks = (props) => {
   };
   const CompleteInProcessTask = (e, TextArea) => {
     e.preventDefault();
-    fetch("http://94.103.90.6:5000/complate_task", {
+    fetch("https://api1.traffkillas.kz/complate_task", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -109,7 +109,7 @@ const Tasks = (props) => {
   };
   const ReopenCompleteTask = (e) => {
     e.preventDefault();
-    fetch("http://94.103.90.6:5000/reopen_task", {
+    fetch("https://api1.traffkillas.kz/reopen_task", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -130,7 +130,7 @@ const Tasks = (props) => {
   };
   const FinishInProcessTask = (e) => {
     e.preventDefault();
-    fetch("http://94.103.90.6:5000/finish_task", {
+    fetch("https://api1.traffkillas.kz/finish_task", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -151,7 +151,7 @@ const Tasks = (props) => {
   };
   const DeletePost = (e) => {
     e.preventDefault();
-    fetch("http://94.103.90.6:5000/delete_task", {
+    fetch("https://api1.traffkillas.kz/delete_task", {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
@@ -178,7 +178,7 @@ const Tasks = (props) => {
   const [WorkData, SetWorkData] = useState();
 
   const getWorkData = () => {
-    fetch("http://94.103.90.6:5000/get_task", {
+    fetch("https://api1.traffkillas.kz/get_task", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -201,7 +201,7 @@ const Tasks = (props) => {
   let ManageDataArr = [];
   const [ManageData, SetManageData] = useState();
   const getManageData = () => {
-    fetch("http://94.103.90.6:5000/get_task", {
+    fetch("https://api1.traffkillas.kz/get_task", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

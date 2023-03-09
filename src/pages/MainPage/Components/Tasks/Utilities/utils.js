@@ -56,7 +56,7 @@ const MenuProps = {
 let WorkersData = null;
 let options = [];
 const App = () => {
-  fetch("http://94.103.90.6:5000/get_workers", {
+  fetch("https://api1.traffkillas.kz/get_workers", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

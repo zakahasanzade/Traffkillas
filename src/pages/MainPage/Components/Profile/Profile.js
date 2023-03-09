@@ -114,7 +114,7 @@ const Profile = (props) => {
   var ProfileArr = [];
   const [profileInfo, SetProfileInfo] = useState();
   const GetProfileData = () => {
-    fetch("http://94.103.90.6:5000/get_profile_info", {
+    fetch("https://api1.traffkillas.kz/get_profile_info", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -136,7 +136,7 @@ const Profile = (props) => {
   var AdminArr = [];
   const [AdminInfo, SetAdminInfo] = useState();
   const GetAdminData = () => {
-    fetch("http://94.103.90.6:5000/get_admin_panel", {
+    fetch("https://api1.traffkillas.kz/get_admin_panel", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -174,7 +174,7 @@ const Profile = (props) => {
     console.log(formData);
 
     axios
-      .post("http://94.103.90.6:5000/edit_profile_info", formData, {
+      .post("https://api1.traffkillas.kz/edit_profile_info", formData, {
         headers: {
           "Content-type": "application/json",
           token: localStorage.getItem("token"),
@@ -199,7 +199,7 @@ const Profile = (props) => {
     let element = el.target.id;
     let data = `{"${element}": "${EditElement}"}`;
 
-    fetch("http://94.103.90.6:5000/edit_admin_panel", {
+    fetch("https://api1.traffkillas.kz/edit_admin_panel", {
       method: "POST",
       headers: {
         "Content-type": "application/json",

@@ -27,7 +27,7 @@ const Employees = () => {
   const [enableCreate, setEnableCreate] = useState(true);
 
   const GetEmployeeData = () => {
-    fetch("http://94.103.90.6:5000/get_users", {
+    fetch("https://api1.traffkillas.kz/get_users", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +50,7 @@ const Employees = () => {
   };
   const [employeeGiftData, SetEmployeeGiftData] = useState();
   const GetEmployeeGifts = () => {
-    fetch("http://94.103.90.6:5000/get_orders", {
+    fetch("https://api1.traffkillas.kz/get_orders", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const Employees = () => {
     e.preventDefault();
     const ElementId = e.target.id;
     axios
-      .post("http://94.103.90.6:5000/accept_order", ElementId, {
+      .post("https://api1.traffkillas.kz/accept_order", ElementId, {
         headers: {
           token: localStorage.getItem("token"),
           "Content-type": "application/json",
@@ -98,7 +98,7 @@ const Employees = () => {
       document.querySelector(".pro-item-content").textContent
     );
     axios
-      .post("http://94.103.90.6:5000/create_user", formData, {
+      .post("https://api1.traffkillas.kz/create_user", formData, {
         headers: {
           token: localStorage.getItem("token"),
           "Content-type": "application/json",
@@ -122,7 +122,7 @@ const Employees = () => {
   let employeeUsername = document.getElementById("employeeUsername");
   const SubmitDelete = (e) => {
     e.preventDefault();
-    fetch("http://94.103.90.6:5000/delete_user", {
+    fetch("https://api1.traffkillas.kz/delete_user", {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",

@@ -73,6 +73,7 @@ const Thread = ({
       .build();
 
     setConnection(newConnection);
+    console.log(messageGet);
   }, []);
   // useEffect(() => {
   //   GetChatMessages();
@@ -94,7 +95,7 @@ const Thread = ({
               // setMessage("");
             })
             .catch((error) => console.error(error));
-          connection.on("messageNotification",  (user, message) => {
+          connection.on("messageNotification", (user, message) => {
             // const newMessage = `${user}: ${message}`;
             // setMessages((messages) => [...messages, newMessage]);
             // console.log(user.messageText);
@@ -309,6 +310,7 @@ const Thread = ({
         style={{ display: "flex", flexDirection: "column" }}
         ref={chatRef}
       >
+        {console.log(messages)}
         {messages &&
           messages.map((messages, index, array) => {
             const { chatId, text, sendTime, direction } = messages;

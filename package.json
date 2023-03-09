@@ -46,6 +46,8 @@
     "react-dropzone-uploader": "^2.11.0",
     "react-edit-text": "^5.0.2",
     "react-editext": "^5.1.0",
+    "react-globe": "^5.0.2",
+    "react-globe.gl": "^2.23.3",
     "react-icons": "^4.7.1",
     "react-images-uploading": "^3.1.7",
     "react-multiselect-checkboxes": "^0.1.1",
@@ -67,6 +69,7 @@
     "semantic-ui-react": "^2.1.4",
     "styled-components": "^5.3.6",
     "uploader": "^3.3.0",
+    "use-cannon": "^0.5.3",
     "xtypejs": "^0.7.1"
   },
   "scripts": {

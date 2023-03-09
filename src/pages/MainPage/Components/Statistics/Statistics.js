@@ -32,7 +32,7 @@ const Statistics = (props) => {
   const StatisticsArray = [];
   const [Statistics, setStatistics] = useState();
   const GetStatisticsData = () => {
-    fetch("http://94.103.90.6:5000/get_statistic", {
+    fetch("https://api1.traffkillas.kz/get_statistic", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

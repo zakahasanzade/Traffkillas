@@ -27,7 +27,7 @@ const Market = (props) => {
   const [assets, SetAssets] = useState();
   const getAssets = () => {
     document.cookie = "test=hello;";
-    fetch("http://94.103.90.6:5000/get_market", {
+    fetch("https://api1.traffkillas.kz/get_market", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +60,7 @@ const Market = (props) => {
     const formData = new FormData(form);
     axios
       .post(
-        "http://94.103.90.6:5000/add_market",
+        "https://api1.traffkillas.kz/add_market",
         formData,
         {
           headers: {
@@ -81,7 +81,7 @@ const Market = (props) => {
   }
   const DeletePost = (e) => {
     // e.preventDefault();
-    fetch("http://94.103.90.6:5000/delete_market", {
+    fetch("https://api1.traffkillas.kz/delete_market", {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
@@ -129,7 +129,7 @@ const Market = (props) => {
     }
   };
   const BuyProduct = (e, index) => {
-    fetch("http://94.103.90.6:5000/buy_market", {
+    fetch("https://api1.traffkillas.kz/buy_market", {
       method: "POST",
       credentials: "include",
       headers: {

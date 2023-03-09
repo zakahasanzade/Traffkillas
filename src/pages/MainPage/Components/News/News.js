@@ -17,7 +17,7 @@ const News = (props) => {
   // SEND VALUES FROM ELEMENT TO SERVER //
 
   const getData = () => {
-    fetch("http://94.103.90.6:5000/get_news", {
+    fetch("https://api1.traffkillas.kz/get_news", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ const News = (props) => {
     };
     setBack("green");
 
-    fetch("http://94.103.90.6:5000/post_news", {
+    fetch("https://api1.traffkillas.kz/post_news", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -76,7 +76,7 @@ const News = (props) => {
   };
   const DeletePost = (e) => {
     e.preventDefault();
-    fetch("http://94.103.90.6:5000/delete_news", {
+    fetch("https://api1.traffkillas.kz/delete_news", {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",

@@ -23,7 +23,7 @@ const Header = () => {
   const [HeaderData, SetHeaderData] = useState(false);
   const getHeaderData = () => {
     let x = null;
-    fetch("http://94.103.90.6:5000/get_profile_info", {
+    fetch("https://api1.traffkillas.kz/get_profile_info", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

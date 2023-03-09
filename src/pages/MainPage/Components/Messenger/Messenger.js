@@ -18,7 +18,7 @@ function Messenger({ CloseMessengerWindow }) {
     console.log(ChatId);
   };
   const GetAllProjects = () => {
-    fetch(`http://146.0.78.143:5355/api/v1/projects/my`, {
+    fetch(`https://api2.traffkillas.kz/api/v1/projects/my`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -30,6 +30,7 @@ function Messenger({ CloseMessengerWindow }) {
       })
       .then((result) => {
         setAllChats(JSON.parse(result));
+        setMessages()
       });
   };
   const [GetChat, setGetChat] = useState([]);
@@ -39,7 +40,7 @@ function Messenger({ CloseMessengerWindow }) {
   useEffect(() => {
     ProjectId &&
       fetch(
-        `http://146.0.78.143:5355/api/v1/messages/getChats?projectId=${ProjectId}`,
+        `https://api2.traffkillas.kz/api/v1/messages/getChats?projectId=${ProjectId}`,
         {
           method: "GET",
           headers: {
@@ -61,7 +62,7 @@ function Messenger({ CloseMessengerWindow }) {
   useEffect(() => {
     NewChatId &&
       fetch(
-        `http://146.0.78.143:5355/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}`,
+        `https://api2.traffkillas.kz/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}`,
         {
           method: "GET",
           headers: {
@@ -87,9 +88,9 @@ function Messenger({ CloseMessengerWindow }) {
   useEffect(() => {
     GetAllProjects();
   }, []);
-  const GetchatMessage = (GetMessage) => {
-    setMessages(GetMessage);
-  };
+  // const GetchatMessage = (GetMessage) => {
+  //   setMessages(GetMessage);
+  // };
   const setChangeNavColor = (nav) => {
     setNavColor(nav);
   };
@@ -115,7 +116,7 @@ function Messenger({ CloseMessengerWindow }) {
     <div className="telegram">
       <SideDropdown allChats={allChats} GetProjectId={GetProjectId} />
       <Sidebar
-        GetchatMessage={GetchatMessage}
+        // GetchatMessage={GetchatMessage}
         UpdateChatId={UpdateChatId}
         GetStateChat={GetStateChat}
         CloseMessenger={CloseMessenger}
