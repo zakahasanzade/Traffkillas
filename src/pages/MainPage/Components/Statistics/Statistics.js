@@ -312,8 +312,13 @@ const Statistics = (props) => {
                                 <MenuItem>
                                   {left_join_stat &&
                                     left_join_stat?.map((object) => {
-                                      const { join, left, subscribers, time } =
-                                        object;
+                                      const {
+                                        join,
+                                        left,
+                                        ticket,
+                                        subscribers,
+                                        time,
+                                      } = object;
                                       return (
                                         <div className="statistics_submenu ">
                                           <div
@@ -348,7 +353,7 @@ const Statistics = (props) => {
                                           </div>
                                           <div className="statistics_submenu_div orange">
                                             <i class="bi bi-ticket-perforated-fill"></i>{" "}
-                                            0
+                                            {ticket}
                                           </div>
                                           <div className="statistics_submenu_div black">
                                             <i class="bi bi-people-fill"></i> 0
