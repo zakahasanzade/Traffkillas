@@ -163,6 +163,10 @@ const Statistics = (props) => {
               total_posts,
               reg,
               dep,
+              all_reply_time,
+              all_ticket,
+              percen,
+              image,
             } = el;
             return (
               <div className="statistics" key={el + index}>
@@ -181,13 +185,25 @@ const Statistics = (props) => {
                   }}
                 >
                   <div className="statistics_account_left">
-                    <img src={ProfileImage} alt="Profile"></img>
+                    <img
+                      className="statistics_account_left_img"
+                      src={image ? image : ProfileImage}
+                      alt="Profile"
+                    ></img>
                     <div className="statistics_account_info">
                       <div className="statistics_account_info_up">
                         <p>{channel_name}</p>
-                        <p className="statistics_up">
-                          <FontAwesomeIcon icon={faCaretUp} size="xl" />
-                          5.84%
+                        <p
+                          className="statistics_up"
+                          style={
+                            percen < 0
+                              ? { backgroundColor: "red" }
+                              : { backgroundColor: "#16C784" }
+                          }
+                        >
+                          {percen > 0 && <i class="bi bi-caret-up-fill"></i>}
+                          {percen < 0 && <i class="bi bi-caret-down-fill"></i>}
+                          {Math.abs(percen)}%
                         </p>
                       </div>
                       <div className="statistics_account_info_down">
@@ -275,11 +291,12 @@ const Statistics = (props) => {
                                     </div>
 
                                     <div className="statistics_submenu_div black">
-                                      <i class="bi bi-clock-fill"></i> 0 мин
+                                      <i class="bi bi-clock-fill"></i>{" "}
+                                      {all_reply_time} мин
                                     </div>
                                     <div className="statistics_submenu_div orange">
                                       <i class="bi bi-ticket-perforated-fill"></i>{" "}
-                                      0
+                                      {all_ticket}
                                     </div>
                                     <div className="statistics_submenu_div black">
                                       <i class="bi bi-people-fill"></i>{" "}

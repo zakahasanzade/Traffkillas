@@ -38,6 +38,7 @@
 .statistics_account_left img {
   width: 84px;
   margin-right: 20px;
+  border-radius: 100%;
 }
 .statistics_account_info_up {
   display: flex;

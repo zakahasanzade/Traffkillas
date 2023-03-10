@@ -93,10 +93,15 @@ const Employees = () => {
     e.preventDefault();
     const form = document.getElementById("form");
     const formData = new FormData(form);
-    formData.append(
-      "title",
-      document.querySelector(".pro-item-content").textContent
-    );
+    const title = document.querySelector(".pro-item-content").textContent;
+    let positionEmployer = null;
+    title === "Обработка" && (positionEmployer = "treat_1");
+    title === "Продакшн" && (positionEmployer = "prodaction");
+    title === "Обработка(вечер)" && (positionEmployer = "treat_2");
+    title === "Обработка(утрен)" && (positionEmployer = "treat_3");
+    title === "Контент" && (positionEmployer = "contentmaker");
+
+    formData.append("title", positionEmployer);
     axios
       .post("https://api1.traffkillas.kz/create_user", formData, {
         headers: {
@@ -274,6 +279,22 @@ const Employees = () => {
                             EnableCreateButton();
                           }}
                         >
+                          Обработка(вечер)
+                        </MenuItem>
+                        <MenuItem
+                          onClick={(e) => {
+                            SelectPosition(e);
+                            EnableCreateButton();
+                          }}
+                        >
+                          Обработка(утрен)
+                        </MenuItem>
+                        <MenuItem
+                          onClick={(e) => {
+                            SelectPosition(e);
+                            EnableCreateButton();
+                          }}
+                        >
                           Контент
                         </MenuItem>
                       </SubMenu>
@@ -384,10 +405,11 @@ const Employees = () => {
               tenge,
               ttk,
               username,
+              image,
             } = person;
             return (
               <>
-                {title === "Продакшн" && (
+                {title === "prodaction" && position !== 2 && (
                   <div className="wrapper" key={person + index}>
                     <button
                       id={index}
@@ -405,11 +427,16 @@ const Employees = () => {
                       }}
                     >
                       <div className="employee_account_left">
-                        <img src={ProfilePhoto1} alt="ProfilePhoto1"></img>
+                        <img
+                          src={image ? image : ProfilePhoto1}
+                          alt="ProfilePhoto1"
+                        ></img>
                         <div>
                           <p key={first_name.toString()}>{first_name}</p>
                           <p className="employee_account_left_position">
-                            {position}{" "}
+                            {position === 1 && "Админ"}
+                            {position === 2 && "Тимлид"}
+                            {position === 3 && "Сотрудник"}{" "}
                             <i
                               class="bi bi-chevron-down"
                               style={{ fontSize: "12px" }}
@@ -471,7 +498,7 @@ const Employees = () => {
                           </li>
                           <li className="list-item employee_info">
                             <p key={first_name.toString()}>
-                              {first_name} {last_name} {middle_name}
+                              {last_name} {first_name} {middle_name}
                             </p>
                           </li>
                           <li className="list-item employee_info">
@@ -577,10 +604,214 @@ const Employees = () => {
               tenge,
               ttk,
               username,
+              image,
             } = person;
             return (
               <>
-                {title === "Обработка" && (
+                {(title === "treat_1" ||
+                  title === "treat_2" ||
+                  title === "treat_3") &&
+                  position !== 2 && (
+                    <div className="wrapper" key={person + index}>
+                      <button
+                        id={index}
+                        className="button employee_account"
+                        onClick={(e) => {
+                          let IndexElement = index;
+                          var res = showUser.map((e, i) => {
+                            if (i == IndexElement) {
+                              return !e;
+                            } else {
+                              return e;
+                            }
+                          });
+                          setShowUser(res);
+                        }}
+                      >
+                        <div className="employee_account_left">
+                          <img
+                            src={image ? image : ProfilePhoto1}
+                            alt="ProfilePhoto1"
+                          ></img>
+                          <div>
+                            <p key={first_name.toString()}>{first_name}</p>
+                            <p className="employee_account_left_position">
+                              {position === 1 && "Админ"}
+                              {position === 2 && "Тимлид"}
+                              {position === 3 && "Сотрудник"}{" "}
+                              <i
+                                class="bi bi-chevron-down"
+                                style={{ fontSize: "12px" }}
+                              ></i>
+                            </p>
+                          </div>
+                        </div>
+                        <div className="employee_account_right">
+                          <p>{mmr}MMR</p>
+                          <p className="orange">{ttk}TTK</p>
+                          <p style={{ color: "#AB16CD" }}>₸ {tenge}</p>
+                        </div>
+                      </button>
+                      <CSSTransition
+                        in={showUser[index]}
+                        classNames="alert"
+                        timeout={300}
+                        unmountOnExit
+                      >
+                        <ul className="employee_account_list list">
+                          <div style={{ fontWeight: "700" }}>
+                            <li className="list-item employee_info">
+                              <p style={{ color: "orange" }}>Login</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p style={{ color: "orange" }}>Password</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>ФИО</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Дата рождения</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Регистрация в системе</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>E-mail</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Номер</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Адрес</p>
+                            </li>
+                          </div>
+                          <div>
+                            <li className="list-item employee_info">
+                              <p
+                                key={username.toString()}
+                                value="value"
+                                id="employeeUsername"
+                              >
+                                {username}
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={pwd.toString()}>{pwd}</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={first_name.toString()}>
+                                {last_name} {first_name} {middle_name}
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={birth_date.toString()}>{birth_date}</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={created_time.toString()}>
+                                {created_time}
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={email.toString()}>{email}</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={phone.toString()}>{phone}</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={address.toString()}>{address}</p>
+                            </li>
+                          </div>
+                          <div>
+                            <button
+                              onClick={(e) => {
+                                let IndexElement = index;
+                                var res = showQuestion.map((e, i) => {
+                                  if (i == IndexElement) {
+                                    return !e;
+                                  } else {
+                                    return e;
+                                  }
+                                });
+                                setShowQuestion(res);
+                              }}
+                            >
+                              Удалить сотрудника
+                            </button>
+                          </div>
+                          <CSSTransition
+                            in={showQuestion[index]}
+                            classNames="alert"
+                            timeout={300}
+                            unmountOnExit
+                          >
+                            <form className="employee_account_list_question">
+                              <p className="employee_account_question">
+                                Вы уверены?
+                              </p>
+                              <p className="employee_account_title">
+                                Впишите в поле “Удалить сотрудника”
+                              </p>
+                              <div className="employee_account_question_input">
+                                <input
+                                  placeholder="..."
+                                  onChange={(e) => {
+                                    setsubmitDelete(e.target.value);
+                                  }}
+                                />
+                                {submitDelete === "Удалить сотрудника" ? (
+                                  <i
+                                    id={username}
+                                    onClick={(e) => {
+                                      SubmitDelete(e);
+                                      setsubmitDelete();
+                                    }}
+                                    class="bi bi-arrow-right-circle-fill submit_delete "
+                                  ></i>
+                                ) : (
+                                  <i
+                                    id={username}
+                                    style={{ opacity: "0.5" }}
+                                    class="bi bi-arrow-right-circle-fill submit_delete "
+                                  ></i>
+                                )}
+                              </div>
+                            </form>
+                          </CSSTransition>
+                        </ul>
+                      </CSSTransition>
+                    </div>
+                  )}
+              </>
+            );
+          })}
+        <div className="employee_title">
+          <p>Контент</p>
+        </div>
+        {employee &&
+          employee.map((person, index) => {
+            const {
+              address,
+              birth_date,
+              created_time,
+              email,
+              first_name,
+              last_name,
+              middle_name,
+              mmr,
+              phone,
+              position,
+              project,
+              pwd,
+              session,
+              title,
+              tenge,
+              ttk,
+              username,
+              image,
+            } = person;
+            return (
+              <>
+                {title === "contentmaker" && position !== 2 && (
                   <div className="wrapper" key={person + index}>
                     <button
                       id={index}
@@ -598,11 +829,16 @@ const Employees = () => {
                       }}
                     >
                       <div className="employee_account_left">
-                        <img src={ProfilePhoto1} alt="ProfilePhoto1"></img>
+                        <img
+                          src={image ? image : ProfilePhoto1}
+                          alt="ProfilePhoto1"
+                        ></img>
                         <div>
                           <p key={first_name.toString()}>{first_name}</p>
                           <p className="employee_account_left_position">
-                            {position}{" "}
+                            {position === 1 && "Админ"}
+                            {position === 2 && "Тимлид"}
+                            {position === 3 && "Сотрудник"}{" "}
                             <i
                               class="bi bi-chevron-down"
                               style={{ fontSize: "12px" }}
@@ -664,7 +900,7 @@ const Employees = () => {
                           </li>
                           <li className="list-item employee_info">
                             <p key={first_name.toString()}>
-                              {first_name} {last_name} {middle_name}
+                              {last_name} {first_name} {middle_name}
                             </p>
                           </li>
                           <li className="list-item employee_info">
@@ -747,7 +983,7 @@ const Employees = () => {
             );
           })}
         <div className="employee_title">
-          <p>Контент</p>
+          <p>Тимлид</p>
         </div>
         {employee &&
           employee.map((person, index) => {
@@ -769,10 +1005,11 @@ const Employees = () => {
               tenge,
               ttk,
               username,
+              image,
             } = person;
             return (
               <>
-                {title === "Контент" && (
+                {position === 2 && (
                   <div className="wrapper" key={person + index}>
                     <button
                       id={index}
@@ -790,11 +1027,17 @@ const Employees = () => {
                       }}
                     >
                       <div className="employee_account_left">
-                        <img src={ProfilePhoto1} alt="ProfilePhoto1"></img>
+                        <img
+                        className="employee_account_left_image"
+                          src={image ? image : ProfilePhoto1}
+                          alt="ProfilePhoto1"
+                        ></img>
                         <div>
                           <p key={first_name.toString()}>{first_name}</p>
                           <p className="employee_account_left_position">
-                            {position}{" "}
+                            {position === 1 && "Админ"}
+                            {position === 2 && "Тимлид"}
+                            {position === 3 && "Сотрудник"}{" "}
                             <i
                               class="bi bi-chevron-down"
                               style={{ fontSize: "12px" }}
@@ -856,7 +1099,7 @@ const Employees = () => {
                           </li>
                           <li className="list-item employee_info">
                             <p key={first_name.toString()}>
-                              {first_name} {last_name} {middle_name}
+                              {last_name} {first_name} {middle_name}
                             </p>
                           </li>
                           <li className="list-item employee_info">

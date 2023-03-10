@@ -168,9 +168,9 @@ const Profile = (props) => {
     const form = document.getElementById("form");
     const formData = new FormData(form);
     let fullName = document.querySelector(".form_fullName").value.split(" ");
-    formData.append("first_name", fullName[0]);
-    formData.append("middle_name", fullName[1]);
-    formData.append("last_name", fullName[2]);
+    formData.append("last_name", fullName[0]);
+    formData.append("first_name", fullName[1]);
+    formData.append("middle_name", fullName[2]);
     console.log(formData);
 
     axios
@@ -249,7 +249,7 @@ const Profile = (props) => {
           </div>
           <div className="profile_header_right">
             <div className="profile_header_right_info">
-              <p>{profileInformation?.username}</p>
+              <p>{profileInformation?.first_name}</p>
               <div
                 className="profile_header_right_info_footer dropdown"
                 onClick={() => {
@@ -368,11 +368,11 @@ const Profile = (props) => {
                         className="form_fullName"
                         placeholder="ФИО"
                         defaultValue={
+                          profileInformation?.last_name +
+                          " " +
                           profileInformation?.first_name +
                           " " +
-                          profileInformation?.middle_name +
-                          " " +
-                          profileInformation?.last_name
+                          profileInformation?.middle_name
                         }
                         // onChange={(e) => {
                         //   let fullName = e.target.value.split(" ");
@@ -463,6 +463,9 @@ const Profile = (props) => {
                   treat_1,
                   treat_2,
                   treat_3,
+                  team_1,
+                  team_2,
+                  team_3,
                 } = object;
                 return (
                   <>
@@ -490,7 +493,7 @@ const Profile = (props) => {
                         <p>KPI</p>
                         <div className="input_enable_default default_kpi">
                           <p className="admin_payments_details_input">
-                            {kpi}₸{" "}
+                            {kpi}{" "}
                             <i
                               className="bi bi-pencil-square"
                               id="kpi"
@@ -580,7 +583,7 @@ const Profile = (props) => {
                         </div>
                       </div>
                       <div className="admin_payments_details ">
-                        <p>Обработка(вечер)</p>
+                        <p>Обработка</p>
                         <div className="input_enable_default default_treat_1">
                           <p className="admin_payments_details_input">
                             {treat_1}₸{" "}
@@ -610,7 +613,7 @@ const Profile = (props) => {
                         </div>
                       </div>
                       <div className="admin_payments_details ">
-                        <p>Обработка(вечер дист.)</p>
+                        <p>Обработка(вечер)</p>
                         <div className="input_enable_default default_treat_2">
                           <p className="admin_payments_details_input">
                             {treat_2}₸{" "}
@@ -640,7 +643,7 @@ const Profile = (props) => {
                         </div>
                       </div>
                       <div className="admin_payments_details ">
-                        <p>Обработка(утрен дист.)</p>
+                        <p>Обработка(утрен)</p>
                         <div className="input_enable_default default_treat_3">
                           <p className="admin_payments_details_input">
                             {treat_3}₸{" "}
@@ -664,6 +667,96 @@ const Profile = (props) => {
                           <i
                             style={{ marginLeft: "5px" }}
                             id="treat_3"
+                            onClick={(el) => CancelEdit(el)}
+                            class="bi bi-x-circle-fill"
+                          ></i>
+                        </div>
+                      </div>
+                      <div className="admin_payments_details ">
+                        <p>Тимлид(продакшн)</p>
+                        <div className="input_enable_default default_team_1">
+                          <p className="admin_payments_details_input">
+                            {team_1}₸{" "}
+                            <i
+                              className="bi bi-pencil-square"
+                              id="team_1"
+                              onClick={(el) => ChangeText(el)}
+                            >
+                              {" "}
+                            </i>
+                          </p>
+                        </div>
+
+                        <div className="input_enable_onclick onclick_team_1">
+                          <input class="admin_input_edit edit_team_1"></input>₸{" "}
+                          <i
+                            class="bi bi-check-circle-fill"
+                            id="team_1"
+                            onClick={(e) => EditSubmit(e)}
+                          ></i>
+                          <i
+                            style={{ marginLeft: "5px" }}
+                            id="team_1"
+                            onClick={(el) => CancelEdit(el)}
+                            class="bi bi-x-circle-fill"
+                          ></i>
+                        </div>
+                      </div>
+                      <div className="admin_payments_details ">
+                        <p>Тимлид(обработка)</p>
+                        <div className="input_enable_default default_team_2">
+                          <p className="admin_payments_details_input">
+                            {team_2}₸{" "}
+                            <i
+                              className="bi bi-pencil-square"
+                              id="team_2"
+                              onClick={(el) => ChangeText(el)}
+                            >
+                              {" "}
+                            </i>
+                          </p>
+                        </div>
+
+                        <div className="input_enable_onclick onclick_team_2">
+                          <input class="admin_input_edit edit_team_2"></input>₸{" "}
+                          <i
+                            class="bi bi-check-circle-fill"
+                            id="team_2"
+                            onClick={(e) => EditSubmit(e)}
+                          ></i>
+                          <i
+                            style={{ marginLeft: "5px" }}
+                            id="team_2"
+                            onClick={(el) => CancelEdit(el)}
+                            class="bi bi-x-circle-fill"
+                          ></i>
+                        </div>
+                      </div>
+                      <div className="admin_payments_details ">
+                        <p>Тимлид(контент)</p>
+                        <div className="input_enable_default default_team_3">
+                          <p className="admin_payments_details_input">
+                            {team_3}₸{" "}
+                            <i
+                              className="bi bi-pencil-square"
+                              id="team_3"
+                              onClick={(el) => ChangeText(el)}
+                            >
+                              {" "}
+                            </i>
+                          </p>
+                        </div>
+
+                        <div className="input_enable_onclick onclick_team_3">
+                          <input class="admin_input_edit edit_team_3"></input>₸{" "}
+                          <i
+                            class="bi bi-check-circle-fill"
+                            id="team_3"
+                            onClick={(e) => EditSubmit(e)}
+                          ></i>
+                          <i
+                            style={{ marginLeft: "5px" }}
+                            id="team_3"
                             onClick={(el) => CancelEdit(el)}
                             class="bi bi-x-circle-fill"
                           ></i>

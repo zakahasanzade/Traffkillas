@@ -35,7 +35,7 @@ const MainPage = (props) => {
               <CustomLink to="/MainPage/Instruments">Инструменты</CustomLink>
             )}
             {props.position !== "3" && (
-              <CustomLink to="/MainPage/Employees">Соотрудники</CustomLink>
+              <CustomLink to="/MainPage/Employees">Сотрудники</CustomLink>
             )}
           </ul>
         </nav>

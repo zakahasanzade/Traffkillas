@@ -159,6 +159,11 @@
   align-items: center;
   gap: 5px;
 }
+.employee_account_left img {
+  max-width: 64px;
+  max-height: 64px;
+  border-radius: 100%;
+}
 .employee_account_right {
   font-weight: 700;
   display: flex;

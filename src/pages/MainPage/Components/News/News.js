@@ -280,13 +280,14 @@ const News = (props) => {
                         ></div>
                         <p>{title}</p>
                       </div>
-                      {position !== "3" ? (
+
+                      {position !== 3 && (
                         <i
                           onClick={DeletePost}
-                          class="fa-solid fa-trash-can"
+                          class="bi bi-trash3-fill"
                           id={_id.$oid}
                         ></i>
-                      ) : null}
+                      )}
                     </h1>
                     <p className="news_page_text">{text}</p>
                     <div className="news_page_footer">

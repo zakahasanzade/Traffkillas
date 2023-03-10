@@ -67,7 +67,7 @@ const Header = () => {
           </div>
           <button id="profile_button">
             <p onClick={() => setShow(!show)}>
-              {show ? HeaderData?.username : HeaderData?.username}
+              {show ? HeaderData?.first_name : HeaderData?.first_name}
             </p>
             <img src={ProfilePhoto} alt="ProfilePhoto" onClick={ViewProfile} />
           </button>
