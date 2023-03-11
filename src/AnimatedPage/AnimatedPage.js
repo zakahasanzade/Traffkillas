@@ -12,6 +12,7 @@ import Market from "../pages/MainPage/Components/Market/Market";
 import Instruments from "../pages/MainPage/Components/Instruments/Instruments";
 import Employees from "../pages/MainPage/Components/Employees/Employees";
 import ProjectLeaderboard from "../pages/MainPage/Components/Leaderboard/ProjectLeaderboard/ProjectLeaderboard";
+import EmployerLeaderboard from "../pages/MainPage/Components/Leaderboard/EmployerLeaderboard/EmployerLeaderboard";
 import { AnimatePresence } from "framer-motion/dist/framer-motion";
 
 const AnimatedPage = () => {
@@ -55,6 +56,10 @@ const AnimatedPage = () => {
           <Route
             path="/MainPage/ProjectLeaderboard"
             element={<ProjectLeaderboard position={position} />}
+          />
+          <Route
+            path="/MainPage/EmployerLeaderboard"
+            element={<EmployerLeaderboard position={position} />}
           />
           <Route
             path="/MainPage/Market"

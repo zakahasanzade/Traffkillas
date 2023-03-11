@@ -8,17 +8,18 @@
   /* line-height: 150%; */
   letter-spacing: -0.019em;
   color: white;
+  font-size: 16px;
+  gap: 27px;
 }
-.first_date {
+/* .first_date {
   font-size: 20px;
-  text-decoration: underline;
-  opacity: 0.7;
+
   margin-right: 15px;
 }
 * + .second_date {
   font-size: 20px;
   opacity: 0.3;
-}
+} */
 
 .week {
   margin-left: 15px;
@@ -59,6 +60,11 @@
 
 .leader_img {
   margin-right: 20px;
+}
+.leader_img img {
+  max-width: 64px;
+  max-height: 64px;
+  border-radius: 100%;
 }
 .leader_info_header {
   display: flex;
