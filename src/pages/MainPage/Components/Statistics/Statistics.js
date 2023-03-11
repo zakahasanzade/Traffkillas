@@ -146,8 +146,7 @@ const Statistics = (props) => {
       <div className="statististics_main">
         {position == 3 && <p className="statistics_title">Мои проекты</p>}
         {position != 3 && <p className="statistics_title">Все проекты</p>}
-        {position != 3 &&
-          Statistics &&
+        {Statistics &&
           Statistics.map((el, index) => {
             const {
               all_join,
@@ -167,6 +166,8 @@ const Statistics = (props) => {
               all_ticket,
               percen,
               image,
+              two_week_dep,
+              two_week_reg,
             } = el;
             return (
               <div className="statistics" key={el + index}>
@@ -253,12 +254,26 @@ const Statistics = (props) => {
                     <div className="statistics_general">
                       <h2>Общая статистика</h2>
                       <p>
-                        Сумма депозитов:{" "}
-                        <span style={{ color: "purple" }}>13 200 000₸</span>
+                        Количество депозитов:{" "}
+                        <span style={{ color: "#C21556" }}>
+                          {" "}
+                          <i class="bi bi-piggy-bank-fill"></i> {two_week_dep}
+                        </span>
                       </p>
-                      <p>Обработано тикетов: 2150</p>
-                      <p>Суммарное кол-во просмотров: 546 340</p>
-                      <p>Количество публикаций: {total_posts}</p>
+                      <p>
+                        Обработано тикетов:{" "}
+                        <span style={{ color: "#EA9127" }}>
+                          {" "}
+                          <i class="bi bi-ticket-perforated-fill"></i> 647
+                        </span>
+                      </p>
+                      <p>
+                        Количество регистраций:{" "}
+                        <span style={{ color: "white" }}>
+                          {" "}
+                          <i class="bi bi-people-fill"></i> {two_week_reg}
+                        </span>
+                      </p>
                     </div>
                     <div className="statistics_hours">
                       <h2>Дневная/часовая статистика</h2>
@@ -318,6 +333,7 @@ const Statistics = (props) => {
                                         ticket,
                                         subscribers,
                                         time,
+                                        reply_time,
                                       } = object;
                                       return (
                                         <div className="statistics_submenu ">
@@ -348,8 +364,8 @@ const Statistics = (props) => {
                                           </div>
 
                                           <div className="statistics_submenu_div black">
-                                            <i class="bi bi-clock-fill"></i> 0
-                                            мин
+                                            <i class="bi bi-clock-fill"></i>{" "}
+                                            {reply_time} мин
                                           </div>
                                           <div className="statistics_submenu_div orange">
                                             <i class="bi bi-ticket-perforated-fill"></i>{" "}

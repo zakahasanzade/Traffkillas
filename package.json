@@ -34,6 +34,7 @@
     "framer-motion": "^8.4.6",
     "primereact": "^9.1.1",
     "react": "^18.2.0",
+    "react-animated-popup": "^0.1.8",
     "react-apexcharts": "^1.4.0",
     "react-bootstrap": "^2.7.0",
     "react-calendar": "^4.0.0",
@@ -68,6 +69,7 @@
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4",
     "styled-components": "^5.3.6",
+    "three": "^0.150.1",
     "uploader": "^3.3.0",
     "use-cannon": "^0.5.3",
     "xtypejs": "^0.7.1"

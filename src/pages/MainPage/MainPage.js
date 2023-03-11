@@ -12,7 +12,7 @@ const MainPage = (props) => {
     path: "/MainPage/ProjectLeaderboard",
     end: true,
   });
-  const [dropdown, setDropdown] = useState(isLeaderboard);
+  const [dropdown, setDropdown] = useState();
   return (
     <>
       <div className="main_header">{<Header />}</div>
@@ -22,14 +22,20 @@ const MainPage = (props) => {
             <CustomLink to="/MainPage/">Новости</CustomLink>
             <CustomLink to="/MainPage/Tasks">Задания</CustomLink>
             <CustomLink to="/MainPage/Statistics">Статистика</CustomLink>
-            <CustomLink
-              to="/MainPage/ProjectLeaderboard"
+            <p
+              className={
+                dropdown
+                  ? "navbar_dropdown_active navbar_dropdonw_Li"
+                  : "navbar_dropdonw_Li"
+              }
+              // to="/MainPage/ProjectLeaderboard"
               onClick={(e) => {
                 setDropdown(!dropdown);
               }}
             >
               Лидерборд
-            </CustomLink>
+            </p>
+
             <CustomLink to="/MainPage/Market">Маркет</CustomLink>
             {props.position !== "3" && (
               <CustomLink to="/MainPage/Instruments">Инструменты</CustomLink>
@@ -39,14 +45,12 @@ const MainPage = (props) => {
             )}
           </ul>
         </nav>
-        {/* {dropdown ? (
-          <ul className="navbar_dropdown">
-            <li>Проекты</li>
-            <li>Работники</li>
+        {dropdown && (
+          <ul className="navbar_dropdown_menu">
+            <Link to="/MainPage/ProjectLeaderboard">Project</Link>
+            <Link to="/MainPage/ProjectLeaderboard">Employer</Link>
           </ul>
-        ) : (
-          ""
-        )} */}
+        )}
       </div>
       <Outlet />
     </>
