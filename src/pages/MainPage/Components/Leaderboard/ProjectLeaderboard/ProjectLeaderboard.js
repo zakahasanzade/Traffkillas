@@ -4,11 +4,12 @@ import { motion } from "framer-motion/dist/framer-motion";
 import ProjectPhoto from "../Leaderboard Assets/ProjectPhoto.svg";
 import { useEffect } from "react";
 import { useState } from "react";
+import Leader from "../Leaderboard Assets/Leader_Photo.svg";
 
 const ProjectLeaderboard = () => {
   const [projectLeaderboard, setProjectLeaderboard] = useState([]);
   const GetProjectLeaderboard = () => {
-    fetch(`https://api1.traffkillas.kz/get_leaderboard_users`, {
+    fetch(`https://api1.traffkillas.kz/get_leaderboard`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +27,7 @@ const ProjectLeaderboard = () => {
       });
   };
   const GetProjectLeaderboardForWeek = () => {
-    fetch(`https://api1.traffkillas.kz/get_leaderboard_users`, {
+    fetch(`https://api1.traffkillas.kz/get_leaderboard`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +45,7 @@ const ProjectLeaderboard = () => {
       });
   };
   const GetProjectLeaderboardForTwoWeek = () => {
-    fetch(`https://api1.traffkillas.kz/get_leaderboard_users`, {
+    fetch(`https://api1.traffkillas.kz/get_leaderboard`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -141,24 +142,40 @@ const ProjectLeaderboard = () => {
       <div className="leader_page_div">
         {projectLeaderboard &&
           projectLeaderboard?.map((element) => {
-            const { image, mmr } = element;
+            const { channel_name, percen, two_week_dep, sub_count } = element;
+
             return (
               <div className="leader_div">
                 <div className="leader_left_div">
                   <div className="first_leader_number">
-                    <p>{employerNumeration}</p>
+                    <p>1</p>
                   </div>
                   <div className="leader_img">
-                    <img src={image} alt="Leader"></img>
+                    <img src={Leader} alt="Leader" />
                   </div>
                   <div className="leader_info">
                     <div className="leader_info_header">
-                      <p>Name</p>
+                      <p>{channel_name}</p>
+                      <p
+                        className="statistics_up"
+                        style={
+                          percen < 0
+                            ? { backgroundColor: "red" }
+                            : { backgroundColor: "#16C784" }
+                        }
+                      >
+                        {percen > 0 && <i class="bi bi-caret-up-fill"></i>}
+                        {percen < 0 && <i class="bi bi-caret-down-fill"></i>}
+                        {Math.abs(percen)}%
+                      </p>
+                    </div>
+                    <div className="leader_info_footer">
+                      <p>{sub_count} подписчиков</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="leader_balance">{mmr} MMR</div>
+                <div className="leader_balance">{two_week_dep} депозитов</div>
               </div>
             );
           })}
