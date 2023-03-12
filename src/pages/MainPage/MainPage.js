@@ -48,8 +48,8 @@ const MainPage = (props) => {
                 Лидерборд
               </p>
               <ul className="navbar_dropdown_menu">
-                <Link to="/MainPage/ProjectLeaderboard">Project</Link>
-                <Link to="/MainPage/EmployerLeaderboard">Employer</Link>
+                <Link to="/MainPage/ProjectLeaderboard">Проекты</Link>
+                <Link to="/MainPage/EmployerLeaderboard">Работники</Link>
               </ul>
             </div>
             <CustomLink className="CustomLink" to="/MainPage/Market">

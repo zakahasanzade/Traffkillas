@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import MainLogo from "./Profile Assets/MainLogo.svg";
-import AdminTeg from "./Profile Assets/AdminTeg.svg";
+import AdminTeg from "./Profile Assets/PinUp.jpeg";
 import BackButton from "./Profile Assets/Back Button.svg";
 import ProfileImg from "./Profile Assets/Profile Img.svg";
 import Rank from "./Profile Assets/Rank.svg";
@@ -220,11 +220,35 @@ const Profile = (props) => {
     document.querySelector(`.default_${el.target.id}`).style.display = "block";
     document.querySelector(`.onclick_${el.target.id}`).style.display = "none";
   };
+  const [notifications, setNotifications] = useState([]);
+  const GetNotifications = () => {
+    fetch("https://api1.traffkillas.kz/get_notifications", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        token: localStorage.getItem("token"),
+      },
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        setNotifications(JSON.parse(result)["data"]);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+  useEffect(() => {
+    GetNotifications();
+  }, []);
   const CancelEdit = (el) => {
     document.querySelector(`.default_${el.target.id}`).style.display = "block";
     document.querySelector(`.onclick_${el.target.id}`).style.display = "none";
   };
-
+  const ExitFromAccount = () => {
+    navigate("/");
+  };
   useEffect(() => {
     const closeDropdown = (e) => {
       e.stopPropagation();
@@ -243,6 +267,13 @@ const Profile = (props) => {
             <img src={MainLogo} alt="MainLogo" className="MainLogo"></img>
             <p>Аккаунт </p>
             <div className="profile_back_button" onClick={BackButtonClick}>
+              <i class="bi bi-backspace-fill"></i>
+              <p>Вернуться назад</p>
+            </div>
+            <div
+              className="profile_back_button"
+              onClick={() => ExitFromAccount()}
+            >
               <i class="bi bi-box-arrow-in-left"></i>
               <p>Выйти из аккаунта</p>
             </div>
@@ -479,12 +510,11 @@ const Profile = (props) => {
                         </div>
                         <div className="admin_statistics_info_balance">
                           <p>
-                            avg <i className="bi bi-piggy-bank-fill"></i> 330
+                            <i class="bi bi-people-fill"></i> 330
                           </p>
                           <p style={{ color: "#C21556" }}>
                             <i className="bi bi-piggy-bank-fill"></i> 647
                           </p>
-                          <p style={{ color: "#AB16CD" }}>₸ 1 200 000</p>
                         </div>
                       </div>
                     </div>
@@ -772,24 +802,33 @@ const Profile = (props) => {
             <div className="profile_main_left">
               <p className="profile_title"> История операций</p>
               <div className="profile_main_left_text">
-                <h5>30 декабря</h5>
-                <div className="profile_main_left_text_div">
-                  <p>16:45 Штраф за пропуск сроков по проекту</p>
-                  <p className="red">-500₸</p>
-                </div>
-                <div className="profile_main_left_text_div">
-                  <p>16:45 Штраф за пропуск сроков по проекту</p>
-                  <p className="red">-500₸</p>
-                </div>
-                <div className="profile_main_left_text_div">
-                  <p>10:11 Выполнение контетнт-плана</p>
-                  <p className="green">+2 500₸</p>
-                </div>
-                <h5>31 декабря</h5>
-                <div className="profile_main_left_text_div">
-                  <p>10:11 Выполнение контетнт-плана</p>
-                  <p className="green">+2 500₸</p>
-                </div>
+                {notifications &&
+                  notifications?.map((el, index, array) => {
+                    const { value, message, date, currency } = el;
+                    const genDate = date.split(" ");
+                    const dateMes = genDate[0].split(".");
+                    if (currency === "tenge") {
+                      return (
+                        <>
+                          <h5>{genDate[0]}</h5>
+                          <div className="profile_main_left_text_div">
+                            <p>
+                              {genDate[1]} {message}
+                            </p>
+                            <p
+                              style={
+                                value < 0
+                                  ? { color: "red" }
+                                  : { color: "yellow" }
+                              }
+                            >
+                              {value} ₸
+                            </p>
+                          </div>
+                        </>
+                      );
+                    }
+                  })}
               </div>
             </div>
             <div className="profile_main_right">
@@ -834,20 +873,31 @@ const Profile = (props) => {
                       <p>500</p>
                     </div>
                   </div>
-                  <div className="profile_messages">
-                    <p className="green">+25</p>
-                    <p>30/30 сообщений</p>
-                    <p>31.12</p>
-                  </div>
-                  <div className="profile_messages">
-                    <p className="red">-50</p>
-                    <p>
-                      Пропущенный дедлайн <br />
-                      по задаче чаппалах <br />
-                      сказочный
-                    </p>
-                    <p>31.12</p>
-                  </div>
+                  {notifications &&
+                    notifications?.map((el, index, array) => {
+                      const { value, message, date, currency } = el;
+                      const genDate = date.split(" ");
+                      const dateMes = genDate[0].split(".");
+                      if (currency === "mmr") {
+                        return (
+                          <div className="profile_messages">
+                            <p
+                              style={
+                                value < 0
+                                  ? { color: "red" }
+                                  : { color: "yellow" }
+                              }
+                            >
+                              {value}
+                            </p>
+                            <p>{message}</p>
+                            <p>
+                              {dateMes[0]}.{dateMes[1]}
+                            </p>
+                          </div>
+                        );
+                      }
+                    })}
                 </div>
               </div>
             </div>

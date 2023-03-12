@@ -140,13 +140,13 @@ const EmployerLeaderboard = () => {
       </div>
       <div className="leader_page_div">
         {employerLeaderboard &&
-          employerLeaderboard?.map((element) => {
+          employerLeaderboard?.map((element, index) => {
             const { image, mmr } = element;
             return (
               <div className="leader_div">
                 <div className="leader_left_div">
                   <div className="first_leader_number">
-                    <p>1</p>
+                    <p>{index + 1}</p>
                   </div>
                   <div className="leader_img">
                     <img src={image} alt="Leader"></img>

@@ -9,6 +9,8 @@ import { CSSTransition } from "react-transition-group";
 // import { piggyBank } from "./StatisticsAssets/piggyBank.svg";
 import ReverseVector from "./StatisticsAssets/Vector.svg";
 import StatisticsGraph from "./StatisticsGraph/StatisticsGraph.js";
+import axios from "axios";
+import { Uploader } from "rsuite";
 import {
   ProSidebar,
   Menu,
@@ -101,7 +103,32 @@ const Statistics = (props) => {
   //       })}
   //   </div>
   // );
-
+  const ChangeProjectAvatar = (e, index) => {
+    e.preventDefault();
+    const form = document.querySelector(`.ChangeAvatar_${index}`);
+    const formData = new FormData(form);
+    formData.append("channel_id", e.target.id);
+    axios
+      .post(
+        "https://api1.traffkillas.kz/add_project_image",
+        formData,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log(res);
+        GetStatisticsData();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    console.log(formData);
+    form.reset();
+  };
   useEffect(() => {
     GetStatisticsData();
   }, []);
@@ -186,11 +213,39 @@ const Statistics = (props) => {
                   }}
                 >
                   <div className="statistics_account_left">
-                    <img
-                      className="statistics_account_left_img"
-                      src={image ? image : ProfileImage}
-                      alt="Profile"
-                    ></img>
+                    <div className="statistics_account_left_img">
+                      <img
+                        className="statistics_account_left_img"
+                        src={image ? image : ProfileImage}
+                        alt="Profile"
+                      ></img>
+                      {position !== "3" && (
+                        <form
+                          className={
+                            "ChangeAvatar_" + index + " statistics_avata"
+                          }
+                          id={channel_id}
+                          onSubmit={(e) => ChangeProjectAvatar(e, index)}
+                        >
+                          <input
+                            accept="image/*"
+                            maxfiles="1"
+                            type="file"
+                            name="Image"
+                            onClick={(e) => e.stopPropagation()}
+                            placeholder="ajdsbf"
+                            title="mnbvc"
+                          ></input>
+                          <button
+                            className="statistics_account_left_button"
+                            onClick={(e) => e.stopPropagation()}
+                            type="submit"
+                          >
+                            <i class="bi bi-check-circle-fill"></i>
+                          </button>
+                        </form>
+                      )}
+                    </div>
                     <div className="statistics_account_info">
                       <div className="statistics_account_info_up">
                         <p>{channel_name}</p>

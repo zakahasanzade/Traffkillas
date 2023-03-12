@@ -281,7 +281,7 @@ const News = (props) => {
                         <p>{title}</p>
                       </div>
 
-                      {position !== 3 && (
+                      {position !== "3" && (
                         <i
                           onClick={DeletePost}
                           class="bi bi-trash3-fill"

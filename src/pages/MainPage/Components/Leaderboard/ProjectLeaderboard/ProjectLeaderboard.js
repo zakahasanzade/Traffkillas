@@ -141,14 +141,14 @@ const ProjectLeaderboard = () => {
       {console.log(projectLeaderboard)}
       <div className="leader_page_div">
         {projectLeaderboard &&
-          projectLeaderboard?.map((element) => {
+          projectLeaderboard?.map((element, index) => {
             const { channel_name, percen, two_week_dep, sub_count } = element;
 
             return (
               <div className="leader_div">
                 <div className="leader_left_div">
                   <div className="first_leader_number">
-                    <p>1</p>
+                    <p>{index + 1}</p>
                   </div>
                   <div className="leader_img">
                     <img src={Leader} alt="Leader" />
@@ -175,7 +175,9 @@ const ProjectLeaderboard = () => {
                   </div>
                 </div>
 
-                <div className="leader_balance">{two_week_dep} депозитов</div>
+                <div className="leader_balance">
+                  {two_week_dep ? two_week_dep : 0} депозитов
+                </div>
               </div>
             );
           })}

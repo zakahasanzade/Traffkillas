@@ -269,14 +269,16 @@ const Market = (props) => {
                       <img src={url} alt={url} id={_id}></img>
                       <p>{name}</p>
                       <span>{price} TTK</span>{" "}
-                      <i
-                        className="fa-solid fa-trash-can market_product_delete"
-                        id={_id}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          DeletePost(e);
-                        }}
-                      ></i>
+                      {position !== "3" && (
+                        <i
+                          className="bi bi-trash3-fill market_product_delete"
+                          id={_id}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            DeletePost(e);
+                          }}
+                        ></i>
+                      )}
                     </div>
                   </div>
 

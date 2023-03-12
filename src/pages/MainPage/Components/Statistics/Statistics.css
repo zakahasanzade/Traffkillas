@@ -35,15 +35,59 @@
   /* justify-content: center; */
   align-items: center;
 }
+.statistics_account_left_img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  overflow-wrap: break-word;
+  margin-right: 10px;
+  gap: 5px;
+}
+
+.statistics_account_left_button {
+  font-size: 13px;
+  padding: 2px 4px;
+  /* border-radius: 15px; */
+  outline: none;
+  background-color: #141414;
+  border: 0;
+  color: deepskyblue;
+}
+.statistics_account_left_img input {
+  font-size: 10px;
+  overflow-wrap: break-word;
+}
+.statistics_account_left_img input[type="file"] {
+  overflow: hidden;
+  width: 70px;
+  color: white;
+}
+.statistics_account_left_img input[type="file"]::file-selector-button {
+  background-color: deepskyblue;
+  outline: none;
+  border: 0;
+  border-radius: 15px;
+  color: black;
+}
+.statistics_account_left_img form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .statistics_account_left img {
   width: 84px;
-  margin-right: 20px;
   border-radius: 100%;
 }
 .statistics_account_info_up {
   display: flex;
   align-items: start;
-  margin-bottom: 3px;
+}
+.statistics_account_info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 .statistics_account_info_up p:first-child {
   font-size: 18px;

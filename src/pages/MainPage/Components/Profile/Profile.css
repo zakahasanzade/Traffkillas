@@ -295,6 +295,11 @@
   align-items: center;
   gap: 16px;
 }
+.admin_statistics_info_teg img{
+  width: 64px;
+  height: 64px;
+  border-radius: 100%;
+}
 .admin_statistics_info_balance {
   display: flex;
   align-items: center;
