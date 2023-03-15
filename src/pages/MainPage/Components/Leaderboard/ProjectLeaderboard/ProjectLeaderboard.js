@@ -72,6 +72,7 @@ const ProjectLeaderboard = () => {
       GetProjectLeaderboardForTwoWeek();
     }
   }, [statisticsState]);
+
   const [employerNumeration, setEmployerNumeration] = useState(1);
   return (
     <motion.div
@@ -83,7 +84,7 @@ const ProjectLeaderboard = () => {
       transition={{ duration: 0.3 }}
     >
       {/* <div className="main_header">{<Header />}</div>
-      <div className="NavBar">{<NavBar />}</div> */}
+        <div className="NavBar">{<NavBar />}</div> */}
       <div className="leader_date">
         <p
           style={
@@ -142,16 +143,37 @@ const ProjectLeaderboard = () => {
       <div className="leader_page_div">
         {projectLeaderboard &&
           projectLeaderboard?.map((element, index) => {
-            const { channel_name, percen, two_week_dep, sub_count } = element;
+            const { channel_name, percen, two_week_dep, sub_count, image } =
+              element;
 
             return (
               <div className="leader_div">
                 <div className="leader_left_div">
-                  <div className="first_leader_number">
+                  <div
+                    style={{
+                      backgroundColor:
+                        index === 0
+                          ? "gold"
+                          : index === 1
+                          ? "#CCCCCC"
+                          : index === 2
+                          ? "#EA9127"
+                          : "none",
+                      color:
+                        index === 0
+                          ? "black"
+                          : index === 1
+                          ? "black"
+                          : index === 2
+                          ? "black"
+                          : "white",
+                    }}
+                    className="first_leader_number"
+                  >
                     <p>{index + 1}</p>
                   </div>
                   <div className="leader_img">
-                    <img src={Leader} alt="Leader" />
+                    <img src={image ? image : Leader} alt="Leader" />
                   </div>
                   <div className="leader_info">
                     <div className="leader_info_header">

@@ -24,7 +24,7 @@ const Profile = (props) => {
     }, 50);
   }, []);
   useEffect(() => {
-    if (progress >= 70) {
+    if (progress >= profileInformation?.rang) {
       clearInterval(progressInterval);
     }
   }, [progress]);
@@ -267,15 +267,8 @@ const Profile = (props) => {
             <img src={MainLogo} alt="MainLogo" className="MainLogo"></img>
             <p>Аккаунт </p>
             <div className="profile_back_button" onClick={BackButtonClick}>
-              <i class="bi bi-backspace-fill"></i>
-              <p>Вернуться назад</p>
-            </div>
-            <div
-              className="profile_back_button"
-              onClick={() => ExitFromAccount()}
-            >
-              <i class="bi bi-box-arrow-in-left"></i>
-              <p>Выйти из аккаунта</p>
+              <i class="bi bi-house-door-fill"></i>
+              <p>На главную</p>
             </div>
           </div>
           <div className="profile_header_right">
@@ -287,8 +280,35 @@ const Profile = (props) => {
                   SetEdit(!edit);
                 }}
               >
-                <p className="dropdown">редактировать профиль </p>&nbsp;
-                <img src={Corrector} alt="Corrector" className="dropdown" />
+                <p className="dropdown">
+                  <i
+                    style={{ marginRight: "8px" }}
+                    class="bi bi-pencil-square"
+                  ></i>{" "}
+                  Редактировать профиль
+                </p>
+
+                {/* <img
+                  style={{
+                    maxHeight: "60px",
+                    maxWidth: "60px",
+                    borderRadius: "100%",
+                  }}
+                  src={profileInformation?.image}
+                  alt="Corrector"
+                  className="dropdown"
+                /> */}
+                <div
+                  style={{}}
+                  className="profile_back_button"
+                  onClick={() => ExitFromAccount()}
+                >
+                  <i
+                    style={{ color: "black" }}
+                    class="bi bi-box-arrow-in-left"
+                  ></i>
+                  <p style={{ color: "black" }}>Выйти из аккаунта</p>
+                </div>
               </div>
               <CSSTransition
                 in={edit}
@@ -479,7 +499,15 @@ const Profile = (props) => {
               </CSSTransition>
             </div>
             <div className="profile_header_right_img">
-              <img src={ProfileImg} alt="Profile Img"></img>
+              <img
+                style={{
+                  maxHeight: "85px",
+                  maxWidth: "85px",
+                  borderRadius: "100%",
+                }}
+                src={profileInformation?.image}
+                alt="Profile Img"
+              ></img>
             </div>
           </div>
         </div>
@@ -851,7 +879,7 @@ const Profile = (props) => {
                         <img src={Rank} alt="Rank"></img>
                       </div>
                       <div className="profile_level_rank_info_num">
-                        <p>+500 TTK</p>
+                        <p>+1250 TTK</p>
                       </div>
                     </div>
                     <div className="profile_level_rank_progress">
@@ -869,8 +897,8 @@ const Profile = (props) => {
                       </div>
                     </div>
                     <div className="profile_progress_num">
-                      <p>250</p>
-                      <p>500</p>
+                      <p>{profileInformation?.from_mmr}</p>
+                      <p>{profileInformation?.to_mmr}</p>
                     </div>
                   </div>
                   {notifications &&

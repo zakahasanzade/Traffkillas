@@ -145,7 +145,27 @@ const EmployerLeaderboard = () => {
             return (
               <div className="leader_div">
                 <div className="leader_left_div">
-                  <div className="first_leader_number">
+                  <div
+                    style={{
+                      backgroundColor:
+                        index === 0
+                          ? "gold"
+                          : index === 1
+                          ? "#CCCCCC"
+                          : index === 2
+                          ? "#EA9127"
+                          : "none",
+                      color:
+                        index === 0
+                          ? "black"
+                          : index === 1
+                          ? "black"
+                          : index === 2
+                          ? "black"
+                          : "white",
+                    }}
+                    className="first_leader_number"
+                  >
                     <p>{index + 1}</p>
                   </div>
                   <div className="leader_img">

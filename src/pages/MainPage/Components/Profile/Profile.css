@@ -30,6 +30,7 @@
   font-weight: 700;
   letter-spacing: 0.03em;
   cursor: pointer;
+  margin-top: 2px;
 }
 .profile_back_button i {
   margin: 0;
@@ -58,6 +59,8 @@
 }
 .profile_header_right_info_footer {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin-top: 8px;
   cursor: pointer;
 }
@@ -295,7 +298,7 @@
   align-items: center;
   gap: 16px;
 }
-.admin_statistics_info_teg img{
+.admin_statistics_info_teg img {
   width: 64px;
   height: 64px;
   border-radius: 100%;
@@ -374,6 +377,6 @@
   outline: none;
 }
 
-.input_enable_onclick{
+.input_enable_onclick {
   display: none;
 }

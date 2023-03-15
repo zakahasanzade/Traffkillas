@@ -393,6 +393,70 @@ const Tasks = (props) => {
                 );
               }
             })}
+
+          {WorkData &&
+            WorkData.map((block, index) => {
+              const {
+                content,
+                date,
+                feedback,
+                fine,
+                manager,
+                state,
+                title,
+                type,
+                worker,
+                _id,
+              } = block;
+
+              if (state == 5) {
+                var TextArea = "";
+                return (
+                  <>
+                    <div key={block} className="tasks_page_div">
+                      <div className="tasks_div">
+                        <p className="tasks_header">{title}</p>
+                        <div>
+                          <p
+                            className="second_task_time"
+                            style={{ backgroundColor: "red" }}
+                          >
+                            <i
+                              id={_id}
+                              className="bi bi-check-circle-fill"
+                              onClick={(e) =>
+                                CompleteInProcessTask(e, TextArea)
+                              }
+                            ></i>
+                          </p>
+                          <p
+                            className="tasks_footer"
+                            style={{ color: "#EA9127" }}
+                          >
+                            -{fine} {type}
+                          </p>
+                        </div>
+                      </div>
+                      {console.log(feedback)}
+                      {feedback == "true" ? (
+                        <div className="tasks_content">
+                          <TextareaAutosize
+                            className="tasks_content_text"
+                            placeholder="Оставьте отзыв"
+                            onChange={(e) => {
+                              TextArea = e.target.value;
+                              console.log(TextArea);
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  </>
+                );
+              }
+            })}
           <p className="date">На доработку</p>
           {WorkData &&
             WorkData.map((block, index) => {
@@ -772,6 +836,69 @@ const Tasks = (props) => {
                             style={{ backgroundColor: "red" }}
                           >
                             <p className={"timer_myTask" + index}></p>
+                            <i
+                              id={_id}
+                              className="bi bi-check-circle-fill"
+                              onClick={(e) =>
+                                CompleteInProcessTask(e, TextArea)
+                              }
+                            ></i>
+                          </p>
+                          <p
+                            className="tasks_footer"
+                            style={{ color: "#EA9127" }}
+                          >
+                            -{fine} {type}
+                          </p>
+                        </div>
+                      </div>
+                      {console.log(feedback)}
+                      {feedback == "true" ? (
+                        <div className="tasks_content">
+                          <TextareaAutosize
+                            className="tasks_content_text"
+                            placeholder="Оставьте отзыв"
+                            onChange={(e) => {
+                              TextArea = e.target.value;
+                              console.log(TextArea);
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  </>
+                );
+              }
+            })}
+          {WorkData &&
+            WorkData.map((block, index) => {
+              const {
+                content,
+                date,
+                feedback,
+                fine,
+                manager,
+                state,
+                title,
+                type,
+                worker,
+                _id,
+              } = block;
+
+              if (state == 5) {
+                var TextArea = "";
+                return (
+                  <>
+                    <div key={block} className="tasks_page_div">
+                      <div className="tasks_div">
+                        <p className="tasks_header">{title}</p>
+                        <div>
+                          <p
+                            className="second_task_time"
+                            style={{ backgroundColor: "red" }}
+                          >
                             <i
                               id={_id}
                               className="bi bi-check-circle-fill"

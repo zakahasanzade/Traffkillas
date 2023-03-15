@@ -65,11 +65,16 @@ const Header = () => {
               <i class="bi bi-chat-quote-fill"></i>
             </button>
           </div>
-          <button id="profile_button">
-            <p onClick={() => setShow(!show)}>
-              {show ? HeaderData?.first_name : HeaderData?.first_name}
-            </p>
-            <img src={ProfilePhoto} alt="ProfilePhoto" onClick={ViewProfile} />
+          <button onClick={() => setShow(!show)} id="profile_button">
+            <p>{show ? HeaderData?.first_name : HeaderData?.first_name}</p>
+            <img
+              src={ProfilePhoto}
+              alt="ProfilePhoto"
+              onClick={(e) => {
+                e.stopPropagation();
+                ViewProfile();
+              }}
+            />
           </button>
 
           <CSSTransition
