@@ -194,6 +194,7 @@ const Thread = ({
         console.log(messageGetId);
         console.log(NewChatId);
         TestState && (chatRef.current.scrollTop = chatRef.current.scrollHeight);
+        SetTypeMessage()
       })
       .catch((error) => console.error(error));
   };
@@ -212,6 +213,8 @@ const Thread = ({
     console.log(TemplateText.current.textContent);
     document.querySelector(".thread__input_type_input").value +=
       TemplateText.current.textContent;
+    SetTypeMessage(document.querySelector(".thread__input_type_input").value);
+    console.log(typeMessage);
   };
 
   const [chatTemplates, setChatTemplates] = useState([]);
@@ -258,16 +261,19 @@ const Thread = ({
       });
   };
   const DeleteChatTemplates = (e) => {
-    fetch(`https://api2.traffkillas.kz/api/v1/templates/delete/${e.target.id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      // body: JSON.stringify({
-      //   id: e.target.id,
-      // }),
-    })
+    fetch(
+      `https://api2.traffkillas.kz/api/v1/templates/delete/${e.target.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        // body: JSON.stringify({
+        //   id: e.target.id,
+        // }),
+      }
+    )
       .then((response) => {
         return response.text();
       })

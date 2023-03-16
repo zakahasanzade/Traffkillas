@@ -224,8 +224,8 @@ const Statistics = (props) => {
                           className={
                             "ChangeAvatar_" + index + " statistics_avata"
                           }
-                          id={channel_id}
-                          onSubmit={(e) => ChangeProjectAvatar(e, index)}
+                          // id={channel_id}
+                          // onSubmit={(e) => ChangeProjectAvatar(e, index)}
                         >
                           <input
                             accept="image/*"
@@ -233,16 +233,19 @@ const Statistics = (props) => {
                             type="file"
                             name="Image"
                             onClick={(e) => e.stopPropagation()}
-                            placeholder="ajdsbf"
-                            title="mnbvc"
+                            id={channel_id}
+                            onChangeCapture={(e) => {
+                              ChangeProjectAvatar(e, index);
+                            }}
+                            
                           ></input>
-                          <button
+                          {/* <button
                             className="statistics_account_left_button"
                             onClick={(e) => e.stopPropagation()}
                             type="submit"
                           >
                             <i class="bi bi-check-circle-fill"></i>
-                          </button>
+                          </button> */}
                         </form>
                       )}
                     </div>
