@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import ProfileImage from "./StatisticsAssets/Profile Img.svg";
 import ProfileImage2 from "./StatisticsAssets/Profile Img2.svg";
 import Graph from "./StatisticsAssets/Statistics Graph.svg";
@@ -160,6 +160,9 @@ const Statistics = (props) => {
       </div>
     </div>
   );
+  const handleLabelClick = (channel_id) => {
+    document.getElementById(channel_id).click();
+  };
   const position = props.position;
   return (
     <motion.div
@@ -215,7 +218,7 @@ const Statistics = (props) => {
                   <div className="statistics_account_left">
                     <div className="statistics_account_left_img">
                       <img
-                        className="statistics_account_left_img"
+                        // className="statistics_account_left_img"
                         src={image ? image : ProfileImage}
                         alt="Profile"
                       ></img>
@@ -227,6 +230,23 @@ const Statistics = (props) => {
                           // id={channel_id}
                           // onSubmit={(e) => ChangeProjectAvatar(e, index)}
                         >
+                          <label
+                            htmlFor="file-input"
+                            onClick={(e) => {
+                              handleLabelClick(channel_id);
+                              e.stopPropagation();
+                            }}
+                          >
+                            <i
+                              style={{
+                                color: "#ea9127",
+                                fontSize: "16px",
+                                cursor: "pointer",
+                              }}
+                              class="bi bi-pencil-square"
+                            ></i>
+                          </label>
+
                           <input
                             accept="image/*"
                             maxfiles="1"
@@ -237,7 +257,7 @@ const Statistics = (props) => {
                             onChangeCapture={(e) => {
                               ChangeProjectAvatar(e, index);
                             }}
-                            
+                            style={{ display: "none" }}
                           ></input>
                           {/* <button
                             className="statistics_account_left_button"

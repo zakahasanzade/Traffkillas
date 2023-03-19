@@ -16,6 +16,11 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { CSSTransition } from "react-transition-group";
 import { MenuProps, useStyles, options, App } from "./Utilities/utils";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
 import "./Tasks.css";
 
 const Tasks = (props) => {
@@ -293,7 +298,7 @@ const Tasks = (props) => {
     SetCurrency(false);
     console.log(TextCurrency);
   };
-
+  const [selectDrop, setSelectDrop] = useState(false);
   const [Currency, SetCurrency] = useState(false);
   const [TextCurrency, SetTextCurrency] = useState("MMR");
   const ChangeCurrency = (e) => {
@@ -1187,7 +1192,42 @@ const Tasks = (props) => {
               >
                 <div className="sendData_task">
                   <div>
-                    <FormControl
+                    <div style={{ transition: "all 1s" }}>
+                      <div
+                        style={{ transition: "all 1s" }}
+                        onClick={() => setSelectDrop(!selectDrop)}
+                      >
+                        Open
+                      </div>
+                      <div
+                        style={
+                          selectDrop
+                            ? {
+                                display: "block",
+                                transition: "all 1s",
+                                position: "absolute",
+                              }
+                            : { display: "none", transition: "all 1s" }
+                        }
+                      >
+                        Dropdown
+                      </div>
+                    </div>
+                    {/* <Accordion>
+                      <AccordionSummary
+                        expandIcon={
+                          <ExpandCircleDownIcon className="AccorIcon" />
+                        }
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                      >
+                        <Typography>the best title</Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <Typography>I'm also JS developer</Typography>
+                      </AccordionDetails>
+                    </Accordion> */}
+                    {/* <FormControl
                       className={classes.formControl}
                       onClick={(e) => e.stopPropagation()}
                     >
@@ -1245,7 +1285,7 @@ const Tasks = (props) => {
                           </MenuItem>
                         ))}
                       </Select>
-                    </FormControl>
+                    </FormControl> */}
                   </div>
                   <div className="senData_task_inputsForm">
                     <input

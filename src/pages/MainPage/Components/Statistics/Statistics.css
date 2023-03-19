@@ -34,15 +34,16 @@
   display: flex;
   /* justify-content: center; */
   align-items: center;
+  width: 100%;
 }
 .statistics_account_left_img {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100px;
   overflow-wrap: break-word;
   gap: 5px;
+  margin-right: 20px;
 }
 
 .statistics_account_left_button {
@@ -87,12 +88,12 @@
   display: flex;
   flex-direction: column;
   gap: 3px;
+  width: 100%;
 }
 .statistics_account_info_up p:first-child {
   font-size: 18px;
   font-weight: 700;
   margin-right: 5px;
-  max-width: 150px;
   color: white;
 }
 .statistics_up {
@@ -258,6 +259,6 @@
   flex-direction: column;
   gap: 10px;
 }
-.statistics_icons {
+/* .statistics_icons {
   width: 388px;
-}
+} */

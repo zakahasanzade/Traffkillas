@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Header.css";
 import MainLogo from "../../../../assets/MainLogo.svg";
+import MainLogoLight from "../../../../assets/MainLogoLight.svg";
 import LightMode from "../../../../assets/LightMode.svg";
 import ProfilePhoto from "../../../../assets/ProfilePhoto.svg";
 import { useNavigate } from "react-router-dom";
@@ -11,8 +12,9 @@ const Header = () => {
   const navigate = useNavigate();
   const [showMessenger, setShowMessenger] = useState();
 
+  const [mode, setMode] = useState();
   const ChangeMode = () => {
-    alert("Mode changes will be active very soon");
+    setMode(!mode);
   };
 
   const ViewProfile = () => {
@@ -54,18 +56,33 @@ const Header = () => {
     <>
       <div className="header">
         <div className="header_logo">
-          <img src={MainLogo} alt="MainLogo" />
+          <img src={mode ? MainLogoLight : MainLogo} alt="MainLogo" />
         </div>
         <div className="header_profile">
-          <div className="header_profile_buttons">
-            <button onClick={ChangeMode}>
-              <i class="bi bi-moon-stars-fill"></i>
-            </button>
-            <button onClick={OpeanMessenger}>
-              <i class="bi bi-chat-quote-fill"></i>
-            </button>
+          <div
+            style={
+              mode
+                ? { backgroundColor: "white" }
+                : { backgroundColor: "#141414", color: "white" }
+            }
+            className="header_profile_buttons"
+          >
+            {mode ? (
+              <i onClick={ChangeMode} class="bi bi-sun-fill"></i>
+            ) : (
+              <i onClick={ChangeMode} class="bi bi-moon-stars-fill"></i>
+            )}
+            <i onClick={OpeanMessenger} class="bi bi-chat-quote-fill"></i>
           </div>
-          <button onClick={() => setShow(!show)} id="profile_button">
+          <button
+            style={
+              mode
+                ? { backgroundColor: "white" }
+                : { backgroundColor: "#141414", color: "white" }
+            }
+            onClick={() => setShow(!show)}
+            id="profile_button"
+          >
             <p>{show ? HeaderData?.first_name : HeaderData?.first_name}</p>
             <img
               src={ProfilePhoto}
