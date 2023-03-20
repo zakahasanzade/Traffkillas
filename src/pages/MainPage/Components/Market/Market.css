@@ -20,8 +20,12 @@
   justify-content: space-between;
   color: white;
 }
+.ProofBuy_content {
+  font-size: 24px;
+  overflow-wrap: break-word;
+  transition: all 1s;
+}
 .ProofBuy_submit {
-  background-color: black;
   border-radius: 25px;
   padding: 16px;
   text-align: center;
@@ -30,19 +34,23 @@
   align-items: center;
   flex-direction: column;
   gap: 8px;
+  transition: all 1s;
 }
 .ProofBuy_submit button {
   height: 32px;
   border-radius: 25px;
-  background-color: #ffffff;
   font-weight: 700;
   padding: 0 5px;
+  border: 0;
+  outline: none;
+  font-size: 16px;
+  color: red;
+  transition: all 1s;
 }
 .react-card-back {
   top: 10px !important;
 }
 .market_product {
-  background-color: #141414;
   border-radius: 25px;
   padding: 16px 24px;
   width: 240px;
@@ -50,6 +58,7 @@
   word-spacing: 5px;
   margin-top: 10px;
   transition: all 0.5s;
+  transition: all 1s;
 }
 .market_product:hover {
   transform: scale(1.15);
@@ -62,7 +71,6 @@
 .market_product p {
   font-weight: 700;
   font-size: 24px;
-  color: white;
   margin: 10px 0;
   min-height: 72px;
   overflow-wrap: break-word;
@@ -84,10 +92,9 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  background-color: #141414;
   margin: 0 auto;
-  color: white;
   font-weight: 700;
+  transition: all 1s;
 }
 .market_send_title {
   display: flex;
@@ -115,26 +122,29 @@
 }
 .market_send_title textarea {
   display: block;
-  background-color: #141414;
+  background-color: transparent;
   border: 0;
   resize: none;
   outline: none;
-  color: white;
   overflow: hidden;
   font-size: 32px;
   font-weight: 700;
   width: 100% !important;
+  transition: all 1s;
   /* opacity: 0.5; */
 }
 .market_send_nameProduct {
-  background-color: #141414;
+  background-color: transparent;
   border: 0;
   resize: none;
   outline: none;
-  color: white;
   font-weight: 700;
   font-size: 20px;
+  transition: all 1s;
   /* opacity: 0.2; */
+}
+.ProductPrice {
+  transition: all 1s;
 }
 .market_send_submit {
   display: flex;
@@ -167,7 +177,7 @@
   opacity: 0.5;
 }
 .market_send_submit p input {
-  color: white;
+  transition: all 1s;
 }
 .market_send .dzu-dropzone {
   margin-left: 23px;
@@ -199,6 +209,8 @@
   font-weight: 700;
   color: white;
   cursor: pointer;
+  border: 0;
+  outline: none;
 }
 .market_product_delete {
   font-size: 16px;

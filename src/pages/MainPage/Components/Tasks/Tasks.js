@@ -23,7 +23,7 @@ import Typography from "@mui/material/Typography";
 import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
 import "./Tasks.css";
 
-const Tasks = (props) => {
+const Tasks = ({ position, mode }) => {
   const sendTask = (e) => {
     e.preventDefault();
     console.log(CalendarValue.getMonth() + 1);
@@ -220,7 +220,6 @@ const Tasks = (props) => {
         ManageDataArr = [JSON.parse(result).manage];
         SetManageData(JSON.parse(result).manage);
         TimerInfo = JSON.parse(result).manage[0].date;
-        console.log(TimerInfo);
       })
       .catch((err) => {
         alert(err);
@@ -304,7 +303,15 @@ const Tasks = (props) => {
   const ChangeCurrency = (e) => {
     SetTextCurrency(e.target.innerHTML);
   };
-  const position = props.position;
+
+  useEffect(() => {
+    const date = document.querySelectorAll(".date");
+    var i;
+    for (i = 0; i < date.length; i++) {
+      date[i].style.color = mode ? "black" : "white";
+    }
+  }, [mode]);
+
   useEffect(() => {
     getWorkData();
     getManageData();
@@ -320,7 +327,6 @@ const Tasks = (props) => {
     document.body.addEventListener("click", CloseCalendar);
   }, []);
   if (position == "3") {
-    console.log("Hi Worker");
     return (
       <motion.div
         className="main"
@@ -378,7 +384,6 @@ const Tasks = (props) => {
                           </p>
                         </div>
                       </div>
-                      {console.log(feedback)}
                       {feedback == "true" ? (
                         <div className="tasks_content">
                           <TextareaAutosize
@@ -442,7 +447,6 @@ const Tasks = (props) => {
                           </p>
                         </div>
                       </div>
-                      {console.log(feedback)}
                       {feedback == "true" ? (
                         <div className="tasks_content">
                           <TextareaAutosize
@@ -577,7 +581,6 @@ const Tasks = (props) => {
       </motion.div>
     );
   } else if (position == "2") {
-    console.log("TeamLead");
     return (
       <motion.div
         className="main"
@@ -857,7 +860,6 @@ const Tasks = (props) => {
                           </p>
                         </div>
                       </div>
-                      {console.log(feedback)}
                       {feedback == "true" ? (
                         <div className="tasks_content">
                           <TextareaAutosize
@@ -1158,12 +1160,36 @@ const Tasks = (props) => {
         transition={{ duration: 0.3 }}
         style={{ display: "flex", justifyContent: "center" }}
       >
-        <div className="tasks_teamlead">
+        <div
+          style={
+            mode
+              ? {
+                  backgroundColor: "white",
+                  color: "black",
+                }
+              : {
+                  backgroundColor: "#141414",
+                  color: "white",
+                }
+          }
+          className="tasks_teamlead"
+        >
           <p>Созданные</p>
           <p>Выполенные</p>
         </div>
         <div className="tasks">
           <form
+            style={
+              mode
+                ? {
+                    backgroundColor: "white",
+                    color: "black",
+                  }
+                : {
+                    backgroundColor: "#141414",
+                    color: "white",
+                  }
+            }
             className="task_sendData"
             onSubmit={(e) => {
               sendTask(e);
@@ -1172,11 +1198,33 @@ const Tasks = (props) => {
             id="form"
           >
             <input
+              style={
+                mode
+                  ? {
+                      backgroundColor: "white",
+                      color: "black",
+                    }
+                  : {
+                      backgroundColor: "#141414",
+                      color: "white",
+                    }
+              }
               className="sendData_taskTitle"
               name="title"
               placeholder="Название"
             />
             <input
+              style={
+                mode
+                  ? {
+                      backgroundColor: "white",
+                      color: "black",
+                    }
+                  : {
+                      backgroundColor: "#141414",
+                      color: "white",
+                    }
+              }
               className="sendData_taskContent"
               placeholder="Описание задания..."
               name="content"
@@ -1192,7 +1240,7 @@ const Tasks = (props) => {
               >
                 <div className="sendData_task">
                   <div>
-                    <div style={{ transition: "all 1s" }}>
+                    {/* <div style={{ transition: "all 1s" }}>
                       <div
                         style={{ transition: "all 1s" }}
                         onClick={() => setSelectDrop(!selectDrop)}
@@ -1212,7 +1260,7 @@ const Tasks = (props) => {
                       >
                         Dropdown
                       </div>
-                    </div>
+                    </div> */}
                     {/* <Accordion>
                       <AccordionSummary
                         expandIcon={
@@ -1227,7 +1275,7 @@ const Tasks = (props) => {
                         <Typography>I'm also JS developer</Typography>
                       </AccordionDetails>
                     </Accordion> */}
-                    {/* <FormControl
+                    <FormControl
                       className={classes.formControl}
                       onClick={(e) => e.stopPropagation()}
                     >
@@ -1285,10 +1333,19 @@ const Tasks = (props) => {
                           </MenuItem>
                         ))}
                       </Select>
-                    </FormControl> */}
+                    </FormControl>
                   </div>
                   <div className="senData_task_inputsForm">
                     <input
+                      style={
+                        mode
+                          ? {
+                              color: "black",
+                            }
+                          : {
+                              color: "white",
+                            }
+                      }
                       type="text"
                       className="firstinput"
                       placeholder="Ч"
@@ -1303,6 +1360,15 @@ const Tasks = (props) => {
                     />
                     :
                     <input
+                      style={
+                        mode
+                          ? {
+                              color: "black",
+                            }
+                          : {
+                              color: "white",
+                            }
+                      }
                       type="text"
                       className="secondinput"
                       placeholder="М"
@@ -1326,9 +1392,29 @@ const Tasks = (props) => {
                     {CalendarValue.toDateString().slice(4, 10)}
                   </div>
                   <p className="SendData_fine Tasks_fine">
-                    <div className="SendData_fine_div">
+                    <div
+                      style={
+                        mode
+                          ? {
+                              color: "black",
+                            }
+                          : {
+                              color: "white",
+                            }
+                      }
+                      className="SendData_fine_div"
+                    >
                       -
                       <input
+                        style={
+                          mode
+                            ? {
+                                color: "black",
+                              }
+                            : {
+                                color: "white",
+                              }
+                        }
                         type="text"
                         placeholder="Штраф"
                         maxLength="5"
@@ -1434,9 +1520,34 @@ const Tasks = (props) => {
                 setTimer(date, "timer_created", index);
                 return (
                   <>
-                    <div key={block} className="tasks_page_div">
+                    <div
+                      key={block + index}
+                      style={
+                        mode
+                          ? {
+                              backgroundColor: "white",
+                              color: "black",
+                            }
+                          : {
+                              backgroundColor: "#141414",
+                              color: "white",
+                            }
+                      }
+                      className="tasks_page_div"
+                    >
                       <div className="tasks_div">
-                        <p className="tasks_header">
+                        <p
+                          style={
+                            mode
+                              ? {
+                                  color: "black",
+                                }
+                              : {
+                                  color: "white",
+                                }
+                          }
+                          className="tasks_header"
+                        >
                           <div>
                             {title}{" "}
                             <i
@@ -1447,7 +1558,18 @@ const Tasks = (props) => {
                               className="bi bi-trash3-fill"
                             ></i>
                           </div>
-                          <p className="tasks_header_worker">
+                          <p
+                            style={
+                              mode
+                                ? {
+                                    color: "black",
+                                  }
+                                : {
+                                    color: "white",
+                                  }
+                            }
+                            className="tasks_header_worker"
+                          >
                             {worker_username}
                           </p>
                         </p>

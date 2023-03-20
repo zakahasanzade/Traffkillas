@@ -8,13 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import Messenger from "../Messenger/Messenger";
 
-const Header = () => {
+const Header = ({ ChangeModes, mode }) => {
   const navigate = useNavigate();
   const [showMessenger, setShowMessenger] = useState();
 
-  const [mode, setMode] = useState();
+  // const [mode, setMode] = useState();
   const ChangeMode = () => {
-    setMode(!mode);
+    // setMode(!mode);
+    ChangeModes();
   };
 
   const ViewProfile = () => {
@@ -62,8 +63,12 @@ const Header = () => {
           <div
             style={
               mode
-                ? { backgroundColor: "white" }
-                : { backgroundColor: "#141414", color: "white" }
+                ? { backgroundColor: "white", transition: "all 1s" }
+                : {
+                    backgroundColor: "#141414",
+                    color: "white",
+                    transition: "all 1s",
+                  }
             }
             className="header_profile_buttons"
           >
@@ -77,15 +82,19 @@ const Header = () => {
           <button
             style={
               mode
-                ? { backgroundColor: "white" }
-                : { backgroundColor: "#141414", color: "white" }
+                ? { backgroundColor: "white", transition: "all 1s" }
+                : {
+                    backgroundColor: "#141414",
+                    color: "white",
+                    transition: "all 1s",
+                  }
             }
             onClick={() => setShow(!show)}
             id="profile_button"
           >
             <p>{show ? HeaderData?.first_name : HeaderData?.first_name}</p>
             <img
-              src={ProfilePhoto}
+              src={HeaderData?.image}
               alt="ProfilePhoto"
               onClick={(e) => {
                 e.stopPropagation();
@@ -100,7 +109,21 @@ const Header = () => {
             timeout={1000}
             unmountOnExit
           >
-            <ul className="profile_button_info" id="time">
+            <ul
+              style={
+                mode
+                  ? {
+                      backgroundColor: "white",
+                      color: "black",
+                    }
+                  : {
+                      backgroundColor: "#141414",
+                      color: "white",
+                    }
+              }
+              className="profile_button_info"
+              id="time"
+            >
               <li className="profile_button_info_li">
                 <p className="red">₸ {HeaderData?.tenge} </p>
               </li>

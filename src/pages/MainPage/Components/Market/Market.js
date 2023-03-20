@@ -21,9 +21,8 @@ import { useRef } from "react";
 import "./Market.css";
 import { cookie, image } from "fontawesome";
 
-const Market = (props) => {
+const Market = ({ mode, position }) => {
   let AssetsArr = [];
-  const position = props.position;
   const [assets, SetAssets] = useState();
   const getAssets = () => {
     document.cookie = "test=hello;";
@@ -107,6 +106,7 @@ const Market = (props) => {
   headers.append("Cookie", "name1=value1; name2=value2");
   const [ProofProduct, SetProofProduct] = useState();
   const [PoductName, SetProductName] = useState();
+  const [ProductContent, SetProductContent] = useState();
   const [PoductId, SetProductId] = useState();
   const [ProductPrice, SetProductPrice] = useState();
   const [getCode, SetGetCode] = useState();
@@ -204,15 +204,48 @@ const Market = (props) => {
         transition={{ duration: 0.3 }}
       >
         {position !== "3" && (
-          <form className="market_send" id="form" onSubmit={(e) => submit(e)}>
+          <form
+            className="market_send"
+            style={
+              mode
+                ? {
+                    backgroundColor: "white",
+                    color: "black",
+                  }
+                : {
+                    backgroundColor: "#141414",
+                    color: "white",
+                  }
+            }
+            id="form"
+            onSubmit={(e) => submit(e)}
+          >
             <div className="market_send_title">
               <TextareaAutosize
+                style={
+                  mode
+                    ? {
+                        color: "black",
+                      }
+                    : {
+                        color: "white",
+                      }
+                }
                 className="TitleText"
                 placeholder="Заголовок товара"
                 name="Name"
               ></TextareaAutosize>
               <p>
                 <input
+                  style={
+                    mode
+                      ? {
+                          color: "black",
+                        }
+                      : {
+                          color: "white",
+                        }
+                  }
                   placeholder="Цена"
                   className="ProductPrice"
                   name="Price"
@@ -221,6 +254,15 @@ const Market = (props) => {
               </p>
             </div>
             <TextareaAutosize
+              style={
+                mode
+                  ? {
+                      color: "black",
+                    }
+                  : {
+                      color: "white",
+                    }
+              }
               placeholder="Полное название товара..."
               className="market_send_nameProduct"
               name="Content"
@@ -229,6 +271,15 @@ const Market = (props) => {
               <p className="market_send_submit_attach">
                 Изображение товара:
                 <input
+                  style={
+                    mode
+                      ? {
+                          color: "black",
+                        }
+                      : {
+                          color: "white",
+                        }
+                  }
                   className="testinput"
                   accept="image/*"
                   maxfiles="1"
@@ -257,11 +308,23 @@ const Market = (props) => {
                 >
                   <div id={_id} onClick={(e) => handleClick(e, index)}>
                     <div
+                      style={
+                        mode
+                          ? {
+                              backgroundColor: "white",
+                              color: "black",
+                            }
+                          : {
+                              backgroundColor: "#141414",
+                              color: "white",
+                            }
+                      }
                       className="market_product"
                       id={_id}
                       onClick={(e) => {
                         SetProofProduct(!ProofProduct);
                         SetProductName(product.name);
+                        SetProductContent(product.content);
                         SetProductId(product._id);
                         SetProductPrice(product.price);
                       }}
@@ -287,14 +350,38 @@ const Market = (props) => {
                     onClick={(e) => ReturnCard(e, index)}
                     style={{ width: "240px" }}
                   >
-                    <p style={{ fontSize: "24px", overflowWrap: "break-word" }}>
-                      {PoductName}
+                    <p
+                      className="ProofBuy_content"
+                      style={
+                        mode
+                          ? {
+                              color: "black",
+                            }
+                          : {
+                              color: "white",
+                            }
+                      }
+                    >
+                      {ProductContent}
                     </p>
                     <ReactCardFlip
                       isFlipped={SubmitProduct[index]}
                       flipDirection="horizontal"
                     >
-                      <div className="ProofBuy_submit">
+                      <div
+                        style={
+                          mode
+                            ? {
+                                backgroundColor: "white",
+                                color: "black",
+                              }
+                            : {
+                                backgroundColor: "#141414",
+                                color: "white",
+                              }
+                        }
+                        className="ProofBuy_submit"
+                      >
                         <p style={{ fontSize: "20px" }}>Оформление покупки</p>
                         <button
                           onClick={(e) => {
@@ -305,7 +392,15 @@ const Market = (props) => {
                             // BuyProduct();
                           }}
                           type="submit"
-                          style={{ fontSize: "16px", color: "red" }}
+                          style={
+                            mode
+                              ? {
+                                  backgroundColor: "#141414",
+                                }
+                              : {
+                                  backgroundColor: "white",
+                                }
+                          }
                         >
                           <i class="bi bi-cart-check-fill"></i> -{ProductPrice}
                         </button>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import MainLogo from "./Profile Assets/MainLogo.svg";
+import MainLogoLight from "../../../../assets/MainLogoLight.svg";
 import AdminTeg from "./Profile Assets/PinUp.jpeg";
 import BackButton from "./Profile Assets/Back Button.svg";
 import ProfileImg from "./Profile Assets/Profile Img.svg";
@@ -13,8 +14,7 @@ import FormData from "form-data";
 import axios from "axios";
 
 let progressInterval = null;
-const Profile = (props) => {
-  const position = props.position;
+const Profile = ({ position, mode }) => {
   const [progress, setProgress] = useState(0);
   // PROGRESSBAR WITH REACT-BOOTSTRAP
   var progressPercent;
@@ -24,7 +24,7 @@ const Profile = (props) => {
     }, 50);
   }, []);
   useEffect(() => {
-    if (progress >= profileInformation?.rang) {
+    if (progress >= profileInformation?.reminder) {
       clearInterval(progressInterval);
     }
   }, [progress]);
@@ -240,8 +240,13 @@ const Profile = (props) => {
       });
   };
   useEffect(() => {
-    GetNotifications();
-  }, []);
+    const payments = document.querySelectorAll(".admin_payments_details");
+    for (var i = 0; i < payments.length; i++) {
+      payments[i].style.color = mode ? "black" : "white";
+      payments[i].style.backgroundColor = mode ? "white" : "#141414";
+    }
+  }, [mode]);
+
   const CancelEdit = (el) => {
     document.querySelector(`.default_${el.target.id}`).style.display = "block";
     document.querySelector(`.onclick_${el.target.id}`).style.display = "none";
@@ -257,14 +262,30 @@ const Profile = (props) => {
       }
     };
     document.body.addEventListener("click", closeDropdown);
+    GetNotifications();
   }, []);
 
   return (
-    <div className="profile">
+    <div
+      style={
+        mode
+          ? {
+              color: "black",
+            }
+          : {
+              color: "white",
+            }
+      }
+      className="profile"
+    >
       <>
         <div className="profile_header">
           <div className="profile_header_left">
-            <img src={MainLogo} alt="MainLogo" className="MainLogo"></img>
+            <img
+              src={mode ? MainLogoLight : MainLogo}
+              alt="MainLogo"
+              className="MainLogo"
+            ></img>
             <p>Аккаунт </p>
             <div className="profile_back_button" onClick={BackButtonClick}>
               <i class="bi bi-house-door-fill"></i>
@@ -532,7 +553,20 @@ const Profile = (props) => {
                       <p className="admin_statistics_title">
                         Статистика партнёрской программы
                       </p>
-                      <div className="admin_statistics_info">
+                      <div
+                        className="admin_statistics_info"
+                        style={
+                          mode
+                            ? {
+                                backgroundColor: "white",
+                                color: "black",
+                              }
+                            : {
+                                backgroundColor: "#141414",
+                                color: "white",
+                              }
+                        }
+                      >
                         <div className="admin_statistics_info_teg">
                           <img src={AdminTeg}></img> <p>PinUp</p>
                         </div>

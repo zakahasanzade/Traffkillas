@@ -13,10 +13,9 @@ hr {
   margin: 0 auto;
   width: 806px;
   margin: 0 auto;
-  background-color: white;
-  color: white;
   border-radius: 25px;
   margin: 10px auto;
+  transition: all 1s;
 }
 .tasks_div {
   padding: 16px;
@@ -66,6 +65,7 @@ hr {
 .tasks_content {
   padding: 16px;
   padding-top: 0;
+  transition: all 1s;
 }
 .tasks_content textarea {
   outline: none;
@@ -86,7 +86,7 @@ hr {
 .tasks_content p {
   background-color: #ebedf0;
   padding: 8px 12px;
-  color: #000000;
+  color: black;
   opacity: 0.4;
   font-weight: 700;
   line-height: 19.36px;
@@ -137,8 +137,6 @@ hr {
 .task_sendData {
   display: flex;
   flex-direction: column;
-  background-color: #141414;
-  color: white;
   font-weight: 700;
   border-radius: 25px;
   margin: 0 auto;
@@ -146,25 +144,24 @@ hr {
   /* overflow: hidden; */
   padding: 16px;
   margin-bottom: 10px;
+  transition: all 1s;
 }
 .sendData_taskTitle {
-  background-color: #141414;
   border: 0;
-  color: white;
   font-size: 32px;
   outline: none;
   margin-bottom: 5px;
+  transition: all 1s;
 }
 
 .sendData_taskContent {
-  background-color: #141414;
   border: 0;
-  color: white;
   font-size: 20px;
   /* overflow: hidden; */
   border: 0;
   outline: none;
   margin-bottom: 2px;
+  transition: all 1s;
 }
 .sendData_task select {
   border: 0;
@@ -194,6 +191,8 @@ hr {
   font-weight: 700;
   cursor: pointer;
   margin-top: 6px;
+  border: 0;
+  outline: none;
 }
 
 .sendData_tasks {
@@ -234,12 +233,14 @@ hr {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  transition: all 1s;
 }
 .tasks_header_worker {
   font-size: 16px;
   font-weight: 700;
   opacity: 0.5;
   color: black;
+  transition: all 1s;
 }
 .tasks_header i {
   color: red;
@@ -265,9 +266,7 @@ hr {
   font-size: 30px;
   cursor: pointer;
 }
-.tasks_teamlead,
-.task_admin {
-  background-color: white;
+.tasks_teamlead {
   border-radius: 25px;
   font-size: 16px;
   font-weight: 700;
@@ -277,6 +276,7 @@ hr {
   padding: 16px;
   margin-right: 10px;
   height: max-content;
+  transition: all 1s;
 }
 .senData_task_inputsForm {
   margin-top: 10px;
@@ -285,12 +285,12 @@ hr {
   width: 24px;
   height: 16px;
   outline: none;
-  background-color: #141414;
+  background-color: transparent;
   border: 0;
-  color: white;
   text-align: center;
   font-size: 16px;
   font-weight: 700;
+  transition: all 1s;
 }
 .senData_task_inputsForm input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -331,6 +331,7 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: red;
   border-radius: 25px;
   padding: 4px 8px;
+  transition: all 1s;
 }
 
 .Tasks_fine_checkbox {
@@ -369,6 +370,7 @@ input[type="number"]::-webkit-outer-spin-button {
   font-size: 16px;
   font-weight: 700;
   min-width: 70px;
+  transition: all 1s;
 }
 .react-calendar {
   border-radius: 25px;
@@ -433,4 +435,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .makeStyles-formControl-1 {
   margin: 0 !important;
+}
+.css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate {
+  background-color: red !important;
 }

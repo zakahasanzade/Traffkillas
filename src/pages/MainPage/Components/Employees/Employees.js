@@ -15,7 +15,7 @@ import {
 } from "react-pro-sidebar";
 import axios from "axios";
 
-const Employees = () => {
+const Employees = ({ position, mode }) => {
   const [showUser, setShowUser] = useState();
   const [CreateEmployee, setCreateEmployee] = useState(false);
   const [EmployeeGift, setEmployeeGift] = useState(false);
@@ -176,6 +176,34 @@ const Employees = () => {
   };
 
   useEffect(() => {
+    const title = document.querySelectorAll(".employee_title");
+
+    for (var i = 0; i < title.length; i++) {
+      title[i].style.color = mode ? "black" : "white";
+    }
+
+    const account = document.querySelectorAll(".employee_account");
+    for (var i = 0; i < account.length; i++) {
+      account[i].style.color = mode ? "black" : "white";
+      account[i].style.backgroundColor = mode ? "white" : "#141414";
+    }
+    const accountDropdown = document.querySelectorAll(".employee_account_list");
+    for (var i = 0; i < accountDropdown.length; i++) {
+      accountDropdown[i].style.color = mode ? "black" : "white";
+      accountDropdown[i].style.backgroundColor = mode ? "white" : "#141414";
+    }
+    const accountDropdownQuestion = document.querySelectorAll(
+      ".list"
+    );
+    for (var i = 0; i < accountDropdownQuestion.length; i++) {
+      accountDropdownQuestion[i].style.color = mode ? "black" : "white";
+      accountDropdownQuestion[i].style.backgroundColor = mode
+        ? "white"
+        : "#141414";
+    }
+  }, [mode]);
+
+  useEffect(() => {
     GetEmployeeData();
   }, []);
 
@@ -198,13 +226,39 @@ const Employees = () => {
               placeholder="Поиск..."
             />
           </div>
-          <div className="employee_header_navbar">
+          <div
+            style={
+              mode
+                ? {
+                    backgroundColor: "white",
+                    color: "black",
+                  }
+                : {
+                    backgroundColor: "#141414",
+                    color: "white",
+                  }
+            }
+            className="employee_header_navbar"
+          >
             <p>А-я</p>
             <p className="active">должность</p>
             <p>баланс</p>
             <p>дата регистрации</p>
           </div>
-          <div className="employee_header_gift">
+          <div
+            style={
+              mode
+                ? {
+                    backgroundColor: "white",
+                    color: "black",
+                  }
+                : {
+                    backgroundColor: "#141414",
+                    color: "white",
+                  }
+            }
+            className="employee_header_gift"
+          >
             <i
               class="bi bi-gift-fill"
               onClick={() => {
@@ -213,7 +267,20 @@ const Employees = () => {
               }}
             ></i>
           </div>
-          <div className="employee_header_create">
+          <div
+            style={
+              mode
+                ? {
+                    backgroundColor: "white",
+                    color: "black",
+                  }
+                : {
+                    backgroundColor: "#141414",
+                    color: "white",
+                  }
+            }
+            className="employee_header_create"
+          >
             <i
               class="bi bi-person-plus-fill"
               onClick={() => {
@@ -228,7 +295,20 @@ const Employees = () => {
             timeout={300}
             unmountOnExit
           >
-            <div className="employee_create_employee">
+            <div
+              style={
+                mode
+                  ? {
+                      backgroundColor: "white",
+                      color: "black",
+                    }
+                  : {
+                      backgroundColor: "#141414",
+                      color: "white",
+                    }
+              }
+              className="employee_create_employee"
+            >
               <form id="form" onSubmit={(e) => submitCreate(e)}>
                 <h1>Добавление сотрудника</h1>
                 <p className="employee_create_employee_title">Введите логин:</p>
@@ -316,7 +396,20 @@ const Employees = () => {
             timeout={300}
             unmountOnExit
           >
-            <div className="employee_gifts">
+            <div
+              style={
+                mode
+                  ? {
+                      backgroundColor: "white",
+                      color: "black",
+                    }
+                  : {
+                      backgroundColor: "#141414",
+                      color: "white",
+                    }
+              }
+              className="employee_gifts"
+            >
               <div className="employee_gifts_title">
                 <p>Товар</p>
                 <p>Цена</p>
@@ -1028,7 +1121,7 @@ const Employees = () => {
                     >
                       <div className="employee_account_left">
                         <img
-                        className="employee_account_left_image"
+                          className="employee_account_left_image"
                           src={image ? image : ProfilePhoto1}
                           alt="ProfilePhoto1"
                         ></img>

@@ -80,8 +80,8 @@ const Authorization = () => {
       .then((result) => {
         console.log(result);
         localStorage.setItem("token", JSON.parse(result).token);
-        // document.cookie = "token=" + localStorage.getItem("token");
         localStorage.setItem("position", JSON.parse(result).position);
+        localStorage.setItem("mode", false);
         navigate("/MainPage");
       })
       .catch((err) => {

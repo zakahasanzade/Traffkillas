@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 // import { motion } from "framer-motion";
 import Profile from "../pages/MainPage/Components/Profile/Profile";
@@ -15,7 +15,7 @@ import ProjectLeaderboard from "../pages/MainPage/Components/Leaderboard/Project
 import EmployerLeaderboard from "../pages/MainPage/Components/Leaderboard/EmployerLeaderboard/EmployerLeaderboard";
 import { AnimatePresence } from "framer-motion/dist/framer-motion";
 
-const AnimatedPage = () => {
+const AnimatedPage = ({ ChangeMode, mode }) => {
   // fetch("https://api1.traffkillas.kz/login", {
   //   method: "GET",
   //   headers: {
@@ -28,30 +28,39 @@ const AnimatedPage = () => {
   //   });
   const position = localStorage.position;
   const location = useLocation();
-
+  const ModeChange = () => {
+    ChangeMode();
+  };
   return (
     <AnimatePresence exitBeforeEnter>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Authorization position={position} />}></Route>
         <Route
           path="/MainPage/"
-          element={<MainPage position={position} />}
+          element={
+            <MainPage ModeChange={ModeChange} mode={mode} position={position} />
+          }
         ></Route>
         <Route
           path="/MainPage/Profile"
-          element={<Profile position={position} />}
+          element={<Profile mode={mode} position={position} />}
         />
-        <Route path="/MainPage/" element={<MainPage position={position} />}>
+        <Route
+          path="/MainPage/"
+          element={
+            <MainPage ModeChange={ModeChange} mode={mode} position={position} />
+          }
+        >
           {/* <Route path="/" element={<UserPage />} />
           <Route path="/SecondPage" element={<SecondPage />} /> */}
-          <Route index element={<News position={position} />} />
+          <Route index element={<News mode={mode} position={position} />} />
           <Route
             path="/MainPage/Tasks"
-            element={<Tasks position={position} />}
+            element={<Tasks mode={mode} position={position} />}
           />
           <Route
             path="/MainPage/Statistics"
-            element={<Statistics position={position} />}
+            element={<Statistics mode={mode} position={position} />}
           />
           <Route
             path="/MainPage/ProjectLeaderboard"
@@ -63,7 +72,7 @@ const AnimatedPage = () => {
           />
           <Route
             path="/MainPage/Market"
-            element={<Market position={position} />}
+            element={<Market mode={mode} position={position} />}
           />
           <Route
             path="/MainPage/Instruments"
@@ -71,7 +80,7 @@ const AnimatedPage = () => {
           />
           <Route
             path="/MainPage/Employees"
-            element={<Employees position={position} />}
+            element={<Employees mode={mode} position={position} />}
           />
         </Route>
       </Routes>

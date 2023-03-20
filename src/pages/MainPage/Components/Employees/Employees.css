@@ -32,10 +32,9 @@
   justify-content: space-between;
   font-size: 16px;
   font-weight: 700;
-  background-color: #141414;
   border-radius: 25px;
   padding: 10px 20px;
-  color: rgba(255, 255, 255, 0.3);
+  transition: all 1s;
 }
 .employee_header_navbar .active {
   opacity: 0.5;
@@ -46,17 +45,16 @@
 }
 .employee_header_gift,
 .employee_header_create {
-  background-color: white;
   padding: 9.5px 10px;
   border-radius: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 1s;
 }
 .employee_header_gift i,
 .employee_header_create i {
   font-size: 16px;
-  color: black;
   cursor: pointer;
 }
 .employee_title {
@@ -65,6 +63,9 @@
   opacity: 0.3;
   font-size: 16px;
   font-weight: 700;
+}
+.employee_title p {
+  transition: all 1s;
 }
 .employee_account {
   background-color: #141414;
@@ -77,15 +78,16 @@
   width: 806px;
   border: 0;
   cursor: pointer;
+  transition: all 1s;
 }
 .employee_create_employee {
-  background-color: white;
   padding: 16px;
   border-radius: 25px;
   position: absolute;
   top: 50px;
   left: 503px;
   z-index: 999;
+  transition: 1s;
 }
 .employee_create_employee
   .pro-sidebar
@@ -173,7 +175,6 @@
 }
 .employee_info {
   display: flex;
-  color: white;
   font-size: 20px;
   border-radius: 25px;
   margin-top: 10px;
@@ -185,8 +186,10 @@
 .wrapper .list {
   border-radius: 25px;
   background-color: #141414;
+  color: white;
   padding: 16px 20px;
   margin-top: 10px;
+  transition: all 1s;
 }
 .employee_account_list {
   display: flex;
@@ -209,24 +212,22 @@
   top: 49px;
   width: 340px;
   /* height: 104px; */
-  color: white;
-  background-color: #141414;
+
   border-radius: 25px;
   box-shadow: rgba(205, 173, 173, 0.35) 0px 5px 15px;
   padding: 16px 20px;
   display: flex;
   flex-direction: column;
   gap: 6px;
+  transition: all 1s;
 }
 .employee_account_question {
   font-size: 20px;
   font-weight: 700;
-  color: white;
 }
 .employee_account_title {
   font-size: 16px;
   font-weight: 700;
-  color: white;
   opacity: 0.5;
 }
 .employee_account_list_question input {
@@ -269,7 +270,6 @@
 }
 .employee_gifts {
   position: absolute;
-  background-color: white;
   box-shadow: 0px 14px 80px rgba(0, 0, 0, 0.1),
     0px 5.39259px 25.4815px rgba(0, 0, 0, 0.0607407),
     0px 1.14074px 6.51852px rgba(0, 0, 0, 0.0392593);
@@ -282,6 +282,7 @@
   left: 353px;
   top: 50px;
   gap: 8px;
+  transition: all 1s;
 }
 .employee_gifts_title {
   display: flex;
@@ -334,4 +335,8 @@
   align-items: center;
   max-width: 78px;
   color: white;
+}
+.employee_header_search .ui.input {
+  border: 0;
+  outline: none;
 }

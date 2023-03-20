@@ -28,8 +28,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./Statistics.css";
 
-const Statistics = (props) => {
+const Statistics = ({ position, mode }) => {
   const [graph, setGraph] = useState();
+
+  useEffect(() => {
+    const title = document.querySelectorAll(".statistics_title");
+    var i;
+    for (i = 0; i < title.length; i++) {
+      title[i].style.color = mode ? "black" : "white";
+    }
+  }, [mode]);
 
   const StatisticsArray = [];
   const [Statistics, setStatistics] = useState();
@@ -54,55 +62,6 @@ const Statistics = (props) => {
       });
   };
 
-  // const SubMenuTitle = (
-  //   /* DROPDOWN SIDEBAR */
-
-  //   <div>
-  //     {Statistics &&
-  //       Statistics.map((el, index) => {
-  //         const {
-  //           all_join,
-  //           all_left,
-  //           all_subscribers,
-  //           aud_gender,
-  //           channel_id,
-  //           channel_name,
-  //           date,
-  //           left_join_stat,
-  //         } = el;
-  //         return (
-  //           <>
-  //             <div className="statistics_submenu ">
-  //               <div className="statistics_submenu_div yellow">{date}</div>
-  //               <div className="statistics_submenu_div black">
-  //                 {all_subscribers}{" "}
-  //                 <span className="green" style={{ fontSize: "16px" }}>
-  //                   +{all_join}
-  //                 </span>
-  //                 /
-  //                 <span className="red" style={{ fontSize: "16px" }}>
-  //                   -{all_left}
-  //                 </span>
-  //               </div>
-
-  //               <div className="statistics_submenu_div black">
-  //                 <i class="bi bi-people-fill"></i>
-  //               </div>
-  //               <div className="statistics_submenu_div black">
-  //                 <i class="bi bi-clock-fill"></i> 5 мин
-  //               </div>
-  //               <div className="statistics_submenu_div orange">
-  //                 <i class="bi bi-ticket-perforated-fill"></i> 54
-  //               </div>
-  //               <div className="statistics_submenu_div pink">
-  //                 <i class="bi bi-piggy-bank-fill"></i> 32
-  //               </div>
-  //             </div>
-  //           </>
-  //         );
-  //       })}
-  //   </div>
-  // );
   const ChangeProjectAvatar = (e, index) => {
     e.preventDefault();
     const form = document.querySelector(`.ChangeAvatar_${index}`);
@@ -163,7 +122,6 @@ const Statistics = (props) => {
   const handleLabelClick = (channel_id) => {
     document.getElementById(channel_id).click();
   };
-  const position = props.position;
   return (
     <motion.div
       className="main"
@@ -203,6 +161,17 @@ const Statistics = (props) => {
               <div className="statistics" key={el + index}>
                 <div
                   className="statistics_account"
+                  style={
+                    mode
+                      ? {
+                          backgroundColor: "white",
+                          color: "black",
+                        }
+                      : {
+                          backgroundColor: "#141414",
+                          color: "white",
+                        }
+                  }
                   onClick={(e) => {
                     let IndexElement = index;
                     var res = graph.map((e, i) => {
@@ -271,7 +240,19 @@ const Statistics = (props) => {
                     </div>
                     <div className="statistics_account_info">
                       <div className="statistics_account_info_up">
-                        <p>{channel_name}</p>
+                        <p
+                          style={
+                            mode
+                              ? {
+                                  color: "black",
+                                }
+                              : {
+                                  color: "white",
+                                }
+                          }
+                        >
+                          {channel_name}
+                        </p>
                         <p
                           className="statistics_up"
                           style={
@@ -286,7 +267,19 @@ const Statistics = (props) => {
                         </p>
                       </div>
                       <div className="statistics_account_info_down">
-                        <p>{sub_count} подписчиков</p>
+                        <p
+                          style={
+                            mode
+                              ? {
+                                  color: "black",
+                                }
+                              : {
+                                  color: "white",
+                                }
+                          }
+                        >
+                          {sub_count} подписчиков
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -314,10 +307,35 @@ const Statistics = (props) => {
                   unmountOnExit
                 >
                   <div>
-                    <div className="statistics_graph">
+                    <div
+                      style={
+                        mode
+                          ? {
+                              backgroundColor: "white",
+                              color: "black",
+                            }
+                          : {
+                              backgroundColor: "#141414",
+                              color: "white",
+                            }
+                      }
+                      className="statistics_graph"
+                    >
                       <div className="statistics_grapgh_info">
                         <div className="statistics_graph_left">
-                          <p>Депозиты</p>
+                          <p
+                            style={
+                              mode
+                                ? {
+                                    color: "black",
+                                  }
+                                : {
+                                    color: "white",
+                                  }
+                            }
+                          >
+                            Депозиты
+                          </p>
                           <p style={{ color: "purple" }}>190,090.36</p>
                         </div>
                         <div className="statistics_graph_right">
@@ -329,7 +347,20 @@ const Statistics = (props) => {
                         <StatisticsGraph />
                       </div>
                     </div>
-                    <div className="statistics_general">
+                    <div
+                      style={
+                        mode
+                          ? {
+                              backgroundColor: "white",
+                              color: "black",
+                            }
+                          : {
+                              backgroundColor: "#141414",
+                              color: "white",
+                            }
+                      }
+                      className="statistics_general"
+                    >
                       <h2>Общая статистика</h2>
                       <p>
                         Количество депозитов:{" "}
@@ -347,13 +378,26 @@ const Statistics = (props) => {
                       </p>
                       <p>
                         Количество регистраций:{" "}
-                        <span style={{ color: "white" }}>
+                        <span>
                           {" "}
                           <i class="bi bi-people-fill"></i> {two_week_reg}
                         </span>
                       </p>
                     </div>
-                    <div className="statistics_hours">
+                    <div
+                      style={
+                        mode
+                          ? {
+                              backgroundColor: "white",
+                              color: "black",
+                            }
+                          : {
+                              backgroundColor: "#141414",
+                              color: "white",
+                            }
+                      }
+                      className="statistics_hours"
+                    >
                       <h2>Дневная/часовая статистика</h2>
                       <div className="statistics_hours_div">
                         {/* DROPDOWN SIDEBAR */}

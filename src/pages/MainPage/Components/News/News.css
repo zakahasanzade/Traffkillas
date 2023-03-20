@@ -26,8 +26,11 @@
   opacity: 0.5;
   text-align: center;
   margin-bottom: 0 !important;
+  transition: all 1s;
 }
-
+.newsTitle {
+  transition: all 1s;
+}
 .news_page_titles {
   /* display: flex; */
   /* flex-direction: column; */
@@ -36,6 +39,7 @@
   border-radius: 25px;
   padding: 16px;
   justify-content: space-between;
+  transition: all 1s;
 }
 
 .news_page_titles button {
@@ -143,13 +147,32 @@
   font-weight: 700;
   color: white;
   border: 0;
-  background-color: #141414;
   overflow: 0 !important;
   margin: 0;
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  outline: none;
+  border: 0;
+  transition: all 1s;
+  border-radius: 0;
+  background-color: #141414;
 }
+/* .news_page_title_tags .light_mode .rti--input {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: black;
+  border: 0;
+  background-color: white;
+  overflow: 0 !important;
+  margin: 0;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  animation: all 1s;
+} */
 .news_page_title_tags .rti--tag {
   background-color: #141414;
   color: white;
@@ -167,9 +190,13 @@
   overflow: none;
   width: 470px;
   padding: 0;
+  transition: all 1s;
+  outline: none;
+  border: 0;
 }
 .news_page_title_tags p {
   margin-right: 25px;
+  transition: all 1s;
 }
 
 .news_page_div {
@@ -178,6 +205,7 @@
   border-radius: 25px;
   padding-left: 20px;
   padding-right: 20px;
+  transition: all 1s;
 }
 .news_page_div_blue {
   width: 16px;
@@ -204,6 +232,9 @@
 .news_page_div_content p {
   width: 720px;
   overflow-wrap: break-word;
+}
+.newsContent {
+  transition: all 1s;
 }
 .news_page_div i {
   font-size: 20px;
@@ -255,13 +286,13 @@
   gap: 8px;
   top: 50px;
   left: 7px;
-  background-color: #141414;
   padding: 8px 12px;
   border-radius: 15px;
   box-shadow: 10px 5px 5px white;
   -webkit-box-shadow: 0px 0px 50px 0px rgba(66, 68, 90, 1);
   -moz-box-shadow: 0px 0px 50px 0px rgba(66, 68, 90, 1);
   box-shadow: 0px 0px 50px 0px rgba(66, 68, 90, 1);
+  animation: all 1s;
 }
 .news_page_title_dot li {
   display: flex;

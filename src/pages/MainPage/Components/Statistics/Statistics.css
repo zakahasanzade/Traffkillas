@@ -16,19 +16,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #141414;
   border-radius: 25px;
   padding: 16px 20px;
   cursor: pointer;
+  transition: all 1s;
 }
 .statistics_title {
-  color: white;
   font-size: 24px;
   font-weight: 700;
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 20px;
   display: flex;
+  transition: all 1s;
 }
 .statistics_account_left {
   display: flex;
@@ -78,6 +78,7 @@
 }
 .statistics_account_left img {
   width: 84px;
+  height: 84px;
   border-radius: 100%;
 }
 .statistics_account_info_up {
@@ -94,7 +95,7 @@
   font-size: 18px;
   font-weight: 700;
   margin-right: 5px;
-  color: white;
+  transition: all 1s;
 }
 .statistics_up {
   background-color: #16c784;
@@ -113,7 +114,10 @@
 .statistics_account_info_down {
   font-size: 20px;
   font-weight: 500;
-  color: white;
+  transition: all 1s;
+}
+.statistics_account_info_down p {
+  transition: all 1s;
 }
 .statistics_submenu {
   display: flex;
@@ -148,11 +152,11 @@
   margin-right: 20px;
 } */
 .statistics_graph_left p:first-child {
-  color: white;
   font-size: 20px;
   font-weight: 700;
   opacity: 0.5;
   margin-bottom: 8px;
+  transition: all 1s;
 }
 .statistics_graph_left p:last-child {
   font-size: 26px;
@@ -166,10 +170,10 @@
   padding: 16px 20px;
 }
 .statistics_graph {
-  background-color: #141414;
   border-radius: 16px;
   margin-top: 10px;
   padding-bottom: 10px;
+  transition: all 1s;
 }
 
 .statistics_graph_right {
@@ -185,10 +189,10 @@
 }
 .statistics_general {
   padding: 15px;
-  background-color: #141414;
   color: white;
   border-radius: 25px;
   margin-top: 10px;
+  transition: all 1s;
 }
 .statistics_general h2 {
   opacity: 0.5;
@@ -202,11 +206,11 @@
   margin-top: 6px;
 }
 .statistics_hours {
-  background-color: #141414;
   border-radius: 25px;
   margin-top: 10px;
   margin-bottom: 10px;
   padding-bottom: 15px;
+  transition: all 1s;
 }
 .statistics_hours .statistics_hours_div {
   margin-bottom: 10px;
@@ -217,7 +221,6 @@
   font-weight: 700;
   /* margin-bottom: 10px; */
   padding: 15px;
-  color: white;
 }
 .statistics_hours {
   padding: 5px 20px;

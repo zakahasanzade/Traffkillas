@@ -53,19 +53,21 @@
 #profile_button img {
   margin-right: 3px;
   cursor: pointer;
+  width: 46px;
+  height: 46px;
+  border-radius: 100%;
 }
 .profile_button_info {
   position: absolute;
   top: 50px;
   left: 105px;
-  background-color: #141414 !important;
   border-radius: 25px;
   padding: 12px;
   width: 295px;
-  color: white;
   margin-top: 5px;
   transition: opacity 1s ease-out;
   z-index: 1;
+  transition: all 1s;
 }
 .profile_button_info_li {
   font-size: 20px;

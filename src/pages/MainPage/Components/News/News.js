@@ -6,7 +6,7 @@ import { motion } from "framer-motion/dist/framer-motion";
 import { CSSTransition } from "react-transition-group";
 import TextareaAutosize from "react-textarea-autosize";
 
-const News = (props) => {
+const News = ({ position, mode }) => {
   // const [show, setShow] = useState(false);
   // CREATE A NEW BLOCK WITH THE RECEIVED DATA   //
   const [tags, setTags] = useState([]);
@@ -109,11 +109,20 @@ const News = (props) => {
     document.body.addEventListener("click", closeDropdown);
   }, []);
 
+  useEffect(() => {
+    document.querySelector(".rti--input").style.backgroundColor = mode
+      ? "white"
+      : "#141414";
+    document.querySelector(".rti--input").style.color = mode
+      ? "black"
+      : "white";
+  }, [mode]);
+
   const setBack = (col) => {
     document.querySelector(".back").style.backgroundColor = col;
   };
   console.log(typeof post);
-  const position = props.position;
+  const proffess = position.position;
   return (
     <motion.div
       className="main"
@@ -124,8 +133,21 @@ const News = (props) => {
       transition={{ duration: 0.3 }}
     >
       <div className="news_page">
-        {position !== "3" ? (
-          <div className="news_page_titles">
+        {proffess !== "3" ? (
+          <div
+            style={
+              mode
+                ? {
+                    backgroundColor: "white",
+                    color: "black",
+                  }
+                : {
+                    backgroundColor: "#141414",
+                    color: "white",
+                  }
+            }
+            className="news_page_titles"
+          >
             <div className="news_page_title">
               <div className="news_page_title_dot">
                 <div
@@ -148,6 +170,17 @@ const News = (props) => {
                   unmountOnExit
                 >
                   <ul
+                    style={
+                      mode
+                        ? {
+                            backgroundColor: "white",
+                            color: "black",
+                          }
+                        : {
+                            backgroundColor: "#141414",
+                            color: "white",
+                          }
+                    }
                     onClick={(e) => {
                       // e.stopPropagation();
                     }}
@@ -207,19 +240,43 @@ const News = (props) => {
                   </ul>
                 </CSSTransition>
                 <TextareaAutosize
+                  style={
+                    mode
+                      ? {
+                          backgroundColor: "white",
+                          color: "black",
+                        }
+                      : {
+                          backgroundColor: "#141414",
+                          color: "white",
+                        }
+                  }
                   className="newsTitle"
                   placeholder="Заголовок"
                 />
               </div>
               <div className="news_page_title_input">
                 <TextareaAutosize
+                  style={
+                    mode
+                      ? {
+                          backgroundColor: "white",
+                          color: "black",
+                        }
+                      : {
+                          backgroundColor: "#141414",
+                          color: "white",
+                        }
+                  }
                   className="newsContent"
                   placeholder="Содержание поста..."
                 />
               </div>
               <div className="news_page_title_bottom">
                 <div className="news_page_title_tags">
-                  <p>Теги:</p>
+                  <p style={mode ? { color: "black" } : { color: "white" }}>
+                    Теги:
+                  </p>
                   <TagsInput
                     value={tags}
                     onChange={setTags}
@@ -245,9 +302,7 @@ const News = (props) => {
           {post &&
             post.map((block, index, array) => {
               const { color, title, text, hashtag, time, date, _id } = block;
-              {
-                /* console.log(JSON.parse(_id)["$oid"]) */
-              }
+
               let now = new Date();
               let tag = [];
               now.setMonth(date.substring(3) - 1);
@@ -257,7 +312,10 @@ const News = (props) => {
               return (
                 <>
                   {index === 0 || array[index - 1].date !== date ? (
-                    <p className="date">
+                    <p
+                      style={mode ? { color: "black" } : { color: "white" }}
+                      className="date"
+                    >
                       {date.substring(0, 2)}{" "}
                       {now.toLocaleString("ru-ru", { month: "short" })}
                       {console.log(now)}
@@ -265,9 +323,17 @@ const News = (props) => {
                   ) : null}
                   <div
                     className="news_page_div"
-                    style={{
-                      animationDelay: "5s",
-                    }}
+                    style={
+                      mode
+                        ? {
+                            backgroundColor: "white",
+                            color: "black",
+                          }
+                        : {
+                            backgroundColor: "#141414",
+                            color: "white",
+                          }
+                    }
                   >
                     <h1>
                       <div
@@ -281,7 +347,7 @@ const News = (props) => {
                         <p>{title}</p>
                       </div>
 
-                      {position !== "3" && (
+                      {proffess !== "3" && (
                         <i
                           onClick={DeletePost}
                           class="bi bi-trash3-fill"
@@ -291,7 +357,12 @@ const News = (props) => {
                     </h1>
                     <p className="news_page_text">{text}</p>
                     <div className="news_page_footer">
-                      <p className="date">{time}</p>
+                      <p
+                        style={mode ? { color: "black" } : { color: "white" }}
+                        className="date"
+                      >
+                        {time}
+                      </p>
                       <div className="news_page_footer_p">
                         <p style={{ display: "flex" }}>{tag}</p>
                       </div>

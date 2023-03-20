@@ -7,7 +7,7 @@ import { CSSTransition } from "react-transition-group";
 import { useNavigate } from "react-router-dom";
 import { windows } from "fontawesome";
 
-const MainPage = (props) => {
+const MainPage = ({ position, ModeChange, mode }) => {
   let isLeaderboard = useMatch({
     path: "/MainPage/ProjectLeaderboard",
     end: true,
@@ -17,13 +17,25 @@ const MainPage = (props) => {
       window.location.pathname === "/MainPage/EmployerLeaderboard") &&
       setDropdown(true);
   }, []);
+
   const [dropdown, setDropdown] = useState();
+  const ChangeModes = (props) => {
+    ModeChange();
+    console.log(position);
+  };
+
   return (
     <>
-      <div className="main_header">{<Header />}</div>
+      <div className="main_header">
+        {<Header ChangeModes={ChangeModes} mode={mode} />}
+      </div>
       <div className="headet_navbar">
         <nav className="nav">
-          <ul className="header_navbar_ul">
+          <ul
+            className={
+              mode ? "header_navbar_ul light_navbar_ul" : "header_navbar_ul "
+            }
+          >
             <CustomLink className="CustomLink" to="/MainPage/">
               Новости
             </CustomLink>
@@ -55,16 +67,17 @@ const MainPage = (props) => {
             <CustomLink className="CustomLink" to="/MainPage/Market">
               Маркет
             </CustomLink>
-            {props.position !== "3" && (
+            {position !== "3" && (
               <CustomLink className="CustomLink" to="/MainPage/Instruments">
                 Инструменты
               </CustomLink>
             )}
-            {props.position !== "3" && (
+            {position !== "3" && (
               <CustomLink className="CustomLink" to="/MainPage/Employees">
                 Сотрудники
               </CustomLink>
             )}
+            {console.log(position)}
           </ul>
         </nav>
         {/* {dropdown && (
