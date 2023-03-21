@@ -1,5 +1,4 @@
-import React, { componentDidMount, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import ArrowRight from "./Tasks Assets/Arrow Right.svg";
 import TextareaAutosize from "react-textarea-autosize";
 import { motion } from "framer-motion/dist/framer-motion";
@@ -16,11 +15,11 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { CSSTransition } from "react-transition-group";
 import { MenuProps, useStyles, options, App } from "./Utilities/utils";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
+// import Accordion from "@mui/material/Accordion";
+// import AccordionSummary from "@mui/material/AccordionSummary";
+// import AccordionDetails from "@mui/material/AccordionDetails";
+// import Typography from "@mui/material/Typography";
+// import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
 import "./Tasks.css";
 
 const Tasks = ({ position, mode }) => {
@@ -202,8 +201,8 @@ const Tasks = ({ position, mode }) => {
         alert(err);
       });
   };
-  let TimerInfo = null;
-  let ManageDataArr = [];
+  // let TimerInfo = null;
+  // let ManageDataArr = [];
   const [ManageData, SetManageData] = useState();
   const getManageData = () => {
     fetch("https://api1.traffkillas.kz/get_task", {
@@ -217,9 +216,9 @@ const Tasks = ({ position, mode }) => {
         return response.text();
       })
       .then((result) => {
-        ManageDataArr = [JSON.parse(result).manage];
+        // ManageDataArr = [JSON.parse(result).manage];
         SetManageData(JSON.parse(result).manage);
-        TimerInfo = JSON.parse(result).manage[0].date;
+        // TimerInfo = JSON.parse(result).manage[0].date;
       })
       .catch((err) => {
         alert(err);
@@ -263,10 +262,10 @@ const Tasks = ({ position, mode }) => {
 
         // Output the result in an element with id="demo"
         el.innerHTML =
-          (days != 0 ? days + "д " : "") +
-          (hours != 0 ? hours + "ч " : "") +
-          (minutes != 0 ? minutes + "м " : "") +
-          (seconds != 0 ? seconds + "с " : "");
+          (days !== 0 ? days + "д " : "") +
+          (hours !== 0 ? hours + "ч " : "") +
+          (minutes !== 0 ? minutes + "м " : "") +
+          (seconds !== 0 ? seconds + "с " : "");
       }
     }, 1000);
     arr.push(0);
@@ -297,7 +296,7 @@ const Tasks = ({ position, mode }) => {
     SetCurrency(false);
     console.log(TextCurrency);
   };
-  const [selectDrop, setSelectDrop] = useState(false);
+  // const [selectDrop, setSelectDrop] = useState(false);
   const [Currency, SetCurrency] = useState(false);
   const [TextCurrency, SetTextCurrency] = useState("MMR");
   const ChangeCurrency = (e) => {
@@ -305,10 +304,10 @@ const Tasks = ({ position, mode }) => {
   };
 
   useEffect(() => {
-    const ChangeBacColor = (x) => {
-      x.style.color = mode ? "black" : "white";
-      x.style.backgroundColor = mode ? "white" : "#141414";
-    };
+    // const ChangeBacColor = (x) => {
+    //   x.style.color = mode ? "black" : "white";
+    //   x.style.backgroundColor = mode ? "white" : "#141414";
+    // };
     const ChangeColor = (x) => {
       x.style.color = mode ? "black" : "white";
     };
@@ -317,11 +316,11 @@ const Tasks = ({ position, mode }) => {
       ChangeColor(date[i]);
     }
     const checkBox = document.querySelectorAll(".css-ptiqhd-MuiSvgIcon-root");
-    for (var i = 0; i < checkBox.length; i++) {
+    for (i = 0; i < checkBox.length; i++) {
       ChangeColor(checkBox[i]);
     }
     const WorkerSelect = document.querySelectorAll(".makeStyles-inputLabel-2");
-    for (var i = 0; i < WorkerSelect.length; i++) {
+    for (i = 0; i < WorkerSelect.length; i++) {
       ChangeColor(WorkerSelect[i]);
     }
     // const firstinput = document.querySelectorAll(".firstinput");
@@ -381,7 +380,7 @@ const Tasks = ({ position, mode }) => {
   //       : "makeStyles-inputLabel-2";
   //   }
   // }, []);
-  if (position == "3") {
+  if (position === "3") {
     return (
       <motion.div
         className="main"
@@ -395,20 +394,9 @@ const Tasks = ({ position, mode }) => {
           <p className="date">В работе</p>
           {WorkData &&
             WorkData.map((block, index) => {
-              const {
-                content,
-                date,
-                feedback,
-                fine,
-                manager,
-                state,
-                title,
-                type,
-                worker,
-                _id,
-              } = block;
+              const { date, feedback, fine, state, title, type, _id } = block;
 
-              if (state == 1) {
+              if (state === 1) {
                 setTimer(date, "timer_inproccess", index);
 
                 var TextArea = "";
@@ -444,7 +432,7 @@ const Tasks = ({ position, mode }) => {
                           </p>
                         </div>
                       </div>
-                      {feedback == "true" ? (
+                      {feedback === "true" ? (
                         <div className="tasks_content">
                           <TextareaAutosize
                             style={
@@ -473,25 +461,14 @@ const Tasks = ({ position, mode }) => {
                   </>
                 );
               }
+              return null;
             })}
 
           {WorkData &&
             WorkData.map((block, index) => {
-              const {
-                content,
-                date,
-                feedback,
-                fine,
-                manager,
-                state,
-                title,
-                type,
-                worker,
-                _id,
-              } = block;
+              const { fine, state, title, type } = block;
 
-              if (state == 5) {
-                var TextArea = "";
+              if (state === 5) {
                 return (
                   <>
                     <div
@@ -552,25 +529,15 @@ const Tasks = ({ position, mode }) => {
                   </>
                 );
               }
+              return null;
             })}
           <p className="date">На доработку</p>
           {WorkData &&
             WorkData.map((block, index) => {
-              const {
-                content,
-                date,
-                feedback,
-                fine,
-                manager,
-                messages,
-                state,
-                type,
-                title,
-                worker,
-                _id,
-              } = block;
+              const { content, date, feedback, fine, state, type, title, _id } =
+                block;
 
-              if (state == 3) {
+              if (state === 3) {
                 setTimer(date, "timer_revision", index);
                 return (
                   <>
@@ -602,7 +569,7 @@ const Tasks = ({ position, mode }) => {
                           </p>
                         </div>
                       </div>
-                      {feedback == "true" ? (
+                      {feedback === "true" ? (
                         <div className="tasks_content">
                           <p
                             className="tasks_content_p"
@@ -628,24 +595,15 @@ const Tasks = ({ position, mode }) => {
                   </>
                 );
               }
+              return null;
             })}
           <p className="date">Доступные</p>
           {WorkData &&
             WorkData.map((block, index) => {
-              const {
-                content,
-                date,
-                feedback,
-                fine,
-                manager,
-                type,
-                state,
-                title,
-                worker,
-                _id,
-              } = block;
+              const { content, date, feedback, fine, type, state, title, _id } =
+                block;
 
-              if (state == 0) {
+              if (state === 0) {
                 setTimer(date, "timer_avialable", index);
                 return (
                   <>
@@ -703,11 +661,12 @@ const Tasks = ({ position, mode }) => {
                   </>
                 );
               }
+              return null;
             })}
         </div>
       </motion.div>
     );
-  } else if (position == "2") {
+  } else if (position === "2") {
     return (
       <motion.div
         className="main"
@@ -950,23 +909,11 @@ const Tasks = ({ position, mode }) => {
           <p className="date">Мои задания</p>
           {WorkData &&
             WorkData.map((block, index) => {
-              const {
-                content,
-                date,
-                feedback,
-                fine,
-                manager,
-                state,
-                title,
-                type,
-                worker,
-                _id,
-              } = block;
+              const { date, feedback, fine, state, title, type, _id } = block;
 
-              if (state == 1) {
-                {
-                  setTimer(date, "timer_myTask", index);
-                }
+              if (state === 1) {
+                setTimer(date, "timer_myTask", index);
+
                 var TextArea = "";
                 return (
                   <>
@@ -1000,7 +947,7 @@ const Tasks = ({ position, mode }) => {
                           </p>
                         </div>
                       </div>
-                      {feedback == "true" ? (
+                      {feedback === "true" ? (
                         <div className="tasks_content">
                           <TextareaAutosize
                             style={
@@ -1029,24 +976,13 @@ const Tasks = ({ position, mode }) => {
                   </>
                 );
               }
+              return null;
             })}
           {WorkData &&
             WorkData.map((block, index) => {
-              const {
-                content,
-                date,
-                feedback,
-                fine,
-                manager,
-                state,
-                title,
-                type,
-                worker,
-                _id,
-              } = block;
+              const { fine, state, title, type } = block;
 
-              if (state == 5) {
-                var TextArea = "";
+              if (state === 5) {
                 return (
                   <>
                     <div
@@ -1108,29 +1044,20 @@ const Tasks = ({ position, mode }) => {
                   </>
                 );
               }
+              return null;
             })}
           <p className="date">На доработку</p>
           {WorkData &&
             WorkData.map((block, index) => {
-              const {
-                content,
-                date,
-                feedback,
-                fine,
-                manager,
-                messages,
-                state,
-                title,
-                worker,
-                _id,
-              } = block;
+              const { content, date, feedback, fine, state, title, _id } =
+                block;
 
-              if (state == 3) {
+              if (state === 3) {
                 setTimer(date, "timer_revision", index);
                 return (
                   <>
                     <div
-                      key={block}
+                      key={block + index}
                       className={
                         mode ? "tasks_page_div light" : "tasks_page_div"
                       }
@@ -1157,7 +1084,7 @@ const Tasks = ({ position, mode }) => {
                           </p>
                         </div>
                       </div>
-                      {feedback == "true" ? (
+                      {feedback === "true" ? (
                         <div className="tasks_content">
                           <p
                             className="tasks_content_p"
@@ -1183,6 +1110,7 @@ const Tasks = ({ position, mode }) => {
                   </>
                 );
               }
+              return null;
             })}
           <p className="date">Созданные</p>
           {ManageData &&
@@ -1192,21 +1120,19 @@ const Tasks = ({ position, mode }) => {
                 date,
                 feedback,
                 fine,
-                manager,
                 state,
                 title,
                 type,
-                worker,
                 worker_username,
                 _id,
               } = block;
 
-              if (state == 0 || state == 1) {
+              if (state === 0 || state === 1) {
                 setTimer(date, "timer_created", index);
                 return (
                   <>
                     <div
-                      key={block}
+                      key={block + index}
                       className={
                         mode ? "tasks_page_div light" : "tasks_page_div"
                       }
@@ -1270,30 +1196,27 @@ const Tasks = ({ position, mode }) => {
                   </>
                 );
               }
+              return null;
             })}
           <p className="date">Выполенные</p>
           {ManageData &&
             ManageData.map((block, index) => {
               const {
-                content,
                 date,
                 feedback,
-                fine,
-                manager,
                 messages,
                 state,
                 title,
                 worker_username,
-                worker,
                 _id,
               } = block;
 
-              if (state == 2) {
+              if (state === 2) {
                 setTimer(date, "timer_completed", index);
                 return (
                   <>
                     <div
-                      key={block}
+                      key={block + index}
                       className={
                         mode ? "tasks_page_div light" : "tasks_page_div"
                       }
@@ -1346,7 +1269,7 @@ const Tasks = ({ position, mode }) => {
                           </p>
                         </div>
                       </div>
-                      {feedback == "true" ? (
+                      {feedback === "true" ? (
                         <div className="tasks_content">
                           <p
                             className="tasks_content_p"
@@ -1372,6 +1295,7 @@ const Tasks = ({ position, mode }) => {
                   </>
                 );
               }
+              return null;
             })}
         </div>
       </motion.div>
@@ -1659,15 +1583,13 @@ const Tasks = ({ position, mode }) => {
                 date,
                 feedback,
                 fine,
-                manager,
                 state,
                 title,
                 type,
-                worker,
                 worker_username,
                 _id,
               } = block;
-              if (state == 0 || state == 1) {
+              if (state === 0 || state === 1) {
                 setTimer(date, "timer_created", index);
                 return (
                   <>
@@ -1735,30 +1657,27 @@ const Tasks = ({ position, mode }) => {
                   </>
                 );
               }
+              return null;
             })}
           <p className="date">Выполенные</p>
           {ManageData &&
             ManageData.map((block, index) => {
               const {
-                content,
                 date,
                 feedback,
-                fine,
-                manager,
                 messages,
                 state,
                 title,
-                worker,
                 worker_username,
                 _id,
               } = block;
 
-              if (state == 2) {
+              if (state === 2) {
                 setTimer(date, "timer_completed", index);
                 return (
                   <>
                     <div
-                      key={block}
+                      key={block + index}
                       className={
                         mode ? "tasks_page_div light" : "tasks_page_div"
                       }
@@ -1811,7 +1730,7 @@ const Tasks = ({ position, mode }) => {
                           </p>
                         </div>
                       </div>
-                      {feedback == "true" ? (
+                      {feedback === "true" ? (
                         <div className="tasks_content">
                           <p
                             className="tasks_content_p"
@@ -1837,6 +1756,7 @@ const Tasks = ({ position, mode }) => {
                   </>
                 );
               }
+              return null;
             })}
         </div>
       </motion.div>
@@ -1845,99 +1765,3 @@ const Tasks = ({ position, mode }) => {
 };
 
 export default Tasks;
-{
-  /* <p className="date">В работе</p>
-          <div key={block} className="tasks_page_div">
-            <div className="tasks_div">
-              <p className="tasks_header">Написать 30 постов</p>
-              <div>
-                <p
-                  className="second_task_time"
-                  style={{ backgroundColor: "red" }}
-                >
-                  <p>25:35</p>
-                </p>
-                <p className="tasks_footer" style={{ color: "#EA9127" }}>
-                  -30 MMR
-                </p>
-              </div>
-            </div>
-            <div className="tasks_div_submit">
-              <TextareaAutosize style={mode?{color:"#bcbec0",backgroundColor:"#ebedf0"}:{color:"#8a8a8a",backgroundColor:"#222226"}} placeholder="Впишите обратную связь..." />
-              <button>
-                <div
-                  style={{
-                    backgroundColor: "#0f82f5",
-                    padding: "4px",
-                    borderRadius: "25px",
-                  }}
-                >
-                  <i className="fa-sharp fa-solid fa-arrow-right"></i>
-                </div>
-              </button>
-            </div>
-          </div>
-          <div>
-            <div key={block} className="tasks_page_div">
-              <div className="tasks_div">
-                <p className="tasks_header">Отправить Путлера в Гаагу</p>
-                <div>
-                  <p
-                    className="second_task_time"
-                    style={{ backgroundColor: "red" }}
-                  >
-                    <p>25:35</p>
-                  </p>
-                  <p className="tasks_footer" style={{ color: "#EA9127" }}>
-                    -30 MMR
-                  </p>
-                </div>
-              </div>
-              <div className="tasks_div_submit">
-                <TextareaAutosize style={mode?{color:"#bcbec0",backgroundColor:"#ebedf0"}:{color:"#8a8a8a",backgroundColor:"#222226"}} placeholder="Да отправил я вчера последним рейсом! Да отправил я вчера последним рейсом! Да отправил я вчера последним рейсом! Да отправил я вчера последним рейсом! Да отправил я вчера последним рейсом! Да отправил я вчера последним рейсом!" />
-                <button>
-                  <div
-                    style={{
-                      backgroundColor: "#0f82f5",
-                      padding: "4px",
-                      borderRadius: "25px",
-                    }}
-                  >
-                    <i className="fa-sharp fa-solid fa-arrow-right"></i>
-                  </div>
-                </button>
-              </div>
-            </div>
-            <div></div>
-            <p className="date">Доступные</p>
-            <div key={block} className="tasks_page_div">
-              <div className="tasks_div">
-                <p className="tasks_header">Пранк сотрудников</p>
-                <div>
-                  <p className="second_task_time">
-                    <p>48:00</p>
-                    <i className="fa-solid fa-check"></i>
-                  </p>
-                  <p className="tasks_footer" style={{ color: "#AB16CD" }}>
-                    -600 ₸
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div key={block} className="tasks_page_div">
-              <div className="tasks_div">
-                <p className="tasks_header">Накатать донос на Путлера</p>
-                <div>
-                  <p className="second_task_time">
-                    <p>24:00</p>
-                    <AiFillCheckCircle size="30px" />
-                    <i className="fa-solid fa-check"></i>
-                  </p>
-                  <p className="tasks_footer">-30 MMR</p>
-                </div>
-              </div>
-            </div>
-          </div> */
-}

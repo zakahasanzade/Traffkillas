@@ -1,11 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
-import SideNav, {
-  Toggle,
-  Nav,
-  NavItem,
-  NavIcon,
-  NavText,
-} from "@trendmicro/react-sidenav";
+import React from "react";
+import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import "./Sidedropdown.css";
 
@@ -31,7 +25,7 @@ const SideDropdown = ({ allChats, GetProjectId }) => {
               >
                 <NavIcon>
                   <i
-                    class="bi bi-person-circle"
+                    className="bi bi-person-circle"
                     style={{ fontSize: "1.75em" }}
                   ></i>
                 </NavIcon>
@@ -54,7 +48,6 @@ const SideDropdown = ({ allChats, GetProjectId }) => {
               <NavText>Bar Chart</NavText>
             </NavItem> 
         </NavItem> */}
-        
       </SideNav.Nav>
       {/* {allChats &&
           allChats.map((projects) => {

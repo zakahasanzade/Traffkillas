@@ -1,12 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import "../Sidebar.css";
-import {
-  ProSidebar,
-  Menu,
-  MenuItem,
-  SubMenu,
-  SidebarContent,
-} from "react-pro-sidebar";
+import { ProSidebar, Menu, SubMenu } from "react-pro-sidebar";
 import AccountProfile from "../../Assets/AccountProfile.svg";
 
 const ChatsId = (e) => {

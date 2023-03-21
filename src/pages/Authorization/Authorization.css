@@ -10,15 +10,17 @@
   -o-background-size: cover;
   background-size: cover;
   overflow-wrap: break-word;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .page_autorization_main {
-  width: 60%;
-  margin: 0 auto;
+  width: 100%;
 }
 .page_autorization_logo img {
-  width: 806px;
-  margin: 150px auto 100px;
+  width: 800px;
+  margin: 0 auto 70px;
 }
 
 .page_autorization_logo {
@@ -29,38 +31,48 @@
   display: flex;
   flex-direction: column;
   opacity: 1;
-  width: 330px;
+  width: max-content;
   margin: 0 auto;
   justify-content: center;
+  gap: 10px;
 }
-.page_autorization_inputs input {
+.page_autorization_inputs_div {
+  background-color: white;
   width: 330px;
   height: 50px;
+  border-radius: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 25px;
+  overflow: hidden;
+}
+.page_autorization_inputs input {
+  width: 70%;
+  height: 100%;
   text-align: center;
   border: 0;
-  margin-bottom: 10px;
   outline: none;
-  overflow: hidden;
-  padding: 0 45px;
 }
-.page_autorization_inputs {
+.page_autorization_inputs_div {
   position: relative;
 }
 .page_autorization_inputs button {
+  position: absolute;
+  right: 10px;
   width: 32px;
   height: 32px;
-  top: 68px;
-  position: absolute;
   border: 0;
-  right: 9px;
-  background: url("./Assets/Right.svg") no-repeat;
+  outline: none;
   cursor: pointer;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
 }
-
+.page_autorization_inputs button i {
+  font-size: 32px;
+  border-radius: 100%;
+  color: #ea9127;
+}
 /* .ui.icon.input>i.icon{
   border-radius: 25px;
 } */
@@ -79,99 +91,41 @@
   transition: 1s;
 }
 
-/* section {
-  width: 100%;
-  max-width: 420px;
-  min-height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 1rem;
-  /* background-color: rgba(0, 0, 0, 0.4); */
-/* }
-.main-page {
-  background-color: red;
-}
-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  flex-grow: 1;
-  padding-bottom: 1rem;
-}
+@media screen and (min-width: 768px) and (max-width: 1080px) {
+  .page_autorization_logo img {
+    width: 600px;
+    margin: 0 auto 40px;
+  }
 
-a,
-a:visited {
-  color: #fff;
+  .page_autorization_inputs_div {
+    width: 360px;
+    height: 54px;
+    border-radius: 50px;
+  }
+  .page_autorization_inputs button i {
+    font-size: 48px;
+  }
+  .page_autorization_inputs button {
+    right: 19px;
+    top: 12px;
+  }
 }
-
-input[type="text"],
-input[type="password"],
-button,
-textarea {
-  font-family: "Nunito", sans-serif;
-  font-size: 22px;
-  padding: 0.25rem;
-  border-radius: 0.5rem;
+@media screen and (min-width: 480px) and (max-width: 768px) {
+  .page_autorization_logo img {
+    width: 440px;
+    margin: 0 auto 28px;
+  }
+  .page_autorization_inputs_div {
+    width: 440px;
+    height: 54px;
+  }
 }
-
-label,
-button {
-  margin-top: 1rem;
+@media screen and (min-width: 360px) and (max-width: 480px) {
+  .page_autorization_logo img {
+    width: 320px;
+    margin: 0 auto 28px;
+  }
+  .page_autorization_inputs_div {
+    width: 320px;
+  }
 }
-
-button {
-  padding: 0.5rem;
-}
-
-.instructions {
-  font-size: 0.75rem;
-  border-radius: 0.5rem;
-  background: #000;
-  color: #fff;
-  padding: 0.25rem;
-  position: relative;
-  bottom: -10px;
-}
-
-.instructions > svg {
-  margin-right: 0.25rem;
-}
-
-.offscreen {
-  position: absolute;
-  left: -9999px;
-}
-
-.hide {
-  display: none;
-}
-
-.valid {
-  color: limegreen;
-  margin-left: 0.25rem;
-}
-
-.invalid {
-  color: red;
-  margin-left: 0.25rem;
-}
-
-.errmsg {
-  background-color: lightpink;
-  color: firebrick;
-  font-weight: bold;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.line {
-  display: inline-block;
-}
-
-.flexGrow {
-  flex-grow: 1;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
-} */

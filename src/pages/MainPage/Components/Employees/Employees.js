@@ -124,7 +124,7 @@ const Employees = ({ position, mode }) => {
     console.log(formData);
   };
 
-  let employeeUsername = document.getElementById("employeeUsername");
+  // let employeeUsername = document.getElementById("employeeUsername");
   const SubmitDelete = (e) => {
     e.preventDefault();
     fetch("https://api1.traffkillas.kz/delete_user", {
@@ -222,7 +222,7 @@ const Employees = ({ position, mode }) => {
             <Input
               size="mini"
               icon="search"
-              iconPosition="right"
+              iconPosition="left"
               placeholder="Поиск..."
             />
           </div>
@@ -260,7 +260,7 @@ const Employees = ({ position, mode }) => {
             className="employee_header_gift"
           >
             <i
-              class="bi bi-gift-fill"
+              className="bi bi-gift-fill"
               onClick={() => {
                 setEmployeeGift(!EmployeeGift);
                 setCreateEmployee(false);
@@ -282,7 +282,7 @@ const Employees = ({ position, mode }) => {
             className="employee_header_create"
           >
             <i
-              class="bi bi-person-plus-fill"
+              className="bi bi-person-plus-fill"
               onClick={() => {
                 setCreateEmployee(!CreateEmployee);
                 setEmployeeGift(false);
@@ -385,7 +385,7 @@ const Employees = ({ position, mode }) => {
                   disabled={enableCreate && true}
                   style={enableCreate ? { opacity: "0.5" } : { opacity: "1" }}
                 >
-                  <i class="bi bi-plus-circle-fill"></i> Добавить сотрудника
+                  <i className="bi bi-plus-circle-fill"></i> Добавить сотрудника
                 </button>
               </form>
             </div>
@@ -417,7 +417,7 @@ const Employees = ({ position, mode }) => {
                 <p>Ваучер</p>
               </div>
               {employeeGiftData &&
-                employeeGiftData?.map((gift) => {
+                employeeGiftData?.map((gift, index) => {
                   const { name, stuff_name, code, complated, _id } = gift;
                   if (complated === 0) {
                     return (
@@ -437,7 +437,7 @@ const Employees = ({ position, mode }) => {
                               style={{ backgroundColor: "#EA9127" }}
                               className="employee_gifts_button"
                             >
-                              Выдать<i class="bi bi-check-circle-fill"></i>
+                              Выдать<i className="bi bi-check-circle-fill"></i>
                             </button>
                           </div>
                         </form>
@@ -445,6 +445,7 @@ const Employees = ({ position, mode }) => {
                       </>
                     );
                   }
+                  return null;
                 })}
 
               {employeeGiftData &&
@@ -463,7 +464,7 @@ const Employees = ({ position, mode }) => {
                               style={{ backgroundColor: "#16C784" }}
                               className="employee_gifts_button"
                             >
-                              Выдано<i class="bi bi-check-circle-fill"></i>
+                              Выдано<i className="bi bi-check-circle-fill"></i>
                             </button>
                           </div>
                         </div>
@@ -471,6 +472,7 @@ const Employees = ({ position, mode }) => {
                       </>
                     );
                   }
+                  return null;
                 })}
             </div>
           </CSSTransition>
@@ -491,9 +493,7 @@ const Employees = ({ position, mode }) => {
               mmr,
               phone,
               position,
-              project,
               pwd,
-              session,
               title,
               tenge,
               ttk,
@@ -506,11 +506,15 @@ const Employees = ({ position, mode }) => {
                   <div className="wrapper" key={person + index}>
                     <button
                       id={index}
-                      className={mode?"button employee_account light":"button employee_account"}
+                      className={
+                        mode
+                          ? "button employee_account light"
+                          : "button employee_account"
+                      }
                       onClick={(e) => {
                         let IndexElement = index;
                         var res = showUser.map((e, i) => {
-                          if (i == IndexElement) {
+                          if (i === IndexElement) {
                             return !e;
                           } else {
                             return e;
@@ -531,7 +535,7 @@ const Employees = ({ position, mode }) => {
                             {position === 2 && "Тимлид"}
                             {position === 3 && "Сотрудник"}{" "}
                             <i
-                              class="bi bi-chevron-down"
+                              className="bi bi-chevron-down"
                               style={{ fontSize: "12px" }}
                             ></i>
                           </p>
@@ -621,7 +625,7 @@ const Employees = ({ position, mode }) => {
                             onClick={(e) => {
                               let IndexElement = index;
                               var res = showQuestion.map((e, i) => {
-                                if (i == IndexElement) {
+                                if (i === IndexElement) {
                                   return !e;
                                 } else {
                                   return e;
@@ -639,7 +643,13 @@ const Employees = ({ position, mode }) => {
                           timeout={300}
                           unmountOnExit
                         >
-                          <form className={mode?"employee_account_list_question light":"employee_account_list_question"}>
+                          <form
+                            className={
+                              mode
+                                ? "employee_account_list_question light"
+                                : "employee_account_list_question"
+                            }
+                          >
                             <p className="employee_account_question">
                               Вы уверены?
                             </p>
@@ -660,13 +670,13 @@ const Employees = ({ position, mode }) => {
                                     SubmitDelete(e);
                                     setsubmitDelete();
                                   }}
-                                  class="bi bi-arrow-right-circle-fill submit_delete "
+                                  className="bi bi-arrow-right-circle-fill submit_delete "
                                 ></i>
                               ) : (
                                 <i
                                   id={username}
                                   style={{ opacity: "0.5" }}
-                                  class="bi bi-arrow-right-circle-fill submit_delete "
+                                  className="bi bi-arrow-right-circle-fill submit_delete "
                                 ></i>
                               )}
                             </div>
@@ -696,9 +706,7 @@ const Employees = ({ position, mode }) => {
               mmr,
               phone,
               position,
-              project,
               pwd,
-              session,
               title,
               tenge,
               ttk,
@@ -714,11 +722,15 @@ const Employees = ({ position, mode }) => {
                     <div className="wrapper" key={person + index}>
                       <button
                         id={index}
-                        className={mode?"button employee_account light":"button employee_account"}
+                        className={
+                          mode
+                            ? "button employee_account light"
+                            : "button employee_account"
+                        }
                         onClick={(e) => {
                           let IndexElement = index;
                           var res = showUser.map((e, i) => {
-                            if (i == IndexElement) {
+                            if (i === IndexElement) {
                               return !e;
                             } else {
                               return e;
@@ -739,7 +751,7 @@ const Employees = ({ position, mode }) => {
                               {position === 2 && "Тимлид"}
                               {position === 3 && "Сотрудник"}{" "}
                               <i
-                                class="bi bi-chevron-down"
+                                className="bi bi-chevron-down"
                                 style={{ fontSize: "12px" }}
                               ></i>
                             </p>
@@ -831,7 +843,7 @@ const Employees = ({ position, mode }) => {
                               onClick={(e) => {
                                 let IndexElement = index;
                                 var res = showQuestion.map((e, i) => {
-                                  if (i == IndexElement) {
+                                  if (i === IndexElement) {
                                     return !e;
                                   } else {
                                     return e;
@@ -849,7 +861,13 @@ const Employees = ({ position, mode }) => {
                             timeout={300}
                             unmountOnExit
                           >
-                            <form className={mode?"employee_account_list_question light":"employee_account_list_question"}>
+                            <form
+                              className={
+                                mode
+                                  ? "employee_account_list_question light"
+                                  : "employee_account_list_question"
+                              }
+                            >
                               <p className="employee_account_question">
                                 Вы уверены?
                               </p>
@@ -870,13 +888,13 @@ const Employees = ({ position, mode }) => {
                                       SubmitDelete(e);
                                       setsubmitDelete();
                                     }}
-                                    class="bi bi-arrow-right-circle-fill submit_delete "
+                                    className="bi bi-arrow-right-circle-fill submit_delete "
                                   ></i>
                                 ) : (
                                   <i
                                     id={username}
                                     style={{ opacity: "0.5" }}
-                                    class="bi bi-arrow-right-circle-fill submit_delete "
+                                    className="bi bi-arrow-right-circle-fill submit_delete "
                                   ></i>
                                 )}
                               </div>
@@ -905,9 +923,7 @@ const Employees = ({ position, mode }) => {
               mmr,
               phone,
               position,
-              project,
               pwd,
-              session,
               title,
               tenge,
               ttk,
@@ -920,11 +936,15 @@ const Employees = ({ position, mode }) => {
                   <div className="wrapper" key={person + index}>
                     <button
                       id={index}
-                      className={mode?"button employee_account light":"button employee_account"}
+                      className={
+                        mode
+                          ? "button employee_account light"
+                          : "button employee_account"
+                      }
                       onClick={(e) => {
                         let IndexElement = index;
                         var res = showUser.map((e, i) => {
-                          if (i == IndexElement) {
+                          if (i === IndexElement) {
                             return !e;
                           } else {
                             return e;
@@ -945,7 +965,7 @@ const Employees = ({ position, mode }) => {
                             {position === 2 && "Тимлид"}
                             {position === 3 && "Сотрудник"}{" "}
                             <i
-                              class="bi bi-chevron-down"
+                              className="bi bi-chevron-down"
                               style={{ fontSize: "12px" }}
                             ></i>
                           </p>
@@ -1035,7 +1055,7 @@ const Employees = ({ position, mode }) => {
                             onClick={(e) => {
                               let IndexElement = index;
                               var res = showQuestion.map((e, i) => {
-                                if (i == IndexElement) {
+                                if (i === IndexElement) {
                                   return !e;
                                 } else {
                                   return e;
@@ -1053,7 +1073,13 @@ const Employees = ({ position, mode }) => {
                           timeout={300}
                           unmountOnExit
                         >
-                          <form className={mode?"employee_account_list_question light":"employee_account_list_question"}>
+                          <form
+                            className={
+                              mode
+                                ? "employee_account_list_question light"
+                                : "employee_account_list_question"
+                            }
+                          >
                             <p className="employee_account_question">
                               Вы уверены?
                             </p>
@@ -1074,13 +1100,13 @@ const Employees = ({ position, mode }) => {
                                     SubmitDelete(e);
                                     setsubmitDelete();
                                   }}
-                                  class="bi bi-arrow-right-circle-fill submit_delete "
+                                  className="bi bi-arrow-right-circle-fill submit_delete "
                                 ></i>
                               ) : (
                                 <i
                                   id={username}
                                   style={{ opacity: "0.5" }}
-                                  class="bi bi-arrow-right-circle-fill submit_delete "
+                                  className="bi bi-arrow-right-circle-fill submit_delete "
                                 ></i>
                               )}
                             </div>
@@ -1109,10 +1135,7 @@ const Employees = ({ position, mode }) => {
               mmr,
               phone,
               position,
-              project,
               pwd,
-              session,
-              title,
               tenge,
               ttk,
               username,
@@ -1124,11 +1147,15 @@ const Employees = ({ position, mode }) => {
                   <div className="wrapper" key={person + index}>
                     <button
                       id={index}
-                      className={mode?"button employee_account light":"button employee_account"}
+                      className={
+                        mode
+                          ? "button employee_account light"
+                          : "button employee_account"
+                      }
                       onClick={(e) => {
                         let IndexElement = index;
                         var res = showUser.map((e, i) => {
-                          if (i == IndexElement) {
+                          if (i === IndexElement) {
                             return !e;
                           } else {
                             return e;
@@ -1150,7 +1177,7 @@ const Employees = ({ position, mode }) => {
                             {position === 2 && "Тимлид"}
                             {position === 3 && "Сотрудник"}{" "}
                             <i
-                              class="bi bi-chevron-down"
+                              className="bi bi-chevron-down"
                               style={{ fontSize: "12px" }}
                             ></i>
                           </p>
@@ -1240,7 +1267,7 @@ const Employees = ({ position, mode }) => {
                             onClick={(e) => {
                               let IndexElement = index;
                               var res = showQuestion.map((e, i) => {
-                                if (i == IndexElement) {
+                                if (i === IndexElement) {
                                   return !e;
                                 } else {
                                   return e;
@@ -1258,7 +1285,13 @@ const Employees = ({ position, mode }) => {
                           timeout={300}
                           unmountOnExit
                         >
-                          <form className={mode?"employee_account_list_question light":"employee_account_list_question"}>
+                          <form
+                            className={
+                              mode
+                                ? "employee_account_list_question light"
+                                : "employee_account_list_question"
+                            }
+                          >
                             <p className="employee_account_question">
                               Вы уверены?
                             </p>
@@ -1279,13 +1312,13 @@ const Employees = ({ position, mode }) => {
                                     SubmitDelete(e);
                                     setsubmitDelete();
                                   }}
-                                  class="bi bi-arrow-right-circle-fill submit_delete "
+                                  className="bi bi-arrow-right-circle-fill submit_delete "
                                 ></i>
                               ) : (
                                 <i
                                   id={username}
                                   style={{ opacity: "0.5" }}
-                                  class="bi bi-arrow-right-circle-fill submit_delete "
+                                  className="bi bi-arrow-right-circle-fill submit_delete "
                                 ></i>
                               )}
                             </div>

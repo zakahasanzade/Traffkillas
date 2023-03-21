@@ -73,11 +73,11 @@ const Header = ({ ChangeModes, mode }) => {
             className="header_profile_buttons"
           >
             {mode ? (
-              <i onClick={ChangeMode} class="bi bi-sun-fill"></i>
+              <i onClick={ChangeMode} className="bi bi-sun-fill"></i>
             ) : (
-              <i onClick={ChangeMode} class="bi bi-moon-stars-fill"></i>
+              <i onClick={ChangeMode} className="bi bi-moon-stars-fill"></i>
             )}
-            <i onClick={OpeanMessenger} class="bi bi-chat-quote-fill"></i>
+            <i onClick={OpeanMessenger} className="bi bi-chat-quote-fill"></i>
           </div>
           <button
             style={

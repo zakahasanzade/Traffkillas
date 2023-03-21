@@ -100,32 +100,35 @@ const Authorization = () => {
           id="form"
           onSubmit={(e) => submit(e)}
         >
-          <input
-            placeholder="логин"
-            type="text"
-            name="username"
-            className="username"
-          ></input>
-          <input
-            placeholder="пароль"
-            type="password"
-            name="password"
-            className="password"
-          ></input>
-          {/* <div type="submit"> */}
-          <button type="submit" className="arrow" />
-          {/* </div> */}
+          <div className="page_autorization_inputs_div">
+            <input
+              placeholder="логин"
+              type="text"
+              name="username"
+              className="username"
+            ></input>
+          </div>
+          <div className="page_autorization_inputs_div">
+            <input
+              placeholder="пароль"
+              type="password"
+              name="password"
+              className="password"
+            ></input>
+            <button type="submit" className="arrow">
+              <i class="bi bi-arrow-right-circle-fill"></i>
+            </button>
+          </div>
+          <div className="page_autorization_footer">
+            <p
+              onClick={() => {
+                createNotification("info");
+              }}
+            >
+              Забыли пароль?
+            </p>
+          </div>
         </form>
-
-        <div className="page_autorization_footer">
-          <p
-            onClick={() => {
-              createNotification("info");
-            }}
-          >
-            Забыли пароль?
-          </p>
-        </div>
       </main>
       <NotificationContainer />
     </div>

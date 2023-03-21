@@ -1,10 +1,9 @@
 import React from "react";
-import { ChatId, Sidebar } from "./Sidebar/Sidebar";
+import { Sidebar } from "./Sidebar/Sidebar";
 import "./Messenger.css";
 import Thread from "./Thread/Thread.js";
 import SideDropdown from "./SideDropdown/SideDropdown";
 import { useEffect, useState } from "react";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 
 function Messenger({ CloseMessengerWindow }) {
   const [NewChatId, setNewChatId] = useState();
@@ -35,7 +34,6 @@ function Messenger({ CloseMessengerWindow }) {
   };
   const [GetChat, setGetChat] = useState([]);
   const [ProjectId, setProjcetId] = useState(null);
-  const [ChatId, setChatId] = useState([]);
   const [navColor, setNavColor] = useState();
   useEffect(() => {
     ProjectId &&
@@ -87,9 +85,9 @@ function Messenger({ CloseMessengerWindow }) {
   const NoAnswer = "NoAnswer";
   const ChatFolders = () => {
     fetch(
-      `https://api2.traffkillas.kz/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}&category=${NoAnswer}`,
+      `https://api2.traffkillas.kz/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}&category=${2}`,
       {
-        method: "POST",
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -142,7 +140,6 @@ function Messenger({ CloseMessengerWindow }) {
         OnceUpdate={OnceUpdate}
         StopRendering={StopRendering}
         GetChat={GetChat}
-        ChatId={ChatId}
         ProjectId={ProjectId}
         navColor={navColor}
         setChangeNavColor={setChangeNavColor}
@@ -154,7 +151,6 @@ function Messenger({ CloseMessengerWindow }) {
         setMessages={setMessages}
         stateChat={stateChat}
         RenderChats={RenderChats}
-        ChatId={ChatId}
         ProjectId={ProjectId}
       />
     </div>

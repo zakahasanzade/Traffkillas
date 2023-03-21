@@ -1,12 +1,9 @@
 // import { Avatar, IconButton } from "@material-ui/core";
 import React, { useEffect, useState, useRef } from "react";
 import AccountProfile from "../Assets/AccountProfile.svg";
-import { MessageBox } from "react-chat-elements";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import { CSSTransition } from "react-transition-group";
-import { JsonHubProtocol } from "@microsoft/signalr";
 import "./Thread.css";
-import { ChatsId } from "../Sidebar/Components/AllChats";
 
 // import db from "../firebase";
 // import firebase from "firebase";
@@ -25,19 +22,18 @@ const Thread = ({
   setMessages,
   stateChat,
   RenderChats,
-  ChatId,
   ProjectId,
 }) => {
   // const [messages, setMessages] = useState([]);
-  const [user, setUser] = useState("");
-  const [message, setMessage] = useState("");
+  // const [user, setUser] = useState("");
+  // const [message, setMessage] = useState("");
   const [connection, setConnection] = useState(null);
   const [typeMessage, SetTypeMessage] = useState();
   const [showTemplate, setShowTemplate] = useState();
   const chatRef = useRef();
   const token = localStorage.getItem("token");
 
-  let UserMessagesArr = [];
+  // let UserMessagesArr = [];
   // useEffect(() => {
   //   // const GetChatMessages = () => {
   //   fetch(
@@ -194,7 +190,7 @@ const Thread = ({
         console.log(messageGetId);
         console.log(NewChatId);
         TestState && (chatRef.current.scrollTop = chatRef.current.scrollHeight);
-        SetTypeMessage()
+        SetTypeMessage();
       })
       .catch((error) => console.error(error));
   };
@@ -306,8 +302,8 @@ const Thread = ({
             </div>
           </div>
           <div className="thread__header_right">
-            <i class="bi bi-search"></i>
-            <i class="bi bi-three-dots-vertical"></i>
+            <i className="bi bi-search"></i>
+            <i className="bi bi-three-dots-vertical"></i>
           </div>
         </div>
       )}
@@ -336,36 +332,36 @@ const Thread = ({
               " " +
               standartFormat.toLocaleString("ru-ru", { month: "short" });
             return (
-              <div class="modal-body" key={messages + index}>
-                <div class="msg-body">
+              <div className="modal-body" key={messages + index}>
+                <div className="msg-body">
                   <ul>
                     {index === 0 ||
                     LastDateNum.getDate() + LastDateNum.getMonth() !==
                       standartFormat.getDate() + standartFormat.getMonth() ? (
                       <li>
-                        <div class="divider">
+                        <div className="divider">
                           <h6>{ChatDate}</h6>
                         </div>
                       </li>
                     ) : null}
 
                     {direction === 0 ? (
-                      <li class="sender">
+                      <li className="sender">
                         <p>
                           {" "}
                           {text}
-                          <span class="time chat_time">{lastTime}</span>
+                          <span className="time chat_time">{lastTime}</span>
                         </p>
                       </li>
                     ) : (
                       ""
                     )}
                     {direction === 1 ? (
-                      <li class="repaly">
+                      <li className="repaly">
                         <p>
                           {text}
 
-                          <span class="time">{lastTime}</span>
+                          <span className="time">{lastTime}</span>
                         </p>
                       </li>
                     ) : (
@@ -386,10 +382,10 @@ const Thread = ({
             setShowTemplate(!showTemplate);
           }}
         >
-          <i class="bi bi-chat-text-fill"></i>
+          <i className="bi bi-chat-text-fill"></i>
         </div>
         <form className="thread__input_type">
-          <i class="bi bi-emoji-smile"></i>
+          <i className="bi bi-emoji-smile"></i>
           <input
             className="thread__input_type_input"
             onKeyDown={(event) => handleEnterKeyPress(event)}
@@ -399,7 +395,7 @@ const Thread = ({
               SetTypeMessage(e.target.value);
             }}
           />
-          <i class="bi bi-paperclip" style={{ transform: "rotate(45deg)" }}></i>
+          <i className="bi bi-paperclip" style={{ transform: "rotate(45deg)" }}></i>
         </form>
 
         <div
@@ -411,7 +407,7 @@ const Thread = ({
           }}
           className="thread__input_send"
         >
-          <i class="bi bi-send-fill" style={{ transform: "rotate(90deg)" }}></i>
+          <i className="bi bi-send-fill" style={{ transform: "rotate(90deg)" }}></i>
         </div>
         <CSSTransition
           in={showTemplate}
@@ -432,7 +428,7 @@ const Thread = ({
                 />
                 <i
                   onClick={(e) => SetChatTemplates(e)}
-                  class="bi bi-plus-circle-fill"
+                  className="bi bi-plus-circle-fill"
                 ></i>
               </div>
             </div>
@@ -445,7 +441,7 @@ const Thread = ({
                       {text}
                     </p>
                     <i
-                      class="bi bi-trash3-fill"
+                      className="bi bi-trash3-fill"
                       id={id}
                       onClick={(e) => DeleteChatTemplates(e)}
                     ></i>

@@ -82,8 +82,8 @@
   line-height: 150%;
 }
 .market_product img {
-  max-width: 197px;
-  max-height: 208px;
+  width: 197px;
+  height: 208px;
 }
 .market_send {
   width: 1010px;

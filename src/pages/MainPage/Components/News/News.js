@@ -364,7 +364,7 @@ const News = ({ position, mode }) => {
                       {position !== "3" && (
                         <i
                           onClick={DeletePost}
-                          class="bi bi-trash3-fill"
+                          className="bi bi-trash3-fill"
                           id={_id.$oid}
                         ></i>
                       )}

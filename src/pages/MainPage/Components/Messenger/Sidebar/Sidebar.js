@@ -1,20 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
-import {
-  ProSidebar,
-  Menu,
-  MenuItem,
-  SubMenu,
-  SidebarContent,
-} from "react-pro-sidebar";
+import { Menu } from "react-pro-sidebar";
 import AccountProfile from "../Assets/AccountProfile.svg";
-import { Carousel } from "react-responsive-carousel";
 // import { AllChats, ChatsId } from "./Components/AllChats";
-
-import Tasks from "./Components/Tasks";
-import { HubConnectionBuilder } from "@microsoft/signalr";
-import Marketing from "./Components/Marketing";
-
 // import SearchIcon from "@material-ui/icons/Search";
 // import { Avatar, IconButton } from "@material-ui/core";
 // import SidebarThread from "./SidebarThread";
@@ -38,16 +26,16 @@ const Sidebar = ({
   CloseMessenger,
   OnceUpdate,
   StopRendering,
-  ChatFolders
+  ChatFolders,
 }) => {
   // const [openChat, SetOpenChat] = useState(false);
-  const chatRef = useRef();
-  let UserMessagesArr = [];
-  const [UserMessages, setUserMessages] = useState();
-  const [lastOpen, setLastOpen] = useState();
+  // const chatRef = useRef();
+  // let UserMessagesArr = [];
+  // const [UserMessages, setUserMessages] = useState();
+  // const [lastOpen, setLastOpen] = useState();
   // const [navColor, setNavColor] = useState();
 
-  let GetChatArr = [];
+  // let GetChatArr = [];
   // const [GetChat, setGetChat] = useState([]);
   // const GetChats = () => {
   //   fetch("http://146.0.78.143:5354/api/v1/messages/getChats", {
@@ -132,13 +120,12 @@ const Sidebar = ({
   // }
   return (
     <div className="sidebar">
-      {console.log(lastOpen)}
       <div className="sidebar__header">
         {/* <div className="sidebar_menu">
-          <i class="bi bi-list"></i>
+          <i className="bi bi-list"></i>
         </div> */}
         <div className="sidebar__search">
-          <i class="bi bi-search"></i>
+          <i className="bi bi-search"></i>
           <input placeholder="Поиск" className="sidebar__input" />
         </div>
       </div>
@@ -158,7 +145,7 @@ const Sidebar = ({
             onClick={(e) => {
               setActiveChat("Tasks");
               StyleNav(e);
-              ChatFolders()
+              ChatFolders();
             }}
           >
             Задания
@@ -182,11 +169,11 @@ const Sidebar = ({
                 const { chatId, lastMessage } = chats;
                 const standartFormat = new Date(lastMessage.sendTime);
                 const lastTime =
-                  (standartFormat.getHours().toLocaleString().length == 1
+                  (standartFormat.getHours().toLocaleString().length === 1
                     ? "0" + standartFormat.getHours()
                     : standartFormat.getHours()) +
                   ":" +
-                  (standartFormat.getMinutes().toLocaleString().length == 1
+                  (standartFormat.getMinutes().toLocaleString().length === 1
                     ? "0" + standartFormat.getMinutes()
                     : standartFormat.getMinutes());
                 return (
@@ -241,13 +228,13 @@ const Sidebar = ({
         {/* {activeChat === "Tasks" && <Tasks GetChat={GetChat} />}
         {activeChat === "Marketing" && <Marketing GetChat={GetChat} />} */}
       </div>
-      <div
-        className="sidebar__bottom"
-        onClick={() => {
-          CloseMessenger(false);
-        }}
-      >
-        <i class="bi bi-box-arrow-left sidebar__bottom_close"></i>
+      <div className="sidebar__bottom">
+        <i
+          onClick={() => {
+            CloseMessenger(false);
+          }}
+          className="bi bi-box-arrow-left sidebar__bottom_close"
+        ></i>
       </div>
     </div>
   );

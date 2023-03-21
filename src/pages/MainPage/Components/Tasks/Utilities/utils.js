@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +37,7 @@ const MenuProps = {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
       borderRadius: "25px",
-      marginTop:"10px"
+      marginTop: "10px",
     },
   },
   getContentAnchorEl: null,

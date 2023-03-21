@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../Leaderboard.css";
-import Leader from "../Leaderboard Assets/Leader_Photo.svg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion/dist/framer-motion";
-import { Background } from "devextreme-react/range-selector";
-import ProjectPhoto from "../Leaderboard Assets/ProjectPhoto.svg";
 
 const EmployerLeaderboard = ({ position, mode }) => {
   const [employerLeaderboard, setEmployerLeaderboard] = useState([]);
@@ -84,7 +78,7 @@ const EmployerLeaderboard = ({ position, mode }) => {
       exit={{ opacity: 0, x: -100 }}
       transition={{ duration: 0.3 }}
     >
-      <div className={mode?"leader_date lightColor":"leader_date"}>
+      <div className={mode ? "leader_date lightColor" : "leader_date"}>
         <p
           style={
             statisticsState === "one_day_dep"
@@ -107,7 +101,6 @@ const EmployerLeaderboard = ({ position, mode }) => {
             statisticsState === "one_week_dep"
               ? {
                   textDecoration: "underline",
-                  color: "white",
                   opacity: "0.7",
                   cursor: "pointer",
                 }
@@ -124,7 +117,6 @@ const EmployerLeaderboard = ({ position, mode }) => {
             statisticsState === "two_week_dep"
               ? {
                   textDecoration: "underline",
-                  color: "white",
                   opacity: "0.7",
                   cursor: "pointer",
                 }
@@ -161,7 +153,7 @@ const EmployerLeaderboard = ({ position, mode }) => {
                           ? "black"
                           : index === 2
                           ? "black"
-                          : "white",
+                          : "none",
                     }}
                     className="first_leader_number"
                   >

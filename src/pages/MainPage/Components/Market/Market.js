@@ -1,25 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion/dist/framer-motion";
-import { Uploader } from "rsuite";
 import TextareaAutosize from "react-textarea-autosize";
-import CameraRetroIcon from "@rsuite/icons/legacy/CameraRetro";
-import dropify from "dropify";
-import notify from "devextreme/ui/notify";
-import FileUploader from "devextreme-react/file-uploader";
-import ImageUploading from "react-images-uploading";
 import axios from "axios";
 import "react-dropzone-uploader/dist/styles.css";
-import Dropzone from "react-dropzone-uploader";
-import { CSSTransition } from "react-transition-group";
 import FormData from "form-data";
 import ReactCardFlip from "react-card-flip";
 import {
   NotificationContainer,
   NotificationManager,
 } from "react-notifications";
-import { useRef } from "react";
 import "./Market.css";
-import { cookie, image } from "fontawesome";
 
 const Market = ({ mode, position }) => {
   let AssetsArr = [];
@@ -141,7 +131,7 @@ const Market = ({ mode, position }) => {
     })
       .then((response) => {
         console.log(response);
-        if (response.status != 200) {
+        if (response.status !== 200) {
           throw new Error();
         }
         return response.text();
@@ -150,7 +140,7 @@ const Market = ({ mode, position }) => {
         SetGetCode(JSON.parse(result).code);
         var temp = SubmitProduct.map((el, i) => {
           el = false;
-          if (i == index) {
+          if (i === index) {
             return !el;
           }
 
@@ -169,7 +159,7 @@ const Market = ({ mode, position }) => {
   const handleClick = (e, index) => {
     var temp = isFlipped.map((el, i) => {
       el = false;
-      if (i == index) {
+      if (i === index) {
         return !el;
       }
 
@@ -190,8 +180,6 @@ const Market = ({ mode, position }) => {
 
     console.log(SubmitProduct);
   };
-
-  const icon = <i className="fa-solid fa-paperclip"> Закрепить Файл </i>;
 
   return (
     <>
@@ -300,11 +288,12 @@ const Market = ({ mode, position }) => {
         <div className="market_products">
           {assets &&
             assets.map((product, index) => {
-              const { name, price, url, _id, content } = product;
+              const { name, price, url, _id } = product;
               return (
                 <ReactCardFlip
                   isFlipped={isFlipped[index]}
                   flipDirection="horizontal"
+                  key={product + index}
                 >
                   <div id={_id} onClick={(e) => handleClick(e, index)}>
                     <div
@@ -402,7 +391,7 @@ const Market = ({ mode, position }) => {
                                 }
                           }
                         >
-                          <i class="bi bi-cart-check-fill"></i> -{ProductPrice}
+                          <i className="bi bi-cart-check-fill"></i> -{ProductPrice}
                         </button>
                         <p style={{ fontSize: "12px" }}>
                           550 000 TTK = 500 000 TTK

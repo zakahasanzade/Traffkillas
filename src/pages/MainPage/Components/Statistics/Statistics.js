@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import ProfileImage from "./StatisticsAssets/Profile Img.svg";
-import ProfileImage2 from "./StatisticsAssets/Profile Img2.svg";
-import Graph from "./StatisticsAssets/Statistics Graph.svg";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "react-pro-sidebar/dist/css/styles.css";
 import { motion } from "framer-motion/dist/framer-motion";
@@ -10,7 +9,6 @@ import { CSSTransition } from "react-transition-group";
 import ReverseVector from "./StatisticsAssets/Vector.svg";
 import StatisticsGraph from "./StatisticsGraph/StatisticsGraph.js";
 import axios from "axios";
-import { Uploader } from "rsuite";
 import {
   ProSidebar,
   Menu,
@@ -19,10 +17,7 @@ import {
   SidebarContent,
 } from "react-pro-sidebar";
 import {
-  faCaretUp,
   faTicket,
-  faEye,
-  faMars,
   faClock,
   faPiggyBank,
 } from "@fortawesome/free-solid-svg-icons";
@@ -102,7 +97,7 @@ const Statistics = ({ position, mode }) => {
           </span>
         </div>
         <div className="statistics_submenu_div black">
-          <i class="bi bi-people-fill"></i> 10 000
+          <i className="bi bi-people-fill"></i> 10 000
         </div>
         <div className="statistics_submenu_div black">
           <FontAwesomeIcon icon={faClock} /> 5 мин
@@ -212,7 +207,7 @@ const Statistics = ({ position, mode }) => {
                                 fontSize: "16px",
                                 cursor: "pointer",
                               }}
-                              class="bi bi-pencil-square"
+                              className="bi bi-pencil-square"
                             ></i>
                           </label>
 
@@ -233,7 +228,7 @@ const Statistics = ({ position, mode }) => {
                             onClick={(e) => e.stopPropagation()}
                             type="submit"
                           >
-                            <i class="bi bi-check-circle-fill"></i>
+                            <i className="bi bi-check-circle-fill"></i>
                           </button> */}
                         </form>
                       )}
@@ -261,8 +256,12 @@ const Statistics = ({ position, mode }) => {
                               : { backgroundColor: "#16C784" }
                           }
                         >
-                          {percen > 0 && <i class="bi bi-caret-up-fill"></i>}
-                          {percen < 0 && <i class="bi bi-caret-down-fill"></i>}
+                          {percen > 0 && (
+                            <i className="bi bi-caret-up-fill"></i>
+                          )}
+                          {percen < 0 && (
+                            <i className="bi bi-caret-down-fill"></i>
+                          )}
                           {Math.abs(percen)}%
                         </p>
                       </div>
@@ -285,16 +284,16 @@ const Statistics = ({ position, mode }) => {
                   </div>
                   <div className="statistics_submenu statistics_icons">
                     {/* <div className="statistics_submenu_div white">
-                      <i class="bi bi-eye-fill"></i> 600
+                      <i className="bi bi-eye-fill"></i> 600
                     </div> */}
                     {/* <div className="statistics_submenu_div orange">
-                      <i class="bi bi-ticket-perforated-fill"></i> 54
+                      <i className="bi bi-ticket-perforated-fill"></i> 54
                     </div> */}
                     <div className="statistics_submenu_div blue">
                       {aud_gender == "male" ? (
-                        <i class="bi bi-gender-male"> 54.2%</i>
+                        <i className="bi bi-gender-male"> 54.2%</i>
                       ) : (
-                        <i class="bi bi-gender-female"> 54.2%</i>
+                        <i className="bi bi-gender-female"> 54.2%</i>
                       )}
                     </div>
                     {/* <div className="statistics_submenu_div red">1 200 000₸</div> */}
@@ -366,21 +365,22 @@ const Statistics = ({ position, mode }) => {
                         Количество депозитов:{" "}
                         <span style={{ color: "#C21556" }}>
                           {" "}
-                          <i class="bi bi-piggy-bank-fill"></i> {two_week_dep}
+                          <i className="bi bi-piggy-bank-fill"></i>{" "}
+                          {two_week_dep}
                         </span>
                       </p>
                       <p>
                         Обработано тикетов:{" "}
                         <span style={{ color: "#EA9127" }}>
                           {" "}
-                          <i class="bi bi-ticket-perforated-fill"></i> 647
+                          <i className="bi bi-ticket-perforated-fill"></i> 647
                         </span>
                       </p>
                       <p>
                         Количество регистраций:{" "}
                         <span>
                           {" "}
-                          <i class="bi bi-people-fill"></i> {two_week_reg}
+                          <i className="bi bi-people-fill"></i> {two_week_reg}
                         </span>
                       </p>
                     </div>
@@ -428,19 +428,19 @@ const Statistics = ({ position, mode }) => {
                                     </div>
 
                                     <div className="statistics_submenu_div black">
-                                      <i class="bi bi-clock-fill"></i>{" "}
+                                      <i className="bi bi-clock-fill"></i>{" "}
                                       {all_reply_time} мин
                                     </div>
                                     <div className="statistics_submenu_div orange">
-                                      <i class="bi bi-ticket-perforated-fill"></i>{" "}
+                                      <i className="bi bi-ticket-perforated-fill"></i>{" "}
                                       {all_ticket}
                                     </div>
                                     <div className="statistics_submenu_div black">
-                                      <i class="bi bi-people-fill"></i>{" "}
+                                      <i className="bi bi-people-fill"></i>{" "}
                                       {reg ? reg : 0}
                                     </div>
                                     <div className="statistics_submenu_div pink">
-                                      <i class="bi bi-piggy-bank-fill"></i>{" "}
+                                      <i className="bi bi-piggy-bank-fill"></i>{" "}
                                       {dep ? dep : 0}
                                     </div>
                                   </div>
@@ -448,7 +448,7 @@ const Statistics = ({ position, mode }) => {
                               >
                                 <MenuItem>
                                   {left_join_stat &&
-                                    left_join_stat?.map((object) => {
+                                    left_join_stat?.map((object, index) => {
                                       const {
                                         join,
                                         left,
@@ -458,7 +458,10 @@ const Statistics = ({ position, mode }) => {
                                         reply_time,
                                       } = object;
                                       return (
-                                        <div className="statistics_submenu ">
+                                        <div
+                                          key={object + index}
+                                          className="statistics_submenu "
+                                        >
                                           <div
                                             className="statistics_submenu_div yellow"
                                             style={{
@@ -486,18 +489,19 @@ const Statistics = ({ position, mode }) => {
                                           </div>
 
                                           <div className="statistics_submenu_div black">
-                                            <i class="bi bi-clock-fill"></i>{" "}
+                                            <i className="bi bi-clock-fill"></i>{" "}
                                             {reply_time} мин
                                           </div>
                                           <div className="statistics_submenu_div orange">
-                                            <i class="bi bi-ticket-perforated-fill"></i>{" "}
+                                            <i className="bi bi-ticket-perforated-fill"></i>{" "}
                                             {ticket}
                                           </div>
                                           <div className="statistics_submenu_div black">
-                                            <i class="bi bi-people-fill"></i> 0
+                                            <i className="bi bi-people-fill"></i>{" "}
+                                            0
                                           </div>
                                           <div className="statistics_submenu_div pink">
-                                            <i class="bi bi-piggy-bank-fill"></i>{" "}
+                                            <i className="bi bi-piggy-bank-fill"></i>{" "}
                                             0
                                           </div>
                                         </div>

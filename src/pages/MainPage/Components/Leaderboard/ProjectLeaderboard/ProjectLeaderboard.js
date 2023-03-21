@@ -1,12 +1,11 @@
 import React from "react";
 import "../Leaderboard.css";
 import { motion } from "framer-motion/dist/framer-motion";
-import ProjectPhoto from "../Leaderboard Assets/ProjectPhoto.svg";
 import { useEffect } from "react";
 import { useState } from "react";
 import Leader from "../Leaderboard Assets/Leader_Photo.svg";
 
-const ProjectLeaderboard = ({position,mode}) => {
+const ProjectLeaderboard = ({ position, mode }) => {
   const [projectLeaderboard, setProjectLeaderboard] = useState([]);
   const GetProjectLeaderboard = () => {
     fetch(`https://api1.traffkillas.kz/get_leaderboard`, {
@@ -73,7 +72,6 @@ const ProjectLeaderboard = ({position,mode}) => {
     }
   }, [statisticsState]);
 
-  const [employerNumeration, setEmployerNumeration] = useState(1);
   return (
     <motion.div
       className="main"
@@ -85,7 +83,7 @@ const ProjectLeaderboard = ({position,mode}) => {
     >
       {/* <div className="main_header">{<Header />}</div>
         <div className="NavBar">{<NavBar />}</div> */}
-      <div className={mode?"leader_date lightColor":"leader_date"}>
+      <div className={mode ? "leader_date lightColor" : "leader_date"}>
         <p
           style={
             statisticsState === "one_day_dep"
@@ -108,7 +106,6 @@ const ProjectLeaderboard = ({position,mode}) => {
             statisticsState === "one_week_dep"
               ? {
                   textDecoration: "underline",
-                  color: "white",
                   opacity: "0.7",
                   cursor: "pointer",
                 }
@@ -125,7 +122,6 @@ const ProjectLeaderboard = ({position,mode}) => {
             statisticsState === "two_week_dep"
               ? {
                   textDecoration: "underline",
-                  color: "white",
                   opacity: "0.7",
                   cursor: "pointer",
                 }
@@ -146,7 +142,7 @@ const ProjectLeaderboard = ({position,mode}) => {
               element;
 
             return (
-              <div className={mode?"leader_div light":"leader_div"}>
+              <div className={mode ? "leader_div light" : "leader_div"}>
                 <div className="leader_left_div">
                   <div
                     style={{
@@ -165,7 +161,7 @@ const ProjectLeaderboard = ({position,mode}) => {
                           ? "black"
                           : index === 2
                           ? "black"
-                          : "white",
+                          : "none",
                     }}
                     className="first_leader_number"
                   >
@@ -185,8 +181,10 @@ const ProjectLeaderboard = ({position,mode}) => {
                             : { backgroundColor: "#16C784" }
                         }
                       >
-                        {percen > 0 && <i class="bi bi-caret-up-fill"></i>}
-                        {percen < 0 && <i class="bi bi-caret-down-fill"></i>}
+                        {percen > 0 && <i className="bi bi-caret-up-fill"></i>}
+                        {percen < 0 && (
+                          <i className="bi bi-caret-down-fill"></i>
+                        )}
                         {Math.abs(percen)}%
                       </p>
                     </div>

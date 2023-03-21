@@ -288,7 +288,7 @@ const Profile = ({ position, mode }) => {
             ></img>
             <p>Аккаунт </p>
             <div className="profile_back_button" onClick={BackButtonClick}>
-              <i class="bi bi-house-door-fill"></i>
+              <i className="bi bi-house-door-fill"></i>
               <p>На главную</p>
             </div>
           </div>
@@ -304,7 +304,7 @@ const Profile = ({ position, mode }) => {
                 <p className="dropdown">
                   <i
                     style={{ marginRight: "8px" }}
-                    class="bi bi-pencil-square"
+                    className="bi bi-pencil-square"
                   ></i>{" "}
                   Редактировать профиль
                 </p>
@@ -326,7 +326,7 @@ const Profile = ({ position, mode }) => {
                 >
                   <i
                     style={{ color: "black" }}
-                    class="bi bi-box-arrow-in-left"
+                    className="bi bi-box-arrow-in-left"
                   ></i>
                   <p style={{ color: "black" }}>Выйти из аккаунта</p>
                 </div>
@@ -339,7 +339,11 @@ const Profile = ({ position, mode }) => {
               >
                 <form
                   // action="PUT"
-                  className={mode?"profile_edtForm profile_form dropdown light":"profile_edtForm profile_form dropdown"}
+                  className={
+                    mode
+                      ? "profile_edtForm profile_form dropdown light"
+                      : "profile_edtForm profile_form dropdown"
+                  }
                   onSubmit={(e) => EditProfile(e)}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -572,7 +576,7 @@ const Profile = ({ position, mode }) => {
                         </div>
                         <div className="admin_statistics_info_balance">
                           <p>
-                            <i class="bi bi-people-fill"></i> 330
+                            <i className="bi bi-people-fill"></i> 330
                           </p>
                           <p style={{ color: "#C21556" }}>
                             <i className="bi bi-piggy-bank-fill"></i> 647
@@ -581,7 +585,7 @@ const Profile = ({ position, mode }) => {
                       </div>
                     </div>
                     <div className="admin_payments">
-                      <div className="admin_payments_details ">
+                      <div className={mode?"admin_payments_details light":"admin_payments_details "}>
                         <p>KPI</p>
                         <div className="input_enable_default default_kpi">
                           <p className="admin_payments_details_input">
@@ -597,9 +601,9 @@ const Profile = ({ position, mode }) => {
                         </div>
 
                         <div className="input_enable_onclick onclick_kpi">
-                          <input class="admin_input_edit edit_kpi"></input>₸{" "}
+                          <input className="admin_input_edit edit_kpi"></input>₸{" "}
                           <i
-                            class="bi bi-check-circle-fill"
+                            className="bi bi-check-circle-fill"
                             id="kpi"
                             onClick={(e) => EditSubmit(e)}
                           ></i>
@@ -607,12 +611,12 @@ const Profile = ({ position, mode }) => {
                             style={{ marginLeft: "5px" }}
                             id="kpi"
                             onClick={(el) => CancelEdit(el)}
-                            class="bi bi-x-circle-fill"
+                            className="bi bi-x-circle-fill"
                           ></i>
                         </div>
                       </div>
                       <p className="admin_payments_title">Выплаты</p>
-                      <div className="admin_payments_details">
+                      <div className={mode?"admin_payments_details light":"admin_payments_details "}>
                         <p>Продакшн</p>
                         <div className="input_enable_default default_prodaction">
                           <p className="admin_payments_details_input">
@@ -628,10 +632,10 @@ const Profile = ({ position, mode }) => {
                         </div>
 
                         <div className="input_enable_onclick onclick_prodaction">
-                          <input class="admin_input_edit edit_prodaction"></input>
+                          <input className="admin_input_edit edit_prodaction"></input>
                           ₸{" "}
                           <i
-                            class="bi bi-check-circle-fill"
+                            className="bi bi-check-circle-fill"
                             id="prodaction"
                             onClick={(el) => EditSubmit(el)}
                           ></i>
@@ -639,11 +643,11 @@ const Profile = ({ position, mode }) => {
                             id="prodaction"
                             style={{ marginLeft: "5px" }}
                             onClick={(el) => CancelEdit(el)}
-                            class="bi bi-x-circle-fill"
+                            className="bi bi-x-circle-fill"
                           ></i>
                         </div>
                       </div>
-                      <div className="admin_payments_details ">
+                      <div className={mode?"admin_payments_details light":"admin_payments_details "}>
                         <p>Контентмейкер</p>
                         <div className="input_enable_default default_contentmaker">
                           <p className="admin_payments_details_input">
@@ -659,10 +663,10 @@ const Profile = ({ position, mode }) => {
                         </div>
 
                         <div className="input_enable_onclick onclick_contentmaker">
-                          <input class="admin_input_edit edit_contentmaker"></input>
+                          <input className="admin_input_edit edit_contentmaker"></input>
                           ₸{" "}
                           <i
-                            class="bi bi-check-circle-fill"
+                            className="bi bi-check-circle-fill"
                             id="contentmaker"
                             onClick={(e) => EditSubmit(e)}
                           ></i>
@@ -670,11 +674,11 @@ const Profile = ({ position, mode }) => {
                             style={{ marginLeft: "5px" }}
                             id="contentmaker"
                             onClick={(el) => CancelEdit(el)}
-                            class="bi bi-x-circle-fill"
+                            className="bi bi-x-circle-fill"
                           ></i>
                         </div>
                       </div>
-                      <div className="admin_payments_details ">
+                      <div className={mode?"admin_payments_details light":"admin_payments_details "}>
                         <p>Обработка</p>
                         <div className="input_enable_default default_treat_1">
                           <p className="admin_payments_details_input">
@@ -690,9 +694,10 @@ const Profile = ({ position, mode }) => {
                         </div>
 
                         <div className="input_enable_onclick onclick_treat_1">
-                          <input class="admin_input_edit edit_treat_1"></input>₸{" "}
+                          <input className="admin_input_edit edit_treat_1"></input>
+                          ₸{" "}
                           <i
-                            class="bi bi-check-circle-fill"
+                            className="bi bi-check-circle-fill"
                             id="treat_1"
                             onClick={(e) => EditSubmit(e)}
                           ></i>
@@ -700,11 +705,11 @@ const Profile = ({ position, mode }) => {
                             style={{ marginLeft: "5px" }}
                             id="treat_1"
                             onClick={(el) => CancelEdit(el)}
-                            class="bi bi-x-circle-fill"
+                            className="bi bi-x-circle-fill"
                           ></i>
                         </div>
                       </div>
-                      <div className="admin_payments_details ">
+                      <div className={mode?"admin_payments_details light":"admin_payments_details "}>
                         <p>Обработка(вечер)</p>
                         <div className="input_enable_default default_treat_2">
                           <p className="admin_payments_details_input">
@@ -720,9 +725,10 @@ const Profile = ({ position, mode }) => {
                         </div>
 
                         <div className="input_enable_onclick onclick_treat_2">
-                          <input class="admin_input_edit edit_treat_2"></input>₸{" "}
+                          <input className="admin_input_edit edit_treat_2"></input>
+                          ₸{" "}
                           <i
-                            class="bi bi-check-circle-fill"
+                            className="bi bi-check-circle-fill"
                             id="treat_2"
                             onClick={(e) => EditSubmit(e)}
                           ></i>
@@ -730,11 +736,11 @@ const Profile = ({ position, mode }) => {
                             style={{ marginLeft: "5px" }}
                             id="treat_2"
                             onClick={(el) => CancelEdit(el)}
-                            class="bi bi-x-circle-fill"
+                            className="bi bi-x-circle-fill"
                           ></i>
                         </div>
                       </div>
-                      <div className="admin_payments_details ">
+                      <div className={mode?"admin_payments_details light":"admin_payments_details "}>
                         <p>Обработка(утрен)</p>
                         <div className="input_enable_default default_treat_3">
                           <p className="admin_payments_details_input">
@@ -750,9 +756,10 @@ const Profile = ({ position, mode }) => {
                         </div>
 
                         <div className="input_enable_onclick onclick_treat_3">
-                          <input class="admin_input_edit edit_treat_3"></input>₸{" "}
+                          <input className="admin_input_edit edit_treat_3"></input>
+                          ₸{" "}
                           <i
-                            class="bi bi-check-circle-fill"
+                            className="bi bi-check-circle-fill"
                             id="treat_3"
                             onClick={(e) => EditSubmit(e)}
                           ></i>
@@ -760,11 +767,11 @@ const Profile = ({ position, mode }) => {
                             style={{ marginLeft: "5px" }}
                             id="treat_3"
                             onClick={(el) => CancelEdit(el)}
-                            class="bi bi-x-circle-fill"
+                            className="bi bi-x-circle-fill"
                           ></i>
                         </div>
                       </div>
-                      <div className="admin_payments_details ">
+                      <div className={mode?"admin_payments_details light":"admin_payments_details "}>
                         <p>Тимлид(продакшн)</p>
                         <div className="input_enable_default default_team_1">
                           <p className="admin_payments_details_input">
@@ -780,9 +787,10 @@ const Profile = ({ position, mode }) => {
                         </div>
 
                         <div className="input_enable_onclick onclick_team_1">
-                          <input class="admin_input_edit edit_team_1"></input>₸{" "}
+                          <input className="admin_input_edit edit_team_1"></input>
+                          ₸{" "}
                           <i
-                            class="bi bi-check-circle-fill"
+                            className="bi bi-check-circle-fill"
                             id="team_1"
                             onClick={(e) => EditSubmit(e)}
                           ></i>
@@ -790,11 +798,11 @@ const Profile = ({ position, mode }) => {
                             style={{ marginLeft: "5px" }}
                             id="team_1"
                             onClick={(el) => CancelEdit(el)}
-                            class="bi bi-x-circle-fill"
+                            className="bi bi-x-circle-fill"
                           ></i>
                         </div>
                       </div>
-                      <div className="admin_payments_details ">
+                      <div className={mode?"admin_payments_details light":"admin_payments_details "}>
                         <p>Тимлид(обработка)</p>
                         <div className="input_enable_default default_team_2">
                           <p className="admin_payments_details_input">
@@ -810,9 +818,10 @@ const Profile = ({ position, mode }) => {
                         </div>
 
                         <div className="input_enable_onclick onclick_team_2">
-                          <input class="admin_input_edit edit_team_2"></input>₸{" "}
+                          <input className="admin_input_edit edit_team_2"></input>
+                          ₸{" "}
                           <i
-                            class="bi bi-check-circle-fill"
+                            className="bi bi-check-circle-fill"
                             id="team_2"
                             onClick={(e) => EditSubmit(e)}
                           ></i>
@@ -820,11 +829,11 @@ const Profile = ({ position, mode }) => {
                             style={{ marginLeft: "5px" }}
                             id="team_2"
                             onClick={(el) => CancelEdit(el)}
-                            class="bi bi-x-circle-fill"
+                            className="bi bi-x-circle-fill"
                           ></i>
                         </div>
                       </div>
-                      <div className="admin_payments_details ">
+                      <div className={mode?"admin_payments_details light":"admin_payments_details "}>
                         <p>Тимлид(контент)</p>
                         <div className="input_enable_default default_team_3">
                           <p className="admin_payments_details_input">
@@ -840,9 +849,10 @@ const Profile = ({ position, mode }) => {
                         </div>
 
                         <div className="input_enable_onclick onclick_team_3">
-                          <input class="admin_input_edit edit_team_3"></input>₸{" "}
+                          <input className="admin_input_edit edit_team_3"></input>
+                          ₸{" "}
                           <i
-                            class="bi bi-check-circle-fill"
+                            className="bi bi-check-circle-fill"
                             id="team_3"
                             onClick={(e) => EditSubmit(e)}
                           ></i>
@@ -850,7 +860,7 @@ const Profile = ({ position, mode }) => {
                             style={{ marginLeft: "5px" }}
                             id="team_3"
                             onClick={(el) => CancelEdit(el)}
-                            class="bi bi-x-circle-fill"
+                            className="bi bi-x-circle-fill"
                           ></i>
                         </div>
                       </div>
@@ -863,7 +873,13 @@ const Profile = ({ position, mode }) => {
           <div className="profile_main">
             <div className="profile_main_left">
               <p className="profile_title"> История операций</p>
-              <div className={mode?"profile_main_left_text light":"profile_main_left_text"}>
+              <div
+                className={
+                  mode
+                    ? "profile_main_left_text light"
+                    : "profile_main_left_text"
+                }
+              >
                 {notifications &&
                   notifications?.map((el, index, array) => {
                     const { value, message, date, currency } = el;
@@ -895,7 +911,9 @@ const Profile = ({ position, mode }) => {
             </div>
             <div className="profile_main_right">
               <p className="profile_title">Баланс</p>
-              <div className={mode?"profile_balance light":"profile_balance"}>
+              <div
+                className={mode ? "profile_balance light" : "profile_balance"}
+              >
                 <p style={{ color: "#EA9127" }}>
                   {profileInformation?.ttk} TTK
                 </p>
@@ -942,7 +960,13 @@ const Profile = ({ position, mode }) => {
                       const dateMes = genDate[0].split(".");
                       if (currency === "mmr") {
                         return (
-                          <div className={mode?"profile_messages light":"profile_messages"}>
+                          <div
+                            className={
+                              mode
+                                ? "profile_messages light"
+                                : "profile_messages"
+                            }
+                          >
                             <p
                               style={
                                 value < 0
