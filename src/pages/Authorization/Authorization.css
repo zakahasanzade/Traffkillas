@@ -120,7 +120,7 @@
     height: 54px;
   }
 }
-@media screen and (min-width: 360px) and (max-width: 480px) {
+@media screen and (min-width: 0px) and (max-width: 480px) {
   .page_autorization_logo img {
     width: 320px;
     margin: 0 auto 28px;
