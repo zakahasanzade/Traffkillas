@@ -10,6 +10,8 @@ hr {
   position: relative;
 }
 .tasks_page_div {
+  background-color: #141414;
+  color: white;
   margin: 0 auto;
   width: 806px;
   margin: 0 auto;
@@ -17,9 +19,10 @@ hr {
   margin: 10px auto;
   transition: all 1s;
 }
+
 .tasks_div {
   padding: 16px;
-  padding-bottom: 12px;
+  /* padding-bottom: 12px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -77,27 +80,34 @@ hr {
   padding: 8px 12px;
   overflow: hidden;
   border-radius: 25px;
-  background-color: #ebedf0;
+  background-color: transparent;
   resize: none;
   border: 0;
   font-size: 16px;
   font-weight: 700;
+  transition: all 1s;
 }
-.tasks_content p {
-  background-color: #ebedf0;
+.tasks_content_p {
+  display: flex;
+  align-items: center;
+  background-color: #222226;
   padding: 8px 12px;
-  color: black;
-  opacity: 0.4;
+  color: #8a8a8a;
   font-weight: 700;
   line-height: 19.36px;
   font-size: 16px;
   border-radius: 25px;
   overflow-wrap: break-word;
+  transition: all 1s;
+}
+.lightFeed {
+  color: "#bcbec0" !important;
+  background-color: "#ebedf0" !important;
 }
 .tasks_div_submit i {
   font-size: 10px;
   border-radius: 25px;
-  background-color: white;
+  background-color: red;
   padding: 5px;
   padding-bottom: 3.5px;
   font-weight: 700;
@@ -107,7 +117,7 @@ hr {
   color: #0f82f5;
 }
 .tasks_div_submit textarea {
-  background-color: #ebedf0;
+  background-color: transparent;
   border: 0;
   width: 25px;
   width: 770px;
@@ -144,6 +154,8 @@ hr {
   /* overflow: hidden; */
   padding: 16px;
   margin-bottom: 10px;
+  background-color: #141414;
+  color: white;
   transition: all 1s;
 }
 .sendData_taskTitle {
@@ -151,6 +163,9 @@ hr {
   font-size: 32px;
   outline: none;
   margin-bottom: 5px;
+  color: white;
+  background-color: transparent;
+  font-weight: 700;
   transition: all 1s;
 }
 
@@ -162,6 +177,9 @@ hr {
   outline: none;
   margin-bottom: 2px;
   transition: all 1s;
+  background-color: transparent;
+  color: white;
+  font-weight: 700;
 }
 .sendData_task select {
   border: 0;
@@ -229,18 +247,15 @@ hr {
 .tasks_header {
   font-size: 24px;
   font-weight: 700;
-  color: black;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  transition: all 1s;
 }
 .tasks_header_worker {
   font-size: 16px;
   font-weight: 700;
   opacity: 0.5;
-  color: black;
-  transition: all 1s;
+  margin-top: 5px;
 }
 .tasks_header i {
   color: red;
@@ -256,15 +271,18 @@ hr {
   background-color: #16c784;
   border-radius: 25px;
   padding: 4px 8px 4px 8px;
+  width: 100%;
 }
 .second_task_time p {
   display: flex;
   align-items: center;
   gap: 8px;
+  color: white;
 }
 .second_task_time i {
   font-size: 30px;
   cursor: pointer;
+  color: white;
 }
 .tasks_teamlead {
   border-radius: 25px;
@@ -277,6 +295,9 @@ hr {
   margin-right: 10px;
   height: max-content;
   transition: all 1s;
+  background-color: #141414;
+  color: white;
+  animation: all 1s;
 }
 .senData_task_inputsForm {
   margin-top: 10px;
@@ -291,6 +312,7 @@ hr {
   font-size: 16px;
   font-weight: 700;
   transition: all 1s;
+  color: white;
 }
 .senData_task_inputsForm input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -366,7 +388,7 @@ input[type="number"]::-webkit-outer-spin-button {
   padding-left: 0;
   outline: none;
   text-align: center;
-  width: 55px;
+  width: 30px;
   font-size: 16px;
   font-weight: 700;
   min-width: 70px;
@@ -393,6 +415,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .css-ptiqhd-MuiSvgIcon-root {
   color: white;
   font-weight: 100;
+  transition: all 1s;
 }
 .react-calendar__viewContainer {
   margin-bottom: 5px;
@@ -436,6 +459,14 @@ input[type="number"]::-webkit-outer-spin-button {
 .makeStyles-formControl-1 {
   margin: 0 !important;
 }
-.css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate {
-  background-color: red !important;
+.makeStyles-inputLabel-2 {
+  transition: all 1s;
+  color: white;
+}
+.light {
+  background-color: white !important;
+  color: black !important;
+}
+.lightColor {
+  color: black !important;
 }

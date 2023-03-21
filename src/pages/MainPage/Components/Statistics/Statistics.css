@@ -98,6 +98,7 @@
   transition: all 1s;
 }
 .statistics_up {
+  margin-top: 2px;
   background-color: #16c784;
   border-radius: 15px;
   color: black;

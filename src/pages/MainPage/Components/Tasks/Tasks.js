@@ -305,11 +305,58 @@ const Tasks = ({ position, mode }) => {
   };
 
   useEffect(() => {
+    const ChangeBacColor = (x) => {
+      x.style.color = mode ? "black" : "white";
+      x.style.backgroundColor = mode ? "white" : "#141414";
+    };
+    const ChangeColor = (x) => {
+      x.style.color = mode ? "black" : "white";
+    };
     const date = document.querySelectorAll(".date");
-    var i;
-    for (i = 0; i < date.length; i++) {
-      date[i].style.color = mode ? "black" : "white";
+    for (var i = 0; i < date.length; i++) {
+      ChangeColor(date[i]);
     }
+    const checkBox = document.querySelectorAll(".css-ptiqhd-MuiSvgIcon-root");
+    for (var i = 0; i < checkBox.length; i++) {
+      ChangeColor(checkBox[i]);
+    }
+    const WorkerSelect = document.querySelectorAll(".makeStyles-inputLabel-2");
+    for (var i = 0; i < WorkerSelect.length; i++) {
+      ChangeColor(WorkerSelect[i]);
+    }
+    // const firstinput = document.querySelectorAll(".firstinput");
+    // for (var i = 0; i < firstinput.length; i++) {
+    //   ChangeColor(firstinput[i]);
+    // }
+    // const secondinput = document.querySelectorAll(".secondinput");
+    // for (var i = 0; i < secondinput.length; i++) {
+    //   ChangeColor(secondinput[i]);
+    // }
+    // const taskBlock = document.querySelectorAll(".tasks_teamlead");
+    // for (var i = 0; i < taskBlock.length; i++) {
+    //   ChangeBacColor(taskBlock[i]);
+    // }
+    // const sentDataBlock = document.querySelectorAll(".task_sendData");
+    // for (var i = 0; i < sentDataBlock.length; i++) {
+    //   ChangeBacColor(sentDataBlock[i]);
+    // }
+    // const sentDataContent = document.querySelectorAll(".sendData_taskContent");
+    // for (var i = 0; i < sentDataContent.length; i++) {
+    //   ChangeBacColor(sentDataContent[i]);
+    // }
+    // const sentDataTitle = document.querySelectorAll(".sendData_taskTitle");
+    // for (var i = 0; i < sentDataTitle.length; i++) {
+    //   ChangeBacColor(sentDataTitle[i]);
+    // }
+    // const taskDiv = document.querySelectorAll(".tasks_page_div");
+    // for (var i = 0; i < taskDiv.length; i++) {
+    //   ChangeBacColor(taskDiv[i]);
+    // }
+    // const ContentP = document.querySelectorAll(".tasks_content_p");
+    // for (var i = 0; i < ContentP.length; i++) {
+    //   ContentP[i].style.color = mode ? "#bcbec0" : "#8a8a8a";
+    //   ContentP[i].style.backgroundColor = mode ? "#ebedf0" : "#222226";
+    // }
   }, [mode]);
 
   useEffect(() => {
@@ -326,6 +373,14 @@ const Tasks = ({ position, mode }) => {
     };
     document.body.addEventListener("click", CloseCalendar);
   }, []);
+  // useEffect(() => {
+  //   const WorkerSelect = document.querySelectorAll(".makeStyles-inputLabel-2");
+  //   for (var i = 0; i < WorkerSelect.length; i++) {
+  //     WorkerSelect[i].className = mode
+  //       ? "makeStyles-inputLabel-2 lightColor"
+  //       : "makeStyles-inputLabel-2";
+  //   }
+  // }, []);
   if (position == "3") {
     return (
       <motion.div
@@ -359,7 +414,12 @@ const Tasks = ({ position, mode }) => {
                 var TextArea = "";
                 return (
                   <>
-                    <div key={block} className="tasks_page_div">
+                    <div
+                      key={block}
+                      className={
+                        mode ? "tasks_page_div light" : "tasks_page_div"
+                      }
+                    >
                       <div className="tasks_div">
                         <p className="tasks_header">{title}</p>
                         <div>
@@ -387,6 +447,17 @@ const Tasks = ({ position, mode }) => {
                       {feedback == "true" ? (
                         <div className="tasks_content">
                           <TextareaAutosize
+                            style={
+                              mode
+                                ? {
+                                    color: "#bcbec0",
+                                    backgroundColor: "#ebedf0",
+                                  }
+                                : {
+                                    color: "#8a8a8a",
+                                    backgroundColor: "#222226",
+                                  }
+                            }
                             className="tasks_content_text"
                             placeholder="Оставьте отзыв"
                             onChange={(e) => {
@@ -423,11 +494,16 @@ const Tasks = ({ position, mode }) => {
                 var TextArea = "";
                 return (
                   <>
-                    <div key={block} className="tasks_page_div">
+                    <div
+                      key={block}
+                      className={
+                        mode ? "tasks_page_div light" : "tasks_page_div"
+                      }
+                    >
                       <div className="tasks_div">
                         <p className="tasks_header">{title}</p>
                         <div>
-                          <p
+                          {/* <p
                             className="second_task_time"
                             style={{ backgroundColor: "red" }}
                           >
@@ -438,7 +514,7 @@ const Tasks = ({ position, mode }) => {
                                 CompleteInProcessTask(e, TextArea)
                               }
                             ></i>
-                          </p>
+                          </p> */}
                           <p
                             className="tasks_footer"
                             style={{ color: "#EA9127" }}
@@ -447,9 +523,20 @@ const Tasks = ({ position, mode }) => {
                           </p>
                         </div>
                       </div>
-                      {feedback == "true" ? (
+                      {/* {feedback == "true" ? (
                         <div className="tasks_content">
                           <TextareaAutosize
+                            style={
+                              mode
+                                ? {
+                                    color: "#bcbec0",
+                                    backgroundColor: "#ebedf0",
+                                  }
+                                : {
+                                    color: "#8a8a8a",
+                                    backgroundColor: "#222226",
+                                  }
+                            }
                             className="tasks_content_text"
                             placeholder="Оставьте отзыв"
                             onChange={(e) => {
@@ -460,7 +547,7 @@ const Tasks = ({ position, mode }) => {
                         </div>
                       ) : (
                         ""
-                      )}
+                      )} */}
                     </div>
                   </>
                 );
@@ -487,7 +574,12 @@ const Tasks = ({ position, mode }) => {
                 setTimer(date, "timer_revision", index);
                 return (
                   <>
-                    <div key={block} className="tasks_page_div">
+                    <div
+                      key={block}
+                      className={
+                        mode ? "tasks_page_div light" : "tasks_page_div"
+                      }
+                    >
                       <div className="tasks_div">
                         <p className="tasks_header">{title}</p>
                         <div>
@@ -512,7 +604,22 @@ const Tasks = ({ position, mode }) => {
                       </div>
                       {feedback == "true" ? (
                         <div className="tasks_content">
-                          <p>{content}</p>
+                          <p
+                            className="tasks_content_p"
+                            style={
+                              mode
+                                ? {
+                                    color: "#bcbec0",
+                                    backgroundColor: "#ebedf0",
+                                  }
+                                : {
+                                    color: "#8a8a8a",
+                                    backgroundColor: "#222226",
+                                  }
+                            }
+                          >
+                            {content}
+                          </p>
                         </div>
                       ) : (
                         ""
@@ -542,7 +649,12 @@ const Tasks = ({ position, mode }) => {
                 setTimer(date, "timer_avialable", index);
                 return (
                   <>
-                    <div key={block} className="tasks_page_div">
+                    <div
+                      key={block}
+                      className={
+                        mode ? "tasks_page_div light" : "tasks_page_div"
+                      }
+                    >
                       <div className="tasks_div">
                         <p className="tasks_header">{title}</p>
                         <div>
@@ -567,7 +679,22 @@ const Tasks = ({ position, mode }) => {
                       </div>
                       {feedback ? (
                         <div className="tasks_content">
-                          <p>{content}</p>
+                          <p
+                            className="tasks_content_p"
+                            style={
+                              mode
+                                ? {
+                                    color: "#bcbec0",
+                                    backgroundColor: "#ebedf0",
+                                  }
+                                : {
+                                    color: "#8a8a8a",
+                                    backgroundColor: "#222226",
+                                  }
+                            }
+                          >
+                            {content}
+                          </p>
                         </div>
                       ) : (
                         ""
@@ -591,13 +718,13 @@ const Tasks = ({ position, mode }) => {
         transition={{ duration: 0.3 }}
         style={{ display: "flex", justifyContent: "center" }}
       >
-        <div className="tasks_teamlead">
+        <div className={mode ? "tasks_teamlead light" : "tasks_teamlead"}>
           <p>Созданные</p>
           <p>Выполенные</p>
         </div>
         <div className="tasks">
           <form
-            className="task_sendData"
+            className={mode ? "task_sendData light" : "task_sendData"}
             onSubmit={(e) => {
               sendTask(e);
               console.log("Hello");
@@ -605,12 +732,18 @@ const Tasks = ({ position, mode }) => {
             id="form"
           >
             <input
-              className="sendData_taskTitle"
+              className={
+                mode ? "sendData_taskTitle lightColor" : "sendData_taskTitle"
+              }
               name="title"
               placeholder="Название"
             />
             <input
-              className="sendData_taskContent"
+              className={
+                mode
+                  ? "sendData_taskContent lightColor"
+                  : "sendData_taskContent"
+              }
               placeholder="Описание задания..."
               name="content"
             />
@@ -688,7 +821,7 @@ const Tasks = ({ position, mode }) => {
                   <div className="senData_task_inputsForm">
                     <input
                       type="text"
-                      className="firstinput"
+                      className={mode ? "firstinput lightColor" : "firstinput"}
                       placeholder="Ч"
                       name="hour"
                       maxLength="2"
@@ -702,7 +835,9 @@ const Tasks = ({ position, mode }) => {
                     :
                     <input
                       type="text"
-                      className="secondinput"
+                      className={
+                        mode ? "secondinput lightColor" : "secondinput"
+                      }
                       placeholder="М"
                       maxLength="2"
                       name="minute"
@@ -835,7 +970,12 @@ const Tasks = ({ position, mode }) => {
                 var TextArea = "";
                 return (
                   <>
-                    <div key={block} className="tasks_page_div">
+                    <div
+                      key={block}
+                      className={
+                        mode ? "tasks_page_div light" : "tasks_page_div"
+                      }
+                    >
                       <div className="tasks_div">
                         <p className="tasks_header">{title}</p>
                         <div>
@@ -863,6 +1003,17 @@ const Tasks = ({ position, mode }) => {
                       {feedback == "true" ? (
                         <div className="tasks_content">
                           <TextareaAutosize
+                            style={
+                              mode
+                                ? {
+                                    color: "#bcbec0",
+                                    backgroundColor: "#ebedf0",
+                                  }
+                                : {
+                                    color: "#8a8a8a",
+                                    backgroundColor: "#222226",
+                                  }
+                            }
                             className="tasks_content_text"
                             placeholder="Оставьте отзыв"
                             onChange={(e) => {
@@ -898,11 +1049,16 @@ const Tasks = ({ position, mode }) => {
                 var TextArea = "";
                 return (
                   <>
-                    <div key={block} className="tasks_page_div">
+                    <div
+                      key={block}
+                      className={
+                        mode ? "tasks_page_div light" : "tasks_page_div"
+                      }
+                    >
                       <div className="tasks_div">
                         <p className="tasks_header">{title}</p>
                         <div>
-                          <p
+                          {/* <p
                             className="second_task_time"
                             style={{ backgroundColor: "red" }}
                           >
@@ -913,7 +1069,7 @@ const Tasks = ({ position, mode }) => {
                                 CompleteInProcessTask(e, TextArea)
                               }
                             ></i>
-                          </p>
+                          </p> */}
                           <p
                             className="tasks_footer"
                             style={{ color: "#EA9127" }}
@@ -922,10 +1078,21 @@ const Tasks = ({ position, mode }) => {
                           </p>
                         </div>
                       </div>
-                      {console.log(feedback)}
+                      {/* {console.log(feedback)}
                       {feedback == "true" ? (
                         <div className="tasks_content">
                           <TextareaAutosize
+                            style={
+                              mode
+                                ? {
+                                    color: "#bcbec0",
+                                    backgroundColor: "#ebedf0",
+                                  }
+                                : {
+                                    color: "#8a8a8a",
+                                    backgroundColor: "#222226",
+                                  }
+                            }
                             className="tasks_content_text"
                             placeholder="Оставьте отзыв"
                             onChange={(e) => {
@@ -936,7 +1103,7 @@ const Tasks = ({ position, mode }) => {
                         </div>
                       ) : (
                         ""
-                      )}
+                      )} */}
                     </div>
                   </>
                 );
@@ -962,7 +1129,12 @@ const Tasks = ({ position, mode }) => {
                 setTimer(date, "timer_revision", index);
                 return (
                   <>
-                    <div key={block} className="tasks_page_div">
+                    <div
+                      key={block}
+                      className={
+                        mode ? "tasks_page_div light" : "tasks_page_div"
+                      }
+                    >
                       <div className="tasks_div">
                         <p className="tasks_header">{title}</p>
                         <div>
@@ -987,7 +1159,22 @@ const Tasks = ({ position, mode }) => {
                       </div>
                       {feedback == "true" ? (
                         <div className="tasks_content">
-                          <p>{content}</p>
+                          <p
+                            className="tasks_content_p"
+                            style={
+                              mode
+                                ? {
+                                    color: "#bcbec0",
+                                    backgroundColor: "#ebedf0",
+                                  }
+                                : {
+                                    color: "#8a8a8a",
+                                    backgroundColor: "#222226",
+                                  }
+                            }
+                          >
+                            {content}
+                          </p>
                         </div>
                       ) : (
                         ""
@@ -1018,7 +1205,12 @@ const Tasks = ({ position, mode }) => {
                 setTimer(date, "timer_created", index);
                 return (
                   <>
-                    <div key={block} className="tasks_page_div">
+                    <div
+                      key={block}
+                      className={
+                        mode ? "tasks_page_div light" : "tasks_page_div"
+                      }
+                    >
                       <div className="tasks_div">
                         <p className="tasks_header">
                           <div>
@@ -1054,7 +1246,22 @@ const Tasks = ({ position, mode }) => {
                       </div>
                       {feedback ? (
                         <div className="tasks_content">
-                          <p>{content}</p>
+                          <p
+                            className="tasks_content_p"
+                            style={
+                              mode
+                                ? {
+                                    color: "#bcbec0",
+                                    backgroundColor: "#ebedf0",
+                                  }
+                                : {
+                                    color: "#8a8a8a",
+                                    backgroundColor: "#222226",
+                                  }
+                            }
+                          >
+                            {content}
+                          </p>
                         </div>
                       ) : (
                         ""
@@ -1085,7 +1292,12 @@ const Tasks = ({ position, mode }) => {
                 setTimer(date, "timer_completed", index);
                 return (
                   <>
-                    <div key={block} className="tasks_page_div">
+                    <div
+                      key={block}
+                      className={
+                        mode ? "tasks_page_div light" : "tasks_page_div"
+                      }
+                    >
                       <div className="tasks_div">
                         <div className="tasks_div_gap">
                           <div className="tasks_div_complete">
@@ -1136,7 +1348,22 @@ const Tasks = ({ position, mode }) => {
                       </div>
                       {feedback == "true" ? (
                         <div className="tasks_content">
-                          <p>{messages}</p>
+                          <p
+                            className="tasks_content_p"
+                            style={
+                              mode
+                                ? {
+                                    color: "#bcbec0",
+                                    backgroundColor: "#ebedf0",
+                                  }
+                                : {
+                                    color: "#8a8a8a",
+                                    backgroundColor: "#222226",
+                                  }
+                            }
+                          >
+                            {messages}
+                          </p>
                         </div>
                       ) : (
                         ""
@@ -1160,37 +1387,13 @@ const Tasks = ({ position, mode }) => {
         transition={{ duration: 0.3 }}
         style={{ display: "flex", justifyContent: "center" }}
       >
-        <div
-          style={
-            mode
-              ? {
-                  backgroundColor: "white",
-                  color: "black",
-                }
-              : {
-                  backgroundColor: "#141414",
-                  color: "white",
-                }
-          }
-          className="tasks_teamlead"
-        >
+        <div className={mode ? "tasks_teamlead light" : "tasks_teamlead"}>
           <p>Созданные</p>
           <p>Выполенные</p>
         </div>
         <div className="tasks">
           <form
-            style={
-              mode
-                ? {
-                    backgroundColor: "white",
-                    color: "black",
-                  }
-                : {
-                    backgroundColor: "#141414",
-                    color: "white",
-                  }
-            }
-            className="task_sendData"
+            className={mode ? "task_sendData light" : "task_sendData"}
             onSubmit={(e) => {
               sendTask(e);
               console.log("Hello");
@@ -1198,34 +1401,18 @@ const Tasks = ({ position, mode }) => {
             id="form"
           >
             <input
-              style={
-                mode
-                  ? {
-                      backgroundColor: "white",
-                      color: "black",
-                    }
-                  : {
-                      backgroundColor: "#141414",
-                      color: "white",
-                    }
+              className={
+                mode ? "sendData_taskTitle lightColor" : "sendData_taskTitle"
               }
-              className="sendData_taskTitle"
               name="title"
               placeholder="Название"
             />
             <input
-              style={
+              className={
                 mode
-                  ? {
-                      backgroundColor: "white",
-                      color: "black",
-                    }
-                  : {
-                      backgroundColor: "#141414",
-                      color: "white",
-                    }
+                  ? "sendData_taskContent lightColor"
+                  : "sendData_taskContent"
               }
-              className="sendData_taskContent"
               placeholder="Описание задания..."
               name="content"
             />
@@ -1337,17 +1524,8 @@ const Tasks = ({ position, mode }) => {
                   </div>
                   <div className="senData_task_inputsForm">
                     <input
-                      style={
-                        mode
-                          ? {
-                              color: "black",
-                            }
-                          : {
-                              color: "white",
-                            }
-                      }
                       type="text"
-                      className="firstinput"
+                      className={mode ? "firstinput lightColor" : "firstinput"}
                       placeholder="Ч"
                       name="hour"
                       maxLength="2"
@@ -1360,17 +1538,10 @@ const Tasks = ({ position, mode }) => {
                     />
                     :
                     <input
-                      style={
-                        mode
-                          ? {
-                              color: "black",
-                            }
-                          : {
-                              color: "white",
-                            }
-                      }
                       type="text"
-                      className="secondinput"
+                      className={
+                        mode ? "secondinput lightColor" : "secondinput"
+                      }
                       placeholder="М"
                       maxLength="2"
                       name="minute"
@@ -1392,29 +1563,9 @@ const Tasks = ({ position, mode }) => {
                     {CalendarValue.toDateString().slice(4, 10)}
                   </div>
                   <p className="SendData_fine Tasks_fine">
-                    <div
-                      style={
-                        mode
-                          ? {
-                              color: "black",
-                            }
-                          : {
-                              color: "white",
-                            }
-                      }
-                      className="SendData_fine_div"
-                    >
+                    <div className="SendData_fine_div">
                       -
                       <input
-                        style={
-                          mode
-                            ? {
-                                color: "black",
-                              }
-                            : {
-                                color: "white",
-                              }
-                        }
                         type="text"
                         placeholder="Штраф"
                         maxLength="5"
@@ -1522,32 +1673,12 @@ const Tasks = ({ position, mode }) => {
                   <>
                     <div
                       key={block + index}
-                      style={
-                        mode
-                          ? {
-                              backgroundColor: "white",
-                              color: "black",
-                            }
-                          : {
-                              backgroundColor: "#141414",
-                              color: "white",
-                            }
+                      className={
+                        mode ? "tasks_page_div light" : "tasks_page_div"
                       }
-                      className="tasks_page_div"
                     >
                       <div className="tasks_div">
-                        <p
-                          style={
-                            mode
-                              ? {
-                                  color: "black",
-                                }
-                              : {
-                                  color: "white",
-                                }
-                          }
-                          className="tasks_header"
-                        >
+                        <p className="tasks_header">
                           <div>
                             {title}{" "}
                             <i
@@ -1558,18 +1689,7 @@ const Tasks = ({ position, mode }) => {
                               className="bi bi-trash3-fill"
                             ></i>
                           </div>
-                          <p
-                            style={
-                              mode
-                                ? {
-                                    color: "black",
-                                  }
-                                : {
-                                    color: "white",
-                                  }
-                            }
-                            className="tasks_header_worker"
-                          >
+                          <p className="tasks_header_worker">
                             {worker_username}
                           </p>
                         </p>
@@ -1591,7 +1711,22 @@ const Tasks = ({ position, mode }) => {
                       </div>
                       {feedback ? (
                         <div className="tasks_content">
-                          <p>{content}</p>
+                          <p
+                            className="tasks_content_p"
+                            style={
+                              mode
+                                ? {
+                                    color: "#bcbec0",
+                                    backgroundColor: "#ebedf0",
+                                  }
+                                : {
+                                    color: "#8a8a8a",
+                                    backgroundColor: "#222226",
+                                  }
+                            }
+                          >
+                            {content}
+                          </p>
                         </div>
                       ) : (
                         ""
@@ -1622,7 +1757,12 @@ const Tasks = ({ position, mode }) => {
                 setTimer(date, "timer_completed", index);
                 return (
                   <>
-                    <div key={block} className="tasks_page_div">
+                    <div
+                      key={block}
+                      className={
+                        mode ? "tasks_page_div light" : "tasks_page_div"
+                      }
+                    >
                       <div className="tasks_div">
                         <div className="tasks_div_gap">
                           <div className="tasks_div_complete">
@@ -1673,7 +1813,22 @@ const Tasks = ({ position, mode }) => {
                       </div>
                       {feedback == "true" ? (
                         <div className="tasks_content">
-                          <p>{messages}</p>
+                          <p
+                            className="tasks_content_p"
+                            style={
+                              mode
+                                ? {
+                                    color: "#bcbec0",
+                                    backgroundColor: "#ebedf0",
+                                  }
+                                : {
+                                    color: "#8a8a8a",
+                                    backgroundColor: "#222226",
+                                  }
+                            }
+                          >
+                            {messages}
+                          </p>
                         </div>
                       ) : (
                         ""
@@ -1708,7 +1863,7 @@ export default Tasks;
               </div>
             </div>
             <div className="tasks_div_submit">
-              <TextareaAutosize placeholder="Впишите обратную связь..." />
+              <TextareaAutosize style={mode?{color:"#bcbec0",backgroundColor:"#ebedf0"}:{color:"#8a8a8a",backgroundColor:"#222226"}} placeholder="Впишите обратную связь..." />
               <button>
                 <div
                   style={{
@@ -1739,7 +1894,7 @@ export default Tasks;
                 </div>
               </div>
               <div className="tasks_div_submit">
-                <TextareaAutosize placeholder="Да отправил я вчера последним рейсом! Да отправил я вчера последним рейсом! Да отправил я вчера последним рейсом! Да отправил я вчера последним рейсом! Да отправил я вчера последним рейсом! Да отправил я вчера последним рейсом!" />
+                <TextareaAutosize style={mode?{color:"#bcbec0",backgroundColor:"#ebedf0"}:{color:"#8a8a8a",backgroundColor:"#222226"}} placeholder="Да отправил я вчера последним рейсом! Да отправил я вчера последним рейсом! Да отправил я вчера последним рейсом! Да отправил я вчера последним рейсом! Да отправил я вчера последним рейсом! Да отправил я вчера последним рейсом!" />
                 <button>
                   <div
                     style={{

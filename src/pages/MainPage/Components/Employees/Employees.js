@@ -182,25 +182,25 @@ const Employees = ({ position, mode }) => {
       title[i].style.color = mode ? "black" : "white";
     }
 
-    const account = document.querySelectorAll(".employee_account");
-    for (var i = 0; i < account.length; i++) {
-      account[i].style.color = mode ? "black" : "white";
-      account[i].style.backgroundColor = mode ? "white" : "#141414";
-    }
-    const accountDropdown = document.querySelectorAll(".employee_account_list");
-    for (var i = 0; i < accountDropdown.length; i++) {
-      accountDropdown[i].style.color = mode ? "black" : "white";
-      accountDropdown[i].style.backgroundColor = mode ? "white" : "#141414";
-    }
-    const accountDropdownQuestion = document.querySelectorAll(
-      ".list"
-    );
-    for (var i = 0; i < accountDropdownQuestion.length; i++) {
-      accountDropdownQuestion[i].style.color = mode ? "black" : "white";
-      accountDropdownQuestion[i].style.backgroundColor = mode
-        ? "white"
-        : "#141414";
-    }
+    // const account = document.querySelectorAll(".employee_account");
+    // for (var i = 0; i < account.length; i++) {
+    //   account[i].style.color = mode ? "black" : "white";
+    //   account[i].style.backgroundColor = mode ? "white" : "#141414";
+    // }
+    // const accountDropdown = document.querySelectorAll(".employee_account_list");
+    // for (var i = 0; i < accountDropdown.length; i++) {
+    //   accountDropdown[i].style.color = mode ? "black" : "white";
+    //   accountDropdown[i].style.backgroundColor = mode ? "white" : "#141414";
+    // }
+    // const accountDropdownQuestion = document.querySelectorAll(
+    //   ".list"
+    // );
+    // for (var i = 0; i < accountDropdownQuestion.length; i++) {
+    //   accountDropdownQuestion[i].style.color = mode ? "black" : "white";
+    //   accountDropdownQuestion[i].style.backgroundColor = mode
+    //     ? "white"
+    //     : "#141414";
+    // }
   }, [mode]);
 
   useEffect(() => {
@@ -506,7 +506,7 @@ const Employees = ({ position, mode }) => {
                   <div className="wrapper" key={person + index}>
                     <button
                       id={index}
-                      className="button employee_account"
+                      className={mode?"button employee_account light":"button employee_account"}
                       onClick={(e) => {
                         let IndexElement = index;
                         var res = showUser.map((e, i) => {
@@ -549,7 +549,13 @@ const Employees = ({ position, mode }) => {
                       timeout={300}
                       unmountOnExit
                     >
-                      <ul className="employee_account_list list">
+                      <ul
+                        className={
+                          mode
+                            ? "employee_account_list list light"
+                            : "employee_account_list list"
+                        }
+                      >
                         <div style={{ fontWeight: "700" }}>
                           <li className="list-item employee_info">
                             <p style={{ color: "orange" }}>Login</p>
@@ -633,7 +639,7 @@ const Employees = ({ position, mode }) => {
                           timeout={300}
                           unmountOnExit
                         >
-                          <form className="employee_account_list_question">
+                          <form className={mode?"employee_account_list_question light":"employee_account_list_question"}>
                             <p className="employee_account_question">
                               Вы уверены?
                             </p>
@@ -708,7 +714,7 @@ const Employees = ({ position, mode }) => {
                     <div className="wrapper" key={person + index}>
                       <button
                         id={index}
-                        className="button employee_account"
+                        className={mode?"button employee_account light":"button employee_account"}
                         onClick={(e) => {
                           let IndexElement = index;
                           var res = showUser.map((e, i) => {
@@ -751,7 +757,13 @@ const Employees = ({ position, mode }) => {
                         timeout={300}
                         unmountOnExit
                       >
-                        <ul className="employee_account_list list">
+                        <ul
+                          className={
+                            mode
+                              ? "employee_account_list list light"
+                              : "employee_account_list list"
+                          }
+                        >
                           <div style={{ fontWeight: "700" }}>
                             <li className="list-item employee_info">
                               <p style={{ color: "orange" }}>Login</p>
@@ -837,7 +849,7 @@ const Employees = ({ position, mode }) => {
                             timeout={300}
                             unmountOnExit
                           >
-                            <form className="employee_account_list_question">
+                            <form className={mode?"employee_account_list_question light":"employee_account_list_question"}>
                               <p className="employee_account_question">
                                 Вы уверены?
                               </p>
@@ -908,7 +920,7 @@ const Employees = ({ position, mode }) => {
                   <div className="wrapper" key={person + index}>
                     <button
                       id={index}
-                      className="button employee_account"
+                      className={mode?"button employee_account light":"button employee_account"}
                       onClick={(e) => {
                         let IndexElement = index;
                         var res = showUser.map((e, i) => {
@@ -951,7 +963,13 @@ const Employees = ({ position, mode }) => {
                       timeout={300}
                       unmountOnExit
                     >
-                      <ul className="employee_account_list list">
+                      <ul
+                        className={
+                          mode
+                            ? "employee_account_list list light"
+                            : "employee_account_list list"
+                        }
+                      >
                         <div style={{ fontWeight: "700" }}>
                           <li className="list-item employee_info">
                             <p style={{ color: "orange" }}>Login</p>
@@ -1035,7 +1053,7 @@ const Employees = ({ position, mode }) => {
                           timeout={300}
                           unmountOnExit
                         >
-                          <form className="employee_account_list_question">
+                          <form className={mode?"employee_account_list_question light":"employee_account_list_question"}>
                             <p className="employee_account_question">
                               Вы уверены?
                             </p>
@@ -1106,7 +1124,7 @@ const Employees = ({ position, mode }) => {
                   <div className="wrapper" key={person + index}>
                     <button
                       id={index}
-                      className="button employee_account"
+                      className={mode?"button employee_account light":"button employee_account"}
                       onClick={(e) => {
                         let IndexElement = index;
                         var res = showUser.map((e, i) => {
@@ -1150,7 +1168,13 @@ const Employees = ({ position, mode }) => {
                       timeout={300}
                       unmountOnExit
                     >
-                      <ul className="employee_account_list list">
+                      <ul
+                        className={
+                          mode
+                            ? "employee_account_list list light"
+                            : "employee_account_list list"
+                        }
+                      >
                         <div style={{ fontWeight: "700" }}>
                           <li className="list-item employee_info">
                             <p style={{ color: "orange" }}>Login</p>
@@ -1234,7 +1258,7 @@ const Employees = ({ position, mode }) => {
                           timeout={300}
                           unmountOnExit
                         >
-                          <form className="employee_account_list_question">
+                          <form className={mode?"employee_account_list_question light":"employee_account_list_question"}>
                             <p className="employee_account_question">
                               Вы уверены?
                             </p>

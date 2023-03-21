@@ -7,17 +7,16 @@ import "./common.css";
 import AnimatedPage from "./AnimatedPage/AnimatedPage";
 
 const App = () => {
-  const [mode, setMode] = useState();
+  const [mode, setMode] = useState(JSON.parse(localStorage.getItem("mode")));
+
   const ChangeMode = () => {
     setMode(!mode);
     console.log(mode);
   };
 
-  // useEffect(() => {
-  //   mode
-  //     ? window.localStorage.setItem("mode", true)
-  //     : window.localStorage.setItem("mode", false);
-  // }, [mode]);
+  useEffect(() => {
+    localStorage.setItem("mode", mode);
+  }, [mode]);
 
   return (
     <div className="app">

@@ -8,7 +8,7 @@ import { motion } from "framer-motion/dist/framer-motion";
 import { Background } from "devextreme-react/range-selector";
 import ProjectPhoto from "../Leaderboard Assets/ProjectPhoto.svg";
 
-const EmployerLeaderboard = () => {
+const EmployerLeaderboard = ({ position, mode }) => {
   const [employerLeaderboard, setEmployerLeaderboard] = useState([]);
   const GetEmployerLeaderboard = () => {
     fetch(`https://api1.traffkillas.kz/get_leaderboard_users`, {
@@ -84,13 +84,12 @@ const EmployerLeaderboard = () => {
       exit={{ opacity: 0, x: -100 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="leader_date">
+      <div className={mode?"leader_date lightColor":"leader_date"}>
         <p
           style={
             statisticsState === "one_day_dep"
               ? {
                   textDecoration: "underline",
-                  color: "white",
                   opacity: "0.7",
                   cursor: "pointer",
                 }
@@ -143,7 +142,7 @@ const EmployerLeaderboard = () => {
           employerLeaderboard?.map((element, index) => {
             const { image, mmr } = element;
             return (
-              <div className="leader_div">
+              <div className={mode ? "leader_div light" : "leader_div"}>
                 <div className="leader_left_div">
                   <div
                     style={{

@@ -3,13 +3,14 @@
   justify-content: center;
   margin-bottom: 0;
   font-weight: 700;
-  opacity: 0.5;
+  opacity: 0.7;
   text-align: center;
   /* line-height: 150%; */
   letter-spacing: -0.019em;
   color: white;
   font-size: 16px;
   gap: 27px;
+  transition: all 1s;
 }
 /* .first_date {
   font-size: 20px;
@@ -39,6 +40,7 @@
   justify-content: space-between;
   padding: 16px 20px;
   margin-top: 13px;
+  transition: all 1s;
 }
 
 .leader_left_div {
@@ -60,8 +62,8 @@
   margin-right: 20px;
 }
 .leader_img img {
-  max-width: 64px;
-  max-height: 64px;
+  width: 64px;
+  height: 64px;
   border-radius: 100%;
 }
 .leader_info_header {

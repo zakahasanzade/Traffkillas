@@ -76,7 +76,6 @@
   margin: 20px auto 0;
 }
 .profile_title {
-  color: white;
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 10px;
@@ -116,7 +115,7 @@
   width: 398px;
 }
 .profile_level_rank {
-  background-color: #ffe8a3;
+  background-color: #ea9127;
   border-radius: 25px;
   padding: 16px 20px;
 }
@@ -149,11 +148,12 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  align-items: center !important;
 }
 .profile_level_rank_info_num p {
   font-size: 24px;
   font-weight: 700;
-  color: orange;
+  color: black;
 }
 .profile_progress_num {
   display: flex;
@@ -170,6 +170,7 @@
 .profile_messages {
   display: flex;
   background-color: #141414;
+  color: white;
   border-radius: 25px;
   margin-top: 15px;
   align-items: center;
@@ -179,6 +180,7 @@
 }
 .profile_balance {
   background-color: #141414;
+  color: white;
   border-radius: 25px;
   padding: 16px 20px;
   font-weight: 700;
@@ -193,18 +195,18 @@
   font-size: 20px;
 }
 .profile_messages p:nth-child(2) {
-  color: white;
   text-align: center;
   margin: 0 37px;
   font-size: 16px;
 }
 .profile_messages p:nth-child(3) {
-  color: #d9d9d9;
+  opacity: 0.5;
 }
 .profile_edtForm {
   padding: 16px;
   border-radius: 25px;
-  background-color: white;
+  background-color: #141414;
+  color: white;
   position: absolute;
   left: 0;
   top: 130px;
@@ -225,7 +227,6 @@
 }
 .profile_edtForm p {
   font-size: 14px;
-  color: black;
   opacity: 0.3;
   font-weight: 400;
 }

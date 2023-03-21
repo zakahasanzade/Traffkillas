@@ -109,20 +109,34 @@ const News = ({ position, mode }) => {
     document.body.addEventListener("click", closeDropdown);
   }, []);
 
-  useEffect(() => {
-    document.querySelector(".rti--input").style.backgroundColor = mode
-      ? "white"
-      : "#141414";
-    document.querySelector(".rti--input").style.color = mode
-      ? "black"
-      : "white";
-  }, [mode]);
+  // useEffect(() => {
+  //   document.querySelector(".rti--input").style.backgroundColor = mode
+  //     ? "white"
+  //     : "#141414";
+  //   document.querySelector(".rti--input").style.color = mode
+  //     ? "black"
+  //     : "white";
+  // }, [mode]);
 
+  // useEffect(() => {
+  //   mode
+  //     ? (document.querySelector(".rti--input").className = "rti--input light")
+  //     : (document.querySelector(".rti--input").className = "rti--input");
+  // }, [mode]);
+  useEffect(() => {
+    if (position !== "3") {
+      document.querySelector(".rti--input").style.color = mode
+        ? "black"
+        : "white";
+      document.querySelector(".rti--container").style.color = mode
+        ? "black"
+        : "white";
+    }
+  }, [mode]);
   const setBack = (col) => {
     document.querySelector(".back").style.backgroundColor = col;
   };
   console.log(typeof post);
-  const proffess = position.position;
   return (
     <motion.div
       className="main"
@@ -133,7 +147,7 @@ const News = ({ position, mode }) => {
       transition={{ duration: 0.3 }}
     >
       <div className="news_page">
-        {proffess !== "3" ? (
+        {position !== "3" ? (
           <div
             style={
               mode
@@ -347,7 +361,7 @@ const News = ({ position, mode }) => {
                         <p>{title}</p>
                       </div>
 
-                      {proffess !== "3" && (
+                      {position !== "3" && (
                         <i
                           onClick={DeletePost}
                           class="bi bi-trash3-fill"

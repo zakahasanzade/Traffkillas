@@ -212,7 +212,7 @@
   top: 49px;
   width: 340px;
   /* height: 104px; */
-
+background-color: #141414;
   border-radius: 25px;
   box-shadow: rgba(205, 173, 173, 0.35) 0px 5px 15px;
   padding: 16px 20px;
@@ -283,6 +283,7 @@
   top: 50px;
   gap: 8px;
   transition: all 1s;
+  z-index: 999;
 }
 .employee_gifts_title {
   display: flex;

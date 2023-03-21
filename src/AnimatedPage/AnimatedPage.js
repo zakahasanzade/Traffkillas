@@ -64,11 +64,11 @@ const AnimatedPage = ({ ChangeMode, mode }) => {
           />
           <Route
             path="/MainPage/ProjectLeaderboard"
-            element={<ProjectLeaderboard position={position} />}
+            element={<ProjectLeaderboard mode={mode} position={position} />}
           />
           <Route
             path="/MainPage/EmployerLeaderboard"
-            element={<EmployerLeaderboard position={position} />}
+            element={<EmployerLeaderboard mode={mode} position={position} />}
           />
           <Route
             path="/MainPage/Market"
@@ -76,7 +76,7 @@ const AnimatedPage = ({ ChangeMode, mode }) => {
           />
           <Route
             path="/MainPage/Instruments"
-            element={<Instruments position={position} />}
+            element={<Instruments mode={mode} position={position} />}
           />
           <Route
             path="/MainPage/Employees"

@@ -30,7 +30,7 @@ function Messenger({ CloseMessengerWindow }) {
       })
       .then((result) => {
         setAllChats(JSON.parse(result));
-        setMessages()
+        setMessages();
       });
   };
   const [GetChat, setGetChat] = useState([]);
@@ -84,6 +84,25 @@ function Messenger({ CloseMessengerWindow }) {
           // StopRendering("lkdfnmc");
         });
   }, [NewChatId]);
+  const NoAnswer = "NoAnswer";
+  const ChatFolders = () => {
+    fetch(
+      `https://api2.traffkillas.kz/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}&category=${NoAnswer}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    )
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        console.log(result);
+      });
+  };
 
   useEffect(() => {
     GetAllProjects();
@@ -127,6 +146,7 @@ function Messenger({ CloseMessengerWindow }) {
         ProjectId={ProjectId}
         navColor={navColor}
         setChangeNavColor={setChangeNavColor}
+        ChatFolders={ChatFolders}
       />
       <Thread
         NewChatId={NewChatId}

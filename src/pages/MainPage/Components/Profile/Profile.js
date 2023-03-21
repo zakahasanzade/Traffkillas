@@ -339,7 +339,7 @@ const Profile = ({ position, mode }) => {
               >
                 <form
                   // action="PUT"
-                  className="profile_edtForm profile_form dropdown"
+                  className={mode?"profile_edtForm profile_form dropdown light":"profile_edtForm profile_form dropdown"}
                   onSubmit={(e) => EditProfile(e)}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -863,7 +863,7 @@ const Profile = ({ position, mode }) => {
           <div className="profile_main">
             <div className="profile_main_left">
               <p className="profile_title"> История операций</p>
-              <div className="profile_main_left_text">
+              <div className={mode?"profile_main_left_text light":"profile_main_left_text"}>
                 {notifications &&
                   notifications?.map((el, index, array) => {
                     const { value, message, date, currency } = el;
@@ -895,7 +895,7 @@ const Profile = ({ position, mode }) => {
             </div>
             <div className="profile_main_right">
               <p className="profile_title">Баланс</p>
-              <div className="profile_balance">
+              <div className={mode?"profile_balance light":"profile_balance"}>
                 <p style={{ color: "#EA9127" }}>
                   {profileInformation?.ttk} TTK
                 </p>
@@ -942,7 +942,7 @@ const Profile = ({ position, mode }) => {
                       const dateMes = genDate[0].split(".");
                       if (currency === "mmr") {
                         return (
-                          <div className="profile_messages">
+                          <div className={mode?"profile_messages light":"profile_messages"}>
                             <p
                               style={
                                 value < 0

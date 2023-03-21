@@ -38,6 +38,7 @@ const Sidebar = ({
   CloseMessenger,
   OnceUpdate,
   StopRendering,
+  ChatFolders
 }) => {
   // const [openChat, SetOpenChat] = useState(false);
   const chatRef = useRef();
@@ -157,6 +158,7 @@ const Sidebar = ({
             onClick={(e) => {
               setActiveChat("Tasks");
               StyleNav(e);
+              ChatFolders()
             }}
           >
             Задания

@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Leader from "../Leaderboard Assets/Leader_Photo.svg";
 
-const ProjectLeaderboard = () => {
+const ProjectLeaderboard = ({position,mode}) => {
   const [projectLeaderboard, setProjectLeaderboard] = useState([]);
   const GetProjectLeaderboard = () => {
     fetch(`https://api1.traffkillas.kz/get_leaderboard`, {
@@ -85,13 +85,12 @@ const ProjectLeaderboard = () => {
     >
       {/* <div className="main_header">{<Header />}</div>
         <div className="NavBar">{<NavBar />}</div> */}
-      <div className="leader_date">
+      <div className={mode?"leader_date lightColor":"leader_date"}>
         <p
           style={
             statisticsState === "one_day_dep"
               ? {
                   textDecoration: "underline",
-                  color: "white",
                   opacity: "0.7",
                   cursor: "pointer",
                 }
@@ -147,7 +146,7 @@ const ProjectLeaderboard = () => {
               element;
 
             return (
-              <div className="leader_div">
+              <div className={mode?"leader_div light":"leader_div"}>
                 <div className="leader_left_div">
                   <div
                     style={{
