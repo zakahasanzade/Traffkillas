@@ -13,7 +13,8 @@
   display: flex;
   flex-direction: column;
   color: #ffffff;
-  width: 806px;
+  width: 100%;
+  max-width: 806px;
   margin: 15px auto 40px;
   align-items: center;
 }
@@ -198,7 +199,8 @@
 
 .news_page_div {
   background-color: #141414;
-  width: 806px;
+  width: 100%;
+  max-width: 806px;
   border-radius: 25px;
   padding-left: 20px;
   padding-right: 20px;
