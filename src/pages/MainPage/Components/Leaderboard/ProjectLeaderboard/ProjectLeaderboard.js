@@ -81,125 +81,156 @@ const ProjectLeaderboard = ({ position, mode }) => {
       exit={{ opacity: 0, x: -100 }}
       transition={{ duration: 0.3 }}
     >
-      {/* <div className="main_header">{<Header />}</div>
-        <div className="NavBar">{<NavBar />}</div> */}
-      <div className={mode ? "leader_date lightColor" : "leader_date"}>
-        <p
-          style={
-            statisticsState === "one_day_dep"
-              ? {
-                  textDecoration: "underline",
-                  opacity: "0.7",
-                  cursor: "pointer",
-                }
-              : { opacity: "0.3", cursor: "pointer" }
-          }
-          className="first_date"
-          onClick={() => {
-            setStatisticsState("one_day_dep");
-          }}
-        >
-          день{" "}
-        </p>
-        <p
-          style={
-            statisticsState === "one_week_dep"
-              ? {
-                  textDecoration: "underline",
-                  opacity: "0.7",
-                  cursor: "pointer",
-                }
-              : { opacity: "0.3", cursor: "pointer" }
-          }
-          onClick={() => {
-            setStatisticsState("one_week_dep");
-          }}
-        >
-          неделя
-        </p>
-        <p
-          style={
-            statisticsState === "two_week_dep"
-              ? {
-                  textDecoration: "underline",
-                  opacity: "0.7",
-                  cursor: "pointer",
-                }
-              : { opacity: "0.3", cursor: "pointer" }
-          }
-          onClick={() => {
-            setStatisticsState("two_week_dep");
-          }}
-        >
-          2 недели
-        </p>
-      </div>
-      {console.log(projectLeaderboard)}
-      <div className="leader_page_div">
-        {projectLeaderboard &&
-          projectLeaderboard?.map((element, index) => {
-            const { channel_name, percen, two_week_dep, sub_count, image } =
-              element;
+      <div className="leaderboard_main">
+        <div className={mode ? "leader_date lightColor" : "leader_date"}>
+          <p
+            style={
+              statisticsState === "one_day_dep"
+                ? {
+                    textDecoration: "underline",
+                    opacity: "0.7",
+                    cursor: "pointer",
+                  }
+                : { opacity: "0.3", cursor: "pointer" }
+            }
+            className="first_date"
+            onClick={() => {
+              setStatisticsState("one_day_dep");
+            }}
+          >
+            день{" "}
+          </p>
+          <p
+            style={
+              statisticsState === "one_week_dep"
+                ? {
+                    textDecoration: "underline",
+                    opacity: "0.7",
+                    cursor: "pointer",
+                  }
+                : { opacity: "0.3", cursor: "pointer" }
+            }
+            onClick={() => {
+              setStatisticsState("one_week_dep");
+            }}
+          >
+            неделя
+          </p>
+          <p
+            style={
+              statisticsState === "two_week_dep"
+                ? {
+                    textDecoration: "underline",
+                    opacity: "0.7",
+                    cursor: "pointer",
+                  }
+                : { opacity: "0.3", cursor: "pointer" }
+            }
+            onClick={() => {
+              setStatisticsState("two_week_dep");
+            }}
+          >
+            2 недели
+          </p>
+        </div>
+        {console.log(projectLeaderboard)}
+        <div className="leader_page_div">
+          {projectLeaderboard &&
+            projectLeaderboard?.map((element, index) => {
+              const { channel_name, percen, two_week_dep, sub_count, image } =
+                element;
 
-            return (
-              <div className={mode ? "leader_div light" : "leader_div"}>
-                <div className="leader_left_div">
-                  <div
-                    style={{
-                      backgroundColor:
-                        index === 0
-                          ? "gold"
-                          : index === 1
-                          ? "#CCCCCC"
-                          : index === 2
-                          ? "#EA9127"
-                          : "none",
-                      color:
-                        index === 0
-                          ? "black"
-                          : index === 1
-                          ? "black"
-                          : index === 2
-                          ? "black"
-                          : "none",
-                    }}
-                    className="first_leader_number"
-                  >
-                    <p>{index + 1}</p>
-                  </div>
-                  <div className="leader_img">
-                    <img src={image ? image : Leader} alt="Leader" />
-                  </div>
-                  <div className="leader_info">
-                    <div className="leader_info_header">
-                      <p>{channel_name}</p>
-                      <p
-                        className="statistics_up"
-                        style={
-                          percen < 0
-                            ? { backgroundColor: "red" }
-                            : { backgroundColor: "#16C784" }
-                        }
-                      >
-                        {percen > 0 && <i className="bi bi-caret-up-fill"></i>}
-                        {percen < 0 && (
-                          <i className="bi bi-caret-down-fill"></i>
-                        )}
-                        {Math.abs(percen)}%
-                      </p>
+              return (
+                <div className={mode ? "leader_div light" : "leader_div"}>
+                  <div className="responsive_statistics">
+                    <div
+                      style={{
+                        backgroundColor:
+                          index === 0
+                            ? "gold"
+                            : index === 1
+                            ? "#CCCCCC"
+                            : index === 2
+                            ? "#EA9127"
+                            : "none",
+                        color:
+                          index === 0
+                            ? "black"
+                            : index === 1
+                            ? "black"
+                            : index === 2
+                            ? "black"
+                            : "none",
+                       
+                      }}
+                      className="first_leader_number"
+                    >
+                      <p>{index + 1}</p>
                     </div>
-                    <div className="leader_info_footer">
-                      <p>{sub_count} подписчиков</p>
+                    <div className="leader_balance">
+                      {two_week_dep ? two_week_dep : 0} депозитов
                     </div>
                   </div>
-                </div>
+                  <div className="leader_left_div">
+                    <div
+                      style={{
+                        backgroundColor:
+                          index === 0
+                            ? "gold"
+                            : index === 1
+                            ? "#CCCCCC"
+                            : index === 2
+                            ? "#EA9127"
+                            : "none",
+                        color:
+                          index === 0
+                            ? "black"
+                            : index === 1
+                            ? "black"
+                            : index === 2
+                            ? "black"
+                            : "none",
+                      }}
+                      className="first_leader_number"
+                    >
+                      <p>{index + 1}</p>
+                    </div>
+                    <div className="leader_img">
+                      <img src={image ? image : Leader} alt="Leader" />
+                    </div>
+                    <div className="leader_info">
+                      <div className="leader_info_header">
+                        <p>{channel_name}</p>
+                        <p
+                          className="statistics_up"
+                          style={
+                            percen < 0
+                              ? { backgroundColor: "red" }
+                              : { backgroundColor: "#16C784" }
+                          }
+                        >
+                          {percen > 0 && (
+                            <i className="bi bi-caret-up-fill"></i>
+                          )}
+                          {percen < 0 && (
+                            <i className="bi bi-caret-down-fill"></i>
+                          )}
+                          {Math.abs(percen)}%
+                        </p>
+                      </div>
+                      <div className="leader_info_footer">
+                        <p>{sub_count} подписчиков</p>
+                      </div>
+                    </div>
+                  </div>
 
-                <div className="leader_balance">
-                  {two_week_dep ? two_week_dep : 0} депозитов
+                  <div className="leader_balance">
+                    {two_week_dep ? two_week_dep : 0} депозитов
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+        </div>
       </div>
     </motion.div>
   );

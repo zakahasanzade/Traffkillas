@@ -18,7 +18,8 @@ const Leaderboard = () => {
     >
       {/* <div className="main_header">{<Header />}</div>
       <div className="NavBar">{<NavBar />}</div> */}
-      <div className="leader_date">
+      <div className="leaderboard_main">
+        <div className="leader_date">
         <p className="first_date">день </p>
         <p className="second_date">неделя</p>
         <p className="second_date week">2 недели</p>
@@ -146,6 +147,8 @@ const Leaderboard = () => {
         </div>
         
       </div>
+      </div>
+      
     </motion.div>
   );
 };

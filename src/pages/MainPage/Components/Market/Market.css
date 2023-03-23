@@ -1,3 +1,7 @@
+.market_main {
+  display: flex;
+  flex-direction: column;
+}
 .market_products {
   width: 1010px;
   margin: 0 auto;
