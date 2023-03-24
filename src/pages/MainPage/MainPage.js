@@ -185,10 +185,7 @@ const MainPage = ({ position, ModeChange, mode }) => {
                   ? "navbar_dropdown_active navbar_dropdonw_Li"
                   : "navbar_dropdonw_Li"
               }
-              // to="/MainPage/ProjectLeaderboard"
-              onClick={(e) => {
-                // setDropdown(!dropdown);
-              }}
+              style={mode ? { color: "black" } : { color: "white" }}
             >
               Лидерборд
             </p>
