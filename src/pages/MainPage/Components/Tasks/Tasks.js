@@ -466,8 +466,8 @@ const Tasks = ({ position, mode }) => {
 
           {WorkData &&
             WorkData.map((block, index) => {
-              const { fine, state, title, type } = block;
-
+              const { fine, state, title, type,_id,feedback } = block;
+              var TextArea = "";
               if (state === 5) {
                 return (
                   <>
@@ -480,7 +480,7 @@ const Tasks = ({ position, mode }) => {
                       <div className="tasks_div">
                         <p className="tasks_header">{title}</p>
                         <div>
-                          {/* <p
+                          <p
                             className="second_task_time"
                             style={{ backgroundColor: "red" }}
                           >
@@ -491,7 +491,7 @@ const Tasks = ({ position, mode }) => {
                                 CompleteInProcessTask(e, TextArea)
                               }
                             ></i>
-                          </p> */}
+                          </p>
                           <p
                             className="tasks_footer"
                             style={{ color: "#EA9127" }}
@@ -500,7 +500,7 @@ const Tasks = ({ position, mode }) => {
                           </p>
                         </div>
                       </div>
-                      {/* {feedback == "true" ? (
+                      {feedback == "true" ? (
                         <div className="tasks_content">
                           <TextareaAutosize
                             style={
@@ -524,7 +524,7 @@ const Tasks = ({ position, mode }) => {
                         </div>
                       ) : (
                         ""
-                      )} */}
+                      )}
                     </div>
                   </>
                 );
@@ -980,8 +980,8 @@ const Tasks = ({ position, mode }) => {
             })}
           {WorkData &&
             WorkData.map((block, index) => {
-              const { fine, state, title, type } = block;
-
+              const { fine, state, title, type ,_id,feedback} = block;
+              var TextArea = "";
               if (state === 5) {
                 return (
                   <>
@@ -994,7 +994,7 @@ const Tasks = ({ position, mode }) => {
                       <div className="tasks_div">
                         <p className="tasks_header">{title}</p>
                         <div>
-                          {/* <p
+                          <p
                             className="second_task_time"
                             style={{ backgroundColor: "red" }}
                           >
@@ -1005,7 +1005,7 @@ const Tasks = ({ position, mode }) => {
                                 CompleteInProcessTask(e, TextArea)
                               }
                             ></i>
-                          </p> */}
+                          </p>
                           <p
                             className="tasks_footer"
                             style={{ color: "#EA9127" }}
@@ -1014,7 +1014,7 @@ const Tasks = ({ position, mode }) => {
                           </p>
                         </div>
                       </div>
-                      {/* {console.log(feedback)}
+                      {console.log(feedback)}
                       {feedback == "true" ? (
                         <div className="tasks_content">
                           <TextareaAutosize
@@ -1039,7 +1039,7 @@ const Tasks = ({ position, mode }) => {
                         </div>
                       ) : (
                         ""
-                      )} */}
+                      )}
                     </div>
                   </>
                 );
