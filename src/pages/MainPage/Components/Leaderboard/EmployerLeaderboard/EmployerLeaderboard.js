@@ -155,6 +155,7 @@ const EmployerLeaderboard = ({ position, mode }) => {
                             : index === 2
                             ? "black"
                             : "none",
+                        border: mode ? "1px solid black" : "1px solid white",
                       }}
                       className="first_leader_number"
                     >

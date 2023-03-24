@@ -297,5 +297,7 @@
     background-color: transparent;
     padding: 0;
     top: 0;
+  }.CustomLink:hover {
+    background-color: transparent !important;
   }
 }
