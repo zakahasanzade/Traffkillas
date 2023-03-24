@@ -27,6 +27,7 @@
   padding: 7px 10px;
   border-radius: 25px;
   height: 54px;
+  transition: all 1s;
 }
 .header_profile_buttons i {
   border: 0;
@@ -38,6 +39,7 @@
 }
 
 #profile_button {
+  font-family: "Inter";
   width: 267px;
   height: 54px;
   display: flex;
@@ -46,6 +48,7 @@
   border-radius: 25px;
   border: 0;
   margin-left: 12px;
+  transition: all 1s;
 }
 
 #profile_button p {

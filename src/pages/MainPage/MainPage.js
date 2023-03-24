@@ -21,13 +21,65 @@ const MainPage = ({ position, ModeChange, mode }) => {
   const [dropdown, setDropdown] = useState();
   const ChangeModes = (props) => {
     ModeChange();
-    console.log(position);
+  };
+  const [showMessenger, setShowMessenger] = useState();
+  const OpeanMessenger = () => {
+    setShowMessenger(!showMessenger);
+  };
+  const CloseMessengerWindow = (window) => {
+    setShowMessenger(window);
+    console.log(window);
+  };
+  const ChangeMode = () => {
+    ModeChange();
+  };
+  const [HeaderData, SetHeaderData] = useState(false);
+  const [show, setShow] = useState(false);
+  const getHeaderData = () => {
+    let x = null;
+    fetch("https://api1.traffkillas.kz/get_profile_info", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        token: localStorage.getItem("token"),
+      },
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        x = JSON.parse(result)["data"];
+        SetHeaderData(x);
+        console.log(x);
+      });
+  };
+  const SetShowProfileInfo = () => {
+    setShow(!show);
+  };
+  useEffect(() => {
+    getHeaderData();
+  }, []);
+  const navigate = useNavigate();
+  const ViewProfile = () => {
+    navigate("/MainPage/Profile");
   };
 
   return (
     <>
       <div className="main_header">
-        {<Header ChangeModes={ChangeModes} mode={mode} />}
+        {
+          <Header
+            ChangeModes={ChangeModes}
+            OpeanMessenger={OpeanMessenger}
+            mode={mode}
+            CloseMessengerWindow={CloseMessengerWindow}
+            showMessenger={showMessenger}
+            show={show}
+            HeaderData={HeaderData}
+            ViewProfile={ViewProfile}
+            SetShowProfileInfo={SetShowProfileInfo}
+          />
+        }
       </div>
       <div className="headet_navbar">
         <nav className="nav">
@@ -77,16 +129,100 @@ const MainPage = ({ position, ModeChange, mode }) => {
                 Сотрудники
               </CustomLink>
             )}
-            {console.log(position)}
           </ul>
         </nav>
-        {/* {dropdown && (
-          <ul className="navbar_dropdown_menu">
-            <Link to="/MainPage/ProjectLeaderboard">Project</Link>
-            <Link to="/MainPage/ProjectLeaderboard">Employer</Link>
-          </ul>
-        )} */}
       </div>
+      <nav
+        style={
+          mode
+            ? { backgroundColor: "white", color: "black" }
+            : { backgroundColor: "black", color: "white" }
+        }
+        className="responsive_nav"
+      >
+        <div className="responsive_nav_top">
+          <div className="header_profile_buttons">
+            {mode ? (
+              <i onClick={ChangeMode} className="bi bi-sun-fill"></i>
+            ) : (
+              <i onClick={ChangeMode} className="bi bi-moon-stars-fill"></i>
+            )}
+            <i onClick={OpeanMessenger} className="bi bi-chat-quote-fill"></i>
+          </div>
+          <button
+            style={mode ? { color: "black" } : { color: "white" }}
+            id="profile_button"
+          >
+            <p>{show ? HeaderData?.first_name : HeaderData?.first_name}</p>
+            <img
+              src={HeaderData?.image}
+              alt="ProfilePhoto"
+              onClick={(e) => {
+                e.stopPropagation();
+                ViewProfile();
+              }}
+            />
+          </button>
+        </div>
+        <ul
+          className={
+            mode ? "header_navbar_ul light_navbar_ul" : "header_navbar_ul "
+          }
+        >
+          <CustomLink className="CustomLink" to="/MainPage/">
+            Новости
+          </CustomLink>
+          <CustomLink className="CustomLink" to="/MainPage/Tasks">
+            Задания
+          </CustomLink>
+          <CustomLink className="CustomLink" to="/MainPage/Statistics">
+            Статистика
+          </CustomLink>
+          <div className="custom_dropdown">
+            <p
+              className={
+                dropdown
+                  ? "navbar_dropdown_active navbar_dropdonw_Li"
+                  : "navbar_dropdonw_Li"
+              }
+              // to="/MainPage/ProjectLeaderboard"
+              onClick={(e) => {
+                // setDropdown(!dropdown);
+              }}
+            >
+              Лидерборд
+            </p>
+            <ul className="navbar_dropdown_menu">
+              <Link to="/MainPage/ProjectLeaderboard">Проекты</Link>
+              <Link to="/MainPage/EmployerLeaderboard">Работники</Link>
+            </ul>
+          </div>
+          <CustomLink className="CustomLink" to="/MainPage/Market">
+            Маркет
+          </CustomLink>
+          {position !== "3" && (
+            <CustomLink className="CustomLink" to="/MainPage/Instruments">
+              Инструменты
+            </CustomLink>
+          )}
+          {position !== "3" && (
+            <CustomLink className="CustomLink" to="/MainPage/Employees">
+              Сотрудники
+            </CustomLink>
+          )}
+        </ul>
+        <ul className="profile_button_info" id="time">
+          <li className="profile_button_info_li">
+            <p className="red">₸ {HeaderData?.tenge} </p>
+          </li>
+          <li className="profile_button_info_li">
+            <p>{HeaderData?.mmr}MMR</p>
+          </li>
+          <li className="profile_button_info_li">
+            <p className="orange">{HeaderData?.ttk}TTK</p>
+          </li>
+        </ul>
+      </nav>
       <Outlet />
     </>
   );

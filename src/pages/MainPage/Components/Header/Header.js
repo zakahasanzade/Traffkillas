@@ -8,50 +8,21 @@ import { useNavigate } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import Messenger from "../Messenger/Messenger";
 
-const Header = ({ ChangeModes, mode }) => {
-  const navigate = useNavigate();
-  const [showMessenger, setShowMessenger] = useState();
-
-  // const [mode, setMode] = useState();
+const Header = ({
+  ChangeModes,
+  mode,
+  OpeanMessenger,
+  showMessenger,
+  CloseMessengerWindow,
+  HeaderData,
+  ViewProfile,
+  show,
+  SetShowProfileInfo,
+}) => {
   const ChangeMode = () => {
     // setMode(!mode);
     ChangeModes();
   };
-
-  const ViewProfile = () => {
-    navigate("/MainPage/Profile");
-  };
-
-  const [show, setShow] = useState(false);
-  const [HeaderData, SetHeaderData] = useState(false);
-  const getHeaderData = () => {
-    let x = null;
-    fetch("https://api1.traffkillas.kz/get_profile_info", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        token: localStorage.getItem("token"),
-      },
-    })
-      .then((response) => {
-        return response.text();
-      })
-      .then((result) => {
-        x = JSON.parse(result)["data"];
-        SetHeaderData(x);
-        console.log(x);
-      });
-  };
-  const OpeanMessenger = () => {
-    setShowMessenger(!showMessenger);
-  };
-  const CloseMessengerWindow = (window) => {
-    setShowMessenger(window);
-    console.log(window);
-  };
-  useEffect(() => {
-    getHeaderData();
-  }, []);
 
   return (
     <>
@@ -89,7 +60,7 @@ const Header = ({ ChangeModes, mode }) => {
                     transition: "all 1s",
                   }
             }
-            onClick={() => setShow(!show)}
+            onClick={() => SetShowProfileInfo()}
             id="profile_button"
           >
             <p>{show ? HeaderData?.first_name : HeaderData?.first_name}</p>
