@@ -62,7 +62,6 @@ const Employees = ({ position, mode }) => {
       })
       .then((result) => {
         SetEmployeeGiftData(JSON.parse(result)["data"]);
-
         console.log(JSON.parse(result)["data"]);
       })
       .catch((err) => {

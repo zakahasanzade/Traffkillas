@@ -1,9 +1,10 @@
 .market_main {
   display: flex;
   flex-direction: column;
+  padding: 0 20px;
 }
 .market_products {
-  width: 1010px;
+  max-width: 1010px;
   margin: 0 auto;
   display: flex;
   gap: 10px;
@@ -90,12 +91,12 @@
   height: 208px;
 }
 .market_send {
-  width: 1010px;
+  max-width: 1010px;
   border-radius: 25px;
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   margin: 0 auto;
   font-weight: 700;
   transition: all 1s;
@@ -123,6 +124,7 @@
   outline: none;
   width: 80px;
   color: white;
+  font-weight: 700;
 }
 .market_send_title textarea {
   display: block;
@@ -164,11 +166,12 @@
   font-weight: 700;
 }
 .market_send_submit p input[type="file"]::file-selector-button {
+  font-family: "Times New Roman", Times, serif;
   background-color: #fff;
   color: #000;
   border: 0px;
   border-right: 1px solid #e5e5e5;
-  padding: 10px 15px;
+  padding: 5px 10px;
   margin-right: 20px;
   transition: 0.5s;
   cursor: pointer;
@@ -179,6 +182,9 @@
   border: 0px;
   border-right: 1px solid #e5e5e5;
   opacity: 0.5;
+}
+.testinput {
+  font-family: "Times New Roman", Times, serif;
 }
 .market_send_submit p input {
   transition: all 1s;
@@ -206,7 +212,7 @@
   color: white;
 }
 .market_send_submit_button {
-  padding: 6px 9px;
+  padding: 4px 10px;
   background-color: #0f82f5;
   border-radius: 25px;
   font-size: 16px;
@@ -220,4 +226,90 @@
   font-size: 16px;
   color: red;
   cursor: pointer;
+}
+@media screen and (min-width: 1000px) and (max-width: 1080px) {
+}
+@media screen and (min-width: 768px) and (max-width: 1000px) {
+}
+@media screen and (min-width: 0px) and (max-width: 768px) {
+  .market_send_title textarea {
+    font-size: 20px;
+  }
+  .market_send_nameProduct {
+    font-size: 16px;
+  }
+  .market_send {
+    gap: 2px;
+  }
+  .market_send_submit p input[type="file"]::file-selector-button {
+    padding: 2px 4px;
+    font-size: 12px;
+    font-family: "Times New Roman", Times, serif;
+  }
+  .testinput {
+    font-size: 12px;
+    font-family: "Times New Roman", Times, serif;
+  }
+  .market_send_submit {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .market_send_submit_button {
+    width: 100%;
+  }
+  .market_products {
+    justify-content: center;
+  }
+  .market_product p {
+    font-size: 20px;
+  }
+  .ProofBuy_content {
+    font-size: 20px;
+  }
+}
+@media screen and (min-width: 695px) and (max-width: 1029px) {
+  .market_products {
+    justify-content: center;
+  }
+  .market_product {
+    max-width: 212px;
+    padding: 15px 10px;
+  }
+  .market_product img {
+    width: 170px;
+    height: 190px;
+  }
+}
+@media screen and (min-width: 473px) and (max-width: 695px) {
+  .market_products {
+    justify-content: center;
+  }
+  .market_product {
+    max-width: 212px;
+    padding: 15px 10px;
+  }
+  .market_product img {
+    width: 170px;
+    height: 190px;
+  }
+}
+@media screen and (min-width: 0px) and (max-width: 473px) {
+  .market_products {
+    justify-content: center;
+  }
+  .market_product {
+    max-width: 100vw;
+    padding: 15px 10px;
+    width: 100%;
+  }
+  .market_product img {
+    width: 200px;
+    height: 210px;
+  }
+  .market_products .react-card-flip {
+    width: 100%;
+  }
+  .ProofBuy {
+    width: 100% !important;
+  }
 }

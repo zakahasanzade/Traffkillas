@@ -280,7 +280,10 @@ const Market = ({ mode, position }) => {
                   className="market_send_submit_button"
                   // onClick={SendProductInfo}
                 >
-                  <i className="fa-solid fa-cart-plus"> Добавить товар </i>
+                  <i className="fa-solid fa-cart-plus">
+                    {" "}
+                    Добавить товар <i class="bi bi-bag-plus-fill"></i>
+                  </i>
                 </button>
               </div>
             </form>
