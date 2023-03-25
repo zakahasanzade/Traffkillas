@@ -338,7 +338,7 @@ const Statistics = ({ position, mode }) => {
                           <p style={{ color: "purple" }}>190,090.36</p>
                         </div>
                         <div className="statistics_graph_right">
-                          <img src={ReverseVector} alt="ReverseVector"></img>
+                          <i class="bi bi-arrow-counterclockwise"></i>
                         </div>
                       </div>
                       <div className="statistics_grapg_img">
@@ -366,7 +366,7 @@ const Statistics = ({ position, mode }) => {
                         <span style={{ color: "#C21556" }}>
                           {" "}
                           <i className="bi bi-piggy-bank-fill"></i>{" "}
-                          {two_week_dep}
+                          {two_week_dep ? two_week_dep : 0}
                         </span>
                       </p>
                       <p>
@@ -380,7 +380,8 @@ const Statistics = ({ position, mode }) => {
                         Количество регистраций:{" "}
                         <span>
                           {" "}
-                          <i className="bi bi-people-fill"></i> {two_week_reg}
+                          <i className="bi bi-people-fill"></i>{" "}
+                          {two_week_reg ? two_week_reg : 0}
                         </span>
                       </p>
                     </div>

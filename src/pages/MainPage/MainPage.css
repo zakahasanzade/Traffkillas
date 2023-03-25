@@ -273,7 +273,7 @@
     margin: 0 auto !important;
     justify-content: center;
     padding: 10px 0 16px !important;
-    z-index: inherit !important;
+    color: inherit !important;
   }
   .profile_button_info_li {
     font-size: 14px !important;
