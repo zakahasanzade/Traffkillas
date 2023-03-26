@@ -4,7 +4,7 @@
   padding: 0 20px;
 }
 .market_products {
-  max-width: 1010px;
+  max-width: 990px;
   margin: 0 auto;
   display: flex;
   gap: 10px;
@@ -91,13 +91,14 @@
   height: 208px;
 }
 .market_send {
-  max-width: 1010px;
+  max-width: 990px;
+  width: 100%;
   border-radius: 25px;
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin: 0 auto;
+  margin: 0;
   font-weight: 700;
   transition: all 1s;
 }

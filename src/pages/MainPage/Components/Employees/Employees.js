@@ -66,7 +66,7 @@ const Employees = ({ position, mode }) => {
         console.log(JSON.parse(result)["data"]);
       })
       .catch((err) => {
-        alert(err);
+        alert("Акшин исправь баг милый мой");
       });
   };
 

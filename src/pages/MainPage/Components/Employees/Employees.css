@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: 10px;
   margin: 0 20px;
-  position: relative;
+  /* position: relative; */
 }
 .employee_header {
   display: flex;
@@ -196,7 +196,9 @@
 .employee_info:first-child {
   margin-top: 0;
 }
-
+/* .wrapper {
+  position: relative;
+} */
 .wrapper .list {
   border-radius: 25px;
   background-color: #141414;
@@ -204,11 +206,12 @@
   padding: 16px 20px;
   margin-top: 10px;
   transition: all 1s;
+  position: relative;
 }
 .employee_account_list {
   display: flex;
   justify-content: space-between;
-  position: relative;
+  /* position: relative; */
 }
 .employee_account_list button {
   background-color: red;
@@ -223,9 +226,14 @@
 }
 .employee_account_list_question {
   position: absolute;
-  left: 233px;
-  top: 49px;
-  width: 340px;
+  /* left: 233px;
+  top: 49px; */
+  left: 0;
+  right: 0;
+  top: 50px;
+  margin: 0 auto;
+  max-width: 340px;
+  width: 100%;
   /* height: 104px; */
   background-color: #141414;
   border-radius: 25px;
