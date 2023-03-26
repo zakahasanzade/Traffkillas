@@ -43,6 +43,9 @@ hr {
   align-items: center;
   gap: 5px;
 }
+.tasks_header_worker i {
+  display: none;
+}
 .tasks_div_complete_header {
   display: flex;
   flex-direction: row;
@@ -565,9 +568,19 @@ input[type="number"]::-webkit-outer-spin-button {
   .tasks_div_complete_submit {
     flex-direction: column;
   }
-}
-@media screen and (min-width: 0px) and (max-width: 475px) {
   .tasks_div_complete {
     flex-wrap: wrap;
+  }
+  .tasks_div_complete i {
+    display: none;
+  }
+  .tasks_header_worker i {
+    display: block;
+  }
+  .tasks_header_worker {
+    display: flex;
+  }
+  .tasks_div {
+    align-items: start;
   }
 }

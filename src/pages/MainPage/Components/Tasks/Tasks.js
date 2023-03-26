@@ -1271,7 +1271,7 @@ const Tasks = ({ position, mode }) => {
                               style={{ backgroundColor: "red" }}
                             >
                               <p className={"timer_completed" + index}></p>
-                            </p>
+                            </p>{" "}
                             <i
                               id={_id}
                               onClick={(e) => {
@@ -1282,7 +1282,44 @@ const Tasks = ({ position, mode }) => {
                             ></i>
                           </div>
                           <p className="tasks_header_worker">
-                            {worker_username}
+                            {worker_username}{" "}
+                            <i
+                              id={_id}
+                              onClick={(e) => {
+                                DeletePost(e);
+                              }}
+                              className="bi bi-trash3-fill"
+                              style={{ color: "red" }}
+                            ></i>
+                          </p>
+                        </div><div className="tasks_div_gap">
+                          <div className="tasks_div_complete">
+                            <p className="tasks_header">{title}</p>
+                            <p
+                              className="second_task_time"
+                              style={{ backgroundColor: "red" }}
+                            >
+                              <p className={"timer_completed" + index}></p>
+                            </p>{" "}
+                            <i
+                              id={_id}
+                              onClick={(e) => {
+                                DeletePost(e);
+                              }}
+                              className="bi bi-trash3-fill"
+                              style={{ color: "red" }}
+                            ></i>
+                          </div>
+                          <p className="tasks_header_worker">
+                            {worker_username}{" "}
+                            <i
+                              id={_id}
+                              onClick={(e) => {
+                                DeletePost(e);
+                              }}
+                              className="bi bi-trash3-fill"
+                              style={{ color: "red" }}
+                            ></i>
                           </p>
                         </div>
                         <div className="tasks_div_complete_submit">
@@ -1738,7 +1775,7 @@ const Tasks = ({ position, mode }) => {
                               style={{ backgroundColor: "red" }}
                             >
                               <p className={"timer_completed" + index}></p>
-                            </p>
+                            </p>{" "}
                             <i
                               id={_id}
                               onClick={(e) => {
@@ -1749,7 +1786,15 @@ const Tasks = ({ position, mode }) => {
                             ></i>
                           </div>
                           <p className="tasks_header_worker">
-                            {worker_username}
+                            {worker_username}{" "}
+                            <i
+                              id={_id}
+                              onClick={(e) => {
+                                DeletePost(e);
+                              }}
+                              className="bi bi-trash3-fill"
+                              style={{ color: "red" }}
+                            ></i>
                           </p>
                         </div>
                         <div className="tasks_div_complete_submit">
