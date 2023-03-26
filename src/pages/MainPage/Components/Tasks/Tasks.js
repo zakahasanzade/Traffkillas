@@ -466,7 +466,7 @@ const Tasks = ({ position, mode }) => {
 
           {WorkData &&
             WorkData.map((block, index) => {
-              const { fine, state, title, type,_id,feedback } = block;
+              const { fine, state, title, type, _id, feedback } = block;
               var TextArea = "";
               if (state === 5) {
                 return (
@@ -716,173 +716,214 @@ const Tasks = ({ position, mode }) => {
                 }}
               >
                 <div className="sendData_task">
-                  <div>
-                    <FormControl
-                      className={classes.formControl}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <InputLabel
-                        className={classes.inputLabel}
-                        id="mutiple-select-label"
+                  <div className="sendData_task_responsiveTop">
+                    <div>
+                      {/* <div style={{ transition: "all 1s" }}>
+                      <div
+                        style={{ transition: "all 1s" }}
+                        onClick={() => setSelectDrop(!selectDrop)}
                       >
-                        Исполнитель
-                      </InputLabel>
-                      <Select
-                        labelId="mutiple-select-label"
-                        multiple
-                        value={selected}
-                        onChange={handleChange}
-                        renderValue={() =>
-                          options
-                            .filter((block) => isSelected(block._id))
-                            .map((block) => block.username)
-                            .join(", ")
-                        }
-                        MenuProps={MenuProps}
-                      >
-                        <MenuItem
-                          value="all"
-                          classes={{
-                            root: isAllSelected ? classes.selectedAll : "",
-                          }}
-                        >
-                          <ListItemIcon>
-                            <Checkbox
-                              classes={{
-                                indeterminate: classes.indeterminateColor,
-                              }}
-                              checked={isAllSelected}
-                              indeterminate={
-                                selected.length > 0 &&
-                                selected.length < options.length
+                        Open
+                      </div>
+                      <div
+                        style={
+                          selectDrop
+                            ? {
+                                display: "block",
+                                transition: "all 1s",
+                                position: "absolute",
                               }
-                            />
-                          </ListItemIcon>
-                          <ListItemText
-                            classes={{ primary: classes.selectAllText }}
-                            primary="Select All"
-                          />
-                        </MenuItem>
-                        {options.map((option, index) => (
-                          <MenuItem key={option._id} value={option._id}>
+                            : { display: "none", transition: "all 1s" }
+                        }
+                      >
+                        Dropdown
+                      </div>
+                    </div> */}
+                      {/* <Accordion>
+                      <AccordionSummary
+                        expandIcon={
+                          <ExpandCircleDownIcon className="AccorIcon" />
+                        }
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                      >
+                        <Typography>the best title</Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <Typography>I'm also JS developer</Typography>
+                      </AccordionDetails>
+                    </Accordion> */}
+                      <FormControl
+                        className={classes.formControl}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <InputLabel
+                          className={classes.inputLabel}
+                          id="mutiple-select-label"
+                        >
+                          Исполнитель
+                        </InputLabel>
+                        <Select
+                          labelId="mutiple-select-label"
+                          multiple
+                          value={selected}
+                          onChange={handleChange}
+                          renderValue={() =>
+                            options
+                              .filter((block) => isSelected(block._id))
+                              .map((block) => block.username)
+                              .join(", ")
+                          }
+                          MenuProps={MenuProps}
+                        >
+                          <MenuItem
+                            value="all"
+                            classes={{
+                              root: isAllSelected ? classes.selectedAll : "",
+                            }}
+                          >
                             <ListItemIcon>
                               <Checkbox
-                                className={classes.listItemIcon}
-                                checked={selected.indexOf(option._id) > -1}
+                                classes={{
+                                  indeterminate: classes.indeterminateColor,
+                                }}
+                                checked={isAllSelected}
+                                indeterminate={
+                                  selected.length > 0 &&
+                                  selected.length < options.length
+                                }
                               />
                             </ListItemIcon>
-                            <ListItemText primary={option.username} />
+                            <ListItemText
+                              classes={{ primary: classes.selectAllText }}
+                              primary="Select All"
+                            />
                           </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </div>
-                  <div className="senData_task_inputsForm">
-                    <input
-                      type="text"
-                      className={mode ? "firstinput lightColor" : "firstinput"}
-                      placeholder="Ч"
-                      name="hour"
-                      maxLength="2"
-                      onInput={(e) => {
-                        e.target.value = e.target.value
-                          .replace(/[^0-9.]/g, "")
-                          .replace(/(\..*)\./g, "$1")
-                          .slice(0, 11);
-                      }}
-                    />
-                    :
-                    <input
-                      type="text"
-                      className={
-                        mode ? "secondinput lightColor" : "secondinput"
-                      }
-                      placeholder="М"
-                      maxLength="2"
-                      name="minute"
-                      onInput={(e) => {
-                        e.target.value = e.target.value
-                          .replace(/[^0-9.]/g, "")
-                          .replace(/(\..*)\./g, "$1")
-                          .slice(0, 11);
-                      }}
-                    />
-                  </div>
-                  <div
-                    className="SendData_calendarDate"
-                    onClick={(e) => {
-                      setShowCalendar(!showCalendar);
-                      e.stopPropagation();
-                    }}
-                  >
-                    {CalendarValue.toDateString().slice(4, 10)}
-                  </div>
-                  <p className="SendData_fine Tasks_fine">
-                    <div className="SendData_fine_div">
-                      -
+                          {options.map((option, index) => (
+                            <MenuItem key={option._id} value={option._id}>
+                              <ListItemIcon>
+                                <Checkbox
+                                  className={classes.listItemIcon}
+                                  checked={selected.indexOf(option._id) > -1}
+                                />
+                              </ListItemIcon>
+                              <ListItemText primary={option.username} />
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </div>
+                    <div className="senData_task_inputsForm">
                       <input
                         type="text"
-                        placeholder="Штраф"
-                        maxLength="5"
-                        name="fine"
+                        className={
+                          mode ? "firstinput lightColor" : "firstinput"
+                        }
+                        placeholder="Ч"
+                        name="hour"
+                        maxLength="2"
                         onInput={(e) => {
                           e.target.value = e.target.value
                             .replace(/[^0-9.]/g, "")
                             .replace(/(\..*)\./g, "$1")
                             .slice(0, 11);
                         }}
-                      />{" "}
-                      <p
-                        className="SendData_fine_currency"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          SetCurrency(!Currency);
-                          console.log(Currency);
+                      />
+                      :
+                      <input
+                        type="text"
+                        className={
+                          mode ? "secondinput lightColor" : "secondinput"
+                        }
+                        placeholder="М"
+                        maxLength="2"
+                        name="minute"
+                        onInput={(e) => {
+                          e.target.value = e.target.value
+                            .replace(/[^0-9.]/g, "")
+                            .replace(/(\..*)\./g, "$1")
+                            .slice(0, 11);
                         }}
-                      >
-                        {TextCurrency}
-                      </p>
+                      />
                     </div>
-                    <CSSTransition
-                      in={Currency}
-                      classNames="alert"
-                      timeout={1000}
-                      unmountOnExit
-                    >
-                      <ul
-                        className="SendData_fine_currency_dropdown"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <li
-                          onClick={(e) => {
-                            ChangeCurrency(e);
-                            closeDropdown();
-                          }}
-                        >
-                          MMR
-                        </li>
-                        <li
-                          onClick={(e) => {
-                            ChangeCurrency(e);
-                            closeDropdown();
-                          }}
-                        >
-                          Tenge
-                        </li>
-                      </ul>
-                    </CSSTransition>
-                  </p>
-
-                  <p name="Checked" className="Tasks_fine_checkbox">
-                    Feedback{" "}
-                    <Checkbox
-                      size="small"
-                      className="feedback"
-                      onChange={(e) => {
-                        console.log(e.target.checked);
+                    <div
+                      className="SendData_calendarDate"
+                      onClick={(e) => {
+                        setShowCalendar(!showCalendar);
+                        e.stopPropagation();
                       }}
-                    />
-                  </p>
+                    >
+                      {CalendarValue.toDateString().slice(4, 10)}
+                    </div>
+                  </div>
+                  <div className="sendData_task_responsiveBottom">
+                    <p className="SendData_fine Tasks_fine">
+                      <div className="SendData_fine_div">
+                        -
+                        <input
+                          type="text"
+                          placeholder="Штраф"
+                          maxLength="5"
+                          name="fine"
+                          onInput={(e) => {
+                            e.target.value = e.target.value
+                              .replace(/[^0-9.]/g, "")
+                              .replace(/(\..*)\./g, "$1")
+                              .slice(0, 11);
+                          }}
+                        />{" "}
+                        <p
+                          className="SendData_fine_currency"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            SetCurrency(!Currency);
+                            console.log(Currency);
+                          }}
+                        >
+                          {TextCurrency}
+                        </p>
+                      </div>
+                      <CSSTransition
+                        in={Currency}
+                        classNames="alert"
+                        timeout={1000}
+                        unmountOnExit
+                      >
+                        <ul
+                          className="SendData_fine_currency_dropdown"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <li
+                            onClick={(e) => {
+                              ChangeCurrency(e);
+                              closeDropdown();
+                            }}
+                          >
+                            MMR
+                          </li>
+                          <li
+                            onClick={(e) => {
+                              ChangeCurrency(e);
+                              closeDropdown();
+                            }}
+                          >
+                            Tenge
+                          </li>
+                        </ul>
+                      </CSSTransition>
+                    </p>
+
+                    <p name="Checked" className="Tasks_fine_checkbox">
+                      Feedback{" "}
+                      <Checkbox
+                        size="small"
+                        className="feedback"
+                        onChange={(e) => {
+                          console.log(e.target.checked);
+                        }}
+                      />
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -980,7 +1021,7 @@ const Tasks = ({ position, mode }) => {
             })}
           {WorkData &&
             WorkData.map((block, index) => {
-              const { fine, state, title, type ,_id,feedback} = block;
+              const { fine, state, title, type, _id, feedback } = block;
               var TextArea = "";
               if (state === 5) {
                 return (
@@ -1350,8 +1391,9 @@ const Tasks = ({ position, mode }) => {
                 }}
               >
                 <div className="sendData_task">
-                  <div>
-                    {/* <div style={{ transition: "all 1s" }}>
+                  <div className="sendData_task_responsiveTop">
+                    <div>
+                      {/* <div style={{ transition: "all 1s" }}>
                       <div
                         style={{ transition: "all 1s" }}
                         onClick={() => setSelectDrop(!selectDrop)}
@@ -1372,7 +1414,7 @@ const Tasks = ({ position, mode }) => {
                         Dropdown
                       </div>
                     </div> */}
-                    {/* <Accordion>
+                      {/* <Accordion>
                       <AccordionSummary
                         expandIcon={
                           <ExpandCircleDownIcon className="AccorIcon" />
@@ -1386,172 +1428,177 @@ const Tasks = ({ position, mode }) => {
                         <Typography>I'm also JS developer</Typography>
                       </AccordionDetails>
                     </Accordion> */}
-                    <FormControl
-                      className={classes.formControl}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <InputLabel
-                        className={classes.inputLabel}
-                        id="mutiple-select-label"
+                      <FormControl
+                        className={classes.formControl}
+                        onClick={(e) => e.stopPropagation()}
                       >
-                        Исполнитель
-                      </InputLabel>
-                      <Select
-                        labelId="mutiple-select-label"
-                        multiple
-                        value={selected}
-                        onChange={handleChange}
-                        renderValue={() =>
-                          options
-                            .filter((block) => isSelected(block._id))
-                            .map((block) => block.username)
-                            .join(", ")
-                        }
-                        MenuProps={MenuProps}
-                      >
-                        <MenuItem
-                          value="all"
-                          classes={{
-                            root: isAllSelected ? classes.selectedAll : "",
-                          }}
+                        <InputLabel
+                          className={classes.inputLabel}
+                          id="mutiple-select-label"
                         >
-                          <ListItemIcon>
-                            <Checkbox
-                              classes={{
-                                indeterminate: classes.indeterminateColor,
-                              }}
-                              checked={isAllSelected}
-                              indeterminate={
-                                selected.length > 0 &&
-                                selected.length < options.length
-                              }
-                            />
-                          </ListItemIcon>
-                          <ListItemText
-                            classes={{ primary: classes.selectAllText }}
-                            primary="Select All"
-                          />
-                        </MenuItem>
-                        {options.map((option, index) => (
-                          <MenuItem key={option._id} value={option._id}>
+                          Исполнитель
+                        </InputLabel>
+                        <Select
+                          labelId="mutiple-select-label"
+                          multiple
+                          value={selected}
+                          onChange={handleChange}
+                          renderValue={() =>
+                            options
+                              .filter((block) => isSelected(block._id))
+                              .map((block) => block.username)
+                              .join(", ")
+                          }
+                          MenuProps={MenuProps}
+                        >
+                          <MenuItem
+                            value="all"
+                            classes={{
+                              root: isAllSelected ? classes.selectedAll : "",
+                            }}
+                          >
                             <ListItemIcon>
                               <Checkbox
-                                className={classes.listItemIcon}
-                                checked={selected.indexOf(option._id) > -1}
+                                classes={{
+                                  indeterminate: classes.indeterminateColor,
+                                }}
+                                checked={isAllSelected}
+                                indeterminate={
+                                  selected.length > 0 &&
+                                  selected.length < options.length
+                                }
                               />
                             </ListItemIcon>
-                            <ListItemText primary={option.username} />
+                            <ListItemText
+                              classes={{ primary: classes.selectAllText }}
+                              primary="Select All"
+                            />
                           </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </div>
-                  <div className="senData_task_inputsForm">
-                    <input
-                      type="text"
-                      className={mode ? "firstinput lightColor" : "firstinput"}
-                      placeholder="Ч"
-                      name="hour"
-                      maxLength="2"
-                      onInput={(e) => {
-                        e.target.value = e.target.value
-                          .replace(/[^0-9.]/g, "")
-                          .replace(/(\..*)\./g, "$1")
-                          .slice(0, 11);
-                      }}
-                    />
-                    :
-                    <input
-                      type="text"
-                      className={
-                        mode ? "secondinput lightColor" : "secondinput"
-                      }
-                      placeholder="М"
-                      maxLength="2"
-                      name="minute"
-                      onInput={(e) => {
-                        e.target.value = e.target.value
-                          .replace(/[^0-9.]/g, "")
-                          .replace(/(\..*)\./g, "$1")
-                          .slice(0, 11);
-                      }}
-                    />
-                  </div>
-                  <div
-                    className="SendData_calendarDate"
-                    onClick={(e) => {
-                      setShowCalendar(!showCalendar);
-                      e.stopPropagation();
-                    }}
-                  >
-                    {CalendarValue.toDateString().slice(4, 10)}
-                  </div>
-                  <p className="SendData_fine Tasks_fine">
-                    <div className="SendData_fine_div">
-                      -
+                          {options.map((option, index) => (
+                            <MenuItem key={option._id} value={option._id}>
+                              <ListItemIcon>
+                                <Checkbox
+                                  className={classes.listItemIcon}
+                                  checked={selected.indexOf(option._id) > -1}
+                                />
+                              </ListItemIcon>
+                              <ListItemText primary={option.username} />
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </div>
+                    <div className="senData_task_inputsForm">
                       <input
                         type="text"
-                        placeholder="Штраф"
-                        maxLength="5"
-                        name="fine"
+                        className={
+                          mode ? "firstinput lightColor" : "firstinput"
+                        }
+                        placeholder="Ч"
+                        name="hour"
+                        maxLength="2"
                         onInput={(e) => {
                           e.target.value = e.target.value
                             .replace(/[^0-9.]/g, "")
                             .replace(/(\..*)\./g, "$1")
                             .slice(0, 11);
                         }}
-                      />{" "}
-                      <p
-                        className="SendData_fine_currency"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          SetCurrency(!Currency);
-                          console.log(Currency);
+                      />
+                      :
+                      <input
+                        type="text"
+                        className={
+                          mode ? "secondinput lightColor" : "secondinput"
+                        }
+                        placeholder="М"
+                        maxLength="2"
+                        name="minute"
+                        onInput={(e) => {
+                          e.target.value = e.target.value
+                            .replace(/[^0-9.]/g, "")
+                            .replace(/(\..*)\./g, "$1")
+                            .slice(0, 11);
                         }}
-                      >
-                        {TextCurrency}
-                      </p>
+                      />
                     </div>
-                    <CSSTransition
-                      in={Currency}
-                      classNames="alert"
-                      timeout={1000}
-                      unmountOnExit
-                    >
-                      <ul
-                        className="SendData_fine_currency_dropdown"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <li
-                          onClick={(e) => {
-                            ChangeCurrency(e);
-                            closeDropdown();
-                          }}
-                        >
-                          MMR
-                        </li>
-                        <li
-                          onClick={(e) => {
-                            ChangeCurrency(e);
-                            closeDropdown();
-                          }}
-                        >
-                          Tenge
-                        </li>
-                      </ul>
-                    </CSSTransition>
-                  </p>
-
-                  <p name="Checked" className="Tasks_fine_checkbox">
-                    Feedback{" "}
-                    <Checkbox
-                      size="small"
-                      className="feedback"
-                      onChange={(e) => {
-                        console.log(e.target.checked);
+                    <div
+                      className="SendData_calendarDate"
+                      onClick={(e) => {
+                        setShowCalendar(!showCalendar);
+                        e.stopPropagation();
                       }}
-                    />
-                  </p>
+                    >
+                      {CalendarValue.toDateString().slice(4, 10)}
+                    </div>
+                  </div>
+                  <div className="sendData_task_responsiveBottom">
+                    <p className="SendData_fine Tasks_fine">
+                      <div className="SendData_fine_div">
+                        -
+                        <input
+                          type="text"
+                          placeholder="Штраф"
+                          maxLength="5"
+                          name="fine"
+                          onInput={(e) => {
+                            e.target.value = e.target.value
+                              .replace(/[^0-9.]/g, "")
+                              .replace(/(\..*)\./g, "$1")
+                              .slice(0, 11);
+                          }}
+                        />{" "}
+                        <p
+                          className="SendData_fine_currency"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            SetCurrency(!Currency);
+                            console.log(Currency);
+                          }}
+                        >
+                          {TextCurrency}
+                        </p>
+                      </div>
+                      <CSSTransition
+                        in={Currency}
+                        classNames="alert"
+                        timeout={1000}
+                        unmountOnExit
+                      >
+                        <ul
+                          className="SendData_fine_currency_dropdown"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <li
+                            onClick={(e) => {
+                              ChangeCurrency(e);
+                              closeDropdown();
+                            }}
+                          >
+                            MMR
+                          </li>
+                          <li
+                            onClick={(e) => {
+                              ChangeCurrency(e);
+                              closeDropdown();
+                            }}
+                          >
+                            Tenge
+                          </li>
+                        </ul>
+                      </CSSTransition>
+                    </p>
+
+                    <p name="Checked" className="Tasks_fine_checkbox">
+                      Feedback{" "}
+                      <Checkbox
+                        size="small"
+                        className="feedback"
+                        onChange={(e) => {
+                          console.log(e.target.checked);
+                        }}
+                      />
+                    </p>
+                  </div>
                 </div>
               </div>
 

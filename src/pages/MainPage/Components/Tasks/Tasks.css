@@ -1,3 +1,8 @@
+.main {
+  max-width: 975px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 hr {
   margin: 0;
 }
@@ -8,12 +13,14 @@ hr {
 .tasks {
   gap: 15px;
   position: relative;
+  width: 85%;
 }
 .tasks_page_div {
   background-color: #141414;
   color: white;
   margin: 0 auto;
-  width: 806px;
+  width: 100%;
+  max-width: 806px;
   margin: 0 auto;
   border-radius: 25px;
   margin: 10px auto;
@@ -97,7 +104,7 @@ hr {
   line-height: 19.36px;
   font-size: 16px;
   border-radius: 25px;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
   transition: all 1s;
 }
 .lightFeed {
@@ -150,7 +157,6 @@ hr {
   font-weight: 700;
   border-radius: 25px;
   margin: 0 auto;
-  width: 806px;
   /* overflow: hidden; */
   padding: 16px;
   margin-bottom: 10px;
@@ -226,6 +232,21 @@ hr {
   font-size: 16px;
   gap: 13px;
 }
+.sendData_task_responsiveTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  gap: 13px;
+}
+.sendData_task_responsiveBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  gap: 13px;
+  margin-top: 10px;
+}
 .sendData_task img {
   color: red;
 }
@@ -297,7 +318,7 @@ hr {
   transition: all 1s;
   background-color: #141414;
   color: white;
-  animation: all 1s;
+  width: 15%;
 }
 .senData_task_inputsForm {
   margin-top: 10px;
@@ -469,4 +490,73 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .lightColor {
   color: black !important;
+}
+@media screen and (min-width: 1000px) and (max-width: 1080px) {
+}
+@media screen and (min-width: 768px) and (max-width: 1000px) {
+}
+@media screen and (min-width: 480px) and (max-width: 768px) {
+}
+@media screen and (min-width: 0px) and (max-width: 480px) {
+}
+@media screen and (min-width: 0px) and (max-width: 1000px) {
+  .tasks_teamlead {
+    display: none;
+  }
+  .tasks {
+    width: 100%;
+  }
+  .tasks_header {
+    width: initial;
+  }
+}
+@media screen and (min-width: 0px) and (max-width: 768px) {
+  .sendData_task {
+    flex-direction: column;
+  }
+  .sendData_task_responsiveBottom {
+    margin-top: 0;
+  }
+  .sendData_task {
+    align-items: initial;
+  }
+  /* .sendData_tasks > div {
+    width: 50%;
+  }
+  .sendData_submit button {
+    width: 100%;
+    justify-content: center;
+  } */
+  .sendData_tasks {
+    flex-direction: column;
+  }
+  .sendData_taskTitle {
+    font-size: 20px;
+  }
+  .sendData_taskContent {
+    font-size: 16px;
+  }
+  .sendData_submit button {
+    width: 100%;
+    justify-content: center;
+  }
+  .sendData_submit {
+    width: 100%;
+  }
+  .tasks_header {
+    font-size: 20px;
+  }
+  .tasks_footer {
+    font-size: 14px;
+  }
+  .second_task_time {
+    font-size: 14px;
+  }
+  .second_task_time i {
+    font-size: 22px;
+  }
+  .tasks_header div {
+    max-width: 300px !important;
+    overflow-wrap: anywhere;
+  }
 }
