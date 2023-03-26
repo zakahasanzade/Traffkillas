@@ -14,6 +14,7 @@ import {
   SidebarContent,
 } from "react-pro-sidebar";
 import axios from "axios";
+import { color } from "@mui/system";
 
 const Employees = ({ position, mode }) => {
   const [showUser, setShowUser] = useState();
@@ -216,14 +217,79 @@ const Employees = ({ position, mode }) => {
       transition={{ duration: 0.3 }}
     >
       <div className="employee">
-        <div className="employee_header">
-          <div className="employee_header_search">
-            <Input
-              size="mini"
-              icon="search"
-              iconPosition="left"
-              placeholder="Поиск..."
-            />
+        <div>
+          <div className="employee_header">
+            <div className="employee_header_search">
+              <Input
+                size="mini"
+                icon="search"
+                iconPosition="left"
+                placeholder="Поиск..."
+              />
+            </div>
+            <div
+              style={
+                mode
+                  ? {
+                      backgroundColor: "white",
+                      color: "black",
+                    }
+                  : {
+                      backgroundColor: "#141414",
+                      color: "white",
+                    }
+              }
+              className="employee_header_navbar"
+            >
+              <p>А-я</p>
+              <p className="active">должность</p>
+              <p>баланс</p>
+              <p>дата регистрации</p>
+            </div>
+            <div
+              style={
+                mode
+                  ? {
+                      backgroundColor: "white",
+                      color: "black",
+                    }
+                  : {
+                      backgroundColor: "#141414",
+                      color: "white",
+                    }
+              }
+              className="employee_header_gift"
+            >
+              <i
+                className="bi bi-gift-fill"
+                onClick={() => {
+                  setEmployeeGift(!EmployeeGift);
+                  setCreateEmployee(false);
+                }}
+              ></i>
+            </div>
+            <div
+              style={
+                mode
+                  ? {
+                      backgroundColor: "white",
+                      color: "black",
+                    }
+                  : {
+                      backgroundColor: "#141414",
+                      color: "white",
+                    }
+              }
+              className="employee_header_create"
+            >
+              <i
+                className="bi bi-person-plus-fill"
+                onClick={() => {
+                  setCreateEmployee(!CreateEmployee);
+                  setEmployeeGift(false);
+                }}
+              ></i>
+            </div>{" "}
           </div>
           <div
             style={
@@ -237,56 +303,12 @@ const Employees = ({ position, mode }) => {
                     color: "white",
                   }
             }
-            className="employee_header_navbar"
+            className="employee_header_navbar_responsive"
           >
             <p>А-я</p>
             <p className="active">должность</p>
             <p>баланс</p>
             <p>дата регистрации</p>
-          </div>
-          <div
-            style={
-              mode
-                ? {
-                    backgroundColor: "white",
-                    color: "black",
-                  }
-                : {
-                    backgroundColor: "#141414",
-                    color: "white",
-                  }
-            }
-            className="employee_header_gift"
-          >
-            <i
-              className="bi bi-gift-fill"
-              onClick={() => {
-                setEmployeeGift(!EmployeeGift);
-                setCreateEmployee(false);
-              }}
-            ></i>
-          </div>
-          <div
-            style={
-              mode
-                ? {
-                    backgroundColor: "white",
-                    color: "black",
-                  }
-                : {
-                    backgroundColor: "#141414",
-                    color: "white",
-                  }
-            }
-            className="employee_header_create"
-          >
-            <i
-              className="bi bi-person-plus-fill"
-              onClick={() => {
-                setCreateEmployee(!CreateEmployee);
-                setEmployeeGift(false);
-              }}
-            ></i>
           </div>
           <CSSTransition
             in={CreateEmployee}
@@ -528,7 +550,15 @@ const Employees = ({ position, mode }) => {
                           alt="ProfilePhoto1"
                         ></img>
                         <div>
-                          <p key={first_name.toString()}>{first_name}</p>
+                          <p key={first_name.toString()}>
+                            {first_name}{" "}
+                            {position !== 3 && (
+                              <i
+                                style={{ color: "#0f82f5", fontSize: "14px" }}
+                                class="bi bi-bookmark-check-fill"
+                              ></i>
+                            )}
+                          </p>
                           <p className="employee_account_left_position">
                             {position === 1 && "Админ"}
                             {position === 2 && "Тимлид"}
@@ -541,8 +571,8 @@ const Employees = ({ position, mode }) => {
                         </div>
                       </div>
                       <div className="employee_account_right">
-                        <p>{mmr}MMR</p>
-                        <p className="orange">{ttk}TTK</p>
+                        <p>{mmr} MMR</p>
+                        <p className="orange">{ttk} TTK</p>
                         <p style={{ color: "#AB16CD" }}>₸ {tenge}</p>
                       </div>
                     </button>
@@ -633,7 +663,8 @@ const Employees = ({ position, mode }) => {
                               setShowQuestion(res);
                             }}
                           >
-                            Удалить сотрудника
+                            <span>Удалить сотрудника</span>{" "}
+                            <i class="bi bi-trash3-fill"></i>
                           </button>
                         </div>
                         <CSSTransition
@@ -744,7 +775,15 @@ const Employees = ({ position, mode }) => {
                             alt="ProfilePhoto1"
                           ></img>
                           <div>
-                            <p key={first_name.toString()}>{first_name}</p>
+                            <p key={first_name.toString()}>
+                              {first_name}
+                              {position !== 3 && (
+                                <i
+                                  style={{ color: "#0f82f5" }}
+                                  class="bi bi-bookmark-check-fill"
+                                ></i>
+                              )}
+                            </p>
                             <p className="employee_account_left_position">
                               {position === 1 && "Админ"}
                               {position === 2 && "Тимлид"}
@@ -851,7 +890,8 @@ const Employees = ({ position, mode }) => {
                                 setShowQuestion(res);
                               }}
                             >
-                              Удалить сотрудника
+                              <span>Удалить сотрудника</span>{" "}
+                              <i class="bi bi-trash3-fill"></i>
                             </button>
                           </div>
                           <CSSTransition
@@ -958,7 +998,15 @@ const Employees = ({ position, mode }) => {
                           alt="ProfilePhoto1"
                         ></img>
                         <div>
-                          <p key={first_name.toString()}>{first_name}</p>
+                          <p key={first_name.toString()}>
+                            {first_name}{" "}
+                            {position !== 3 && (
+                              <i
+                                style={{ color: "#0f82f5", fontSize: "14px" }}
+                                class="bi bi-bookmark-check-fill"
+                              ></i>
+                            )}
+                          </p>
                           <p className="employee_account_left_position">
                             {position === 1 && "Админ"}
                             {position === 2 && "Тимлид"}
@@ -1063,7 +1111,8 @@ const Employees = ({ position, mode }) => {
                               setShowQuestion(res);
                             }}
                           >
-                            Удалить сотрудника
+                            <span>Удалить сотрудника</span>{" "}
+                            <i class="bi bi-trash3-fill"></i>
                           </button>
                         </div>
                         <CSSTransition
@@ -1170,7 +1219,15 @@ const Employees = ({ position, mode }) => {
                           alt="ProfilePhoto1"
                         ></img>
                         <div>
-                          <p key={first_name.toString()}>{first_name}</p>
+                          <p key={first_name.toString()}>
+                            {first_name}{" "}
+                            {position !== 3 && (
+                              <i
+                                style={{ color: "#0f82f5", fontSize: "14px" }}
+                                class="bi bi-bookmark-check-fill"
+                              ></i>
+                            )}
+                          </p>
                           <p className="employee_account_left_position">
                             {position === 1 && "Админ"}
                             {position === 2 && "Тимлид"}
@@ -1275,7 +1332,8 @@ const Employees = ({ position, mode }) => {
                               setShowQuestion(res);
                             }}
                           >
-                            Удалить сотрудника
+                            <span>Удалить сотрудника</span>{" "}
+                            <i class="bi bi-trash3-fill"></i>
                           </button>
                         </div>
                         <CSSTransition

@@ -1,9 +1,11 @@
 .employee {
-  width: 806px;
-  margin: 0 auto;
+  max-width: 806px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin: 0 20px;
+  position: relative;
 }
 .employee_header {
   display: flex;
@@ -11,7 +13,6 @@
   align-items: center;
   margin-bottom: 6px;
   gap: 10px;
-  position: relative;
 }
 .employee_header_search {
   width: 100%;
@@ -35,6 +36,16 @@
   border-radius: 25px;
   padding: 10px 20px;
   transition: all 1s;
+}
+.employee_header_navbar_responsive {
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 25px;
+  padding: 8px 16px;
+  transition: all 1s;
+  display: none;
 }
 .employee_header_navbar .active {
   opacity: 0.5;
@@ -75,7 +86,7 @@
   justify-content: space-between;
   border-radius: 25px;
   padding: 16px 20px;
-  width: 806px;
+  width: 100%;
   border: 0;
   cursor: pointer;
   transition: all 1s;
@@ -84,8 +95,7 @@
   padding: 16px;
   border-radius: 25px;
   position: absolute;
-  top: 50px;
-  left: 503px;
+  right: -1px;
   z-index: 999;
   transition: 1s;
 }
@@ -151,8 +161,11 @@
   align-items: self-start;
 }
 .employee_account_left p {
-  margin-left: 20px;
+  margin-left: 24px;
   font-weight: 500;
+  gap: 5px;
+  display: flex;
+  align-items: center;
 }
 .employee_account_left_position {
   font-size: 20px;
@@ -172,6 +185,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  font-size: 20px;
 }
 .employee_info {
   display: flex;
@@ -205,6 +219,7 @@
   font-weight: 700;
   border: 0;
   cursor: pointer;
+  width: max-content;
 }
 .employee_account_list_question {
   position: absolute;
@@ -212,7 +227,7 @@
   top: 49px;
   width: 340px;
   /* height: 104px; */
-background-color: #141414;
+  background-color: #141414;
   border-radius: 25px;
   box-shadow: rgba(205, 173, 173, 0.35) 0px 5px 15px;
   padding: 16px 20px;
@@ -279,8 +294,8 @@ background-color: #141414;
   flex-direction: column;
   justify-content: space-between;
   max-width: 452px;
-  left: 353px;
-  top: 50px;
+  width: 100%;
+  right: -1px;
   gap: 8px;
   transition: all 1s;
   z-index: 999;
@@ -340,4 +355,48 @@ background-color: #141414;
 .employee_header_search .ui.input {
   border: 0;
   outline: none;
+}
+@media screen and (min-width: 1000px) and (max-width: 1080px) {
+}
+@media screen and (min-width: 768px) and (max-width: 1000px) {
+}
+@media screen and (min-width: 480px) and (max-width: 768px) {
+}
+@media screen and (min-width: 0px) and (max-width: 480px) {
+  .employee_header_navbar_responsive {
+    font-size: 14px;
+  }
+}
+@media screen and (min-width: 0px) and (max-width: 768px) {
+  .employee_account_left img {
+    max-width: 48px;
+    max-height: 48px;
+  }
+  .employee_account_left_position {
+    font-size: 16px;
+  }
+  .employee_account_left p {
+    font-size: 20px;
+  }
+  .employee_account_right {
+    flex-direction: column;
+    font-size: 14px;
+    gap: 5px;
+  }
+  .employee_header_navbar {
+    display: none !important;
+  }
+  .employee_header_navbar_responsive {
+    display: flex;
+    padding: 8px 8px;
+  }
+  .employee_info {
+    font-size: 16px;
+  }
+  .employee_account_list button {
+    content: "spdf";
+  }
+  .employee_account_list button span {
+    display: none;
+  }
 }
