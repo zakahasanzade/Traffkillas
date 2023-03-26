@@ -1,13 +1,26 @@
-.profile_header {
-  width: 1214px;
+.profile {
+  padding: 0 20px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 1210px;
+  margin: 0 auto;
+}
+.profile_header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
   margin: 0 auto;
   margin-top: 50px;
+  gap: 10px;
 }
 .MainLogo {
-  width: 368px;
+  width: 398px;
   margin-bottom: 5px;
+}
+
+.profile_header_left {
+  width: 65%;
 }
 .profile_header_left p {
   font-size: 32px;
@@ -29,6 +42,7 @@
   letter-spacing: 0.03em;
   cursor: pointer;
   margin-top: 5px;
+  width: max-content;
 }
 .profile_back_button i {
   margin: 0;
@@ -42,7 +56,7 @@
 .profile_header_right {
   background-color: #ea9127;
   border-radius: 25px;
-  width: 398px;
+  width: 35%;
   padding: 16px 20px;
   color: black;
   display: flex;
@@ -68,6 +82,8 @@
 }
 .profile_header_right_img img {
   width: 84px;
+  height: 84px;
+  border-radius: 100%;
 }
 .profile_main {
   max-width: 1214px;
@@ -262,14 +278,15 @@
   font-size: 20px;
 }
 .admin {
-  max-width: 1214px;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  margin: 0 auto;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px auto;
 }
 .admin_statistics {
-  width: 806px;
-  margin: 20px auto 0;
+  width: 65%;
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -306,8 +323,8 @@
   font-weight: 700;
 }
 .admin_payments {
-  margin-top: 48px;
-  width: 398px;
+  margin-top: 28px;
+  width: 35%;
   display: flex;
   flex-direction: column;
   gap: 7px;
@@ -323,6 +340,7 @@
   padding: 16px 20px;
   border-radius: 25px;
 }
+
 .admin_payments_details div {
   background-color: white;
   color: black;
@@ -373,4 +391,55 @@
 
 .input_enable_onclick {
   display: none;
+}
+@media screen and (min-width: 1000px) and (max-width: 1080px) {
+}
+@media screen and (min-width: 768px) and (max-width: 1000px) {
+}
+@media screen and (min-width: 480px) and (max-width: 768px) {
+}
+@media screen and (min-width: 0px) and (max-width: 480px) {
+  .MainLogo {
+    width: 320px;
+  }
+  .profile_header_left_ProfileName {
+    font-size: 20px !important;
+  }
+  .profile_header_right_img img {
+    width: 48px;
+    height: 48px;
+  }
+  .admin_statistics_info_teg img {
+    width: 48px;
+    height: 48px;
+  }
+  .admin_payments_details p:first-child {
+    font-size: 18px;
+  }
+  .admin_payments_details_input {
+    font-size: 18px;
+  }
+}
+@media screen and (min-width: 0px) and (max-width: 1000px) {
+  .profile_header {
+    flex-direction: column;
+  }
+  .profile_header_right {
+    width: 100%;
+  }
+  .admin {
+    flex-direction: column-reverse;
+  }
+  .admin_payments {
+    width: 100%;
+  }
+  .admin_statistics {
+    width: 100%;
+  }
+  .admin {
+    margin: 0 auto;
+  }
+  .admin_statistics_title {
+    margin-bottom: 10px;
+  }
 }

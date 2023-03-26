@@ -294,7 +294,20 @@ const Profile = ({ position, mode }) => {
           </div>
           <div className="profile_header_right">
             <div className="profile_header_right_info">
-              <p>{profileInformation?.first_name}</p>
+              <p
+                style={
+                  mode
+                    ? {
+                        color: "white",
+                      }
+                    : {
+                        color: "black",
+                      }
+                }
+                className="profile_header_left_ProfileName"
+              >
+                {profileInformation?.first_name}
+              </p>
               <div
                 className="profile_header_right_info_footer dropdown"
                 onClick={() => {
@@ -585,7 +598,13 @@ const Profile = ({ position, mode }) => {
                       </div>
                     </div>
                     <div className="admin_payments">
-                      <div className={mode?"admin_payments_details light":"admin_payments_details "}>
+                      <div
+                        className={
+                          mode
+                            ? "admin_payments_details light"
+                            : "admin_payments_details "
+                        }
+                      >
                         <p>KPI</p>
                         <div className="input_enable_default default_kpi">
                           <p className="admin_payments_details_input">
@@ -616,7 +635,13 @@ const Profile = ({ position, mode }) => {
                         </div>
                       </div>
                       <p className="admin_payments_title">Выплаты</p>
-                      <div className={mode?"admin_payments_details light":"admin_payments_details "}>
+                      <div
+                        className={
+                          mode
+                            ? "admin_payments_details light"
+                            : "admin_payments_details "
+                        }
+                      >
                         <p>Продакшн</p>
                         <div className="input_enable_default default_prodaction">
                           <p className="admin_payments_details_input">
@@ -647,7 +672,13 @@ const Profile = ({ position, mode }) => {
                           ></i>
                         </div>
                       </div>
-                      <div className={mode?"admin_payments_details light":"admin_payments_details "}>
+                      <div
+                        className={
+                          mode
+                            ? "admin_payments_details light"
+                            : "admin_payments_details "
+                        }
+                      >
                         <p>Контентмейкер</p>
                         <div className="input_enable_default default_contentmaker">
                           <p className="admin_payments_details_input">
@@ -678,7 +709,13 @@ const Profile = ({ position, mode }) => {
                           ></i>
                         </div>
                       </div>
-                      <div className={mode?"admin_payments_details light":"admin_payments_details "}>
+                      <div
+                        className={
+                          mode
+                            ? "admin_payments_details light"
+                            : "admin_payments_details "
+                        }
+                      >
                         <p>Обработка</p>
                         <div className="input_enable_default default_treat_1">
                           <p className="admin_payments_details_input">
@@ -709,7 +746,13 @@ const Profile = ({ position, mode }) => {
                           ></i>
                         </div>
                       </div>
-                      <div className={mode?"admin_payments_details light":"admin_payments_details "}>
+                      <div
+                        className={
+                          mode
+                            ? "admin_payments_details light"
+                            : "admin_payments_details "
+                        }
+                      >
                         <p>Обработка(вечер)</p>
                         <div className="input_enable_default default_treat_2">
                           <p className="admin_payments_details_input">
@@ -740,7 +783,13 @@ const Profile = ({ position, mode }) => {
                           ></i>
                         </div>
                       </div>
-                      <div className={mode?"admin_payments_details light":"admin_payments_details "}>
+                      <div
+                        className={
+                          mode
+                            ? "admin_payments_details light"
+                            : "admin_payments_details "
+                        }
+                      >
                         <p>Обработка(утрен)</p>
                         <div className="input_enable_default default_treat_3">
                           <p className="admin_payments_details_input">
@@ -771,7 +820,13 @@ const Profile = ({ position, mode }) => {
                           ></i>
                         </div>
                       </div>
-                      <div className={mode?"admin_payments_details light":"admin_payments_details "}>
+                      <div
+                        className={
+                          mode
+                            ? "admin_payments_details light"
+                            : "admin_payments_details "
+                        }
+                      >
                         <p>Тимлид(продакшн)</p>
                         <div className="input_enable_default default_team_1">
                           <p className="admin_payments_details_input">
@@ -802,7 +857,13 @@ const Profile = ({ position, mode }) => {
                           ></i>
                         </div>
                       </div>
-                      <div className={mode?"admin_payments_details light":"admin_payments_details "}>
+                      <div
+                        className={
+                          mode
+                            ? "admin_payments_details light"
+                            : "admin_payments_details "
+                        }
+                      >
                         <p>Тимлид(обработка)</p>
                         <div className="input_enable_default default_team_2">
                           <p className="admin_payments_details_input">
@@ -833,7 +894,13 @@ const Profile = ({ position, mode }) => {
                           ></i>
                         </div>
                       </div>
-                      <div className={mode?"admin_payments_details light":"admin_payments_details "}>
+                      <div
+                        className={
+                          mode
+                            ? "admin_payments_details light"
+                            : "admin_payments_details "
+                        }
+                      >
                         <p>Тимлид(контент)</p>
                         <div className="input_enable_default default_team_3">
                           <p className="admin_payments_details_input">
