@@ -74,6 +74,9 @@
   max-height: 150px;
   overflow-y: scroll;
 }
+/* .page_autorization .pro-inner-item .pro-item-content:first-child{
+  color:red
+} */
 .page_autorization_inputs input {
   width: 70%;
   height: 100%;

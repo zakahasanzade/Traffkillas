@@ -318,11 +318,11 @@ const News = ({ position, mode }) => {
                 >
                   <i
                     style={{
-                      color: "#ea9127",
+                      color: "rgb(20, 124, 239)",
                       fontSize: "16px",
                       cursor: "pointer",
                     }}
-                    className="bi bi-pencil-square"
+                    className="bi bi-image-alt"
                   ></i>
                 </label>
                 <input

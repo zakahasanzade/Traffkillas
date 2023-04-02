@@ -105,7 +105,8 @@ const Authorization = () => {
     document.querySelector(
       ".pro-item-content"
     ).innerHTML = `${e.target.textContent}`;
-    // document.querySelector(`#${channel_id}`).style.opacity = 1;
+    document.querySelector(`.pro-item-content`).style.color = "black";
+    document.querySelector(`.pro-item-content`).style.fontWeight = 700;
     console.log(document.querySelector(".pro-item-content").textContent);
   };
   const [ProjectName, SetProjectName] = useState([]);
