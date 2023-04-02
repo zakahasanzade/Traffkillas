@@ -123,6 +123,13 @@
   font-size: 14px;
   font-weight: 500;
   opacity: 0.3;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.employee_create_employee_title_checkbox {
+  cursor: pointer;
+  transition: all 1s;
 }
 .employee_create_employee input {
   border: 0;

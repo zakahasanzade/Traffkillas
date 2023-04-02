@@ -5,6 +5,7 @@ import { TagsInput } from "react-tag-input-component";
 import { motion } from "framer-motion/dist/framer-motion";
 import { CSSTransition } from "react-transition-group";
 import TextareaAutosize from "react-textarea-autosize";
+import axios from "axios";
 
 const News = ({ position, mode }) => {
   // const [show, setShow] = useState(false);
@@ -36,43 +37,59 @@ const News = ({ position, mode }) => {
       });
   };
   const SendTitlePageData = (e) => {
-    const newsTitle = document.querySelector(".newsTitle").value;
-    document.querySelector(".newsTitle").value = "";
+    e.preventDefault();
+    // const newsTitle = document.querySelector(".newsTitle").value;
+    // document.querySelector(".newsTitle").value = "";
     const newsTag = tags;
-    setTags([]);
-    console.log(tags);
-    const newsContent = document.querySelector(".newsContent").value;
-    document.querySelector(".newsContent").value = "";
+    // setTags([]);
+    // console.log(tags);
+    // const newsContent = document.querySelector(".newsContent").value;
+    // document.querySelector(".newsContent").value = "";
     const newsColor = getComputedStyle(
       document.querySelector(".back")
     ).getPropertyValue("background-color");
-    var raw = {
-      color: newsColor,
-      title: newsTitle,
-      hashtag: newsTag,
-      text: newsContent,
-    };
-    setBack("green");
-
-    fetch("https://api1.traffkillas.kz/post_news", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Token: localStorage.getItem("token"),
-      },
-      body: JSON.stringify(raw),
-    })
-      .then((response) => {
-        return response.text();
+    // var raw = {
+    //   color: newsColor,
+    //   title: newsTitle,
+    //   hashtag: newsTag,
+    //   text: newsContent,
+    // };
+    // setBack("green");
+    const form = document.getElementById("form");
+    const formData = new FormData(form);
+    formData.append("color", newsColor);
+    formData.append("hashtag", newsTag);
+    axios
+      .post("https://api1.traffkillas.kz/post_news", formData, {
+        headers: {
+          Token: localStorage.getItem("token"),
+        },
       })
-      .then((result) => {
+      .then((res) => {
         getData();
+        setTags([]);
       })
-      .catch((err) => {
-        alert(err);
+      .catch((error) => {
+        alert(error);
       });
-
-    console.log(post);
+    form.reset();
+    // fetch("https://api1.traffkillas.kz/post_news", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-type": "application/json",
+    //     Token: localStorage.getItem("token"),
+    //   },
+    //   body: JSON.stringify(formData),
+    // })
+    //   .then((response) => {
+    //     return response.text();
+    //   })
+    //   .then((result) => {
+    //     getData();
+    //   })
+    //   .catch((err) => {
+    //     alert(err);
+    //   });
   };
   const DeletePost = (e) => {
     e.preventDefault();
@@ -133,6 +150,9 @@ const News = ({ position, mode }) => {
         : "white";
     }
   }, [mode]);
+  const handleLabelClick = (e) => {
+    document.getElementById(e).click();
+  };
   const setBack = (col) => {
     document.querySelector(".back").style.backgroundColor = col;
   };
@@ -148,7 +168,8 @@ const News = ({ position, mode }) => {
     >
       <div className="news_page">
         {position !== "3" ? (
-          <div
+          <form
+            id="form"
             style={
               mode
                 ? {
@@ -160,6 +181,7 @@ const News = ({ position, mode }) => {
                     color: "white",
                   }
             }
+            onSubmit={SendTitlePageData}
             className="news_page_titles"
           >
             <div className="news_page_title">
@@ -169,7 +191,7 @@ const News = ({ position, mode }) => {
                   onClick={() => SetColor(!Color)}
                   className="back"
                   style={{
-                    width: "16px",
+                    width: "17px",
                     height: "16px",
                     backgroundColor: "green",
                     borderRadius: "100%",
@@ -266,6 +288,7 @@ const News = ({ position, mode }) => {
                         }
                   }
                   className="newsTitle"
+                  name="title"
                   placeholder="Заголовок"
                 />
               </div>
@@ -283,8 +306,33 @@ const News = ({ position, mode }) => {
                         }
                   }
                   className="newsContent"
+                  name="text"
                   placeholder="Содержание поста..."
-                />
+                />{" "}
+                <label
+                  htmlFor="file-input"
+                  onClick={(e) => {
+                    handleLabelClick("news_post_Image");
+                    e.stopPropagation();
+                  }}
+                >
+                  <i
+                    style={{
+                      color: "#ea9127",
+                      fontSize: "16px",
+                      cursor: "pointer",
+                    }}
+                    className="bi bi-pencil-square"
+                  ></i>
+                </label>
+                <input
+                  accept="image/*"
+                  maxfiles="1"
+                  type="file"
+                  name="Image"
+                  style={{ display: "none" }}
+                  id="news_post_Image"
+                ></input>
               </div>
               <div className="news_page_title_bottom">
                 <div className="news_page_title_tags">
@@ -294,33 +342,50 @@ const News = ({ position, mode }) => {
                   <TagsInput
                     value={tags}
                     onChange={setTags}
-                    name="fruits"
                     placeHolder="#новый_тег"
                     // handleAddition={handleAddition}
                   />
                 </div>
                 <div className="news_page_titles_button">
-                  <button type="submit" onClick={SendTitlePageData}>
+                  <button type="submit">
                     <p>Опубликовать новость</p>
                     <img src={rightArrow} alt="rightArrow" />
                   </button>
                 </div>
               </div>
             </div>
-          </div>
+          </form>
         ) : (
           ""
         )}
 
         <div className="news_list">
           {post &&
-            post.map((block, index, array) => {
-              const { color, title, text, hashtag, time, date, _id } = block;
+            post?.map((block, index, array) => {
+              const {
+                color,
+                title,
+                text,
+                hashtag,
+                time,
+                date,
+                _id,
+                image_url,
+              } = block;
 
               let now = new Date();
+
               let tag = [];
+
               now.setMonth(date.substring(3) - 1);
-              hashtag.forEach((element) => {
+              {
+                /* hashtag.forEach((element) => {
+                tag.push(<p>#{element} </p>);
+              }); */
+              }
+              let tagSplit = hashtag.split(",");
+
+              tagSplit.forEach((element) => {
                 tag.push(<p>#{element} </p>);
               });
               return (
@@ -369,7 +434,10 @@ const News = ({ position, mode }) => {
                         ></i>
                       )}
                     </h1>
-                    <p className="news_page_text">{text}</p>
+                    <p className="news_page_text">
+                      <span>{text}</span>
+                      {image_url && <img src={image_url} />}
+                    </p>
                     <div className="news_page_footer">
                       <p
                         style={mode ? { color: "black" } : { color: "white" }}

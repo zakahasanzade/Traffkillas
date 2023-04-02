@@ -46,6 +46,34 @@
   justify-content: center;
   overflow: hidden;
 }
+.page_autorization .css-1elwnq4-MuiPaper-root-MuiAccordion-root {
+  max-width: 330px;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+}
+.page_autorization .MuiAccordion-region {
+  max-height: 150px;
+  overflow-y: scroll;
+}
+/* .page_autorization .css-pwcg7p-MuiCollapse-root {
+  width: 100%;
+  padding: 0 20px;
+} */
+.page_autorization .css-15v22id-MuiAccordionDetails-root {
+  padding: 4px 10px !important;
+}
+.page_autorization .css-15v22id-MuiAccordionDetails-root p {
+  font-size: 20px;
+  overflow-wrap: anywhere;
+}
+.page_autorization .pro-inner-list-item ul {
+  max-height: 150px;
+  overflow-y: scroll;
+}
 .page_autorization_inputs input {
   width: 70%;
   height: 100%;

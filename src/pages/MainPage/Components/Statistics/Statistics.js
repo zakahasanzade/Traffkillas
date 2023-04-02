@@ -83,6 +83,39 @@ const Statistics = ({ position, mode }) => {
     console.log(formData);
     form.reset();
   };
+
+  const [StatisticsInfo, SetStatisticsInfo] = useState(false);
+  const [RegValue, SetRegValue] = useState();
+  const [DepValue, SetDepValue] = useState();
+  const EditStatisticsInfo = (e, channel_id, date) => {
+    console.log(StatisticsInfo);
+    if (StatisticsInfo == false) {
+      SetStatisticsInfo(!StatisticsInfo);
+    } else if (StatisticsInfo == true) {
+      e.preventDefault();
+      fetch("https://api1.traffkillas.kz/add_dep_reg", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          token: localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          date: `${date}.2023`,
+          dep: DepValue,
+          reg: RegValue,
+          channel_id: channel_id,
+        }),
+      })
+        .then((response) => {
+          return response.text();
+        })
+        .then((result) => {
+          GetStatisticsData();
+          SetStatisticsInfo(!StatisticsInfo);
+        });
+    }
+  };
+
   useEffect(() => {
     GetStatisticsData();
   }, []);
@@ -437,12 +470,61 @@ const Statistics = ({ position, mode }) => {
                                       {all_ticket}
                                     </div>
                                     <div className="statistics_submenu_div black">
-                                      <i className="bi bi-people-fill"></i>{" "}
-                                      {reg ? reg : 0}
+                                      <i
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          // EditStatisticsReg(e, channel_id, date)
+                                          EditStatisticsInfo(
+                                            e,
+                                            channel_id,
+                                            date
+                                          );
+                                        }}
+                                        className="bi bi-people-fill"
+                                      ></i>{" "}
+                                      {StatisticsInfo ? (
+                                        <input
+                                          defaultValue={reg}
+                                          onChange={(e) => {
+                                            e.preventDefault();
+                                            SetRegValue(e.target.value);
+                                            console.log(RegValue);
+                                          }}
+                                          className="statistics_submenu_div_editInfo"
+                                        />
+                                      ) : reg ? (
+                                        reg
+                                      ) : (
+                                        0
+                                      )}
                                     </div>
                                     <div className="statistics_submenu_div pink">
-                                      <i className="bi bi-piggy-bank-fill"></i>{" "}
-                                      {dep ? dep : 0}
+                                      <i
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          // EditStatisticsReg(e, channel_id, date)
+                                          EditStatisticsInfo(
+                                            e,
+                                            channel_id,
+                                            date
+                                          );
+                                        }}
+                                        className="bi bi-piggy-bank-fill"
+                                      ></i>{" "}
+                                      {StatisticsInfo ? (
+                                        <input
+                                          defaultValue={dep}
+                                          onChange={(e) => {
+                                            e.preventDefault();
+                                            SetDepValue(e.target.value);
+                                          }}
+                                          className="statistics_submenu_div_editInfo"
+                                        />
+                                      ) : dep ? (
+                                        dep
+                                      ) : (
+                                        0
+                                      )}
                                     </div>
                                   </div>
                                 }

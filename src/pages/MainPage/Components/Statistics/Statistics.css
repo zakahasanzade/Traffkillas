@@ -132,8 +132,19 @@
   width: 100%;
 }
 .pro-item-content .statistics_submenu .statistics_submenu_div {
-  width: 6%;
+  width: 10%;
   font-size: 20px;
+}
+.statistics_submenu_div_editInfo {
+  max-width: 45px;
+  font-size: 15px;
+  height: 17px !important;
+  border: 0;
+  outline: none;
+  border-radius: 5px;
+}
+.pro-item-content .statistics_submenu .statistics_submenu_div:nth-child(2) {
+  width: 25%;
 }
 .statistics_account .statistics_submenu {
   justify-content: end;

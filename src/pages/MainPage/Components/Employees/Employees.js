@@ -100,7 +100,8 @@ const Employees = ({ position, mode }) => {
     title === "Обработка(вечер)" && (positionEmployer = "treat_2");
     title === "Обработка(утрен)" && (positionEmployer = "treat_3");
     title === "Контент" && (positionEmployer = "contentmaker");
-
+    document.querySelector(".employee_create_employee_title_checkbox")
+      .checked && formData.append("position", 2);
     formData.append("title", positionEmployer);
     axios
       .post("https://api1.traffkillas.kz/create_user", formData, {
@@ -340,6 +341,13 @@ const Employees = ({ position, mode }) => {
                   name="username"
                 />
                 <p className="employee_create_employee_title">
+                  Назначить Тимлидом?{" "}
+                  <input
+                    className="employee_create_employee_title_checkbox"
+                    type="checkbox"
+                  />
+                </p>
+                <p className="employee_create_employee_title">
                   Введите пароль:
                 </p>
                 <input
@@ -523,7 +531,7 @@ const Employees = ({ position, mode }) => {
             } = person;
             return (
               <>
-                {title === "prodaction" && position !== 2 && (
+                {title === "prodaction" && (
                   <div className="wrapper" key={person + index}>
                     <button
                       id={index}
@@ -747,202 +755,199 @@ const Employees = ({ position, mode }) => {
               <>
                 {(title === "treat_1" ||
                   title === "treat_2" ||
-                  title === "treat_3") &&
-                  position !== 2 && (
-                    <div className="wrapper" key={person + index}>
-                      <button
-                        id={index}
+                  title === "treat_3") && (
+                  <div className="wrapper" key={person + index}>
+                    <button
+                      id={index}
+                      className={
+                        mode
+                          ? "button employee_account light"
+                          : "button employee_account"
+                      }
+                      onClick={(e) => {
+                        let IndexElement = index;
+                        var res = showUser.map((e, i) => {
+                          if (i === IndexElement) {
+                            return !e;
+                          } else {
+                            return e;
+                          }
+                        });
+                        setShowUser(res);
+                      }}
+                    >
+                      <div className="employee_account_left">
+                        <img
+                          src={image ? image : ProfilePhoto1}
+                          alt="ProfilePhoto1"
+                        ></img>
+                        <div>
+                          <p key={first_name.toString()}>
+                            {first_name}
+                            {position !== 3 && (
+                              <i
+                                style={{ color: "#0f82f5" }}
+                                class="bi bi-bookmark-check-fill"
+                              ></i>
+                            )}
+                          </p>
+                          <p className="employee_account_left_position">
+                            {position === 1 && "Админ"}
+                            {position === 2 && "Тимлид"}
+                            {position === 3 && "Сотрудник"}{" "}
+                            <i
+                              className="bi bi-chevron-down"
+                              style={{ fontSize: "12px" }}
+                            ></i>
+                          </p>
+                        </div>
+                      </div>
+                      <div className="employee_account_right">
+                        <p>{mmr}MMR</p>
+                        <p className="orange">{ttk}TTK</p>
+                        <p style={{ color: "#AB16CD" }}>₸ {tenge}</p>
+                      </div>
+                    </button>
+                    <CSSTransition
+                      in={showUser[index]}
+                      classNames="alert"
+                      timeout={300}
+                      unmountOnExit
+                    >
+                      <ul
                         className={
                           mode
-                            ? "button employee_account light"
-                            : "button employee_account"
+                            ? "employee_account_list list light"
+                            : "employee_account_list list"
                         }
-                        onClick={(e) => {
-                          let IndexElement = index;
-                          var res = showUser.map((e, i) => {
-                            if (i === IndexElement) {
-                              return !e;
-                            } else {
-                              return e;
-                            }
-                          });
-                          setShowUser(res);
-                        }}
                       >
-                        <div className="employee_account_left">
-                          <img
-                            src={image ? image : ProfilePhoto1}
-                            alt="ProfilePhoto1"
-                          ></img>
-                          <div>
+                        <div style={{ fontWeight: "700" }}>
+                          <li className="list-item employee_info">
+                            <p style={{ color: "orange" }}>Login</p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p style={{ color: "orange" }}>Password</p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p>ФИО</p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p>Дата рождения</p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p>Регистрация в системе</p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p>E-mail</p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p>Номер</p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p>Адрес</p>
+                          </li>
+                        </div>
+                        <div>
+                          <li className="list-item employee_info">
+                            <p
+                              key={username.toString()}
+                              value="value"
+                              id="employeeUsername"
+                            >
+                              {username}
+                            </p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p key={pwd.toString()}>{pwd}</p>
+                          </li>
+                          <li className="list-item employee_info">
                             <p key={first_name.toString()}>
-                              {first_name}
-                              {position !== 3 && (
+                              {last_name} {first_name} {middle_name}
+                            </p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p key={birth_date.toString()}>{birth_date}</p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p key={created_time.toString()}>{created_time}</p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p key={email.toString()}>{email}</p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p key={phone.toString()}>{phone}</p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p key={address.toString()}>{address}</p>
+                          </li>
+                        </div>
+                        <div>
+                          <button
+                            onClick={(e) => {
+                              let IndexElement = index;
+                              var res = showQuestion.map((e, i) => {
+                                if (i === IndexElement) {
+                                  return !e;
+                                } else {
+                                  return e;
+                                }
+                              });
+                              setShowQuestion(res);
+                            }}
+                          >
+                            <span>Удалить сотрудника</span>{" "}
+                            <i class="bi bi-trash3-fill"></i>
+                          </button>
+                        </div>
+                        <CSSTransition
+                          in={showQuestion[index]}
+                          classNames="alert"
+                          timeout={300}
+                          unmountOnExit
+                        >
+                          <form
+                            className={
+                              mode
+                                ? "employee_account_list_question light"
+                                : "employee_account_list_question"
+                            }
+                          >
+                            <p className="employee_account_question">
+                              Вы уверены?
+                            </p>
+                            <p className="employee_account_title">
+                              Впишите в поле “Удалить сотрудника”
+                            </p>
+                            <div className="employee_account_question_input">
+                              <input
+                                placeholder="..."
+                                onChange={(e) => {
+                                  setsubmitDelete(e.target.value);
+                                }}
+                              />
+                              {submitDelete === "Удалить сотрудника" ? (
                                 <i
-                                  style={{ color: "#0f82f5" }}
-                                  class="bi bi-bookmark-check-fill"
+                                  id={username}
+                                  onClick={(e) => {
+                                    SubmitDelete(e);
+                                    setsubmitDelete();
+                                  }}
+                                  className="bi bi-arrow-right-circle-fill submit_delete "
+                                ></i>
+                              ) : (
+                                <i
+                                  id={username}
+                                  style={{ opacity: "0.5" }}
+                                  className="bi bi-arrow-right-circle-fill submit_delete "
                                 ></i>
                               )}
-                            </p>
-                            <p className="employee_account_left_position">
-                              {position === 1 && "Админ"}
-                              {position === 2 && "Тимлид"}
-                              {position === 3 && "Сотрудник"}{" "}
-                              <i
-                                className="bi bi-chevron-down"
-                                style={{ fontSize: "12px" }}
-                              ></i>
-                            </p>
-                          </div>
-                        </div>
-                        <div className="employee_account_right">
-                          <p>{mmr}MMR</p>
-                          <p className="orange">{ttk}TTK</p>
-                          <p style={{ color: "#AB16CD" }}>₸ {tenge}</p>
-                        </div>
-                      </button>
-                      <CSSTransition
-                        in={showUser[index]}
-                        classNames="alert"
-                        timeout={300}
-                        unmountOnExit
-                      >
-                        <ul
-                          className={
-                            mode
-                              ? "employee_account_list list light"
-                              : "employee_account_list list"
-                          }
-                        >
-                          <div style={{ fontWeight: "700" }}>
-                            <li className="list-item employee_info">
-                              <p style={{ color: "orange" }}>Login</p>
-                            </li>
-                            <li className="list-item employee_info">
-                              <p style={{ color: "orange" }}>Password</p>
-                            </li>
-                            <li className="list-item employee_info">
-                              <p>ФИО</p>
-                            </li>
-                            <li className="list-item employee_info">
-                              <p>Дата рождения</p>
-                            </li>
-                            <li className="list-item employee_info">
-                              <p>Регистрация в системе</p>
-                            </li>
-                            <li className="list-item employee_info">
-                              <p>E-mail</p>
-                            </li>
-                            <li className="list-item employee_info">
-                              <p>Номер</p>
-                            </li>
-                            <li className="list-item employee_info">
-                              <p>Адрес</p>
-                            </li>
-                          </div>
-                          <div>
-                            <li className="list-item employee_info">
-                              <p
-                                key={username.toString()}
-                                value="value"
-                                id="employeeUsername"
-                              >
-                                {username}
-                              </p>
-                            </li>
-                            <li className="list-item employee_info">
-                              <p key={pwd.toString()}>{pwd}</p>
-                            </li>
-                            <li className="list-item employee_info">
-                              <p key={first_name.toString()}>
-                                {last_name} {first_name} {middle_name}
-                              </p>
-                            </li>
-                            <li className="list-item employee_info">
-                              <p key={birth_date.toString()}>{birth_date}</p>
-                            </li>
-                            <li className="list-item employee_info">
-                              <p key={created_time.toString()}>
-                                {created_time}
-                              </p>
-                            </li>
-                            <li className="list-item employee_info">
-                              <p key={email.toString()}>{email}</p>
-                            </li>
-                            <li className="list-item employee_info">
-                              <p key={phone.toString()}>{phone}</p>
-                            </li>
-                            <li className="list-item employee_info">
-                              <p key={address.toString()}>{address}</p>
-                            </li>
-                          </div>
-                          <div>
-                            <button
-                              onClick={(e) => {
-                                let IndexElement = index;
-                                var res = showQuestion.map((e, i) => {
-                                  if (i === IndexElement) {
-                                    return !e;
-                                  } else {
-                                    return e;
-                                  }
-                                });
-                                setShowQuestion(res);
-                              }}
-                            >
-                              <span>Удалить сотрудника</span>{" "}
-                              <i class="bi bi-trash3-fill"></i>
-                            </button>
-                          </div>
-                          <CSSTransition
-                            in={showQuestion[index]}
-                            classNames="alert"
-                            timeout={300}
-                            unmountOnExit
-                          >
-                            <form
-                              className={
-                                mode
-                                  ? "employee_account_list_question light"
-                                  : "employee_account_list_question"
-                              }
-                            >
-                              <p className="employee_account_question">
-                                Вы уверены?
-                              </p>
-                              <p className="employee_account_title">
-                                Впишите в поле “Удалить сотрудника”
-                              </p>
-                              <div className="employee_account_question_input">
-                                <input
-                                  placeholder="..."
-                                  onChange={(e) => {
-                                    setsubmitDelete(e.target.value);
-                                  }}
-                                />
-                                {submitDelete === "Удалить сотрудника" ? (
-                                  <i
-                                    id={username}
-                                    onClick={(e) => {
-                                      SubmitDelete(e);
-                                      setsubmitDelete();
-                                    }}
-                                    className="bi bi-arrow-right-circle-fill submit_delete "
-                                  ></i>
-                                ) : (
-                                  <i
-                                    id={username}
-                                    style={{ opacity: "0.5" }}
-                                    className="bi bi-arrow-right-circle-fill submit_delete "
-                                  ></i>
-                                )}
-                              </div>
-                            </form>
-                          </CSSTransition>
-                        </ul>
-                      </CSSTransition>
-                    </div>
-                  )}
+                            </div>
+                          </form>
+                        </CSSTransition>
+                      </ul>
+                    </CSSTransition>
+                  </div>
+                )}
               </>
             );
           })}
@@ -971,7 +976,7 @@ const Employees = ({ position, mode }) => {
             } = person;
             return (
               <>
-                {title === "contentmaker" && position !== 2 && (
+                {title === "contentmaker" && (
                   <div className="wrapper" key={person + index}>
                     <button
                       id={index}
@@ -1167,7 +1172,7 @@ const Employees = ({ position, mode }) => {
               </>
             );
           })}
-        <div className="employee_title">
+        {/* <div className="employee_title">
           <p>Тимлид</p>
         </div>
         {employee &&
@@ -1387,7 +1392,7 @@ const Employees = ({ position, mode }) => {
                 )}
               </>
             );
-          })}
+          })} */}
       </div>
     </motion.div>
   );
