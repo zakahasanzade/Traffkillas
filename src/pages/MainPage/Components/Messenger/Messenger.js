@@ -35,6 +35,20 @@ function Messenger({ CloseMessengerWindow }) {
   const [GetChat, setGetChat] = useState([]);
   const [ProjectId, setProjcetId] = useState(null);
   const [navColor, setNavColor] = useState();
+  const [sortChats, setSortChats] = useState();
+  const [sortGetChats, setSortGetChats] = useState(GetChat);
+
+  useEffect(() => {
+    if (ProjectId) {
+      let CopyGetChat = GetChat;
+      const ResGetChats = CopyGetChat.filter((el) => {
+        if (el.chatId.toLowerCase().includes(sortChats.toLowerCase())) {
+          return el;
+        }
+      });
+      setSortGetChats(ResGetChats);
+    }
+  }, [sortChats]);
   useEffect(() => {
     ProjectId &&
       fetch(
@@ -53,6 +67,7 @@ function Messenger({ CloseMessengerWindow }) {
         .then((result) => {
           console.log(JSON.parse(result));
           setGetChat(JSON.parse(result));
+          setSortGetChats(JSON.parse(result));
           console.log(GetChat);
           setNavColor(Array(JSON.parse(result).length).fill(false));
         });
@@ -139,11 +154,12 @@ function Messenger({ CloseMessengerWindow }) {
         CloseMessenger={CloseMessenger}
         OnceUpdate={OnceUpdate}
         StopRendering={StopRendering}
-        GetChat={GetChat}
+        sortGetChats={sortGetChats}
         ProjectId={ProjectId}
         navColor={navColor}
         setChangeNavColor={setChangeNavColor}
         ChatFolders={ChatFolders}
+        setSortChats={setSortChats}
       />
       <Thread
         NewChatId={NewChatId}

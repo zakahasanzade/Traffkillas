@@ -19,7 +19,7 @@ let ChatId = null;
 const Sidebar = ({
   navColor,
   setChangeNavColor,
-  GetChat,
+  sortGetChats,
   UpdateChatId,
   GetchatMessage,
   GetStateChat,
@@ -27,6 +27,7 @@ const Sidebar = ({
   OnceUpdate,
   StopRendering,
   ChatFolders,
+  setSortChats,
 }) => {
   // const [openChat, SetOpenChat] = useState(false);
   // const chatRef = useRef();
@@ -108,7 +109,9 @@ const Sidebar = ({
       ).style.borderBottom = "0";
     }
   };
-
+  const SortMessengerChats = (e) => {
+    setSortChats(e.target.value);
+  };
   useEffect(() => {
     document.querySelector(`.sidebar__threads_navbar_all`).style.borderBottom =
       "2px solid #EA9127";
@@ -126,7 +129,11 @@ const Sidebar = ({
         </div> */}
         <div className="sidebar__search">
           <i className="bi bi-search"></i>
-          <input placeholder="Поиск" className="sidebar__input" />
+          <input
+            onChange={(e) => SortMessengerChats(e)}
+            placeholder="Поиск"
+            className="sidebar__input"
+          />
         </div>
       </div>
       <div className="sidebar__threads_navbar">
@@ -164,8 +171,8 @@ const Sidebar = ({
       <div className="sidebar__threads">
         {activeChat === "All" && (
           <div className="sidebar__threads_chats">
-            {GetChat &&
-              GetChat?.map((chats, index) => {
+            {sortGetChats &&
+              sortGetChats?.map((chats, index) => {
                 const { chatId, lastMessage } = chats;
                 const standartFormat = new Date(lastMessage.sendTime);
                 const lastTime =

@@ -312,7 +312,6 @@ const Thread = ({
         style={{ display: "flex", flexDirection: "column" }}
         ref={chatRef}
       >
-        {console.log(messages)}
         {messages &&
           messages.map((messages, index, array) => {
             const { chatId, text, sendTime, direction } = messages;
@@ -395,7 +394,10 @@ const Thread = ({
               SetTypeMessage(e.target.value);
             }}
           />
-          <i className="bi bi-paperclip" style={{ transform: "rotate(45deg)" }}></i>
+          <i
+            className="bi bi-paperclip"
+            style={{ transform: "rotate(45deg)" }}
+          ></i>
         </form>
 
         <div
@@ -407,7 +409,10 @@ const Thread = ({
           }}
           className="thread__input_send"
         >
-          <i className="bi bi-send-fill" style={{ transform: "rotate(90deg)" }}></i>
+          <i
+            className="bi bi-send-fill"
+            style={{ transform: "rotate(90deg)" }}
+          ></i>
         </div>
         <CSSTransition
           in={showTemplate}
