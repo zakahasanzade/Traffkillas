@@ -41,7 +41,6 @@ const Market = ({ mode, position }) => {
   useEffect(() => {
     getAssets();
   }, []);
-  // console.log(assets);
 
   function submit(e) {
     e.preventDefault();

@@ -258,7 +258,7 @@
   margin: 10px 0 15px 0;
 }
 .news_page_text img {
-  max-width: 250px;
+  max-width: 100vw;
   border-radius: 15px;
 }
 .news_page_text span {

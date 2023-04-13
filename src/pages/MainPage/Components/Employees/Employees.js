@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Input } from "semantic-ui-react";
 import ProfilePhoto1 from "./Employee Assets/Profile Photo 1.svg";
 // import ProfilePhoto2 from "./Employee Assets/Profile Photo 2.svg";
@@ -74,12 +74,16 @@ const Employees = ({ position, mode }) => {
     e.preventDefault();
     const ElementId = e.target.id;
     axios
-      .post("https://api1.traffkillas.kz/accept_order", ElementId, {
-        headers: {
-          token: localStorage.getItem("token"),
-          "Content-type": "application/json",
-        },
-      })
+      .post(
+        "https://api1.traffkillas.kz/accept_order",
+        { _id: ElementId },
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+            "Content-type": "application/json",
+          },
+        }
+      )
       .then((res) => {
         GetEmployeeGifts();
         console.log(res);
@@ -206,6 +210,49 @@ const Employees = ({ position, mode }) => {
 
   useEffect(() => {
     GetEmployeeData();
+  }, []);
+
+  // const SelectPosition = (e, channel_id) => {
+  //   document.querySelector(
+  //     ".pro-item-content"
+  //   ).innerHTML = `${e.target.textContent}`;
+  //   document.querySelector(`.pro-item-content`).style.color = "black";
+  //   document.querySelector(`.pro-item-content`).style.fontWeight = 700;
+  //   console.log(document.querySelector(".pro-item-content").textContent);
+  // };
+
+  const innerProject = useRef(null);
+  const SelectProjects = (e, channel_id) => {
+    innerProject.current.innerHTML = `${e.target.textContent}`;
+    innerProject.current.style.color = "black";
+    innerProject.current.style.fontWeight = 700;
+    innerProject.current.style.paddingLeft = "20px";
+    console.log(innerProject.current.textContent);
+  };
+
+  const [ProjectName, SetProjectName] = useState([]);
+  const [selectedProject, setSelectedProject] = useState();
+  const GetProjectName = () => {
+    fetch("https://api1.traffkillas.kz/get_statistic_name", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        token: localStorage.getItem("token"),
+      },
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        SetProjectName(JSON.parse(result)["data"]);
+        console.log(JSON.parse(result)["data"]);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+  useEffect(() => {
+    GetProjectName();
   }, []);
 
   return (
@@ -406,6 +453,31 @@ const Employees = ({ position, mode }) => {
                         >
                           Контент
                         </MenuItem>
+                      </SubMenu>
+                    </Menu>
+                  </SidebarContent>
+                </ProSidebar>
+                <ProSidebar>
+                  <SidebarContent>
+                    <Menu>
+                      <SubMenu
+                        className="employee_create_position employee_create_pproject"
+                        title={"Выберите проект"}
+                        ref={innerProject}
+                      >
+                        {ProjectName?.map((project) => {
+                          const { channel_id, channel_name } = project;
+                          return (
+                            <MenuItem
+                              onClick={(e) => {
+                                SelectProjects(e, channel_id);
+                                setSelectedProject(channel_id);
+                              }}
+                            >
+                              {channel_name}
+                            </MenuItem>
+                          );
+                        })}
                       </SubMenu>
                     </Menu>
                   </SidebarContent>

@@ -72,6 +72,18 @@ function Messenger({ CloseMessengerWindow }) {
           setNavColor(Array(JSON.parse(result).length).fill(false));
         });
   }, [ProjectId]);
+  const [activeChat, setActiveChat] = useState("All");
+  useEffect(() => {
+    if (ProjectId) {
+      let CopyGetChat = GetChat;
+      const ResGetChats = CopyGetChat.filter((el) => {
+        if (el.chatId.toLowerCase().includes(sortChats.toLowerCase())) {
+          return el;
+        }
+      });
+      setSortGetChats(ResGetChats);
+    }
+  }, [activeChat]);
   useEffect(() => {
     NewChatId &&
       fetch(
@@ -97,10 +109,9 @@ function Messenger({ CloseMessengerWindow }) {
           // StopRendering("lkdfnmc");
         });
   }, [NewChatId]);
-  const NoAnswer = "NoAnswer";
   const ChatFolders = () => {
     fetch(
-      `https://api2.traffkillas.kz/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}&category=${2}`,
+      `https://api2.traffkillas.kz/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}`,
       {
         method: "GET",
         headers: {
@@ -160,6 +171,7 @@ function Messenger({ CloseMessengerWindow }) {
         setChangeNavColor={setChangeNavColor}
         ChatFolders={ChatFolders}
         setSortChats={setSortChats}
+        setActiveChat={setActiveChat}
       />
       <Thread
         NewChatId={NewChatId}

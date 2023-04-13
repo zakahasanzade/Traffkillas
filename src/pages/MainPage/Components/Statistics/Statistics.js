@@ -8,6 +8,7 @@ import { CSSTransition } from "react-transition-group";
 // import { piggyBank } from "./StatisticsAssets/piggyBank.svg";
 import ReverseVector from "./StatisticsAssets/Vector.svg";
 import StatisticsGraph from "./StatisticsGraph/StatisticsGraph.js";
+import IntervalCalendar from "@knightburton/react-interval-calendar";
 import axios from "axios";
 import {
   ProSidebar,
@@ -101,8 +102,8 @@ const Statistics = ({ position, mode }) => {
         },
         body: JSON.stringify({
           date: `${date}.2023`,
-          dep: DepValue,
-          reg: RegValue,
+          dep: DepValue ? DepValue : 0,
+          reg: RegValue ? RegValue : 0,
           channel_id: channel_id,
         }),
       })

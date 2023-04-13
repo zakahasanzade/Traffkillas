@@ -28,6 +28,7 @@ const Sidebar = ({
   StopRendering,
   ChatFolders,
   setSortChats,
+  setActiveChat,
 }) => {
   // const [openChat, SetOpenChat] = useState(false);
   // const chatRef = useRef();
@@ -76,7 +77,6 @@ const Sidebar = ({
   //     });
   // };
 
-  const [activeChat, setActiveChat] = useState("All");
   const StyleNav = (e) => {
     console.log(e.target.className);
     if (e.target.className === "sidebar__threads_navbar_all") {
@@ -150,90 +150,86 @@ const Sidebar = ({
           <li
             className="sidebar__threads_navbar_tasks"
             onClick={(e) => {
-              setActiveChat("Tasks");
+              setActiveChat("Deposit");
               StyleNav(e);
               ChatFolders();
             }}
           >
-            Задания
+            Депозит
           </li>
           <li
             className="sidebar__threads_navbar_marketing"
             onClick={(e) => {
-              setActiveChat("Marketing");
+              setActiveChat("NoAnswer");
               StyleNav(e);
             }}
           >
-            Маркетинг
+            Нет ответа
           </li>
         </ul>
       </div>
       <div className="sidebar__threads">
-        {activeChat === "All" && (
-          <div className="sidebar__threads_chats">
-            {sortGetChats &&
-              sortGetChats?.map((chats, index) => {
-                const { chatId, lastMessage } = chats;
-                const standartFormat = new Date(lastMessage.sendTime);
-                const lastTime =
-                  (standartFormat.getHours().toLocaleString().length === 1
-                    ? "0" + standartFormat.getHours()
-                    : standartFormat.getHours()) +
-                  ":" +
-                  (standartFormat.getMinutes().toLocaleString().length === 1
-                    ? "0" + standartFormat.getMinutes()
-                    : standartFormat.getMinutes());
-                return (
-                  <Menu key={chats + index}>
-                    <div
-                      id={chatId}
-                      className={
-                        navColor[index]
-                          ? "sidebar_sidebar_acoounts active_chat chat_" + index
-                          : "sidebar_sidebar_acoounts chat_" + index
-                      }
-                      onClick={(e) => {
-                        ChatId = document.querySelector(`.chat_${index}`).id;
-                        UpdateChatId(ChatId);
-                        // GetChatMessages();
-                        var res = navColor.map((e, i) => {
-                          if (i === index) {
-                            return true;
-                          } else {
-                            return false;
-                          }
-                        });
-                        setChangeNavColor(res);
-                        console.log(navColor);
-                      }}
-                    >
-                      <div className="sidebar_accounts_img">
-                        <img src={AccountProfile} alt="AccountProfile"></img>
-                        <div className="sidebar_accounts_info">
-                          <div className="sidebar_accounts_info_title">
-                            {chatId}
-                          </div>
-                          <div className="sidebar_accounts_info_message">
-                            {lastMessage.text}
-                          </div>
+        <div className="sidebar__threads_chats">
+          {sortGetChats &&
+            sortGetChats?.map((chats, index) => {
+              const { chatId, lastMessage } = chats;
+              const standartFormat = new Date(lastMessage.sendTime);
+              const lastTime =
+                (standartFormat.getHours().toLocaleString().length === 1
+                  ? "0" + standartFormat.getHours()
+                  : standartFormat.getHours()) +
+                ":" +
+                (standartFormat.getMinutes().toLocaleString().length === 1
+                  ? "0" + standartFormat.getMinutes()
+                  : standartFormat.getMinutes());
+              return (
+                <Menu key={chats + index}>
+                  <div
+                    id={chatId}
+                    className={
+                      navColor[index]
+                        ? "sidebar_sidebar_acoounts active_chat chat_" + index
+                        : "sidebar_sidebar_acoounts chat_" + index
+                    }
+                    onClick={(e) => {
+                      ChatId = document.querySelector(`.chat_${index}`).id;
+                      UpdateChatId(ChatId);
+                      // GetChatMessages();
+                      var res = navColor.map((e, i) => {
+                        if (i === index) {
+                          return true;
+                        } else {
+                          return false;
+                        }
+                      });
+                      setChangeNavColor(res);
+                      console.log(navColor);
+                    }}
+                  >
+                    <div className="sidebar_accounts_img">
+                      <img src={AccountProfile} alt="AccountProfile"></img>
+                      <div className="sidebar_accounts_info">
+                        <div className="sidebar_accounts_info_title">
+                          {chatId}
                         </div>
-                      </div>
-                      <div className="sidebar_accounts_notification">
-                        <div className="sidebar_accounts_notification_time">
-                          {lastTime}
+                        <div className="sidebar_accounts_info_message">
+                          {lastMessage.text}
                         </div>
-                        {/* <div className="sidebar_accounts_notification_num">
-                              2
-                            </div> */}
                       </div>
                     </div>
-                  </Menu>
-                );
-              })}
-          </div>
-        )}
-        {/* {activeChat === "Tasks" && <Tasks GetChat={GetChat} />}
-        {activeChat === "Marketing" && <Marketing GetChat={GetChat} />} */}
+                    <div className="sidebar_accounts_notification">
+                      <div className="sidebar_accounts_notification_time">
+                        {lastTime}
+                      </div>
+                      {/* <div className="sidebar_accounts_notification_num">
+                              2
+                            </div> */}
+                    </div>
+                  </div>
+                </Menu>
+              );
+            })}
+        </div>
       </div>
       <div className="sidebar__bottom">
         <i

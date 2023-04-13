@@ -80,7 +80,6 @@ const Authorization = () => {
       body: JSON.stringify({
         username: username,
         password: password,
-        project: selectedProject,
       }),
     })
       .then((response) => {
@@ -101,7 +100,7 @@ const Authorization = () => {
         createNotification("error");
       });
   }
-  const SelectPosition = (e, channel_id) => {
+  const SelectProjects = (e, channel_id) => {
     document.querySelector(
       ".pro-item-content"
     ).innerHTML = `${e.target.textContent}`;
@@ -109,30 +108,7 @@ const Authorization = () => {
     document.querySelector(`.pro-item-content`).style.fontWeight = 700;
     console.log(document.querySelector(".pro-item-content").textContent);
   };
-  const [ProjectName, SetProjectName] = useState([]);
-  const [selectedProject, setSelectedProject] = useState();
-  const GetProjectName = () => {
-    fetch("https://api1.traffkillas.kz/get_statistic_name", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        token: localStorage.getItem("token"),
-      },
-    })
-      .then((response) => {
-        return response.text();
-      })
-      .then((result) => {
-        SetProjectName(JSON.parse(result)["data"]);
-        console.log(JSON.parse(result)["data"]);
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  };
-  useEffect(() => {
-    GetProjectName();
-  }, []);
+ 
   return (
     <div className="page_autorization">
       <main className="page_autorization_main">
@@ -152,60 +128,7 @@ const Authorization = () => {
               className="username"
             ></input>
           </div>
-          <ProSidebar>
-            <SidebarContent>
-              <Menu>
-                <SubMenu
-                  className="employee_create_position"
-                  title={"Выберите проект"}
-                >
-                  {ProjectName?.map((project) => {
-                    const { channel_id, channel_name } = project;
-                    return (
-                      <MenuItem
-                        onClick={(e) => {
-                          SelectPosition(e, channel_id);
-                          setSelectedProject(channel_id);
-                        }}
-                      >
-                        {channel_name}
-                      </MenuItem>
-                    );
-                  })}
-
-                  {/* <MenuItem
-                    id="test"
-                    onClick={(e) => {
-                      SelectPosition(e);
-                    }}
-                  >
-                    Обработка
-                  </MenuItem>
-                  <MenuItem
-                    onClick={(e) => {
-                      SelectPosition(e);
-                    }}
-                  >
-                    Обработка(вечер)
-                  </MenuItem>
-                  <MenuItem
-                    onClick={(e) => {
-                      SelectPosition(e);
-                    }}
-                  >
-                    Обработка(утрен)
-                  </MenuItem>
-                  <MenuItem
-                    onClick={(e) => {
-                      SelectPosition(e);
-                    }}
-                  >
-                    Контент
-                  </MenuItem> */}
-                </SubMenu>
-              </Menu>
-            </SidebarContent>
-          </ProSidebar>
+          
           <div className="page_autorization_inputs_div">
             <input
               placeholder="пароль"

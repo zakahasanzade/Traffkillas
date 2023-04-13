@@ -10,6 +10,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@knightburton/react-interval-calendar": "^2.0.1",
     "@material-ui/core": "^4.12.4",
     "@microsoft/signalr": "^7.0.3",
     "@mui/icons-material": "^5.11.11",
