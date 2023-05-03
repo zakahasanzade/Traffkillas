@@ -135,6 +135,10 @@
   width: 10%;
   font-size: 20px;
 }
+.statistics_submenu_calendar {
+  position: absolute;
+  z-index: 999;
+}
 .statistics_submenu_div_editInfo {
   max-width: 45px;
   font-size: 15px;
@@ -260,6 +264,9 @@
 .pro-sidebar {
   width: 100%;
 }
+.statistics .pro-sidebar {
+  margin-bottom: 20px;
+}
 .pro-sidebar .pro-menu > ul > .pro-sub-menu > .pro-inner-list-item {
   background-color: #ebedf0;
 }
@@ -288,6 +295,25 @@
   flex-direction: column;
   gap: 10px;
 }
+.EditCalendarButton {
+  cursor: pointer;
+  background-color: rgb(168, 22, 22);
+  border: 0;
+  border-radius: 25px;
+  width: 100px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s;
+  margin-top: 10px;
+  font-size: 20px;
+}
+.EditCalendarButton:hover {
+  background-color: rgb(97, 97, 216);
+  transition: all 0.5s;
+}
+
 @media screen and (min-width: 1000px) and (max-width: 1080px) {
 }
 @media screen and (min-width: 768px) and (max-width: 1000px) {

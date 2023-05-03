@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProfileImage from "./StatisticsAssets/Profile Img.svg";
-
+import { DateRangePicker } from "react-date-range";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "react-pro-sidebar/dist/css/styles.css";
 import { motion } from "framer-motion/dist/framer-motion";
@@ -9,6 +9,8 @@ import { CSSTransition } from "react-transition-group";
 import ReverseVector from "./StatisticsAssets/Vector.svg";
 import StatisticsGraph from "./StatisticsGraph/StatisticsGraph.js";
 import IntervalCalendar from "@knightburton/react-interval-calendar";
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
 import axios from "axios";
 import {
   ProSidebar,
@@ -52,6 +54,7 @@ const Statistics = ({ position, mode }) => {
         StatisticsArray[0] = JSON.parse(result)["data"];
         setGraph(new Array(StatisticsArray[0].length).fill(false));
         setStatistics(StatisticsArray[0]);
+        console.log(JSON.parse(result)["data"]);
       })
       .catch((err) => {
         alert(err);
@@ -88,7 +91,7 @@ const Statistics = ({ position, mode }) => {
   const [StatisticsInfo, SetStatisticsInfo] = useState(false);
   const [RegValue, SetRegValue] = useState();
   const [DepValue, SetDepValue] = useState();
-  const EditStatisticsInfo = (e, channel_id, date) => {
+  const EditStatisticsInfo = (e, channel_id, dateTime) => {
     console.log(StatisticsInfo);
     if (StatisticsInfo == false) {
       SetStatisticsInfo(!StatisticsInfo);
@@ -101,7 +104,7 @@ const Statistics = ({ position, mode }) => {
           token: localStorage.getItem("token"),
         },
         body: JSON.stringify({
-          date: `${date}.2023`,
+          date: `${dateTime}.2023`,
           dep: DepValue ? DepValue : 0,
           reg: RegValue ? RegValue : 0,
           channel_id: channel_id,
@@ -116,10 +119,85 @@ const Statistics = ({ position, mode }) => {
         });
     }
   };
-
+  const [timeInterval, setTimeInterval] = useState();
   useEffect(() => {
     GetStatisticsData();
   }, []);
+
+  const [selectionRange, setSelectionRange] = useState({
+    startDate: new Date(),
+    endDate: new Date(),
+    key: "selection",
+  });
+  let from_time = null;
+  let to_time = null;
+  const formatStartDate = (date) => {
+    var d = new Date(date),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    from_time = [day, month, year].join(".");
+  };
+  const formatEndDate = (date) => {
+    var d = new Date(date),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    to_time = [day, month, year].join(".");
+  };
+
+  const handleSelect = (ranges) => {
+    console.log(ranges);
+    // {
+    //   selection: {
+    //     startDate: [native Date Object],
+    //     endDate: [native Date Object],
+    //   }
+    // }
+    setSelectionRange(ranges.selection);
+    console.log(selectionRange.startDate);
+    console.log(selectionRange.endDate);
+  };
+  const EditCalendar = (channel_id) => {
+    formatStartDate(selectionRange.startDate);
+    formatEndDate(selectionRange.endDate);
+    EditCalendarValue(channel_id);
+    console.log(channel_id);
+  };
+  const EditCalendarValue = (channel_id) => {
+    fetch(
+      `https://api1.traffkillas.kz/get_statistic?from_time=${from_time}&to_time=${to_time}&channel_id=${channel_id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          token: localStorage.getItem("token"),
+        },
+      }
+    )
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        StatisticsArray[0] = JSON.parse(result)["data"];
+        setGraph(new Array(StatisticsArray[0].length).fill(false));
+        setStatistics(StatisticsArray[0]);
+        console.log(JSON.parse(result)["data"]);
+        setTimeInterval(false)
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+
   const SubMenuSecondTitle = (
     <div className="statistics_submenu">
       <div className="statistics_submenu">
@@ -166,19 +244,16 @@ const Statistics = ({ position, mode }) => {
         {Statistics &&
           Statistics.map((el, index) => {
             const {
-              all_join,
-              all_left,
-              all_subscribers,
-              date,
-              aud_gender,
               channel_id,
+              stat,
+              all_subscribers,
+              aud_gender,
               channel_name,
+              subs,
               left_join_stat,
               recent_sub_count,
               sub_count,
               total_posts,
-              reg,
-              dep,
               all_reply_time,
               all_ticket,
               percen,
@@ -186,6 +261,7 @@ const Statistics = ({ position, mode }) => {
               two_week_dep,
               two_week_reg,
             } = el;
+
             return (
               <div className="statistics" key={el + index}>
                 <div
@@ -435,167 +511,204 @@ const Statistics = ({ position, mode }) => {
                     >
                       <h2>Дневная/часовая статистика</h2>
                       <div className="statistics_hours_div">
-                        {/* DROPDOWN SIDEBAR */}
-                        <ProSidebar>
-                          <SidebarContent>
-                            <Menu>
-                              <SubMenu
-                                title={
-                                  <div className="statistics_submenu ">
-                                    <div className="statistics_submenu_div yellow black">
-                                      {date}
-                                    </div>
-                                    <div className="statistics_submenu_div black">
-                                      {sub_count}{" "}
-                                      <span
-                                        className="green"
-                                        style={{ fontSize: "16px" }}
-                                      >
-                                        +{all_join}
-                                      </span>
-                                      /
-                                      <span
-                                        className="red"
-                                        style={{ fontSize: "16px" }}
-                                      >
-                                        -{all_left}
-                                      </span>
-                                    </div>
-
-                                    <div className="statistics_submenu_div black">
-                                      <i className="bi bi-clock-fill"></i>{" "}
-                                      {all_reply_time} мин
-                                    </div>
-                                    <div className="statistics_submenu_div orange">
-                                      <i className="bi bi-ticket-perforated-fill"></i>{" "}
-                                      {all_ticket}
-                                    </div>
-                                    <div className="statistics_submenu_div black">
-                                      <i
-                                        onClick={(e) => {
-                                          e.stopPropagation();
-                                          // EditStatisticsReg(e, channel_id, date)
-                                          EditStatisticsInfo(
-                                            e,
-                                            channel_id,
-                                            date
-                                          );
-                                        }}
-                                        className="bi bi-people-fill"
-                                      ></i>{" "}
-                                      {StatisticsInfo ? (
-                                        <input
-                                          defaultValue={reg}
-                                          onChange={(e) => {
-                                            e.preventDefault();
-                                            SetRegValue(e.target.value);
-                                            console.log(RegValue);
-                                          }}
-                                          className="statistics_submenu_div_editInfo"
-                                        />
-                                      ) : reg ? (
-                                        reg
-                                      ) : (
-                                        0
-                                      )}
-                                    </div>
-                                    <div className="statistics_submenu_div pink">
-                                      <i
-                                        onClick={(e) => {
-                                          e.stopPropagation();
-                                          // EditStatisticsReg(e, channel_id, date)
-                                          EditStatisticsInfo(
-                                            e,
-                                            channel_id,
-                                            date
-                                          );
-                                        }}
-                                        className="bi bi-piggy-bank-fill"
-                                      ></i>{" "}
-                                      {StatisticsInfo ? (
-                                        <input
-                                          defaultValue={dep}
-                                          onChange={(e) => {
-                                            e.preventDefault();
-                                            SetDepValue(e.target.value);
-                                          }}
-                                          className="statistics_submenu_div_editInfo"
-                                        />
-                                      ) : dep ? (
-                                        dep
-                                      ) : (
-                                        0
-                                      )}
-                                    </div>
-                                  </div>
-                                }
-                              >
-                                <MenuItem>
-                                  {left_join_stat &&
-                                    left_join_stat?.map((object, index) => {
-                                      const {
-                                        join,
-                                        left,
-                                        ticket,
-                                        subscribers,
-                                        time,
-                                        reply_time,
-                                      } = object;
-                                      return (
-                                        <div
-                                          key={object + index}
-                                          className="statistics_submenu "
-                                        >
+                        {stat &&
+                          stat?.map((el) => {
+                            const {
+                              statistic,
+                              date,
+                              all_join,
+                              all_left,
+                              reg,
+                              dep,
+                            } = el;
+                            const dateTime = date.substring(0, 5);
+                            return (
+                              <ProSidebar>
+                                <SidebarContent>
+                                  <Menu>
+                                    <SubMenu
+                                      title={
+                                        <div className="statistics_submenu ">
                                           <div
-                                            className="statistics_submenu_div yellow"
-                                            style={{
-                                              color: "black",
-                                              opacity: "0.5",
+                                            onClick={(e) => {
+                                              e.stopPropagation();
+                                              setTimeInterval(!timeInterval);
                                             }}
+                                            className="statistics_submenu_div yellow black"
                                           >
-                                            {time}
+                                            {dateTime}
                                           </div>
                                           <div className="statistics_submenu_div black">
-                                            {subscribers}{" "}
+                                            {subs}{" "}
                                             <span
                                               className="green"
                                               style={{ fontSize: "16px" }}
                                             >
-                                              +{join}
+                                              +{all_join}
                                             </span>
                                             /
                                             <span
                                               className="red"
                                               style={{ fontSize: "16px" }}
                                             >
-                                              -{left}
+                                              -{all_left}
                                             </span>
                                           </div>
 
                                           <div className="statistics_submenu_div black">
                                             <i className="bi bi-clock-fill"></i>{" "}
-                                            {reply_time} мин
+                                            {all_reply_time} мин
                                           </div>
                                           <div className="statistics_submenu_div orange">
                                             <i className="bi bi-ticket-perforated-fill"></i>{" "}
-                                            {ticket}
+                                            {all_ticket}
                                           </div>
                                           <div className="statistics_submenu_div black">
-                                            <i className="bi bi-people-fill"></i>{" "}
-                                            0
+                                            <i
+                                              onClick={(e) => {
+                                                e.stopPropagation();
+                                                // EditStatisticsReg(e, channel_id, dateTime)
+                                                EditStatisticsInfo(
+                                                  e,
+                                                  channel_id,
+                                                  dateTime
+                                                );
+                                              }}
+                                              className="bi bi-people-fill"
+                                            ></i>{" "}
+                                            {StatisticsInfo ? (
+                                              <input
+                                                defaultValue={reg}
+                                                onChange={(e) => {
+                                                  e.preventDefault();
+                                                  SetRegValue(e.target.value);
+                                                  console.log(RegValue);
+                                                }}
+                                                className="statistics_submenu_div_editInfo"
+                                              />
+                                            ) : reg ? (
+                                              reg
+                                            ) : (
+                                              0
+                                            )}
                                           </div>
                                           <div className="statistics_submenu_div pink">
-                                            <i className="bi bi-piggy-bank-fill"></i>{" "}
-                                            0
+                                            <i
+                                              onClick={(e) => {
+                                                e.stopPropagation();
+                                                // EditStatisticsReg(e, channel_id, dateTime)
+                                                EditStatisticsInfo(
+                                                  e,
+                                                  channel_id,
+                                                  dateTime
+                                                );
+                                              }}
+                                              className="bi bi-piggy-bank-fill"
+                                            ></i>{" "}
+                                            {StatisticsInfo ? (
+                                              <input
+                                                defaultValue={dep}
+                                                onChange={(e) => {
+                                                  e.preventDefault();
+                                                  SetDepValue(e.target.value);
+                                                }}
+                                                className="statistics_submenu_div_editInfo"
+                                              />
+                                            ) : dep ? (
+                                              dep
+                                            ) : (
+                                              0
+                                            )}
                                           </div>
                                         </div>
-                                      );
-                                    })}
-                                </MenuItem>
-                              </SubMenu>
-                            </Menu>
-                          </SidebarContent>
-                        </ProSidebar>
+                                      }
+                                    >
+                                      <MenuItem>
+                                        {statistic &&
+                                          statistic?.map((object, index) => {
+                                            const {
+                                              join,
+                                              left,
+                                              ticket,
+                                              sub,
+                                              time,
+                                              reply_time,
+                                            } = object;
+
+                                            return (
+                                              <div
+                                                key={object + index}
+                                                className="statistics_submenu "
+                                              >
+                                                <div
+                                                  className="statistics_submenu_div yellow"
+                                                  style={{
+                                                    color: "black",
+                                                    opacity: "0.5",
+                                                  }}
+                                                >
+                                                  {time}
+                                                </div>
+                                                <div className="statistics_submenu_div black">
+                                                  {sub}{" "}
+                                                  <span
+                                                    className="green"
+                                                    style={{ fontSize: "16px" }}
+                                                  >
+                                                    +{join}
+                                                  </span>
+                                                  /
+                                                  <span
+                                                    className="red"
+                                                    style={{ fontSize: "16px" }}
+                                                  >
+                                                    -{left}
+                                                  </span>
+                                                </div>
+
+                                                <div className="statistics_submenu_div black">
+                                                  <i className="bi bi-clock-fill"></i>{" "}
+                                                  {reply_time} мин
+                                                </div>
+                                                <div className="statistics_submenu_div orange">
+                                                  <i className="bi bi-ticket-perforated-fill"></i>{" "}
+                                                  {ticket}
+                                                </div>
+                                                <div className="statistics_submenu_div black">
+                                                  <i className="bi bi-people-fill"></i>{" "}
+                                                  0
+                                                </div>
+                                                <div className="statistics_submenu_div pink">
+                                                  <i className="bi bi-piggy-bank-fill"></i>{" "}
+                                                  0
+                                                </div>
+                                              </div>
+                                            );
+                                          })}
+                                      </MenuItem>
+                                    </SubMenu>
+                                  </Menu>
+                                </SidebarContent>
+                              </ProSidebar>
+                            );
+                          })}
+
+                        <CSSTransition
+                          in={timeInterval}
+                          classNames="alert"
+                          timeout={300}
+                          unmountOnExit
+                        >
+                          <div className="statistics_submenu_calendar">
+                            <DateRangePicker
+                              ranges={[selectionRange]}
+                              onChange={handleSelect}
+                            />
+                            <div className="EditCalendarButton" onClick={(e) => EditCalendar(channel_id)}>
+                              Submit
+                            </div>
+                          </div>
+                        </CSSTransition>
                       </div>
                       <div className="statistics_hours_div">
                         {/* DROPDOWN SIDEBAR */}
