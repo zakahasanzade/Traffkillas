@@ -694,6 +694,9 @@ const Employees = ({ position, mode }) => {
                           <li className="list-item employee_info">
                             <p>Адрес</p>
                           </li>
+                          <li className="list-item employee_info">
+                            <p>Проекты</p>
+                          </li>
                         </div>
                         <div>
                           <li className="list-item employee_info">
@@ -1045,6 +1048,7 @@ const Employees = ({ position, mode }) => {
               ttk,
               username,
               image,
+              project,
             } = person;
             return (
               <>
@@ -1172,6 +1176,9 @@ const Employees = ({ position, mode }) => {
                           </li>
                           <li className="list-item employee_info">
                             <p key={address.toString()}>{address}</p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p key={project.toString()}>{project}</p>
                           </li>
                         </div>
                         <div>

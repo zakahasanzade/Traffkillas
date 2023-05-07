@@ -435,8 +435,8 @@ const News = ({ position, mode }) => {
                       )}
                     </h1>
                     <p className="news_page_text">
-                      <span>{text}</span>
                       {image_url && <img src={image_url} />}
+                      <span>{text}</span>
                     </p>
                     <div className="news_page_footer">
                       <p
