@@ -107,6 +107,7 @@ const Employees = ({ position, mode }) => {
     document.querySelector(".employee_create_employee_title_checkbox")
       .checked && formData.append("position", 2);
     formData.append("title", positionEmployer);
+    formData.append("project", selectedProject);
     axios
       .post("https://api1.traffkillas.kz/create_user", formData, {
         headers: {
@@ -245,7 +246,7 @@ const Employees = ({ position, mode }) => {
       })
       .then((result) => {
         SetProjectName(JSON.parse(result)["data"]);
-        console.log(JSON.parse(result)["data"]);
+        console.log(ProjectName);
       })
       .catch((err) => {
         alert(err);
@@ -600,7 +601,15 @@ const Employees = ({ position, mode }) => {
               ttk,
               username,
               image,
+              project,
+              salary,
             } = person;
+            let projectName = null;
+            ProjectName.map((el) => {
+              if (el.channel_id === project) {
+                projectName = el.channel_name;
+              }
+            });
             return (
               <>
                 {title === "prodaction" && (
@@ -696,6 +705,9 @@ const Employees = ({ position, mode }) => {
                           </li>
                           <li className="list-item employee_info">
                             <p>Проекты</p>
+                          </li>{" "}
+                          <li className="list-item employee_info">
+                            <p>Зарпата</p>
                           </li>
                         </div>
                         <div>
@@ -705,31 +717,55 @@ const Employees = ({ position, mode }) => {
                               value="value"
                               id="employeeUsername"
                             >
-                              {username}
+                              {username ? username : "(Пусто)"}
                             </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={pwd.toString()}>{pwd}</p>
+                            <p key={pwd.toString()}>{pwd ? pwd : "(Пусто)"}</p>
                           </li>
                           <li className="list-item employee_info">
                             <p key={first_name.toString()}>
-                              {last_name} {first_name} {middle_name}
+                              {last_name || first_name || middle_name
+                                ? last_name +
+                                  " " +
+                                  first_name +
+                                  " " +
+                                  middle_name
+                                : "(Пусто)"}
                             </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={birth_date.toString()}>{birth_date}</p>
+                            <p key={birth_date.toString()}>
+                              {birth_date ? birth_date : "(Пусто)"}
+                            </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={created_time.toString()}>{created_time}</p>
+                            <p key={created_time.toString()}>
+                              {created_time ? created_time : "(Пусто)"}
+                            </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={email.toString()}>{email}</p>
+                            <p key={email.toString()}>
+                              {email ? email : "(Пусто)"}
+                            </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={phone.toString()}>{phone}</p>
+                            <p key={phone.toString()}>
+                              {phone ? phone : "(Пусто)"}
+                            </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={address.toString()}>{address}</p>
+                            <p key={address.toString()}>
+                              {address ? address : "(Пусто)"}
+                            </p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p key={project.toString()}>
+                              {project ? projectName : "(Пусто)"}
+                            </p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p key={salary}>{salary ? salary : "(Пусто)"}</p>
                           </li>
                         </div>
                         <div>
@@ -825,7 +861,15 @@ const Employees = ({ position, mode }) => {
               ttk,
               username,
               image,
+              project,
+              salary,
             } = person;
+            let projectName = null;
+            ProjectName.map((el) => {
+              if (el.channel_id === project) {
+                projectName = el.channel_name;
+              }
+            });
             return (
               <>
                 {(title === "treat_1" ||
@@ -921,6 +965,12 @@ const Employees = ({ position, mode }) => {
                           <li className="list-item employee_info">
                             <p>Адрес</p>
                           </li>
+                          <li className="list-item employee_info">
+                            <p>Проекты</p>
+                          </li>{" "}
+                          <li className="list-item employee_info">
+                            <p>Зарпата</p>
+                          </li>
                         </div>
                         <div>
                           <li className="list-item employee_info">
@@ -929,31 +979,55 @@ const Employees = ({ position, mode }) => {
                               value="value"
                               id="employeeUsername"
                             >
-                              {username}
+                              {username ? username : "(Пусто)"}
                             </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={pwd.toString()}>{pwd}</p>
+                            <p key={pwd.toString()}>{pwd ? pwd : "(Пусто)"}</p>
                           </li>
                           <li className="list-item employee_info">
                             <p key={first_name.toString()}>
-                              {last_name} {first_name} {middle_name}
+                              {last_name || first_name || middle_name
+                                ? last_name +
+                                  " " +
+                                  first_name +
+                                  " " +
+                                  middle_name
+                                : "(Пусто)"}
                             </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={birth_date.toString()}>{birth_date}</p>
+                            <p key={birth_date.toString()}>
+                              {birth_date ? birth_date : "(Пусто)"}
+                            </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={created_time.toString()}>{created_time}</p>
+                            <p key={created_time.toString()}>
+                              {created_time ? created_time : "(Пусто)"}
+                            </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={email.toString()}>{email}</p>
+                            <p key={email.toString()}>
+                              {email ? email : "(Пусто)"}
+                            </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={phone.toString()}>{phone}</p>
+                            <p key={phone.toString()}>
+                              {phone ? phone : "(Пусто)"}
+                            </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={address.toString()}>{address}</p>
+                            <p key={address.toString()}>
+                              {address ? address : "(Пусто)"}
+                            </p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p key={project.toString()}>
+                              {project ? projectName : "(Пусто)"}
+                            </p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p key={salary}>{salary ? salary : "(Пусто)"}</p>
                           </li>
                         </div>
                         <div>
@@ -1049,7 +1123,14 @@ const Employees = ({ position, mode }) => {
               username,
               image,
               project,
+              salary,
             } = person;
+            let projectName = null;
+            ProjectName.map((el) => {
+              if (el.channel_id === project) {
+                projectName = el.channel_name;
+              }
+            });
             return (
               <>
                 {title === "contentmaker" && (
@@ -1143,6 +1224,12 @@ const Employees = ({ position, mode }) => {
                           <li className="list-item employee_info">
                             <p>Адрес</p>
                           </li>
+                          <li className="list-item employee_info">
+                            <p>Проекты</p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p>Зарпата</p>
+                          </li>
                         </div>
                         <div>
                           <li className="list-item employee_info">
@@ -1151,34 +1238,55 @@ const Employees = ({ position, mode }) => {
                               value="value"
                               id="employeeUsername"
                             >
-                              {username}
+                              {username ? username : "(Пусто)"}
                             </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={pwd.toString()}>{pwd}</p>
+                            <p key={pwd.toString()}>{pwd ? pwd : "(Пусто)"}</p>
                           </li>
                           <li className="list-item employee_info">
                             <p key={first_name.toString()}>
-                              {last_name} {first_name} {middle_name}
+                              {last_name || first_name || middle_name
+                                ? last_name +
+                                  " " +
+                                  first_name +
+                                  " " +
+                                  middle_name
+                                : "(Пусто)"}
                             </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={birth_date.toString()}>{birth_date}</p>
+                            <p key={birth_date.toString()}>
+                              {birth_date ? birth_date : "(Пусто)"}
+                            </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={created_time.toString()}>{created_time}</p>
+                            <p key={created_time.toString()}>
+                              {created_time ? created_time : "(Пусто)"}
+                            </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={email.toString()}>{email}</p>
+                            <p key={email.toString()}>
+                              {email ? email : "(Пусто)"}
+                            </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={phone.toString()}>{phone}</p>
+                            <p key={phone.toString()}>
+                              {phone ? phone : "(Пусто)"}
+                            </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={address.toString()}>{address}</p>
+                            <p key={address.toString()}>
+                              {address ? address : "(Пусто)"}
+                            </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={project.toString()}>{project}</p>
+                            <p key={project.toString()}>
+                              {project ? projectName : "(Пусто)"}
+                            </p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p key={salary}>{salary ? salary : "(Пусто)"}</p>
                           </li>
                         </div>
                         <div>

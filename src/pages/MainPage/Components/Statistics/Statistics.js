@@ -264,7 +264,7 @@ const Statistics = ({ position, mode }) => {
     document.getElementById(channel_id).click();
   };
   const [statisticsState, setStatisticsState] = useState("Active");
-  
+
   const setChecked = (channel_id, e) => {
     e.preventDefault();
     fetch("https://api1.traffkillas.kz/change_active", {

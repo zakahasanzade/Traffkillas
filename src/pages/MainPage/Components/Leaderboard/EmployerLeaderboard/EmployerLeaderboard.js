@@ -133,7 +133,7 @@ const EmployerLeaderboard = ({ position, mode }) => {
         <div className="leader_page_div">
           {employerLeaderboard &&
             employerLeaderboard?.map((element, index) => {
-              const { image, mmr } = element;
+              const { image, mmr, username } = element;
               return (
                 <div className={mode ? "leader_div light" : "leader_div"}>
                   <div className="responsive_statistics">
@@ -192,7 +192,7 @@ const EmployerLeaderboard = ({ position, mode }) => {
                     </div>
                     <div className="leader_info">
                       <div className="leader_info_header">
-                        <p>Name</p>
+                        <p>{username}</p>
                       </div>
                     </div>
                   </div>
