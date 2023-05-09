@@ -6,6 +6,7 @@ import ProfilePhoto1 from "./Employee Assets/Profile Photo 1.svg";
 import "./Employees.css";
 import { CSSTransition } from "react-transition-group";
 import { motion } from "framer-motion/dist/framer-motion";
+import MultiSelect from "react-simple-multi-select";
 import {
   ProSidebar,
   Menu,
@@ -212,7 +213,23 @@ const Employees = ({ position, mode }) => {
   useEffect(() => {
     GetEmployeeData();
   }, []);
+  const [itemList, setItemList] = useState([
+    "React Js",
+    "Node Js",
+    "Express Js",
+    "Next Js",
+    "Vue Js",
+    "Mongo Db",
+  ]);
 
+  const [selectedItemList, setSelectedItemList] = useState([
+    "React Js",
+    "Next Js",
+    "Mongo Db",
+  ]);
+  const changeList = (selectedItemList) => {
+    setSelectedItemList(selectedItemList);
+  };
   // const SelectPosition = (e, channel_id) => {
   //   document.querySelector(
   //     ".pro-item-content"
@@ -766,6 +783,16 @@ const Employees = ({ position, mode }) => {
                           </li>
                           <li className="list-item employee_info">
                             <p key={salary}>{salary ? salary : "(Пусто)"}</p>
+                          </li>
+                          <li className="list-item employee_info">
+                            <p>
+                              <MultiSelect
+                                title={"Multi Select"}
+                                itemList={itemList}
+                                selectedItemList={selectedItemList}
+                                changeList={changeList}
+                              />
+                            </p>
                           </li>
                         </div>
                         <div>

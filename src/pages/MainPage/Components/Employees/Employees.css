@@ -372,6 +372,7 @@
   max-height: 150px;
   overflow-y: scroll;
 }
+
 @media screen and (min-width: 1000px) and (max-width: 1080px) {
 }
 @media screen and (min-width: 768px) and (max-width: 1000px) {

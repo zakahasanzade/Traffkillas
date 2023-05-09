@@ -40,6 +40,7 @@ const Statistics = ({ position, mode }) => {
 
   const StatisticsArray = [];
   const [Statistics, setStatistics] = useState();
+  const [filerStatistics, setFilterStatistics] = useState(Statistics);
   const GetStatisticsData = () => {
     fetch("https://api1.traffkillas.kz/get_statistic", {
       method: "GET",
@@ -143,6 +144,9 @@ const Statistics = ({ position, mode }) => {
   const [timeInterval, setTimeInterval] = useState();
   useEffect(() => {
     GetStatisticsData();
+    if (statisticsState === "All") {
+      setFilterStatistics(Statistics);
+    }
   }, []);
 
   const [selectionRange, setSelectionRange] = useState({
@@ -263,8 +267,16 @@ const Statistics = ({ position, mode }) => {
   const handleLabelClick = (channel_id) => {
     document.getElementById(channel_id).click();
   };
-  const [statisticsState, setStatisticsState] = useState("Active");
-
+  const [statisticsState, setStatisticsState] = useState("All");
+  useEffect(() => {
+    if (statisticsState === "All") {
+      setFilterStatistics(Statistics);
+    } else if (statisticsState === "Active") {
+      setFilterStatistics(Statistics.filter((item) => item.active === true));
+    } else if (statisticsState === "Passive") {
+      setFilterStatistics(Statistics.filter((item) => item.active === false));
+    }
+  }, [statisticsState]);
   const setChecked = (channel_id, e) => {
     e.preventDefault();
     fetch("https://api1.traffkillas.kz/change_active", {
@@ -298,7 +310,7 @@ const Statistics = ({ position, mode }) => {
         <div className={mode ? "leader_date lightColor" : "leader_date"}>
           <p
             style={
-              statisticsState === "Active"
+              statisticsState === "All"
                 ? {
                     textDecoration: "underline",
                     opacity: "0.7",
@@ -308,10 +320,26 @@ const Statistics = ({ position, mode }) => {
             }
             className="first_date"
             onClick={() => {
+              setStatisticsState("All");
+            }}
+          >
+            All{" "}
+          </p>
+          <p
+            style={
+              statisticsState === "Active"
+                ? {
+                    textDecoration: "underline",
+                    opacity: "0.7",
+                    cursor: "pointer",
+                  }
+                : { opacity: "0.3", cursor: "pointer" }
+            }
+            onClick={() => {
               setStatisticsState("Active");
             }}
           >
-            Active{" "}
+            Active
           </p>
           <p
             style={
@@ -329,27 +357,11 @@ const Statistics = ({ position, mode }) => {
           >
             Passive
           </p>
-          <p
-            style={
-              statisticsState === "two_week_dep"
-                ? {
-                    textDecoration: "underline",
-                    opacity: "0.7",
-                    cursor: "pointer",
-                  }
-                : { opacity: "0.3", cursor: "pointer" }
-            }
-            onClick={() => {
-              setStatisticsState("two_week_dep");
-            }}
-          >
-            Fiq Znayet
-          </p>
         </div>
         {position == 3 && <p className="statistics_title">Мои проекты</p>}
         {position != 3 && <p className="statistics_title">Все проекты</p>}
-        {Statistics &&
-          Statistics.map((el, index) => {
+        {filerStatistics &&
+          filerStatistics.map((el, index) => {
             const {
               channel_id,
               stat,

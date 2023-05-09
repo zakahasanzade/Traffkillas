@@ -8,12 +8,11 @@ import Leader from "../Leaderboard Assets/Leader_Photo.svg";
 const ProjectLeaderboard = ({ position, mode }) => {
   const [projectLeaderboard, setProjectLeaderboard] = useState([]);
   const GetProjectLeaderboard = () => {
-    fetch(`https://api1.traffkillas.kz/get_leaderboard`, {
+    fetch("https://api1.traffkillas.kz/get_statistic", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        key: "dep",
+        token: localStorage.getItem("token"),
       },
     })
       .then((response) => {
@@ -26,12 +25,11 @@ const ProjectLeaderboard = ({ position, mode }) => {
       });
   };
   const GetProjectLeaderboardForWeek = () => {
-    fetch(`https://api1.traffkillas.kz/get_leaderboard`, {
+    fetch("https://api1.traffkillas.kz/get_statistic", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        key: "one_week_dep",
+        token: localStorage.getItem("token"),
       },
     })
       .then((response) => {
@@ -44,12 +42,11 @@ const ProjectLeaderboard = ({ position, mode }) => {
       });
   };
   const GetProjectLeaderboardForTwoWeek = () => {
-    fetch(`https://api1.traffkillas.kz/get_leaderboard`, {
+    fetch("https://api1.traffkillas.kz/get_statistic", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        key: "two_week_dep",
+        token: localStorage.getItem("token"),
       },
     })
       .then((response) => {
@@ -137,8 +134,7 @@ const ProjectLeaderboard = ({ position, mode }) => {
         <div className="leader_page_div">
           {projectLeaderboard &&
             projectLeaderboard?.map((element, index) => {
-              const { channel_name, percen, two_week_dep, sub_count, image } =
-                element;
+              const { channel_name, percen, weekly_dep, subs, image } = element;
 
               return (
                 <div className={mode ? "leader_div light" : "leader_div"}>
@@ -168,7 +164,7 @@ const ProjectLeaderboard = ({ position, mode }) => {
                       <p>{index + 1}</p>
                     </div>
                     <div className="leader_balance">
-                      {two_week_dep ? two_week_dep : 0} депозитов
+                      {weekly_dep ? weekly_dep : 0} депозитов
                     </div>
                   </div>
                   <div className="leader_left_div">
@@ -219,13 +215,13 @@ const ProjectLeaderboard = ({ position, mode }) => {
                         </p>
                       </div>
                       <div className="leader_info_footer">
-                        <p>{sub_count} подписчиков</p>
+                        <p>{subs} подписчиков</p>
                       </div>
                     </div>
                   </div>
 
                   <div className="leader_balance">
-                    {two_week_dep ? two_week_dep : 0} депозитов
+                    {weekly_dep ? weekly_dep : 0} депозитов
                   </div>
                 </div>
               );
