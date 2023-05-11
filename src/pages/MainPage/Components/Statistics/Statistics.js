@@ -55,13 +55,18 @@ const Statistics = ({ position, mode }) => {
       .then((result) => {
         StatisticsArray[0] = JSON.parse(result)["data"];
         setGraph(new Array(StatisticsArray[0].length).fill(false));
-        setStatistics(StatisticsArray[0]);
+        setStatistics(JSON.parse(result)["data"]);
         console.log(JSON.parse(result)["data"]);
+        console.log("skdn");
+        console.log(filerStatistics);
       })
       .catch((err) => {
         alert(err);
       });
   };
+  useEffect(() => {
+    setFilterStatistics(Statistics);
+  }, [Statistics]);
 
   const ChangeProjectAvatar = (e, index) => {
     e.preventDefault();
@@ -144,9 +149,6 @@ const Statistics = ({ position, mode }) => {
   const [timeInterval, setTimeInterval] = useState();
   useEffect(() => {
     GetStatisticsData();
-    if (statisticsState === "All") {
-      setFilterStatistics(Statistics);
-    }
   }, []);
 
   const [selectionRange, setSelectionRange] = useState({
@@ -323,6 +325,7 @@ const Statistics = ({ position, mode }) => {
               setStatisticsState("All");
             }}
           >
+            {console.log(filerStatistics)}
             All{" "}
           </p>
           <p
@@ -389,6 +392,7 @@ const Statistics = ({ position, mode }) => {
 
             return (
               <div className="statistics" key={el + index}>
+                {console.log("skdnf")}
                 <div
                   className="statistics_account"
                   style={

@@ -4,6 +4,8 @@ import { motion } from "framer-motion/dist/framer-motion";
 import { useEffect } from "react";
 import { useState } from "react";
 import Leader from "../Leaderboard Assets/Leader_Photo.svg";
+import { DateRangePicker } from "react-date-range";
+import { CSSTransition } from "react-transition-group";
 
 const ProjectLeaderboard = ({ position, mode }) => {
   const [projectLeaderboard, setProjectLeaderboard] = useState([]);
@@ -68,7 +70,56 @@ const ProjectLeaderboard = ({ position, mode }) => {
       GetProjectLeaderboardForTwoWeek();
     }
   }, [statisticsState]);
+  const [selectionRange, setSelectionRange] = useState({
+    startDate: new Date(),
+    endDate: new Date(),
+    key: "selection",
+  });
 
+  const handleSelect = (ranges) => {
+    setSelectionRange(ranges.selection);
+  };
+  const [timeInterval, setTimeInterval] = useState(false);
+  const EditCalendar = () => {
+    EditCalendarValue();
+  };
+  const EditCalendarValue = (channel_id) => {
+    // fetch(
+    //   `https://api1.traffkillas.kz/get_statistic?from_time=${from_time}&to_time=${to_time}&channel_id=${channel_id}`,
+    //   {
+    //     method: "GET",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       token: localStorage.getItem("token"),
+    //     },
+    //   }
+    // )
+    //   .then((response) => {
+    //     return response.text();
+    //   })
+    //   .then((result) => {
+    //     let channelId = JSON.parse(result)["data"][0].channel_id;
+    //     Statistics.map((el) => {
+    //       if (el.channel_id == channelId) {
+    //         el.stat = JSON.parse(result)["data"][0].stat;
+    //       }
+    //     });
+    //     console.log(JSON.parse(result)["data"][0].stat);
+    //     setTimeInterval(false);
+    //   })
+    //   .catch((err) => {
+    //     alert(err);
+    //   });
+    console.log("Will be soon");
+  };
+  useEffect(() => {
+    const closeDropdown = (e) => {
+      if (e.srcElement.className !== "statistics_submenu_calendar") {
+        setTimeInterval(false);
+      }
+    };
+    document.body.addEventListener("click", closeDropdown);
+  }, []);
   return (
     <motion.div
       className="main"
@@ -130,7 +181,44 @@ const ProjectLeaderboard = ({ position, mode }) => {
             2 недели
           </p>
         </div>
-        {console.log(projectLeaderboard)}
+        <div
+          className={
+            mode
+              ? "Liderboardchannel_calendar lightColor"
+              : "Liderboardchannel_calendar"
+          }
+          onClick={(e) => {
+            setTimeInterval(!timeInterval);
+            e.stopPropagation();
+          }}
+        >
+          Показать по календарю
+          <CSSTransition
+            in={timeInterval}
+            classNames="alert"
+            timeout={300}
+            unmountOnExit
+          >
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              className="liderboard_submenu_calendar"
+            >
+              <DateRangePicker
+                ranges={[selectionRange]}
+                onChange={handleSelect}
+              />
+              <div
+                className="EditCalendarButton"
+                onClick={(e) => EditCalendar()}
+              >
+                Submit
+              </div>
+            </div>
+          </CSSTransition>
+        </div>
+
         <div className="leader_page_div">
           {projectLeaderboard &&
             projectLeaderboard?.map((element, index) => {

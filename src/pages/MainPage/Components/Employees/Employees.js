@@ -785,14 +785,32 @@ const Employees = ({ position, mode }) => {
                             <p key={salary}>{salary ? salary : "(Пусто)"}</p>
                           </li>
                           <li className="list-item employee_info">
-                            <p>
-                              <MultiSelect
-                                title={"Multi Select"}
-                                itemList={itemList}
-                                selectedItemList={selectedItemList}
-                                changeList={changeList}
-                              />
-                            </p>
+                            {/* <ProSidebar>
+                              <SidebarContent>
+                                <Menu>
+                                  <SubMenu
+                                    className="employee_create_position employee_create_pproject"
+                                    title={"Выберите проект"}
+                                    ref={innerProject}
+                                  >
+                                    {ProjectName?.map((project) => {
+                                      const { channel_id, channel_name } =
+                                        project;
+                                      return (
+                                        <MenuItem
+                                          onClick={(e) => {
+                                            SelectProjects(e, channel_id);
+                                            setSelectedProject(channel_id);
+                                          }}
+                                        >
+                                          {channel_name}
+                                        </MenuItem>
+                                      );
+                                    })}
+                                  </SubMenu>
+                                </Menu>
+                              </SidebarContent>
+                            </ProSidebar> */}
                           </li>
                         </div>
                         <div>
