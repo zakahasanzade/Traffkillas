@@ -56,9 +56,6 @@ const Statistics = ({ position, mode }) => {
         StatisticsArray[0] = JSON.parse(result)["data"];
         setGraph(new Array(StatisticsArray[0].length).fill(false));
         setStatistics(JSON.parse(result)["data"]);
-        console.log(JSON.parse(result)["data"]);
-        console.log("skdn");
-        console.log(filerStatistics);
       })
       .catch((err) => {
         alert(err);
@@ -85,13 +82,11 @@ const Statistics = ({ position, mode }) => {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log(res);
         GetStatisticsData();
       })
       .catch((error) => {
         console.log(error);
       });
-    console.log(formData);
     form.reset();
   };
 
@@ -131,17 +126,25 @@ const Statistics = ({ position, mode }) => {
               return response.text();
             })
             .then((result) => {
-              let data = JSON.parse(result)["data"][0];
-              let resDep = data.stat[0].dep;
-              let resReg = data.stat[0].reg;
-              let channelId = data.channel_id;
-              Statistics.map((el) => {
-                if (el.channel_id == channelId) {
-                  el.stat[0].dep = resDep;
-                  el.stat[0].reg = resReg;
+              let data = JSON.parse(result)["data"];
+              data.map((el) => {
+                if (el.channel_id === channel_id) {
+                  let resDep = el.stat[0].dep;
+                  let resReg = el.stat[0].reg;
+                  Statistics.map((ele) => {
+                    if (ele.channel_id === channel_id) {
+                      console.log(ele);
+                      ele.stat.map((element) => {
+                        if (element.date == el.stat[0].date) {
+                          element.dep = resDep;
+                          element.reg = resReg;
+                          SetStatisticsInfo(!StatisticsInfo);
+                        }
+                      });
+                    }
+                  });
                 }
               });
-              SetStatisticsInfo(!StatisticsInfo);
             });
         });
     }
@@ -238,34 +241,6 @@ const Statistics = ({ position, mode }) => {
     document.body.addEventListener("click", closeDropdown);
   }, []);
 
-  const SubMenuSecondTitle = (
-    <div className="statistics_submenu">
-      <div className="statistics_submenu">
-        <div className="statistics_submenu_div blue">11.12</div>
-        <div className="statistics_submenu_div black">
-          25 009 000{" "}
-          <span className="green" style={{ fontSize: "16px" }}>
-            +46
-          </span>
-        </div>
-        <div className="statistics_submenu_div black">
-          <i className="bi bi-people-fill"></i> 10 000
-        </div>
-        <div className="statistics_submenu_div black">
-          <FontAwesomeIcon icon={faClock} /> 5 мин
-        </div>
-        <div className="statistics_submenu_div orange">
-          <FontAwesomeIcon icon={faTicket} /> 54
-        </div>
-        <div className="statistics_submenu_div" style={{ color: "purple" }}>
-          500 000₸
-        </div>
-        <div className="statistics_submenu_div pink">
-          <FontAwesomeIcon icon={faPiggyBank} /> 32
-        </div>
-      </div>
-    </div>
-  );
   const handleLabelClick = (channel_id) => {
     document.getElementById(channel_id).click();
   };
@@ -274,9 +249,9 @@ const Statistics = ({ position, mode }) => {
     if (statisticsState === "All") {
       setFilterStatistics(Statistics);
     } else if (statisticsState === "Active") {
-      setFilterStatistics(Statistics.filter((item) => item.active === true));
+      setFilterStatistics(Statistics?.filter((item) => item.active === true));
     } else if (statisticsState === "Passive") {
-      setFilterStatistics(Statistics.filter((item) => item.active === false));
+      setFilterStatistics(Statistics?.filter((item) => item.active === false));
     }
   }, [statisticsState]);
   const setChecked = (channel_id, e) => {
@@ -325,7 +300,6 @@ const Statistics = ({ position, mode }) => {
               setStatisticsState("All");
             }}
           >
-            {console.log(filerStatistics)}
             All{" "}
           </p>
           <p
@@ -392,7 +366,6 @@ const Statistics = ({ position, mode }) => {
 
             return (
               <div className="statistics" key={el + index}>
-                {console.log("skdnf")}
                 <div
                   className="statistics_account"
                   style={
@@ -578,7 +551,7 @@ const Statistics = ({ position, mode }) => {
                           >
                             Депозиты
                           </p>
-                          <p style={{ color: "purple" }}>What the fuckkkk</p>
+                          <p style={{ color: "purple" }}>{weekly_dep}</p>
                         </div>
                         {/* <div className="statistics_graph_right">
                           <i class="bi bi-arrow-counterclockwise"></i>
@@ -923,7 +896,6 @@ const Statistics = ({ position, mode }) => {
                                           onChange={(e) => {
                                             e.preventDefault();
                                             SetRegValue(e.target.value);
-                                            console.log(RegValue);
                                           }}
                                           className="statistics_submenu_div_editInfo"
                                         />

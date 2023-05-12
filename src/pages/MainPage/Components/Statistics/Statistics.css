@@ -221,6 +221,9 @@
   justify-content: space-between;
   padding: 16px 20px;
 }
+.statistics_grapg_img {
+  color: black;
+}
 .statistics_graph {
   border-radius: 16px;
   margin-top: 10px;
