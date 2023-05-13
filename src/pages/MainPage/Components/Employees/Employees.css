@@ -199,8 +199,17 @@
   border-radius: 25px;
   margin-top: 10px;
 }
+.employee_info p {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  word-break: break-all;
+}
 .employee_info:first-child {
   margin-top: 0;
+}
+.list-item input {
+  font-size: 15px;
 }
 /* .wrapper {
   position: relative;
@@ -372,7 +381,9 @@
   max-height: 150px;
   overflow-y: scroll;
 }
-
+.employee .rmsc .dropdown-heading {
+  max-width: 200px;
+}
 @media screen and (min-width: 1000px) and (max-width: 1080px) {
 }
 @media screen and (min-width: 768px) and (max-width: 1000px) {

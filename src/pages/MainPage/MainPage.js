@@ -78,6 +78,7 @@ const MainPage = ({ position, ModeChange, mode }) => {
             HeaderData={HeaderData}
             ViewProfile={ViewProfile}
             SetShowProfileInfo={SetShowProfileInfo}
+            position={position}
           />
         }
       </div>

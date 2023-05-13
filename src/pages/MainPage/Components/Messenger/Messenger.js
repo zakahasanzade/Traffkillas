@@ -5,7 +5,7 @@ import Thread from "./Thread/Thread.js";
 import SideDropdown from "./SideDropdown/SideDropdown";
 import { useEffect, useState } from "react";
 
-function Messenger({ CloseMessengerWindow }) {
+function Messenger({ CloseMessengerWindow, position }) {
   const [NewChatId, setNewChatId] = useState();
   const [messages, setMessages] = useState([]);
   const [stateChat, setStateChat] = useState();
@@ -16,8 +16,17 @@ function Messenger({ CloseMessengerWindow }) {
     setProjcetId(ChatId);
     console.log(ChatId);
   };
+  var url = null;
   const GetAllProjects = () => {
-    fetch(`https://api2.traffkillas.kz/api/v1/projects/my`, {
+    const positionEmployee = localStorage.position;
+    if (positionEmployee == 3) {
+      url = `https://api2.traffkillas.kz/api/v1/projects/my`;
+    } else if (positionEmployee == 2) {
+      url = `https://api2.traffkillas.kz/api/v1/teamlead/availableProjects`;
+    } else if (positionEmployee == 1) {
+      url = `https://api2.traffkillas.kz/api/v1/admin/availableProjects`;
+    }
+    fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -29,6 +38,8 @@ function Messenger({ CloseMessengerWindow }) {
       })
       .then((result) => {
         setAllChats(JSON.parse(result));
+        console.log(result);
+        console.log(positionEmployee);
         setMessages();
       });
   };
@@ -50,17 +61,22 @@ function Messenger({ CloseMessengerWindow }) {
     }
   }, [sortChats]);
   useEffect(() => {
+    const positionEmployee = localStorage.position;
+    if (positionEmployee == 3) {
+      url = `https://api2.traffkillas.kz/api/v1/messages/getChats?projectId=${ProjectId}`;
+    } else if (positionEmployee == 2) {
+      url = `https://api2.traffkillas.kz/api/v1/teamlead/chats?projectId=${ProjectId}`;
+    } else if (positionEmployee == 1) {
+      url = `https://api2.traffkillas.kz/api/v1/admin/chats?projectId=${ProjectId}`;
+    }
     ProjectId &&
-      fetch(
-        `https://api2.traffkillas.kz/api/v1/messages/getChats?projectId=${ProjectId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
+      fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
         .then((response) => {
           return response.text();
         })
@@ -85,17 +101,22 @@ function Messenger({ CloseMessengerWindow }) {
     }
   }, [activeChat]);
   useEffect(() => {
+    const positionEmployee = localStorage.position;
+    if (positionEmployee == 3) {
+      url = `https://api2.traffkillas.kz/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}`;
+    } else if (positionEmployee == 2) {
+      url = `https://api2.traffkillas.kz/api/v1/teamlead/messages?chat=${NewChatId}&projectId=${ProjectId}`;
+    } else if (positionEmployee == 1) {
+      url = `https://api2.traffkillas.kz/api/v1/admin/messages?chat=${NewChatId}&projectId=${ProjectId}`;
+    }
     NewChatId &&
-      fetch(
-        `https://api2.traffkillas.kz/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
+      fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
         .then((response) => {
           return response.text();
         })

@@ -6,7 +6,7 @@ import ProfilePhoto1 from "./Employee Assets/Profile Photo 1.svg";
 import "./Employees.css";
 import { CSSTransition } from "react-transition-group";
 import { motion } from "framer-motion/dist/framer-motion";
-import MultiSelect from "react-simple-multi-select";
+import { MultiSelect } from "react-multi-select-component";
 import {
   ProSidebar,
   Menu,
@@ -188,56 +188,11 @@ const Employees = ({ position, mode }) => {
     for (var i = 0; i < title.length; i++) {
       title[i].style.color = mode ? "black" : "white";
     }
-
-    // const account = document.querySelectorAll(".employee_account");
-    // for (var i = 0; i < account.length; i++) {
-    //   account[i].style.color = mode ? "black" : "white";
-    //   account[i].style.backgroundColor = mode ? "white" : "#141414";
-    // }
-    // const accountDropdown = document.querySelectorAll(".employee_account_list");
-    // for (var i = 0; i < accountDropdown.length; i++) {
-    //   accountDropdown[i].style.color = mode ? "black" : "white";
-    //   accountDropdown[i].style.backgroundColor = mode ? "white" : "#141414";
-    // }
-    // const accountDropdownQuestion = document.querySelectorAll(
-    //   ".list"
-    // );
-    // for (var i = 0; i < accountDropdownQuestion.length; i++) {
-    //   accountDropdownQuestion[i].style.color = mode ? "black" : "white";
-    //   accountDropdownQuestion[i].style.backgroundColor = mode
-    //     ? "white"
-    //     : "#141414";
-    // }
   }, [mode]);
 
   useEffect(() => {
     GetEmployeeData();
   }, []);
-  const [itemList, setItemList] = useState([
-    "React Js",
-    "Node Js",
-    "Express Js",
-    "Next Js",
-    "Vue Js",
-    "Mongo Db",
-  ]);
-
-  const [selectedItemList, setSelectedItemList] = useState([
-    "React Js",
-    "Next Js",
-    "Mongo Db",
-  ]);
-  const changeList = (selectedItemList) => {
-    setSelectedItemList(selectedItemList);
-  };
-  // const SelectPosition = (e, channel_id) => {
-  //   document.querySelector(
-  //     ".pro-item-content"
-  //   ).innerHTML = `${e.target.textContent}`;
-  //   document.querySelector(`.pro-item-content`).style.color = "black";
-  //   document.querySelector(`.pro-item-content`).style.fontWeight = 700;
-  //   console.log(document.querySelector(".pro-item-content").textContent);
-  // };
 
   const innerProject = useRef(null);
   const SelectProjects = (e, channel_id) => {
@@ -263,7 +218,6 @@ const Employees = ({ position, mode }) => {
       })
       .then((result) => {
         SetProjectName(JSON.parse(result)["data"]);
-        console.log(ProjectName);
       })
       .catch((err) => {
         alert(err);
@@ -272,7 +226,79 @@ const Employees = ({ position, mode }) => {
   useEffect(() => {
     GetProjectName();
   }, []);
+  const [selectedUserProject, setSelectedUserProject] = useState([]);
 
+  const options = ProjectName?.map((el) => {
+    return { label: el.channel_name, value: el.channel_id };
+  });
+
+  const EditUserProject = (username) => {
+    const ResultSelectedProjects = selectedUserProject?.map((el) => {
+      return el.value;
+    });
+    fetch("https://api1.traffkillas.kz/edit_project", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        token: localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        project: selectedUserProject[0].label,
+        username: username,
+      }),
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        console.log(result);
+      });
+  };
+  const [statusEditSalary, setStatusEditSalary] = useState(false);
+  const [editSalary, setEditSalary] = useState();
+  const EditSubmit = (username) => {
+    fetch("https://api1.traffkillas.kz/edit_salary", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        token: localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        salary: editSalary,
+        username: username,
+      }),
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        console.log(result);
+        fetch("https://api1.traffkillas.kz/get_users", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        })
+          .then((response) => {
+            return response.text();
+          })
+          .then((result) => {
+            EmployeeArr = JSON.parse(result)["data"];
+            SetEmployee(EmployeeArr);
+          })
+          .catch((err) => {
+            alert(err);
+          });
+        setStatusEditSalary(false);
+      });
+  };
+  useEffect(() => {
+    console.log(employee);
+  }, [employee]);
+  const CancelEdit = () => {
+    setStatusEditSalary(false);
+  };
   return (
     <motion.div
       className="main"
@@ -396,6 +422,7 @@ const Employees = ({ position, mode }) => {
               }
               className="employee_create_employee"
             >
+              {console.log(ProjectName)}
               <form id="form" onSubmit={(e) => submitCreate(e)}>
                 <h1>Добавление сотрудника</h1>
                 <p className="employee_create_employee_title">Введите логин:</p>
@@ -723,6 +750,8 @@ const Employees = ({ position, mode }) => {
                           <li className="list-item employee_info">
                             <p>Проекты</p>
                           </li>{" "}
+                          <br />
+                          <br />
                           <li className="list-item employee_info">
                             <p>Зарпата</p>
                           </li>
@@ -779,10 +808,48 @@ const Employees = ({ position, mode }) => {
                           <li className="list-item employee_info">
                             <p key={project.toString()}>
                               {project ? projectName : "(Пусто)"}
+                              <MultiSelect
+                                options={options}
+                                value={selectedUserProject}
+                                onChange={setSelectedUserProject}
+                                labelledBy={"Select"}
+                                isCreatable={true}
+                                style={{ width: "20px !important" }}
+                              />
+                              <button
+                                onClick={(e) => EditUserProject(username)}
+                              >
+                                EditUserProject
+                              </button>
                             </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={salary}>{salary ? salary : "(Пусто)"}</p>
+                            {statusEditSalary ? (
+                              <>
+                                <input
+                                  onChange={(e) =>
+                                    setEditSalary(e.target.value)
+                                  }
+                                  placeholder={salary}
+                                ></input>
+                                <i
+                                  className="bi bi-check-circle-fill"
+                                  onClick={(el) => EditSubmit(username)}
+                                ></i>
+                                <i
+                                  style={{ marginLeft: "5px" }}
+                                  onClick={(el) => CancelEdit(el)}
+                                  className="bi bi-x-circle-fill"
+                                ></i>
+                              </>
+                            ) : (
+                              <p
+                                onClick={() => setStatusEditSalary(true)}
+                                key={salary}
+                              >
+                                {salary ? salary : "(Пусто)"}
+                              </p>
+                            )}
                           </li>
                           <li className="list-item employee_info">
                             {/* <ProSidebar>

@@ -18,6 +18,7 @@ const Header = ({
   ViewProfile,
   show,
   SetShowProfileInfo,
+  position,
 }) => {
   const ChangeMode = () => {
     // setMode(!mode);
@@ -115,7 +116,10 @@ const Header = ({
         unmountOnExit
       >
         <div className="Messenger">
-          <Messenger CloseMessengerWindow={CloseMessengerWindow} />
+          <Messenger
+            position={position}
+            CloseMessengerWindow={CloseMessengerWindow}
+          />
         </div>
       </CSSTransition>
     </>
