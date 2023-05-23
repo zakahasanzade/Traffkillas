@@ -127,25 +127,36 @@ const Statistics = ({ position, mode }) => {
             })
             .then((result) => {
               let data = JSON.parse(result)["data"];
-              data.map((el) => {
+              filerStatistics.map((el) => {
                 if (el.channel_id === channel_id) {
                   let resDep = el.stat[0].dep;
                   let resReg = el.stat[0].reg;
-                  Statistics.map((ele) => {
-                    if (ele.channel_id === channel_id) {
-                      console.log(ele);
-                      ele.stat.map((element) => {
-                        if (element.date == el.stat[0].date) {
-                          element.dep = resDep;
-                          element.reg = resReg;
-                          SetStatisticsInfo(!StatisticsInfo);
-                        }
-                      });
+                  console.log(el);
+                  el.stat.map((el) => {
+                    if (el.date === dateTime + ".2023") {
+                      console.log(el);
+                      el.dep = DepValue ? DepValue : el.dep;
+                      el.reg = RegValue ? RegValue : el.reg;
+                      SetStatisticsInfo(!StatisticsInfo);
                     }
                   });
+                  // Statistics.map((ele) => {
+                  //   if (ele.channel_id === channel_id) {
+                  //     console.log(ele);
+                  //     ele.stat.map((element) => {
+                  //       if (element.date == el.stat[0].date) {
+                  //         element.dep = resDep;
+                  //         element.reg = resReg;
+                  //         SetStatisticsInfo(!StatisticsInfo);
+                  //       }
+                  //     });
+                  //   }
+                  // });
                 }
               });
+              console.log(filerStatistics);
             });
+          // GetStatisticsData();
         });
     }
   };
@@ -268,10 +279,17 @@ const Statistics = ({ position, mode }) => {
       }),
     })
       .then((response) => {
+        response.status === 200 &&
+          filerStatistics.map((el) => {
+            if (el.channel_id === channel_id) {
+              console.log(el.active);
+              el.active = !el.active;
+            }
+          });
         return response.text();
       })
       .then((result) => {
-        GetStatisticsData();
+        // GetStatisticsData();
       });
   };
   return (
@@ -632,6 +650,7 @@ const Statistics = ({ position, mode }) => {
                               dep,
                               average,
                               ticket,
+                              sub,
                             } = el;
                             const dateTime = date.substring(0, 5);
                             return (
@@ -838,7 +857,7 @@ const Statistics = ({ position, mode }) => {
                                   </div>
                                   <div className="statistics_submenu_div ">
                                     <div className="statistics_submenu_div_edit">
-                                      {subs}{" "}
+                                      {sub}{" "}
                                       <span
                                         className="green"
                                         style={{ fontSize: "16px" }}

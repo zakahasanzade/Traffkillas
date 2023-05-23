@@ -243,7 +243,9 @@ const Employees = ({ position, mode }) => {
         token: localStorage.getItem("token"),
       },
       body: JSON.stringify({
-        project: selectedUserProject[0].label,
+        project: selectedUserProject.map((el) => {
+          return el.value;
+        }),
         username: username,
       }),
     })
@@ -647,6 +649,7 @@ const Employees = ({ position, mode }) => {
               image,
               project,
               salary,
+              agentAnswerTime,
             } = person;
             let projectName = null;
             ProjectName.map((el) => {
@@ -704,6 +707,7 @@ const Employees = ({ position, mode }) => {
                         </div>
                       </div>
                       <div className="employee_account_right">
+                        <p>{agentAnswerTime && agentAnswerTime}</p>
                         <p>{mmr} MMR</p>
                         <p className="orange">{ttk} TTK</p>
                         <p style={{ color: "#AB16CD" }}>₸ {tenge}</p>
@@ -975,6 +979,7 @@ const Employees = ({ position, mode }) => {
               image,
               project,
               salary,
+              agentAnswerTime,
             } = person;
             let projectName = null;
             ProjectName.map((el) => {
@@ -1034,6 +1039,7 @@ const Employees = ({ position, mode }) => {
                         </div>
                       </div>
                       <div className="employee_account_right">
+                        <p>{agentAnswerTime && agentAnswerTime}</p>
                         <p>{mmr}MMR</p>
                         <p className="orange">{ttk}TTK</p>
                         <p style={{ color: "#AB16CD" }}>₸ {tenge}</p>
@@ -1236,6 +1242,7 @@ const Employees = ({ position, mode }) => {
               image,
               project,
               salary,
+              agentAnswerTime,
             } = person;
             let projectName = null;
             ProjectName.map((el) => {
@@ -1293,6 +1300,7 @@ const Employees = ({ position, mode }) => {
                         </div>
                       </div>
                       <div className="employee_account_right">
+                        <p>{agentAnswerTime && agentAnswerTime}</p>
                         <p>{mmr}MMR</p>
                         <p className="orange">{ttk}TTK</p>
                         <p style={{ color: "#AB16CD" }}>₸ {tenge}</p>
