@@ -6,11 +6,11 @@ const StatisticsGraph = ({ dep_chart, reg_chart }) => {
     series: [
       {
         name: "Депозиты",
-        data: dep_chart,
+        data: dep_chart[1],
       },
       {
         name: "Регистрации",
-        data: reg_chart,
+        data: reg_chart[1],
       },
     ],
     options: {
@@ -26,12 +26,17 @@ const StatisticsGraph = ({ dep_chart, reg_chart }) => {
       },
     },
   });
-
+  const data = [
+    { x: "02.04.2023", y: 10 },
+    { x: "03.04.2023", y: 11 },
+    { x: "04.04.2023", y: 12 },
+    // Add more data points with dates as needed
+  ];
   return (
     <div id="chart">
       <ReactApexChart
         options={chartData.options}
-        series={chartData.series}
+        series={[{ data: data }]}
         type="area"
         height={350}
       />

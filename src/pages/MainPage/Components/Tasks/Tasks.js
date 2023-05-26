@@ -756,6 +756,17 @@ const Tasks = ({ position, mode }) => {
                       <FormControl
                         className={classes.formControl}
                         onClick={(e) => e.stopPropagation()}
+                        style={
+                          mode
+                            ? {
+                                backgroundColor: "white",
+                                color: "black",
+                              }
+                            : {
+                                backgroundColor: "#141414",
+                                color: "white",
+                              }
+                        }
                       >
                         <InputLabel
                           className={classes.inputLabel}
@@ -1292,7 +1303,8 @@ const Tasks = ({ position, mode }) => {
                               style={{ color: "red" }}
                             ></i>
                           </p>
-                        </div><div className="tasks_div_gap">
+                        </div>
+                        <div className="tasks_div_gap">
                           <div className="tasks_div_complete">
                             <p className="tasks_header">{title}</p>
                             <p

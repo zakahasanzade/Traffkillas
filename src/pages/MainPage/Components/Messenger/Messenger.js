@@ -130,6 +130,9 @@ function Messenger({ CloseMessengerWindow, position }) {
           // StopRendering("lkdfnmc");
         });
   }, [NewChatId]);
+  useEffect(() => {
+    console.log(messages);
+  }, [messages]);
   const ChatFolders = () => {
     fetch(
       `https://api2.traffkillas.kz/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}`,

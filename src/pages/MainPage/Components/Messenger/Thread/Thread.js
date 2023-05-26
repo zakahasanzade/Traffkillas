@@ -77,6 +77,7 @@ const Thread = ({
   const UserArr = [];
   const [messageGet, setMessageGet] = useState();
   const [messageGetId, setMessageGetId] = useState();
+  const [messageGetDirection, setMessageGetDirection] = useState();
   const [TestState, setTestState] = useState(true);
   useEffect(() => {
     if (connection) {
@@ -98,25 +99,29 @@ const Thread = ({
             // UserArr = [...user.messageText];
             setMessageGet(user.messageText);
             setMessageGetId(user.chatId);
+            setMessageGetDirection(user.direction);
             // AppendRecievedMessage(user);
+            //  setMessages([...messages, newMessage]);
+            console.log(user);
+            console.log(messages);
           });
         })
         .catch((error) => console.error(error));
     }
   }, [connection]);
-
+  useEffect(() => {
+    console.log(messages);
+  }, [messages]);
   useEffect(() => {
     console.log(messageGet);
     let sendTime = new Date().getTime();
-    console.log(messages, "Hello1");
     let newMessage = {
       chatId: NewChatId,
-      direction: 0,
+      direction: messageGetDirection,
       sendTime: sendTime,
       text: messageGet,
     };
     setMessages([...messages, newMessage]);
-    console.log(messages, "Hello2");
   }, [messageGet]);
 
   const CurrentTimeForSending =
@@ -176,19 +181,19 @@ const Thread = ({
         // RenderChats(true);
 
         // AppendSendingMessage();
-        let sendTime = new Date().getTime();
-        console.log(messages, "Hello1");
-        let newMessage = {
-          chatId: NewChatId,
-          direction: 1,
-          sendTime: sendTime,
-          text: typeMessage,
-        };
-        setMessages([...messages, newMessage]);
-        console.log(messages, "Hello2");
+        // let sendTime = new Date().getTime();
+        // console.log(messages, "Hello1");
+        // let newMessage = {
+        //   chatId: NewChatId,
+        //   direction: 1,
+        //   sendTime: sendTime,
+        //   text: typeMessage,
+        // };
+        // setMessages([...messages, newMessage]);
+        // console.log(typeMessage, "Hello2");
 
-        console.log(messageGetId);
-        console.log(NewChatId);
+        // console.log(messageGetId);
+        // console.log(NewChatId);
         TestState && (chatRef.current.scrollTop = chatRef.current.scrollHeight);
         SetTypeMessage();
       })

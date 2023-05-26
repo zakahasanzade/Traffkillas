@@ -112,52 +112,39 @@ const Statistics = ({ position, mode }) => {
         }),
       })
         .then((response) => {
+          console.log(response.status);
+          if (response.status === 200) {
+            filerStatistics.map((el) => {
+              if (el.channel_id === channel_id) {
+                let resDep = el.stat[0].dep;
+                let resReg = el.stat[0].reg;
+                var SumDep = null;
+                var SumReg = null;
+                var SumTick = null;
+                console.log(el);
+                el.stat.map((el) => {
+                  if (el.date === dateTime + ".2023") {
+                    console.log(el);
+                    el.dep = DepValue ? DepValue : el.dep;
+                    el.reg = RegValue ? RegValue : el.reg;
+                    SetStatisticsInfo(!StatisticsInfo);
+                  }
+                  SumReg += Number(el.reg);
+                  SumDep += Number(el.dep);
+                  SumTick += Number(el.ticket);
+                });
+                console.log(SumReg);
+                console.log(SumDep);
+                console.log(SumTick);
+                el.weekly_reg = SumReg;
+                el.weekly_dep = SumDep;
+                el.weekly_ticket = SumTick;
+              }
+            });
+          }
           return response.text();
         })
-        .then((result) => {
-          fetch("https://api1.traffkillas.kz/get_statistic", {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              token: localStorage.getItem("token"),
-            },
-          })
-            .then((response) => {
-              return response.text();
-            })
-            .then((result) => {
-              let data = JSON.parse(result)["data"];
-              filerStatistics.map((el) => {
-                if (el.channel_id === channel_id) {
-                  let resDep = el.stat[0].dep;
-                  let resReg = el.stat[0].reg;
-                  console.log(el);
-                  el.stat.map((el) => {
-                    if (el.date === dateTime + ".2023") {
-                      console.log(el);
-                      el.dep = DepValue ? DepValue : el.dep;
-                      el.reg = RegValue ? RegValue : el.reg;
-                      SetStatisticsInfo(!StatisticsInfo);
-                    }
-                  });
-                  // Statistics.map((ele) => {
-                  //   if (ele.channel_id === channel_id) {
-                  //     console.log(ele);
-                  //     ele.stat.map((element) => {
-                  //       if (element.date == el.stat[0].date) {
-                  //         element.dep = resDep;
-                  //         element.reg = resReg;
-                  //         SetStatisticsInfo(!StatisticsInfo);
-                  //       }
-                  //     });
-                  //   }
-                  // });
-                }
-              });
-              console.log(filerStatistics);
-            });
-          // GetStatisticsData();
-        });
+        .then((result) => {});
     }
   };
   const [timeInterval, setTimeInterval] = useState();
@@ -227,13 +214,28 @@ const Statistics = ({ position, mode }) => {
         return response.text();
       })
       .then((result) => {
+        var SumDep = null;
+        var SumReg = null;
+        var SumTick = null;
         let channelId = JSON.parse(result)["data"][0].channel_id;
+        let channelStat = JSON.parse(result)["data"][0].stat;
+        channelStat.map((el) => {
+          SumReg += el.reg;
+          SumDep += el.dep;
+          SumTick += el.ticket;
+        });
         Statistics.map((el) => {
           if (el.channel_id == channelId) {
             el.stat = JSON.parse(result)["data"][0].stat;
+            console.log(el);
+            el.weekly_reg = SumReg;
+            el.weekly_dep = SumDep;
+            el.weekly_ticket = SumTick;
           }
         });
         console.log(JSON.parse(result)["data"][0].stat);
+
+        console.log(SumReg);
         // StatisticsArray[0] = JSON.parse(result)["data"];
         // setGraph(new Array(StatisticsArray[0].length).fill(false));
         // setStatistics(StatisticsArray[0]);
@@ -289,7 +291,7 @@ const Statistics = ({ position, mode }) => {
         return response.text();
       })
       .then((result) => {
-        // GetStatisticsData();
+        GetStatisticsData();
       });
   };
   return (
@@ -878,7 +880,16 @@ const Statistics = ({ position, mode }) => {
                                     <i className="bi bi-clock-fill"></i>{" "}
                                     <div className="statistics_submenu_div_edit">
                                       {" "}
-                                      {average ? average : 0} мин
+                                      {average
+                                        ? parseInt(
+                                            parseInt(
+                                              (average / 60)
+                                                .toString()
+                                                .substring(0, 10)
+                                            )
+                                          )
+                                        : 0}{" "}
+                                      мин
                                     </div>
                                   </div>
                                   <div className="statistics_submenu_div orange">
