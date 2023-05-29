@@ -24,19 +24,17 @@ const StatisticsGraph = ({ dep_chart, reg_chart }) => {
       stroke: {
         curve: "smooth",
       },
+      xaxis: {
+        categories: dep_chart[0],
+      },
     },
   });
-  const data = [
-    { x: "02.04.2023", y: 10 },
-    { x: "03.04.2023", y: 11 },
-    { x: "04.04.2023", y: 12 },
-    // Add more data points with dates as needed
-  ];
+
   return (
     <div id="chart">
       <ReactApexChart
         options={chartData.options}
-        series={[{ data: data }]}
+        series={chartData.series}
         type="area"
         height={350}
       />

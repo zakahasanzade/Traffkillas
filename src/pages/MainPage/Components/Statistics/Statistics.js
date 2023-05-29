@@ -282,17 +282,16 @@ const Statistics = ({ position, mode }) => {
     })
       .then((response) => {
         response.status === 200 &&
-          filerStatistics.map((el) => {
-            if (el.channel_id === channel_id) {
-              console.log(el.active);
-              el.active = !el.active;
-            }
-          });
+          // filerStatistics.map((el) => {
+          //   if (el.channel_id === channel_id) {
+          //     console.log(el.active);
+          //     el.active = !el.active;
+          //   }
+          // });
+          GetStatisticsData();
         return response.text();
       })
-      .then((result) => {
-        GetStatisticsData();
-      });
+      .then((result) => {});
   };
   return (
     <motion.div
@@ -580,6 +579,7 @@ const Statistics = ({ position, mode }) => {
                       <div className="statistics_grapg_img">
                         {/* <img src={Graph} alt="Graph"></img> */}
                         <StatisticsGraph
+                          style={{ color: "white" }}
                           dep_chart={dep_chart}
                           reg_chart={reg_chart}
                         />
@@ -899,7 +899,10 @@ const Statistics = ({ position, mode }) => {
                                       {ticket ? ticket : 0}
                                     </div>
                                   </div>
-                                  <div className="statistics_submenu_div ">
+                                  <div
+                                    style={{ cursor: "pointer" }}
+                                    className="statistics_submenu_div "
+                                  >
                                     <i
                                       onClick={(e) => {
                                         e.stopPropagation();
@@ -936,7 +939,10 @@ const Statistics = ({ position, mode }) => {
                                       )}
                                     </div>
                                   </div>
-                                  <div className="statistics_submenu_div pink">
+                                  <div
+                                    style={{ cursor: "pointer" }}
+                                    className="statistics_submenu_div pink"
+                                  >
                                     <i
                                       onClick={(e) => {
                                         e.stopPropagation();

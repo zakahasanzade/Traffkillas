@@ -10,7 +10,7 @@ import { CSSTransition } from "react-transition-group";
 const ProjectLeaderboard = ({ position, mode }) => {
   const [projectLeaderboard, setProjectLeaderboard] = useState([]);
   const GetProjectLeaderboard = () => {
-    fetch("https://api1.traffkillas.kz/get_statistic", {
+    fetch(`https://api1.traffkillas.kz/get_statistic?sort=${true}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const ProjectLeaderboard = ({ position, mode }) => {
       });
   };
   const GetProjectLeaderboardForTwoWeek = () => {
-    fetch("https://api1.traffkillas.kz/get_statistic", {
+    fetch(`https://api1.traffkillas.kz/get_statistic?sort=${true}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
