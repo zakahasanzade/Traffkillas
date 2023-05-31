@@ -707,7 +707,6 @@ const Employees = ({ position, mode }) => {
                         </div>
                       </div>
                       <div className="employee_account_right">
-                        <p>{agentAnswerTime && agentAnswerTime}</p>
                         <p>{mmr} MMR</p>
                         <p className="orange">{ttk} TTK</p>
                         <p style={{ color: "#AB16CD" }}>₸ {tenge}</p>
@@ -1040,6 +1039,16 @@ const Employees = ({ position, mode }) => {
                       </div>
                       <div className="employee_account_right">
                         <p>{agentAnswerTime && agentAnswerTime}</p>
+                        <p>
+                          {position === 3 &&
+                            (agentAnswerTime
+                              ? parseInt(
+                                  parseInt(
+                                    agentAnswerTime.toString().substring(0, 10)
+                                  )
+                                ) + " мин"
+                              : 0 + " мин")}{" "}
+                        </p>
                         <p>{mmr}MMR</p>
                         <p className="orange">{ttk}TTK</p>
                         <p style={{ color: "#AB16CD" }}>₸ {tenge}</p>
@@ -1145,7 +1154,32 @@ const Employees = ({ position, mode }) => {
                             </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={salary}>{salary ? salary : "(Пусто)"}</p>
+                            {statusEditSalary ? (
+                              <>
+                                <input
+                                  onChange={(e) =>
+                                    setEditSalary(e.target.value)
+                                  }
+                                  placeholder={salary}
+                                ></input>
+                                <i
+                                  className="bi bi-check-circle-fill"
+                                  onClick={(el) => EditSubmit(username)}
+                                ></i>
+                                <i
+                                  style={{ marginLeft: "5px" }}
+                                  onClick={(el) => CancelEdit(el)}
+                                  className="bi bi-x-circle-fill"
+                                ></i>
+                              </>
+                            ) : (
+                              <p
+                                onClick={() => setStatusEditSalary(true)}
+                                key={salary}
+                              >
+                                {salary ? salary : "(Пусто)"}
+                              </p>
+                            )}
                           </li>
                         </div>
                         <div>
@@ -1300,7 +1334,6 @@ const Employees = ({ position, mode }) => {
                         </div>
                       </div>
                       <div className="employee_account_right">
-                        <p>{agentAnswerTime && agentAnswerTime}</p>
                         <p>{mmr}MMR</p>
                         <p className="orange">{ttk}TTK</p>
                         <p style={{ color: "#AB16CD" }}>₸ {tenge}</p>
@@ -1406,7 +1439,32 @@ const Employees = ({ position, mode }) => {
                             </p>
                           </li>
                           <li className="list-item employee_info">
-                            <p key={salary}>{salary ? salary : "(Пусто)"}</p>
+                            {statusEditSalary ? (
+                              <>
+                                <input
+                                  onChange={(e) =>
+                                    setEditSalary(e.target.value)
+                                  }
+                                  placeholder={salary}
+                                ></input>
+                                <i
+                                  className="bi bi-check-circle-fill"
+                                  onClick={(el) => EditSubmit(username)}
+                                ></i>
+                                <i
+                                  style={{ marginLeft: "5px" }}
+                                  onClick={(el) => CancelEdit(el)}
+                                  className="bi bi-x-circle-fill"
+                                ></i>
+                              </>
+                            ) : (
+                              <p
+                                onClick={() => setStatusEditSalary(true)}
+                                key={salary}
+                              >
+                                {salary ? salary : "(Пусто)"}
+                              </p>
+                            )}
                           </li>
                         </div>
                         <div>

@@ -147,7 +147,7 @@ const Sidebar = ({
           >
             Все
           </li>
-          <li
+          {/* <li
             className="sidebar__threads_navbar_tasks"
             onClick={(e) => {
               setActiveChat("Deposit");
@@ -165,7 +165,7 @@ const Sidebar = ({
             }}
           >
             Нет ответа
-          </li>
+          </li> */}
         </ul>
       </div>
       <div className="sidebar__threads">

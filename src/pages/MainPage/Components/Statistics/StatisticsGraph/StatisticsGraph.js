@@ -5,12 +5,12 @@ const StatisticsGraph = ({ dep_chart, reg_chart }) => {
   const [chartData, setChartData] = useState({
     series: [
       {
-        name: "Депозиты",
-        data: dep_chart[1],
-      },
-      {
         name: "Регистрации",
         data: reg_chart[1],
+      },
+      {
+        name: "Депозиты",
+        data: dep_chart[1],
       },
     ],
     options: {

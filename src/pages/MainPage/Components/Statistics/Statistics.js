@@ -282,13 +282,13 @@ const Statistics = ({ position, mode }) => {
     })
       .then((response) => {
         response.status === 200 &&
-          // filerStatistics.map((el) => {
-          //   if (el.channel_id === channel_id) {
-          //     console.log(el.active);
-          //     el.active = !el.active;
-          //   }
-          // });
-          GetStatisticsData();
+          filerStatistics.map((el) => {
+            if (el.channel_id === channel_id) {
+              console.log(el);
+              el.active = !el.active;
+            }
+          });
+        // GetStatisticsData();
         return response.text();
       })
       .then((result) => {});
@@ -528,7 +528,7 @@ const Statistics = ({ position, mode }) => {
                     {/* <div className="statistics_submenu_div red">1 200 000₸</div> */}
                     <Switch
                       onClick={(e) => e.stopPropagation()}
-                      checked={active ? true : false}
+                      checked={active}
                       onChange={(e) => setChecked(channel_id, e)}
                       inputProps={{ "aria-label": "controlled" }}
                     />
@@ -639,7 +639,11 @@ const Statistics = ({ position, mode }) => {
                       }
                       className="statistics_hours"
                     >
-                      <h2>Дневная/часовая статистика</h2>
+                      <h2>
+                        Дневная
+                        {/* /часовая  */}
+                        статистика
+                      </h2>
                       <div className="statistics_hours_div">
                         {stat &&
                           stat?.map((el) => {
