@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import ArrowRight from "./Tasks Assets/Arrow Right.svg";
 import TextareaAutosize from "react-textarea-autosize";
 import { motion } from "framer-motion/dist/framer-motion";
@@ -380,6 +380,20 @@ const Tasks = ({ position, mode }) => {
   //       : "makeStyles-inputLabel-2";
   //   }
   // }, []);
+
+  const CreatedRef = useRef(null);
+  const CompletedRef = useRef(null);
+  const CreatedRefScroll = () => {
+    CreatedRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+  const CompltetedScroll = () => {
+    CompletedRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+  useEffect(() => {
+    document.querySelector(".MuiSelect-select").style.color = mode
+      ? "black"
+      : "white";
+  }, [mode]);
   if (position === "3") {
     return (
       <motion.div
@@ -678,8 +692,8 @@ const Tasks = ({ position, mode }) => {
         style={{ display: "flex", justifyContent: "center" }}
       >
         <div className={mode ? "tasks_teamlead light" : "tasks_teamlead"}>
-          <p>Созданные</p>
-          <p>Выполенные</p>
+          <p onClick={CreatedRefScroll}>Созданные</p>
+          <p onClick={CompltetedScroll}>Выполенные</p>
         </div>
         <div className="tasks">
           <form
@@ -1164,7 +1178,9 @@ const Tasks = ({ position, mode }) => {
               }
               return null;
             })}
-          <p className="date">Созданные</p>
+          <p className="date" ref={CreatedRef}>
+            Созданные
+          </p>
           {ManageData &&
             ManageData.map((block, index) => {
               const {
@@ -1250,7 +1266,9 @@ const Tasks = ({ position, mode }) => {
               }
               return null;
             })}
-          <p className="date">Выполенные</p>
+          <p className="date" ref={CompletedRef}>
+            Выполенные
+          </p>
           {ManageData &&
             ManageData.map((block, index) => {
               const {
@@ -1402,8 +1420,8 @@ const Tasks = ({ position, mode }) => {
         style={{ display: "flex", justifyContent: "center" }}
       >
         <div className={mode ? "tasks_teamlead light" : "tasks_teamlead"}>
-          <p>Созданные</p>
-          <p>Выполенные</p>
+          <p onClick={CreatedRefScroll}>Созданные</p>
+          <p onClick={CompltetedScroll}>Выполенные</p>
         </div>
         <div className="tasks">
           <form
@@ -1478,7 +1496,11 @@ const Tasks = ({ position, mode }) => {
                       </AccordionDetails>
                     </Accordion> */}
                       <FormControl
-                        className={classes.formControl}
+                        className={
+                          mode
+                            ? classes.formControl + " light"
+                            : classes.formControl
+                        }
                         onClick={(e) => e.stopPropagation()}
                       >
                         <InputLabel
@@ -1671,7 +1693,9 @@ const Tasks = ({ position, mode }) => {
               <Calendar onChange={ChangeCalendar} value={CalendarValue} />
             </CSSTransition>
           </div>{" "}
-          <p className="date">Созданные</p>
+          <p className="date" ref={CreatedRef}>
+            Созданные
+          </p>
           {ManageData &&
             ManageData.map((block, index) => {
               const {
@@ -1685,7 +1709,7 @@ const Tasks = ({ position, mode }) => {
                 worker_username,
                 _id,
               } = block;
-              if (state === 0 || state === 1) {
+              if (state === 0 || state === 1 || state === 3) {
                 setTimer(date, "timer_created", index);
                 return (
                   <>
@@ -1755,7 +1779,9 @@ const Tasks = ({ position, mode }) => {
               }
               return null;
             })}
-          <p className="date">Выполенные</p>
+          <p className="date" ref={CompletedRef}>
+            Выполенные
+          </p>
           {ManageData &&
             ManageData.map((block, index) => {
               const {

@@ -91,9 +91,27 @@ const Statistics = ({ position, mode }) => {
   };
 
   const [StatisticsInfo, SetStatisticsInfo] = useState(false);
-  const [RegValue, SetRegValue] = useState();
-  const [DepValue, SetDepValue] = useState();
-  const EditStatisticsInfo = (e, channel_id, dateTime) => {
+  // const [RegValue, SetRegValue] = useState();
+  // const [DepValue, SetDepValue] = useState();
+  // const [DateValue, SetDateValue] = useState();
+  const [signalGraph, setSignalGraph] = useState(false);
+  const EditStatisticsInfo = (e, channel_id, dateTime, reg, dep) => {
+    let RegValue = null;
+    let DepValue = null;
+    let DateValue = null;
+    filerStatistics.map((el, index) => {
+      if (el.channel_id === channel_id) {
+        RegValue = el.stat.map((element) => {
+          return element.reg;
+        });
+        DepValue = el.stat.map((element) => {
+          return element.dep;
+        });
+        DateValue = el.stat.map((element) => {
+          return element.date;
+        });
+      }
+    });
     if (StatisticsInfo == false) {
       SetStatisticsInfo(!StatisticsInfo);
     } else if (StatisticsInfo == true) {
@@ -105,37 +123,25 @@ const Statistics = ({ position, mode }) => {
           token: localStorage.getItem("token"),
         },
         body: JSON.stringify({
-          date: `${dateTime}.2023`,
-          dep: DepValue ? DepValue : 0,
-          reg: RegValue ? RegValue : 0,
+          date: DateValue,
+          dep: DepValue,
+          reg: RegValue,
           channel_id: channel_id,
         }),
       })
         .then((response) => {
-          console.log(response.status);
           if (response.status === 200) {
             filerStatistics.map((el) => {
               if (el.channel_id === channel_id) {
-                let resDep = el.stat[0].dep;
-                let resReg = el.stat[0].reg;
                 var SumDep = null;
                 var SumReg = null;
                 var SumTick = null;
-                console.log(el);
                 el.stat.map((el) => {
-                  if (el.date === dateTime + ".2023") {
-                    console.log(el);
-                    el.dep = DepValue ? DepValue : el.dep;
-                    el.reg = RegValue ? RegValue : el.reg;
-                    SetStatisticsInfo(!StatisticsInfo);
-                  }
                   SumReg += Number(el.reg);
                   SumDep += Number(el.dep);
                   SumTick += Number(el.ticket);
+                  SetStatisticsInfo(!StatisticsInfo);
                 });
-                console.log(SumReg);
-                console.log(SumDep);
-                console.log(SumTick);
                 el.weekly_reg = SumReg;
                 el.weekly_dep = SumDep;
                 el.weekly_ticket = SumTick;
@@ -144,7 +150,34 @@ const Statistics = ({ position, mode }) => {
           }
           return response.text();
         })
-        .then((result) => {});
+        .then((result) => {
+          fetch("https://api1.traffkillas.kz/get_statistic", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              token: localStorage.getItem("token"),
+            },
+          })
+            .then((response) => {
+              return response.text();
+            })
+            .then((result) => {
+              let res = JSON.parse(result)["data"];
+              res.map((el) => {
+                if (el.channel_id === channel_id) {
+                  let DepGraph = el.dep_chart;
+                  let RegGraph = el.reg_chart;
+                  filerStatistics.map((element) => {
+                    if (element.channel_id === channel_id) {
+                      element.dep_chart = DepGraph;
+                      element.reg_chart = RegGraph;
+                    }
+                  });
+                }
+                setSignalGraph(!signalGraph);
+              });
+            });
+        });
     }
   };
   const [timeInterval, setTimeInterval] = useState();
@@ -282,12 +315,14 @@ const Statistics = ({ position, mode }) => {
     })
       .then((response) => {
         response.status === 200 &&
-          filerStatistics.map((el) => {
-            if (el.channel_id === channel_id) {
-              console.log(el);
-              el.active = !el.active;
-            }
-          });
+          setFilterStatistics(
+            filerStatistics.map((el) => {
+              if (el.channel_id === channel_id) {
+                el.active = !el.active;
+              }
+              return el;
+            })
+          );
         // GetStatisticsData();
         return response.text();
       })
@@ -382,7 +417,6 @@ const Statistics = ({ position, mode }) => {
               weekly_ticket,
               active,
             } = el;
-
             return (
               <div className="statistics" key={el + index}>
                 <div
@@ -582,6 +616,7 @@ const Statistics = ({ position, mode }) => {
                           style={{ color: "white" }}
                           dep_chart={dep_chart}
                           reg_chart={reg_chart}
+                          signalGraph={signalGraph}
                         />
                       </div>
                     </div>
@@ -914,7 +949,9 @@ const Statistics = ({ position, mode }) => {
                                         EditStatisticsInfo(
                                           e,
                                           channel_id,
-                                          dateTime
+                                          dateTime,
+                                          reg,
+                                          dep
                                         );
                                       }}
                                       className="bi bi-people-fill"
@@ -932,7 +969,23 @@ const Statistics = ({ position, mode }) => {
                                           defaultValue={reg}
                                           onChange={(e) => {
                                             e.preventDefault();
-                                            SetRegValue(e.target.value);
+                                            // SetRegValue(e.target.value);
+                                            filerStatistics.map((el) => {
+                                              if (
+                                                el.channel_id === channel_id
+                                              ) {
+                                                el.stat.map((el) => {
+                                                  if (
+                                                    el.date ===
+                                                    dateTime + ".2023"
+                                                  ) {
+                                                    el.reg = parseInt(
+                                                      e.target.value
+                                                    );
+                                                  }
+                                                });
+                                              }
+                                            });
                                           }}
                                           className="statistics_submenu_div_editInfo"
                                         />
@@ -954,7 +1007,9 @@ const Statistics = ({ position, mode }) => {
                                         EditStatisticsInfo(
                                           e,
                                           channel_id,
-                                          dateTime
+                                          dateTime,
+                                          reg,
+                                          dep
                                         );
                                       }}
                                       className="bi bi-piggy-bank-fill"
@@ -971,7 +1026,24 @@ const Statistics = ({ position, mode }) => {
                                           defaultValue={dep}
                                           onChange={(e) => {
                                             e.preventDefault();
-                                            SetDepValue(e.target.value);
+                                            // SetDepValue(e.target.value);
+                                            filerStatistics.map((el) => {
+                                              if (
+                                                el.channel_id === channel_id
+                                              ) {
+                                                el.stat.map((el) => {
+                                                  if (
+                                                    el.date ===
+                                                    dateTime + ".2023"
+                                                  ) {
+                                                    el.dep = parseInt(
+                                                      e.target.value
+                                                    );
+                                                  }
+                                                });
+                                                  console.log(el);
+                                              }
+                                            });
                                           }}
                                           className="statistics_submenu_div_editInfo"
                                         />

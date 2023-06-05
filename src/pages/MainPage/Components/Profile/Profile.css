@@ -84,6 +84,7 @@
   width: 84px;
   height: 84px;
   border-radius: 100%;
+  cursor: pointer;
 }
 .profile_main {
   max-width: 1210px;

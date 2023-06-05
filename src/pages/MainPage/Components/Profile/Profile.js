@@ -264,7 +264,28 @@ const Profile = ({ position, mode }) => {
     document.body.addEventListener("click", closeDropdown);
     GetNotifications();
   }, []);
-
+  const ChangeProjectAvatar = (e) => {
+    e.preventDefault();
+    const form = document.querySelector(`.profile_header_right_img`);
+    const formData = new FormData(form);
+    axios
+      .post("https://api1.traffkillas.kz/edit_profile_photo", formData, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        GetProfileData();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    form.reset();
+  };
+  const handleLabelClick = (e) => {
+    document.querySelector("#profileImage").click();
+    // console.log(e.target.id);
+  };
   return (
     <div
       style={
@@ -536,17 +557,38 @@ const Profile = ({ position, mode }) => {
                 </form>
               </CSSTransition>
             </div>
-            <div className="profile_header_right_img">
-              <img
-                style={{
-                  maxHeight: "85px",
-                  maxWidth: "85px",
-                  borderRadius: "100%",
+            <form className="profile_header_right_img">
+              <label
+                htmlFor="file-input"
+                onClick={(e) => {
+                  handleLabelClick(e);
+                  e.stopPropagation();
                 }}
-                src={profileInformation?.image}
-                alt="Profile Img"
-              ></img>
-            </div>
+              >
+                <img
+                  style={{
+                    maxHeight: "85px",
+                    maxWidth: "85px",
+                    borderRadius: "100%",
+                  }}
+                  src={profileInformation?.image}
+                  alt="Profile Img"
+                ></img>
+              </label>
+
+              <input
+                accept="image/*"
+                maxfiles="1"
+                type="file"
+                id="profileImage"
+                name="Image"
+                onClick={(e) => e.stopPropagation()}
+                onChangeCapture={(e) => {
+                  ChangeProjectAvatar(e);
+                }}
+                style={{ display: "none" }}
+              ></input>
+            </form>
           </div>
         </div>
         {position == 1 ? (

@@ -96,6 +96,7 @@ const Employees = ({ position, mode }) => {
 
   const submitCreate = (e) => {
     e.preventDefault();
+
     const form = document.getElementById("form");
     const formData = new FormData(form);
     const title = document.querySelector(".pro-item-content").textContent;
@@ -108,7 +109,11 @@ const Employees = ({ position, mode }) => {
     document.querySelector(".employee_create_employee_title_checkbox")
       .checked && formData.append("position", 2);
     formData.append("title", positionEmployer);
-    formData.append("project", selectedProject);
+    var TestArr = new Array();
+    selectedNewUserProject.filter((el) => {
+      TestArr.push(el.value);
+    });
+    formData.append("project", TestArr);
     axios
       .post("https://api1.traffkillas.kz/create_user", formData, {
         headers: {
@@ -124,6 +129,7 @@ const Employees = ({ position, mode }) => {
         document.querySelector(".pro-inner-item").style.opacity = 0.5;
         GetEmployeeData();
         setCreateEmployee(false);
+        setSelectedNewUserProject([]);
       })
       .catch((error) => {
         console.log(error);
@@ -195,13 +201,13 @@ const Employees = ({ position, mode }) => {
   }, []);
 
   const innerProject = useRef(null);
-  const SelectProjects = (e, channel_id) => {
-    innerProject.current.innerHTML = `${e.target.textContent}`;
-    innerProject.current.style.color = "black";
-    innerProject.current.style.fontWeight = 700;
-    innerProject.current.style.paddingLeft = "20px";
-    console.log(innerProject.current.textContent);
-  };
+  // const SelectProjects = (e, channel_id) => {
+  //   innerProject.current.innerHTML = `${e.target.textContent}`;
+  //   innerProject.current.style.color = "black";
+  //   innerProject.current.style.fontWeight = 700;
+  //   innerProject.current.style.paddingLeft = "20px";
+  //   console.log(innerProject.current.textContent);
+  // };
 
   const [ProjectName, SetProjectName] = useState([]);
   const [selectedProject, setSelectedProject] = useState();
@@ -227,14 +233,18 @@ const Employees = ({ position, mode }) => {
     GetProjectName();
   }, []);
   const [selectedUserProject, setSelectedUserProject] = useState([]);
+  const [selectedNewUserProject, setSelectedNewUserProject] = useState([]);
 
   const options = ProjectName?.map((el) => {
     return { label: el.channel_name, value: el.channel_id };
   });
 
   const EditUserProject = (username) => {
-    const ResultSelectedProjects = selectedUserProject?.map((el) => {
-      return el.value;
+    const ResultEditProject = new Array();
+    const test = employee.map((el) => {
+      if (el.username === username) {
+        ResultEditProject.push(el.project);
+      }
     });
     fetch("https://api1.traffkillas.kz/edit_project", {
       method: "POST",
@@ -243,13 +253,14 @@ const Employees = ({ position, mode }) => {
         token: localStorage.getItem("token"),
       },
       body: JSON.stringify({
-        project: selectedUserProject.map((el) => {
-          return el.value;
-        }),
+        project: ResultEditProject[0],
         username: username,
       }),
     })
       .then((response) => {
+        if (response.status === 200) {
+          console.log(selectedUserProject);
+        }
         return response.text();
       })
       .then((result) => {
@@ -296,10 +307,34 @@ const Employees = ({ position, mode }) => {
       });
   };
   useEffect(() => {
+    console.log("Changed");
     console.log(employee);
   }, [employee]);
   const CancelEdit = () => {
     setStatusEditSalary(false);
+  };
+  const editSelectedProject = (e, index) => {
+    SetEmployee(
+      employee.map((el, i) => {
+        if (i === index) {
+          console.log(el.project);
+          el.project = e.map((element) => {
+            return element.value;
+          });
+        }
+        return el;
+      })
+    );
+    console.log("Employee", employee);
+  };
+  const getSelectedProject = (projects) => {
+    const arr = [];
+    ProjectName.map((elem) => {
+      if (projects.includes(elem.channel_id)) {
+        arr.push({ label: elem.channel_name, value: elem.channel_id });
+      }
+    });
+    return arr;
   };
   return (
     <motion.div
@@ -415,33 +450,77 @@ const Employees = ({ position, mode }) => {
                 mode
                   ? {
                       backgroundColor: "white",
-                      color: "black",
                     }
                   : {
                       backgroundColor: "#141414",
-                      color: "white",
                     }
               }
               className="employee_create_employee"
             >
-              {console.log(ProjectName)}
               <form id="form" onSubmit={(e) => submitCreate(e)}>
-                <h1>Добавление сотрудника</h1>
-                <p className="employee_create_employee_title">Введите логин:</p>
+                <h1
+                  style={
+                    mode
+                      ? {
+                          color: "black",
+                        }
+                      : {
+                          color: "white",
+                        }
+                  }
+                >
+                  Добавление сотрудника
+                </h1>
+                <p
+                  style={
+                    mode
+                      ? {
+                          color: "black",
+                        }
+                      : {
+                          color: "white",
+                        }
+                  }
+                  className="employee_create_employee_title"
+                >
+                  Введите логин:
+                </p>
                 <input
                   onChange={() => EnableCreateButton()}
                   className="employee_create_employee_login"
                   placeholder="Введите логин ..."
                   name="username"
                 />
-                <p className="employee_create_employee_title">
+                <p
+                  style={
+                    mode
+                      ? {
+                          color: "black",
+                        }
+                      : {
+                          color: "white",
+                        }
+                  }
+                  className="employee_create_employee_title"
+                >
                   Назначить Тимлидом?{" "}
                   <input
                     className="employee_create_employee_title_checkbox"
                     type="checkbox"
                   />
                 </p>
-                <p className="employee_create_employee_title">
+                <p
+                  style={
+                    mode
+                      ? {
+                          color: "black",
+                        }
+                      : {
+                          color: "white",
+                        }
+                  }
+                  className="employee_create_employee_title"
+                >
                   Введите пароль:
                 </p>
                 <input
@@ -450,7 +529,18 @@ const Employees = ({ position, mode }) => {
                   placeholder="Введите пароль ..."
                   name="pwd"
                 />
-                <p className="employee_create_employee_title">
+                <p
+                  style={
+                    mode
+                      ? {
+                          color: "black",
+                        }
+                      : {
+                          color: "white",
+                        }
+                  }
+                  className="employee_create_employee_title"
+                >
                   Введите должность:
                 </p>
                 <ProSidebar>
@@ -504,7 +594,7 @@ const Employees = ({ position, mode }) => {
                     </Menu>
                   </SidebarContent>
                 </ProSidebar>
-                <ProSidebar>
+                {/* <ProSidebar>
                   <SidebarContent>
                     <Menu>
                       <SubMenu
@@ -528,7 +618,30 @@ const Employees = ({ position, mode }) => {
                       </SubMenu>
                     </Menu>
                   </SidebarContent>
-                </ProSidebar>
+                </ProSidebar> */}
+                <p
+                  style={
+                    mode
+                      ? {
+                          color: "black",
+                        }
+                      : {
+                          color: "white",
+                        }
+                  }
+                  className="employee_create_employee_title"
+                >
+                  Выберите проект:
+                </p>
+                <MultiSelect
+                  options={options}
+                  value={selectedNewUserProject}
+                  onChange={(e) => {
+                    setSelectedNewUserProject(e);
+                  }}
+                  labelledBy={"Select"}
+                  isCreatable={true}
+                />
                 <button
                   disabled={enableCreate && true}
                   style={enableCreate ? { opacity: "0.5" } : { opacity: "1" }}
@@ -657,6 +770,20 @@ const Employees = ({ position, mode }) => {
                 projectName = el.channel_name;
               }
             });
+            const dateObject = new Date(created_time);
+            const optionsDate = {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            };
+            const formattedDate = dateObject.toLocaleString(
+              "ru-RU",
+              optionsDate
+            );
+
+            const Project_Name = ProjectName.filter((value) =>
+              project.includes(value.channel_id)
+            );
             return (
               <>
                 {title === "prodaction" && (
@@ -751,15 +878,14 @@ const Employees = ({ position, mode }) => {
                             <p>Адрес</p>
                           </li>
                           <li className="list-item employee_info">
-                            <p>Проекты</p>
-                          </li>{" "}
-                          <br />
-                          <br />
-                          <li className="list-item employee_info">
                             <p>Зарпата</p>
                           </li>
+                       
+                          <li className="list-item employee_info">
+                            <p>Проекты</p>
+                          </li>
                         </div>
-                        <div>
+                        <div id="EditEmployeesBlocks">
                           <li className="list-item employee_info">
                             <p
                               key={username.toString()}
@@ -790,7 +916,7 @@ const Employees = ({ position, mode }) => {
                           </li>
                           <li className="list-item employee_info">
                             <p key={created_time.toString()}>
-                              {created_time ? created_time : "(Пусто)"}
+                              {created_time ? formattedDate : "(Пусто)"}
                             </p>
                           </li>
                           <li className="list-item employee_info">
@@ -807,25 +933,7 @@ const Employees = ({ position, mode }) => {
                             <p key={address.toString()}>
                               {address ? address : "(Пусто)"}
                             </p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p key={project.toString()}>
-                              {project ? projectName : "(Пусто)"}
-                              <MultiSelect
-                                options={options}
-                                value={selectedUserProject}
-                                onChange={setSelectedUserProject}
-                                labelledBy={"Select"}
-                                isCreatable={true}
-                                style={{ width: "20px !important" }}
-                              />
-                              <button
-                                onClick={(e) => EditUserProject(username)}
-                              >
-                                EditUserProject
-                              </button>
-                            </p>
-                          </li>
+                          </li>{" "}
                           <li className="list-item employee_info">
                             {statusEditSalary ? (
                               <>
@@ -853,6 +961,35 @@ const Employees = ({ position, mode }) => {
                                 {salary ? salary : "(Пусто)"}
                               </p>
                             )}
+                          </li>
+                          <li className="list-item employee_info">
+                            <p
+                              className="employee_info_addProject"
+                              key={project.toString()}
+                            >
+                              {project
+                                ? Project_Name.map((el) => {
+                                    return el.channel_name + ", ";
+                                  })
+                                : "(Пусто)"}
+                              <div className="employee_info_SelectProjects">
+                                <MultiSelect
+                                  options={options}
+                                  value={getSelectedProject(project)}
+                                  onChange={(e) =>
+                                    editSelectedProject(e, index)
+                                  }
+                                  labelledBy={"Select"}
+                                  isCreatable={true}
+                                />
+                                {console.log("Project", ProjectName)}
+                                <button
+                                  onClick={(e) => EditUserProject(username)}
+                                >
+                                  Сохранить проект
+                                </button>
+                              </div>
+                            </p>
                           </li>
                           <li className="list-item employee_info">
                             {/* <ProSidebar>
@@ -986,6 +1123,21 @@ const Employees = ({ position, mode }) => {
                 projectName = el.channel_name;
               }
             });
+            const dateObject = new Date(created_time);
+            const optionsDate = {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            };
+            const formattedDate = dateObject.toLocaleString(
+              "ru-RU",
+              optionsDate
+            );
+
+            const Project_Name = ProjectName.filter((value) =>
+              project.includes(value.channel_id)
+            );
+
             return (
               <>
                 {(title === "treat_1" ||
@@ -1093,13 +1245,14 @@ const Employees = ({ position, mode }) => {
                             <p>Адрес</p>
                           </li>
                           <li className="list-item employee_info">
-                            <p>Проекты</p>
-                          </li>{" "}
-                          <li className="list-item employee_info">
                             <p>Зарпата</p>
                           </li>
+                       
+                          <li className="list-item employee_info">
+                            <p>Проекты</p>
+                          </li>
                         </div>
-                        <div>
+                        <div id="EditEmployeesBlocks">
                           <li className="list-item employee_info">
                             <p
                               key={username.toString()}
@@ -1130,7 +1283,7 @@ const Employees = ({ position, mode }) => {
                           </li>
                           <li className="list-item employee_info">
                             <p key={created_time.toString()}>
-                              {created_time ? created_time : "(Пусто)"}
+                              {created_time ? formattedDate : "(Пусто)"}
                             </p>
                           </li>
                           <li className="list-item employee_info">
@@ -1147,12 +1300,7 @@ const Employees = ({ position, mode }) => {
                             <p key={address.toString()}>
                               {address ? address : "(Пусто)"}
                             </p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p key={project.toString()}>
-                              {project ? projectName : "(Пусто)"}
-                            </p>
-                          </li>
+                          </li>{" "}
                           <li className="list-item employee_info">
                             {statusEditSalary ? (
                               <>
@@ -1181,6 +1329,36 @@ const Employees = ({ position, mode }) => {
                               </p>
                             )}
                           </li>
+                          <li className="list-item employee_info">
+                            <p
+                              className="employee_info_addProject"
+                              key={project.toString()}
+                            >
+                              {project
+                                ? Project_Name.map((el) => {
+                                    return el.channel_name + ", ";
+                                  })
+                                : "(Пусто)"}
+                              <div className="employee_info_SelectProjects">
+                                <MultiSelect
+                                  options={options}
+                                  value={getSelectedProject(project)}
+                                  onChange={(e) =>
+                                    editSelectedProject(e, index)
+                                  }
+                                  labelledBy={"Select"}
+                                  isCreatable={true}
+                                  style={{ width: "200px !important" }}
+                                />
+                                <button
+                                  onClick={(e) => EditUserProject(username)}
+                                >
+                                  Сохранить проект
+                                </button>
+                              </div>
+                            </p>
+                          </li>
+                          <li className="list-item employee_info"></li>
                         </div>
                         <div>
                           <button
@@ -1284,6 +1462,20 @@ const Employees = ({ position, mode }) => {
                 projectName = el.channel_name;
               }
             });
+            const dateObject = new Date(created_time);
+            const optionsDate = {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            };
+            const formattedDate = dateObject.toLocaleString(
+              "ru-RU",
+              optionsDate
+            );
+
+            const Project_Name = ProjectName.filter((value) =>
+              project.includes(value.channel_id)
+            );
             return (
               <>
                 {title === "contentmaker" && (
@@ -1378,13 +1570,14 @@ const Employees = ({ position, mode }) => {
                             <p>Адрес</p>
                           </li>
                           <li className="list-item employee_info">
-                            <p>Проекты</p>
-                          </li>
-                          <li className="list-item employee_info">
                             <p>Зарпата</p>
                           </li>
+                       
+                          <li className="list-item employee_info">
+                            <p>Проекты</p>
+                          </li>
                         </div>
-                        <div>
+                        <div id="EditEmployeesBlocks">
                           <li className="list-item employee_info">
                             <p
                               key={username.toString()}
@@ -1415,7 +1608,7 @@ const Employees = ({ position, mode }) => {
                           </li>
                           <li className="list-item employee_info">
                             <p key={created_time.toString()}>
-                              {created_time ? created_time : "(Пусто)"}
+                              {created_time ? formattedDate : "(Пусто)"}
                             </p>
                           </li>
                           <li className="list-item employee_info">
@@ -1432,12 +1625,7 @@ const Employees = ({ position, mode }) => {
                             <p key={address.toString()}>
                               {address ? address : "(Пусто)"}
                             </p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p key={project.toString()}>
-                              {project ? projectName : "(Пусто)"}
-                            </p>
-                          </li>
+                          </li>{" "}
                           <li className="list-item employee_info">
                             {statusEditSalary ? (
                               <>
@@ -1465,6 +1653,63 @@ const Employees = ({ position, mode }) => {
                                 {salary ? salary : "(Пусто)"}
                               </p>
                             )}
+                          </li>
+                          <li className="list-item employee_info">
+                            <p
+                              className="employee_info_addProject"
+                              key={project.toString()}
+                            >
+                              {project
+                                ? Project_Name.map((el) => {
+                                    return el.channel_name + ", ";
+                                  })
+                                : "(Пусто)"}
+                              <div className="employee_info_SelectProjects">
+                                <MultiSelect
+                                  options={options}
+                                  value={getSelectedProject(project)}
+                                  onChange={(e) =>
+                                    editSelectedProject(e, index)
+                                  }
+                                  labelledBy={"Select"}
+                                  isCreatable={true}
+                                />
+                                {console.log("Project", ProjectName)}
+                                <button
+                                  onClick={(e) => EditUserProject(username)}
+                                >
+                                  Сохранить проект
+                                </button>
+                              </div>
+                            </p>
+                          </li>
+                          <li className="list-item employee_info">
+                            {/* <ProSidebar>
+                              <SidebarContent>
+                                <Menu>
+                                  <SubMenu
+                                    className="employee_create_position employee_create_pproject"
+                                    title={"Выберите проект"}
+                                    ref={innerProject}
+                                  >
+                                    {ProjectName?.map((project) => {
+                                      const { channel_id, channel_name } =
+                                        project;
+                                      return (
+                                        <MenuItem
+                                          onClick={(e) => {
+                                            SelectProjects(e, channel_id);
+                                            setSelectedProject(channel_id);
+                                          }}
+                                        >
+                                          {channel_name}
+                                        </MenuItem>
+                                      );
+                                    })}
+                                  </SubMenu>
+                                </Menu>
+                              </SidebarContent>
+                            </ProSidebar> */}
                           </li>
                         </div>
                         <div>

@@ -199,6 +199,14 @@
   border-radius: 25px;
   margin-top: 10px;
 }
+/* .employee_info_addProject {
+  display: flex !important;
+  flex-direction: row !important;
+} */
+.employee_info_SelectProjects {
+  display: flex;
+  gap: 5px;
+}
 .employee_info p {
   display: flex;
   flex-direction: column;
@@ -208,9 +216,15 @@
 .employee_info:first-child {
   margin-top: 0;
 }
-.list-item input {
+/* .list-item input {
   font-size: 15px;
-}
+  width: 150px;
+  border-radius: 15px;
+  outline: none;
+  border: 0;
+  padding-left: 10px;
+  margin-right: 10px;
+} */
 /* .wrapper {
   position: relative;
 } */
@@ -381,8 +395,30 @@
   max-height: 150px;
   overflow-y: scroll;
 }
-.employee .rmsc .dropdown-heading {
+.employee_create_employee .rmsc .dropdown-heading {
+  max-width: 269px;
+  background-color: #ebedf0;
+  border-radius: 25px;
+}
+.wrapper .list .rmsc .dropdown-heading {
+  width: 100%;
+  width: 200px;
   max-width: 200px;
+  background-color: #ebedf0;
+  border-radius: 25px;
+  color: black;
+}
+.wrapper .list .rmsc {
+  color: black;
+}
+.employee .rmsc .dropdown-container {
+  border: 0;
+}
+.employee .rmsc {
+  --rmsc-radius: 25px;
+}
+#EditEmployeesBlocks {
+  width: 40%;
 }
 @media screen and (min-width: 1000px) and (max-width: 1080px) {
 }

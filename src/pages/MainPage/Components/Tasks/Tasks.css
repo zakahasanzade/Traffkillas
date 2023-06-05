@@ -1,5 +1,5 @@
 .main {
-  max-width: 975px;
+  max-width: 975px !important;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -323,6 +323,9 @@ hr {
   color: white;
   width: 15%;
 }
+.tasks_teamlead p {
+  cursor: pointer;
+}
 .senData_task_inputsForm {
   margin-top: 10px;
 }
@@ -437,7 +440,7 @@ input[type="number"]::-webkit-outer-spin-button {
   line-height: 15px;
 }
 .css-ptiqhd-MuiSvgIcon-root {
-  color: white;
+  color: black;
   font-weight: 100;
   transition: all 1s;
 }
@@ -445,10 +448,8 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-bottom: 5px;
 }
 .css-1vr111p-option {
-  color: black !important;
 }
 .MuiInputBase-root {
-  color: white !important;
 }
 .MuiSvgIcon-fontSizeMedium {
   font-size: 16px !important;
@@ -463,10 +464,9 @@ input[type="number"]::-webkit-outer-spin-button {
   font-size: 16px !important;
 }
 .MuiSelect-icon {
-  color: white !important;
 }
 .MuiInput-underline:after {
-  color: 1px solid white !important;
+  color: 1px solid  !important;
 }
 .MuiInput-underline {
   border-bottom: 1px solid white !important;
@@ -485,7 +485,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .makeStyles-inputLabel-2 {
   transition: all 1s;
-  color: white;
+  color: black;
 }
 .light {
   background-color: white !important;

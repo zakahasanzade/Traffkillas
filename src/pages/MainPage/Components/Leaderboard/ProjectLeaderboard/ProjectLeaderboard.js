@@ -22,12 +22,11 @@ const ProjectLeaderboard = ({ position, mode }) => {
       })
       .then((result) => {
         setProjectLeaderboard(JSON.parse(result)["data"]);
-
         console.log(JSON.parse(result)["data"]);
       });
   };
   const GetProjectLeaderboardForWeek = () => {
-    fetch("https://api1.traffkillas.kz/get_statistic", {
+    fetch(`https://api1.traffkillas.kz/get_statistic?sort=${true}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -83,34 +82,37 @@ const ProjectLeaderboard = ({ position, mode }) => {
   const EditCalendar = () => {
     EditCalendarValue();
   };
+  const ChangeFormatDate = (date) => {
+    const dateObject = new Date(date);
+    const day = dateObject.getDate();
+    const month = dateObject.getMonth() + 1;
+    const year = dateObject.getFullYear();
+    const formattedDate = `${day}.${month}.${year}`;
+    return formattedDate;
+  };
   const EditCalendarValue = (channel_id) => {
-    // fetch(
-    //   `https://api1.traffkillas.kz/get_statistic?from_time=${from_time}&to_time=${to_time}&channel_id=${channel_id}`,
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       token: localStorage.getItem("token"),
-    //     },
-    //   }
-    // )
-    //   .then((response) => {
-    //     return response.text();
-    //   })
-    //   .then((result) => {
-    //     let channelId = JSON.parse(result)["data"][0].channel_id;
-    //     Statistics.map((el) => {
-    //       if (el.channel_id == channelId) {
-    //         el.stat = JSON.parse(result)["data"][0].stat;
-    //       }
-    //     });
-    //     console.log(JSON.parse(result)["data"][0].stat);
-    //     setTimeInterval(false);
-    //   })
-    //   .catch((err) => {
-    //     alert(err);
-    //   });
-    console.log("Will be soon");
+    fetch(
+      `https://api1.traffkillas.kz/get_statistic?from_time=${ChangeFormatDate(
+        selectionRange.startDate
+      )}&to_time=${ChangeFormatDate(selectionRange.endDate)}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          token: localStorage.getItem("token"),
+        },
+      }
+    )
+      .then((response) => {
+        return response.text();
+      })
+      .then((result) => {
+        setProjectLeaderboard(JSON.parse(result)["data"]);
+        setTimeInterval(false);
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
   useEffect(() => {
     const closeDropdown = (e) => {
