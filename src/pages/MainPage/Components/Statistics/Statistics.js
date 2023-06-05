@@ -354,7 +354,7 @@ const Statistics = ({ position, mode }) => {
               setStatisticsState("All");
             }}
           >
-            All{" "}
+            Все{" "}
           </p>
           <p
             style={
@@ -370,7 +370,7 @@ const Statistics = ({ position, mode }) => {
               setStatisticsState("Active");
             }}
           >
-            Active
+            Активы
           </p>
           <p
             style={
@@ -386,7 +386,7 @@ const Statistics = ({ position, mode }) => {
               setStatisticsState("Passive");
             }}
           >
-            Passive
+            Пассивы
           </p>
         </div>
         {position == 3 && <p className="statistics_title">Мои проекты</p>}
