@@ -184,7 +184,7 @@ const EmployerLeaderboard = ({ position, mode }) => {
             2 недели
           </p>
         </div>
-        <div
+        {/* <div
           className={
             mode
               ? "Liderboardchannel_calendar lightColor"
@@ -220,7 +220,7 @@ const EmployerLeaderboard = ({ position, mode }) => {
               </div>
             </div>
           </CSSTransition>
-        </div>
+        </div> */}
         <div className="leader_page_div">
           {employerLeaderboard &&
             employerLeaderboard?.map((element, index) => {

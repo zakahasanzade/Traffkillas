@@ -1794,8 +1794,7 @@ const Tasks = ({ position, mode }) => {
                 _id,
               } = block;
 
-              if (state === 2) {
-                setTimer(date, "timer_completed", index);
+              if (state === 2 || state === 4) {
                 return (
                   <>
                     <div
@@ -1804,16 +1803,16 @@ const Tasks = ({ position, mode }) => {
                         mode ? "tasks_page_div light" : "tasks_page_div"
                       }
                     >
-                      <div className="tasks_div">
+                      <div className="tasks_div tasks_completedTask">
                         <div className="tasks_div_gap">
                           <div className="tasks_div_complete">
-                            <p className="tasks_header">{title}</p>
                             <p
-                              className="second_task_time"
-                              style={{ backgroundColor: "red" }}
+                              className="tasks_header"
+                              style={{ display: "flex" }}
                             >
-                              <p className={"timer_completed" + index}></p>
-                            </p>{" "}
+                              {title}
+                            </p>
+
                             <i
                               id={_id}
                               onClick={(e) => {
@@ -1835,7 +1834,7 @@ const Tasks = ({ position, mode }) => {
                             ></i>
                           </p>
                         </div>
-                        <div className="tasks_div_complete_submit">
+                        {/* <div className="tasks_div_complete_submit">
                           <p
                             className="second_task_time"
                             style={{ backgroundColor: "#EA9127" }}
@@ -1858,9 +1857,9 @@ const Tasks = ({ position, mode }) => {
                               onClick={(e) => FinishInProcessTask(e)}
                             ></i>
                           </p>
-                        </div>
+                        </div> */}
                       </div>
-                      {feedback === "true" ? (
+                      {feedback && messages && (
                         <div className="tasks_content">
                           <p
                             className="tasks_content_p"
@@ -1879,8 +1878,6 @@ const Tasks = ({ position, mode }) => {
                             {messages}
                           </p>
                         </div>
-                      ) : (
-                        ""
                       )}
                     </div>
                   </>
