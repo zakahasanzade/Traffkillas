@@ -224,7 +224,7 @@ const ProjectLeaderboard = ({ position, mode }) => {
         <div className="leader_page_div">
           {projectLeaderboard &&
             projectLeaderboard?.map((element, index) => {
-              const { channel_name, percen, weekly_dep, subs, image } = element;
+              const { channel_name, percen, dep, subs, image } = element;
 
               return (
                 <div className={mode ? "leader_div light" : "leader_div"}>
@@ -254,7 +254,7 @@ const ProjectLeaderboard = ({ position, mode }) => {
                       <p>{index + 1}</p>
                     </div>
                     <div className="leader_balance">
-                      {weekly_dep ? weekly_dep : 0} депозитов
+                      {dep ? dep : 0} депозитов
                     </div>
                   </div>
                   <div className="leader_left_div">
@@ -287,7 +287,7 @@ const ProjectLeaderboard = ({ position, mode }) => {
                     <div className="leader_info">
                       <div className="leader_info_header">
                         <p>{channel_name}</p>
-                        <p
+                        {/* <p
                           className="statistics_up"
                           style={
                             percen < 0
@@ -302,7 +302,7 @@ const ProjectLeaderboard = ({ position, mode }) => {
                             <i className="bi bi-caret-down-fill"></i>
                           )}
                           {Math.abs(percen)}%
-                        </p>
+                        </p> */}
                       </div>
                       <div className="leader_info_footer">
                         <p>{subs} подписчиков</p>
@@ -311,7 +311,7 @@ const ProjectLeaderboard = ({ position, mode }) => {
                   </div>
 
                   <div className="leader_balance">
-                    {weekly_dep ? weekly_dep : 0} депозитов
+                    {dep ? dep : 0} депозитов
                   </div>
                 </div>
               );
