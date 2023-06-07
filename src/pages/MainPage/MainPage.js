@@ -95,9 +95,31 @@ const MainPage = ({ position, ModeChange, mode }) => {
             <CustomLink className="CustomLink" to="/MainPage/Tasks">
               Задания
             </CustomLink>
-            <CustomLink className="CustomLink" to="/MainPage/Statistics">
-              Статистика
-            </CustomLink>
+            {position === "1" ? (
+              <div className="custom_dropdown">
+                <p
+                  className={
+                    dropdown
+                      ? "navbar_dropdown_active navbar_dropdonw_Li"
+                      : "navbar_dropdonw_Li"
+                  }
+                  // to="/MainPage/ProjectLeaderboard"
+                  onClick={(e) => {
+                    // setDropdown(!dropdown);
+                  }}
+                >
+                  Статистика
+                </p>
+                <ul className="navbar_dropdown_menu">
+                  <Link to="/MainPage/StatisticsBuyer">Media Buyer</Link>
+                  <Link to="/MainPage/Statistics">Influencer</Link>
+                </ul>
+              </div>
+            ) : (
+              <CustomLink className="CustomLink" to="/MainPage/Statistics">
+                Статистика
+              </CustomLink>
+            )}
             <div className="custom_dropdown">
               <p
                 className={

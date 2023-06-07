@@ -182,6 +182,12 @@ const Sidebar = ({
                 (standartFormat.getMinutes().toLocaleString().length === 1
                   ? "0" + standartFormat.getMinutes()
                   : standartFormat.getMinutes());
+              const MonthDate =
+                standartFormat.getDate() +
+                " " +
+                standartFormat.toLocaleString("ru-ru", { month: "short" });
+              console.log("Time", standartFormat);
+              console.log("Time", MonthDate);
               return (
                 <Menu key={chats + index}>
                   <div
@@ -219,7 +225,7 @@ const Sidebar = ({
                     </div>
                     <div className="sidebar_accounts_notification">
                       <div className="sidebar_accounts_notification_time">
-                        {lastTime}
+                        {MonthDate + " " + lastTime}
                       </div>
                       {/* <div className="sidebar_accounts_notification_num">
                               2

@@ -944,21 +944,28 @@ const Statistics = ({ position, mode }) => {
                                   >
                                     <i
                                       onClick={(e) => {
-                                        e.stopPropagation();
-                                        // EditStatisticsReg(e, channel_id, dateTime)
-                                        EditStatisticsInfo(
-                                          e,
-                                          channel_id,
-                                          dateTime,
-                                          reg,
-                                          dep
-                                        );
+                                        if (
+                                          position === "1" ||
+                                          position === "2"
+                                        ) {
+                                          e.stopPropagation();
+                                          // EditStatisticsReg(e, channel_id, dateTime)
+                                          EditStatisticsInfo(
+                                            e,
+                                            channel_id,
+                                            dateTime,
+                                            reg,
+                                            dep
+                                          );
+                                        }
                                       }}
                                       className="bi bi-people-fill"
                                     ></i>{" "}
                                     <div
                                       onClick={() =>
                                         !StatisticsInfo &&
+                                        (position === "1" ||
+                                          position === "2") &&
                                         SetStatisticsInfo(true)
                                       }
                                       className="statistics_submenu_div_edit"
@@ -1002,21 +1009,28 @@ const Statistics = ({ position, mode }) => {
                                   >
                                     <i
                                       onClick={(e) => {
-                                        e.stopPropagation();
-                                        // EditStatisticsReg(e, channel_id, dateTime)
-                                        EditStatisticsInfo(
-                                          e,
-                                          channel_id,
-                                          dateTime,
-                                          reg,
-                                          dep
-                                        );
+                                        if (
+                                          position === "1" ||
+                                          position === "2"
+                                        ) {
+                                          e.stopPropagation();
+                                          // EditStatisticsReg(e, channel_id, dateTime)
+                                          EditStatisticsInfo(
+                                            e,
+                                            channel_id,
+                                            dateTime,
+                                            reg,
+                                            dep
+                                          );
+                                        }
                                       }}
                                       className="bi bi-piggy-bank-fill"
-                                    ></i>{" "}
+                                    ></i>
                                     <div
                                       onClick={() =>
                                         !StatisticsInfo &&
+                                        (position === "1" ||
+                                          position === "2") &&
                                         SetStatisticsInfo(true)
                                       }
                                       className="statistics_submenu_div_edit"
@@ -1041,7 +1055,7 @@ const Statistics = ({ position, mode }) => {
                                                     );
                                                   }
                                                 });
-                                                  console.log(el);
+                                                console.log(el);
                                               }
                                             });
                                           }}

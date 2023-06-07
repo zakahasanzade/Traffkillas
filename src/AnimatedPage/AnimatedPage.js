@@ -12,6 +12,8 @@ import Instruments from "../pages/MainPage/Components/Instruments/Instruments";
 import Employees from "../pages/MainPage/Components/Employees/Employees";
 import ProjectLeaderboard from "../pages/MainPage/Components/Leaderboard/ProjectLeaderboard/ProjectLeaderboard";
 import EmployerLeaderboard from "../pages/MainPage/Components/Leaderboard/EmployerLeaderboard/EmployerLeaderboard";
+import StatisticsBuyer from "../pages/MainPage/Components/Statistics/StatisticsBuyer/StatisticsBuyer";
+import StatisticsInfluencer from "../pages/MainPage/Components/Statistics/StatisticsInfluencer/StatisticsInfluencer";
 import { AnimatePresence } from "framer-motion/dist/framer-motion";
 
 const AnimatedPage = ({ ChangeMode, mode }) => {
@@ -60,6 +62,14 @@ const AnimatedPage = ({ ChangeMode, mode }) => {
           <Route
             path="/MainPage/Statistics"
             element={<Statistics mode={mode} position={position} />}
+          />
+          <Route
+            path="/MainPage/StatisticsBuyer"
+            element={<StatisticsBuyer mode={mode} position={position} />}
+          />
+          <Route
+            path="/MainPage/StatisticsInfluencer"
+            element={<StatisticsInfluencer mode={mode} position={position} />}
           />
           <Route
             path="/MainPage/ProjectLeaderboard"
