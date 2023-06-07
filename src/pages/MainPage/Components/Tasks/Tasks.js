@@ -1281,8 +1281,7 @@ const Tasks = ({ position, mode }) => {
                 _id,
               } = block;
 
-              if (state === 2) {
-                setTimer(date, "timer_completed", index);
+              if (state === 2 || state === 4) {
                 return (
                   <>
                     <div
@@ -1291,16 +1290,16 @@ const Tasks = ({ position, mode }) => {
                         mode ? "tasks_page_div light" : "tasks_page_div"
                       }
                     >
-                      <div className="tasks_div">
+                      <div className="tasks_div tasks_completedTask">
                         <div className="tasks_div_gap">
                           <div className="tasks_div_complete">
-                            <p className="tasks_header">{title}</p>
                             <p
-                              className="second_task_time"
-                              style={{ backgroundColor: "red" }}
+                              className="tasks_header"
+                              style={{ display: "flex" }}
                             >
-                              <p className={"timer_completed" + index}></p>
-                            </p>{" "}
+                              {title}
+                            </p>
+
                             <i
                               id={_id}
                               onClick={(e) => {
@@ -1322,62 +1321,34 @@ const Tasks = ({ position, mode }) => {
                             ></i>
                           </p>
                         </div>
-                        <div className="tasks_div_gap">
-                          <div className="tasks_div_complete">
-                            <p className="tasks_header">{title}</p>
+                        {state === 2 && (
+                          <div className="tasks_div_complete_submit">
                             <p
                               className="second_task_time"
-                              style={{ backgroundColor: "red" }}
+                              style={{ backgroundColor: "#EA9127" }}
                             >
-                              <p className={"timer_completed" + index}></p>
-                            </p>{" "}
-                            <i
-                              id={_id}
-                              onClick={(e) => {
-                                DeletePost(e);
-                              }}
-                              className="bi bi-trash3-fill"
-                              style={{ color: "red" }}
-                            ></i>
+                              <p className="timer">Доработать </p>
+                              <i
+                                className="bi bi-exclamation-circle-fill"
+                                id={_id}
+                                onClick={(e) => ReopenCompleteTask(e)}
+                              ></i>
+                            </p>
+                            <p
+                              className="second_task_time"
+                              style={{ backgroundColor: "#16C784" }}
+                            >
+                              <p className="timer">Принять </p>
+                              <i
+                                id={_id}
+                                className="bi bi-check-circle-fill"
+                                onClick={(e) => FinishInProcessTask(e)}
+                              ></i>
+                            </p>
                           </div>
-                          <p className="tasks_header_worker">
-                            {worker_username}{" "}
-                            <i
-                              id={_id}
-                              onClick={(e) => {
-                                DeletePost(e);
-                              }}
-                              className="bi bi-trash3-fill"
-                              style={{ color: "red" }}
-                            ></i>
-                          </p>
-                        </div>
-                        <div className="tasks_div_complete_submit">
-                          <p
-                            className="second_task_time"
-                            style={{ backgroundColor: "#EA9127" }}
-                          >
-                            <p className="timer">Доработать </p>
-                            <i
-                              className="bi bi-exclamation-circle-fill"
-                              id={_id}
-                              onClick={(e) => ReopenCompleteTask(e)}
-                            ></i>
-                          </p>
-                          <p
-                            className="second_task_time"
-                            style={{ backgroundColor: "#16C784" }}
-                          >
-                            <p className="timer">Принять </p>
-                            <i
-                              id={_id}
-                              className="bi bi-check-circle-fill"
-                              onClick={(e) => FinishInProcessTask(e)}
-                            ></i>
-                          </p>
-                        </div>
+                        )}
                       </div>
-                      {feedback === "true" ? (
+                      {feedback && messages && (
                         <div className="tasks_content">
                           <p
                             className="tasks_content_p"
@@ -1396,8 +1367,6 @@ const Tasks = ({ position, mode }) => {
                             {messages}
                           </p>
                         </div>
-                      ) : (
-                        ""
                       )}
                     </div>
                   </>
