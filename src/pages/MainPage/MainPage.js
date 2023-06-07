@@ -114,7 +114,7 @@ const MainPage = ({ position, ModeChange, mode }) => {
               </p>
               <ul className="navbar_dropdown_menu">
                 <Link to="/MainPage/ProjectLeaderboard">Проекты</Link>
-                <Link to="/MainPage/EmployerLeaderboard">Работники</Link>
+                <Link to="/MainPage/EmployerLeaderboard">Cоотрудники</Link>
               </ul>
             </div>
             <CustomLink className="CustomLink" to="/MainPage/Market">
@@ -192,7 +192,7 @@ const MainPage = ({ position, ModeChange, mode }) => {
             </p>
             <ul className="navbar_dropdown_menu">
               <Link to="/MainPage/ProjectLeaderboard">Проекты</Link>
-              <Link to="/MainPage/EmployerLeaderboard">Работники</Link>
+              <Link to="/MainPage/EmployerLeaderboard">Cоотрудники</Link>
             </ul>
           </div>
           <CustomLink className="CustomLink" to="/MainPage/Market">
