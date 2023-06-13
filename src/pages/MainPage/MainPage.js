@@ -7,7 +7,7 @@ import { CSSTransition } from "react-transition-group";
 import { useNavigate } from "react-router-dom";
 import { windows } from "fontawesome";
 
-const MainPage = ({ position, ModeChange, mode }) => {
+const MainPage = ({ editStatRole, position, ModeChange, mode }) => {
   let isLeaderboard = useMatch({
     path: "/MainPage/ProjectLeaderboard",
     end: true,
@@ -17,8 +17,13 @@ const MainPage = ({ position, ModeChange, mode }) => {
       window.location.pathname === "/MainPage/EmployerLeaderboard") &&
       setDropdown(true);
   }, []);
+  useEffect(() => {
+    window.location.pathname === "/MainPage/Statistics" &&
+      setDropdownStat(true);
+  }, []);
 
   const [dropdown, setDropdown] = useState();
+  const [dropdownStat, setDropdownStat] = useState();
   const ChangeModes = (props) => {
     ModeChange();
   };
@@ -99,7 +104,7 @@ const MainPage = ({ position, ModeChange, mode }) => {
               <div className="custom_dropdown">
                 <p
                   className={
-                    dropdown
+                    dropdownStat
                       ? "navbar_dropdown_active navbar_dropdonw_Li"
                       : "navbar_dropdonw_Li"
                   }
@@ -111,8 +116,24 @@ const MainPage = ({ position, ModeChange, mode }) => {
                   Статистика
                 </p>
                 <ul className="navbar_dropdown_menu">
-                  <Link to="/MainPage/StatisticsBuyer">Media Buyer</Link>
-                  <Link to="/MainPage/Statistics">Influencer</Link>
+                  <Link
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      editStatRole("баинг");
+                    }}
+                    to="/MainPage/Statistics"
+                  >
+                    Media Buyer
+                  </Link>
+                  <Link
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      editStatRole("инфлюенс");
+                    }}
+                    to="/MainPage/Statistics"
+                  >
+                    Influencer
+                  </Link>
                 </ul>
               </div>
             ) : (

@@ -81,10 +81,8 @@ function Messenger({ CloseMessengerWindow, position }) {
           return response.text();
         })
         .then((result) => {
-          console.log(JSON.parse(result));
           setGetChat(JSON.parse(result));
           setSortGetChats(JSON.parse(result));
-          console.log(GetChat);
           setNavColor(Array(JSON.parse(result).length).fill(false));
         });
   }, [ProjectId]);

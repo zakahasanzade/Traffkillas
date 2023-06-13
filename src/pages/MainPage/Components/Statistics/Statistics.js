@@ -27,7 +27,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./Statistics.css";
 
-const Statistics = ({ position, mode }) => {
+const Statistics = ({ statisticsRole, position, mode }) => {
   const [graph, setGraph] = useState();
 
   useEffect(() => {
@@ -41,8 +41,24 @@ const Statistics = ({ position, mode }) => {
   const StatisticsArray = [];
   const [Statistics, setStatistics] = useState();
   const [filerStatistics, setFilterStatistics] = useState(Statistics);
+  const sortStat = () => {
+    const sortedData = [...filerStatistics].sort((a, b) => {
+      if (a.active && !b.active) {
+        return -1;
+      } else if (!a.active && b.active) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
+    console.log(sortedData);
+  };
   const GetStatisticsData = () => {
-    fetch("https://api1.traffkillas.kz/get_statistic", {
+    console.log(position);
+    let admin = `https://api1.traffkillas.kz/get_statistic?channel_type=${statisticsRole}`;
+    let notAdmin = `https://api1.traffkillas.kz/get_statistic`;
+    fetch(position === "1" ? admin : notAdmin, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +71,16 @@ const Statistics = ({ position, mode }) => {
       .then((result) => {
         StatisticsArray[0] = JSON.parse(result)["data"];
         setGraph(new Array(StatisticsArray[0].length).fill(false));
-        setStatistics(JSON.parse(result)["data"]);
+        const sortedData = [...JSON.parse(result)["data"]].sort((a, b) => {
+          if (a.active && !b.active) {
+            return -1;
+          } else if (!a.active && b.active) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+        setStatistics(sortedData);
       })
       .catch((err) => {
         alert(err);
@@ -151,13 +176,16 @@ const Statistics = ({ position, mode }) => {
           return response.text();
         })
         .then((result) => {
-          fetch("https://api1.traffkillas.kz/get_statistic", {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              token: localStorage.getItem("token"),
-            },
-          })
+          fetch(
+            `https://api1.traffkillas.kz/get_statistic?channel_type=${statisticsRole}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                token: localStorage.getItem("token"),
+              },
+            }
+          )
             .then((response) => {
               return response.text();
             })
@@ -184,7 +212,9 @@ const Statistics = ({ position, mode }) => {
   useEffect(() => {
     GetStatisticsData();
   }, []);
-
+  useEffect(() => {
+    GetStatisticsData();
+  }, [statisticsRole]);
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
     endDate: new Date(),

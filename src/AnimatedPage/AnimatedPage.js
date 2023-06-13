@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 // import { motion } from "framer-motion";
 import Profile from "../pages/MainPage/Components/Profile/Profile";
@@ -32,6 +32,15 @@ const AnimatedPage = ({ ChangeMode, mode }) => {
   const ModeChange = () => {
     ChangeMode();
   };
+  const [statisticsRole, setStatisticsRole] = useState("баинг");
+  const editStatRole = (role) => {
+    setStatisticsRole(role);
+    console.log(role);
+  };
+
+  useEffect(() => {
+    console.log(statisticsRole);
+  }, [statisticsRole]);
   return (
     <AnimatePresence exitBeforeEnter>
       <Routes location={location} key={location.pathname}>
@@ -49,7 +58,12 @@ const AnimatedPage = ({ ChangeMode, mode }) => {
         <Route
           path="/MainPage/"
           element={
-            <MainPage ModeChange={ModeChange} mode={mode} position={position} />
+            <MainPage
+              editStatRole={editStatRole}
+              ModeChange={ModeChange}
+              mode={mode}
+              position={position}
+            />
           }
         >
           {/* <Route path="/" element={<UserPage />} />
@@ -61,7 +75,13 @@ const AnimatedPage = ({ ChangeMode, mode }) => {
           />
           <Route
             path="/MainPage/Statistics"
-            element={<Statistics mode={mode} position={position} />}
+            element={
+              <Statistics
+                statisticsRole={statisticsRole}
+                mode={mode}
+                position={position}
+              />
+            }
           />
           <Route
             path="/MainPage/StatisticsBuyer"
