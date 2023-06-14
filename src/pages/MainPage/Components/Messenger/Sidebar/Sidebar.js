@@ -186,8 +186,6 @@ const Sidebar = ({
                 standartFormat.getDate() +
                 " " +
                 standartFormat.toLocaleString("ru-ru", { month: "short" });
-              console.log("Time", standartFormat);
-              console.log("Time", MonthDate);
               return (
                 <Menu key={chats + index}>
                   <div

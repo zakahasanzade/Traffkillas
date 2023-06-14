@@ -12,6 +12,10 @@ function Messenger({ CloseMessengerWindow, position }) {
   const [closeMessenger, setCloseMesenger] = useState();
   const [OnceUpdate, setOnceUpdate] = useState();
   const [allChats, setAllChats] = useState([]);
+  const [chatsFlipped, setChatsFlipped] = useState(false);
+  const editChatsFlipped = (el) => {
+    setChatsFlipped(el);
+  };
   const GetProjectId = (ChatId) => {
     setProjcetId(ChatId);
     console.log(ChatId);
@@ -38,6 +42,7 @@ function Messenger({ CloseMessengerWindow, position }) {
       })
       .then((result) => {
         setAllChats(JSON.parse(result));
+        setChatsFlipped(Array(JSON.parse(result).length).fill(false));
         console.log(result);
         console.log(positionEmployee);
         setMessages();
@@ -179,7 +184,12 @@ function Messenger({ CloseMessengerWindow, position }) {
   };
   return (
     <div className="telegram">
-      <SideDropdown allChats={allChats} GetProjectId={GetProjectId} />
+      <SideDropdown
+        chatsFlipped={chatsFlipped}
+        allChats={allChats}
+        GetProjectId={GetProjectId}
+        editChatsFlipped={editChatsFlipped}
+      />
       <Sidebar
         // GetchatMessage={GetchatMessage}
         UpdateChatId={UpdateChatId}

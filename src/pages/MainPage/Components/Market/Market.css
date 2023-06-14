@@ -70,7 +70,7 @@
 }
 .market_product {
   border-radius: 25px;
-  padding: 16px 24px;
+  /* padding: 16px 24px; */
   width: 240px;
   text-align: center;
   word-spacing: 5px;

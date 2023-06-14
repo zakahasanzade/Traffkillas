@@ -2,8 +2,14 @@ import React from "react";
 import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import "./Sidedropdown.css";
+import { Background } from "devextreme-react/range-selector";
 
-const SideDropdown = ({ allChats, GetProjectId }) => {
+const SideDropdown = ({
+  chatsFlipped,
+  allChats,
+  GetProjectId,
+  editChatsFlipped,
+}) => {
   return (
     <SideNav
     // className="sideDropwown"
@@ -16,12 +22,31 @@ const SideDropdown = ({ allChats, GetProjectId }) => {
       // defaultSelected="home"
       >
         {allChats &&
-          allChats.map((projects) => {
+          allChats.map((projects, index) => {
             const { name, id } = projects;
             return (
               <NavItem
                 // eventKey="home"
-                onClick={() => GetProjectId(id)}
+                onClick={() => {
+                  GetProjectId(id);
+                  var temp = chatsFlipped.map((el, i) => {
+                    if (i === index) {
+                      return (el = true);
+                    } else {
+                      return (el = false);
+                    }
+                    return el;
+                  });
+                  editChatsFlipped(temp);
+                  console.log(chatsFlipped[index]);
+                }}
+                style={
+                  chatsFlipped[index]
+                    ? {
+                        backgroundColor: "rgb(104, 172, 239)",
+                      }
+                    : null
+                }
               >
                 <NavIcon>
                   <i
