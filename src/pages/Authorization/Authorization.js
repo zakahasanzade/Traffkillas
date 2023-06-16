@@ -93,8 +93,10 @@ const Authorization = () => {
         console.log(result);
         localStorage.setItem("token", JSON.parse(result).token);
         localStorage.setItem("position", JSON.parse(result).position);
+        localStorage.setItem("channel_type", JSON.parse(result).channel_type);
         localStorage.setItem("mode", false);
         navigate("/MainPage");
+        // console.log("CHanel_Type",c)
       })
       .catch((err) => {
         createNotification("error");
@@ -108,7 +110,7 @@ const Authorization = () => {
     document.querySelector(`.pro-item-content`).style.fontWeight = 700;
     console.log(document.querySelector(".pro-item-content").textContent);
   };
- 
+
   return (
     <div className="page_autorization">
       <main className="page_autorization_main">
@@ -128,7 +130,7 @@ const Authorization = () => {
               className="username"
             ></input>
           </div>
-          
+
           <div className="page_autorization_inputs_div">
             <input
               placeholder="пароль"

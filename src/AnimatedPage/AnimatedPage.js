@@ -28,6 +28,7 @@ const AnimatedPage = ({ ChangeMode, mode }) => {
   //     console.log(result)
   //   });
   const position = localStorage.position;
+  const channel_type = localStorage.channel_type;
   const location = useLocation();
   const ModeChange = () => {
     ChangeMode();
@@ -109,7 +110,13 @@ const AnimatedPage = ({ ChangeMode, mode }) => {
           />
           <Route
             path="/MainPage/Employees"
-            element={<Employees mode={mode} position={position} />}
+            element={
+              <Employees
+                channel_type={channel_type}
+                mode={mode}
+                position={position}
+              />
+            }
           />
         </Route>
       </Routes>

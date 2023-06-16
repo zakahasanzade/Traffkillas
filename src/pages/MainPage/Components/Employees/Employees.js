@@ -17,7 +17,7 @@ import {
 import axios from "axios";
 import { color } from "@mui/system";
 
-const Employees = ({ position, mode }) => {
+const Employees = ({ position, mode, channel_type }) => {
   const [showUser, setShowUser] = useState();
   const [CreateEmployee, setCreateEmployee] = useState(false);
   const [EmployeeGift, setEmployeeGift] = useState(false);
@@ -102,18 +102,21 @@ const Employees = ({ position, mode }) => {
     const title = document.querySelector(".pro-item-content").textContent;
     let positionEmployer = null;
     title === "Обработка" && (positionEmployer = "treat_1");
-    title === "Продакшн" && (positionEmployer = "prodaction");
-    title === "Обработка(вечер)" && (positionEmployer = "treat_2");
-    title === "Обработка(утрен)" && (positionEmployer = "treat_3");
+    (title === "Продюсер" || title === "Байер") &&
+      (positionEmployer = "prodaction");
+    // title === "Обработка(вечер)" && (positionEmployer = "treat_2");
+    // title === "Обработка(утрен)" && (positionEmployer = "treat_3");
     title === "Контент" && (positionEmployer = "contentmaker");
-    document.querySelector(".employee_create_employee_title_checkbox")
-      .checked && formData.append("position", 2);
+    // document.querySelector(".employee_create_employee_title_checkbox")
+    //   .checked && formData.append("position", 2);
     formData.append("title", positionEmployer);
+    (title === "Продюсер" || title === "Байер") &&
+      formData.append("position", 2);
     var TestArr = new Array();
     selectedNewUserProject.filter((el) => {
       TestArr.push(el.value);
     });
-    formData.append("project", TestArr);
+    formData.append("project", Array.from(TestArr));
     axios
       .post("https://api1.traffkillas.kz/create_user", formData, {
         headers: {
@@ -134,7 +137,7 @@ const Employees = ({ position, mode }) => {
       .catch((error) => {
         console.log(error);
       });
-    console.log(formData);
+    console.log("formDAta", formData);
   };
 
   // let employeeUsername = document.getElementById("employeeUsername");
@@ -491,7 +494,7 @@ const Employees = ({ position, mode }) => {
                   placeholder="Введите логин ..."
                   name="username"
                 />
-                <p
+                {/* <p
                   style={
                     mode
                       ? {
@@ -508,7 +511,7 @@ const Employees = ({ position, mode }) => {
                     className="employee_create_employee_title_checkbox"
                     type="checkbox"
                   />
-                </p>
+                </p> */}
                 <p
                   style={
                     mode
@@ -556,7 +559,10 @@ const Employees = ({ position, mode }) => {
                             EnableCreateButton();
                           }}
                         >
-                          Продакшн
+                          {position != 2 &&
+                            (channel_type !== "инфлюенс"
+                              ? "Байер"
+                              : "Продюсер")}
                         </MenuItem>
                         <MenuItem
                           onClick={(e) => {
@@ -566,22 +572,22 @@ const Employees = ({ position, mode }) => {
                         >
                           Обработка
                         </MenuItem>
-                        <MenuItem
+                        {/* <MenuItem
                           onClick={(e) => {
                             SelectPosition(e);
                             EnableCreateButton();
                           }}
                         >
                           Обработка(вечер)
-                        </MenuItem>
-                        <MenuItem
+                        </MenuItem> */}
+                        {/* <MenuItem
                           onClick={(e) => {
                             SelectPosition(e);
                             EnableCreateButton();
                           }}
                         >
                           Обработка(утрен)
-                        </MenuItem>
+                        </MenuItem> */}
                         <MenuItem
                           onClick={(e) => {
                             SelectPosition(e);
@@ -739,7 +745,7 @@ const Employees = ({ position, mode }) => {
           </CSSTransition>
         </div>
         <div className="employee_title">
-          <p>Продакшн</p>
+          <p> {channel_type !== "инфлюенс" ? "Байер" : "Продюсер"}</p>
         </div>
         {employee &&
           employee.map((person, index) => {
@@ -880,7 +886,7 @@ const Employees = ({ position, mode }) => {
                           <li className="list-item employee_info">
                             <p>Зарпата</p>
                           </li>
-                       
+
                           <li className="list-item employee_info">
                             <p>Проекты</p>
                           </li>
@@ -895,9 +901,13 @@ const Employees = ({ position, mode }) => {
                               {username ? username : "(Пусто)"}
                             </p>
                           </li>
-                          <li className="list-item employee_info">
-                            <p key={pwd.toString()}>{pwd ? pwd : "(Пусто)"}</p>
-                          </li>
+                          {(position == 1 || position == 0) && (
+                            <li className="list-item employee_info">
+                              <p key={pwd.toString()}>
+                                {pwd ? pwd : "(Пусто)"}
+                              </p>
+                            </li>
+                          )}
                           <li className="list-item employee_info">
                             <p key={first_name.toString()}>
                               {last_name || first_name || middle_name
@@ -1247,7 +1257,7 @@ const Employees = ({ position, mode }) => {
                           <li className="list-item employee_info">
                             <p>Зарпата</p>
                           </li>
-                       
+
                           <li className="list-item employee_info">
                             <p>Проекты</p>
                           </li>
@@ -1572,7 +1582,7 @@ const Employees = ({ position, mode }) => {
                           <li className="list-item employee_info">
                             <p>Зарпата</p>
                           </li>
-                       
+
                           <li className="list-item employee_info">
                             <p>Проекты</p>
                           </li>
