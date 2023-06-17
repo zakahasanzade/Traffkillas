@@ -330,6 +330,7 @@ const Employees = ({ position, mode, channel_type }) => {
     );
     console.log("Employee", employee);
   };
+  const EmployeePositionGet = localStorage.position;
   const getSelectedProject = (projects) => {
     const arr = [];
     ProjectName.map((elem) => {
@@ -745,7 +746,7 @@ const Employees = ({ position, mode, channel_type }) => {
           </CSSTransition>
         </div>
         <div className="employee_title">
-          <p> {channel_type !== "инфлюенс" ? "Байер" : "Продюсер"}</p>
+          <p> Админы</p>
         </div>
         {employee &&
           employee.map((person, index) => {
@@ -792,7 +793,7 @@ const Employees = ({ position, mode, channel_type }) => {
             );
             return (
               <>
-                {title === "prodaction" && (
+                {(position == 0 || position == 1) && (
                   <div className="wrapper" key={person + index}>
                     <button
                       id={index}
@@ -862,9 +863,13 @@ const Employees = ({ position, mode, channel_type }) => {
                           <li className="list-item employee_info">
                             <p style={{ color: "orange" }}>Login</p>
                           </li>
-                          <li className="list-item employee_info">
-                            <p style={{ color: "orange" }}>Password</p>
-                          </li>
+
+                          {(EmployeePositionGet == 1 ||
+                            EmployeePositionGet == 0) && (
+                            <li className="list-item employee_info">
+                              <p style={{ color: "orange" }}>Password</p>
+                            </li>
+                          )}
                           <li className="list-item employee_info">
                             <p>ФИО</p>
                           </li>
@@ -901,11 +906,11 @@ const Employees = ({ position, mode, channel_type }) => {
                               {username ? username : "(Пусто)"}
                             </p>
                           </li>
-                          {(position == 1 || position == 0) && (
+                          {console.log("Type", position)}
+                          {(EmployeePositionGet == 1 ||
+                            EmployeePositionGet == 0) && (
                             <li className="list-item employee_info">
-                              <p key={pwd.toString()}>
-                                {pwd ? pwd : "(Пусто)"}
-                              </p>
+                              <p>{pwd ? pwd : "(Пусто)"}</p>
                             </li>
                           )}
                           <li className="list-item employee_info">
@@ -1100,6 +1105,368 @@ const Employees = ({ position, mode, channel_type }) => {
               </>
             );
           })}
+        <div className="employee_title">
+          <p> {channel_type !== "инфлюенс" ? "Байер" : "Продюсер"}</p>
+        </div>
+        {employee &&
+          employee.map((person, index) => {
+            const {
+              address,
+              birth_date,
+              created_time,
+              email,
+              first_name,
+              last_name,
+              middle_name,
+              mmr,
+              phone,
+              position,
+              pwd,
+              title,
+              tenge,
+              ttk,
+              username,
+              image,
+              project,
+              salary,
+              agentAnswerTime,
+            } = person;
+            let projectName = null;
+            ProjectName.map((el) => {
+              if (el.channel_id === project) {
+                projectName = el.channel_name;
+              }
+            });
+            const dateObject = new Date(created_time);
+            const optionsDate = {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            };
+            const formattedDate = dateObject.toLocaleString(
+              "ru-RU",
+              optionsDate
+            );
+
+            const Project_Name = ProjectName.filter((value) =>
+              project.includes(value.channel_id)
+            );
+            return (
+              <>
+                {title === "prodaction" &&
+                  position != "0" &&
+                  position != "1" && (
+                    <div className="wrapper" key={person + index}>
+                      <button
+                        id={index}
+                        className={
+                          mode
+                            ? "button employee_account light"
+                            : "button employee_account"
+                        }
+                        onClick={(e) => {
+                          let IndexElement = index;
+                          var res = showUser.map((e, i) => {
+                            if (i === IndexElement) {
+                              return !e;
+                            } else {
+                              return e;
+                            }
+                          });
+                          setShowUser(res);
+                        }}
+                      >
+                        <div className="employee_account_left">
+                          <img
+                            src={image ? image : ProfilePhoto1}
+                            alt="ProfilePhoto1"
+                          ></img>
+                          <div>
+                            <p key={first_name.toString()}>
+                              {first_name}{" "}
+                              {position !== 3 && (
+                                <i
+                                  style={{ color: "#0f82f5", fontSize: "14px" }}
+                                  class="bi bi-bookmark-check-fill"
+                                ></i>
+                              )}
+                            </p>
+                            <p className="employee_account_left_position">
+                              {position === 1 && "Админ"}
+                              {position === 2 && "Тимлид"}
+                              {position === 3 && "Сотрудник"}{" "}
+                              <i
+                                className="bi bi-chevron-down"
+                                style={{ fontSize: "12px" }}
+                              ></i>
+                            </p>
+                          </div>
+                        </div>
+                        <div className="employee_account_right">
+                          <p>{mmr} MMR</p>
+                          <p className="orange">{ttk} TTK</p>
+                          <p style={{ color: "#AB16CD" }}>₸ {tenge}</p>
+                        </div>
+                      </button>
+                      <CSSTransition
+                        in={showUser[index]}
+                        classNames="alert"
+                        timeout={300}
+                        unmountOnExit
+                      >
+                        <ul
+                          className={
+                            mode
+                              ? "employee_account_list list light"
+                              : "employee_account_list list"
+                          }
+                        >
+                          <div style={{ fontWeight: "700" }}>
+                            <li className="list-item employee_info">
+                              <p style={{ color: "orange" }}>Login</p>
+                            </li>
+
+                            {(EmployeePositionGet == 1 ||
+                              EmployeePositionGet == 0) && (
+                              <li className="list-item employee_info">
+                                <p style={{ color: "orange" }}>Password</p>
+                              </li>
+                            )}
+                            <li className="list-item employee_info">
+                              <p>ФИО</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Дата рождения</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Регистрация в системе</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>E-mail</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Номер</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Адрес</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Зарпата</p>
+                            </li>
+
+                            <li className="list-item employee_info">
+                              <p>Проекты</p>
+                            </li>
+                          </div>
+                          <div id="EditEmployeesBlocks">
+                            <li className="list-item employee_info">
+                              <p
+                                key={username.toString()}
+                                value="value"
+                                id="employeeUsername"
+                              >
+                                {username ? username : "(Пусто)"}
+                              </p>
+                            </li>
+                            {console.log("Type", position)}
+                            {(EmployeePositionGet == 1 ||
+                              EmployeePositionGet == 0) && (
+                              <li className="list-item employee_info">
+                                <p>{pwd ? pwd : "(Пусто)"}</p>
+                              </li>
+                            )}
+                            <li className="list-item employee_info">
+                              <p key={first_name.toString()}>
+                                {last_name || first_name || middle_name
+                                  ? last_name +
+                                    " " +
+                                    first_name +
+                                    " " +
+                                    middle_name
+                                  : "(Пусто)"}
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={birth_date.toString()}>
+                                {birth_date ? birth_date : "(Пусто)"}
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={created_time.toString()}>
+                                {created_time ? formattedDate : "(Пусто)"}
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={email.toString()}>
+                                {email ? email : "(Пусто)"}
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={phone.toString()}>
+                                {phone ? phone : "(Пусто)"}
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={address.toString()}>
+                                {address ? address : "(Пусто)"}
+                              </p>
+                            </li>{" "}
+                            <li className="list-item employee_info">
+                              {statusEditSalary ? (
+                                <>
+                                  <input
+                                    onChange={(e) =>
+                                      setEditSalary(e.target.value)
+                                    }
+                                    placeholder={salary}
+                                  ></input>
+                                  <i
+                                    className="bi bi-check-circle-fill"
+                                    onClick={(el) => EditSubmit(username)}
+                                  ></i>
+                                  <i
+                                    style={{ marginLeft: "5px" }}
+                                    onClick={(el) => CancelEdit(el)}
+                                    className="bi bi-x-circle-fill"
+                                  ></i>
+                                </>
+                              ) : (
+                                <p
+                                  onClick={() => setStatusEditSalary(true)}
+                                  key={salary}
+                                >
+                                  {salary ? salary : "(Пусто)"}
+                                </p>
+                              )}
+                            </li>
+                            <li className="list-item employee_info">
+                              <p
+                                className="employee_info_addProject"
+                                key={project.toString()}
+                              >
+                                {project
+                                  ? Project_Name.map((el) => {
+                                      return el.channel_name + ", ";
+                                    })
+                                  : "(Пусто)"}
+                                <div className="employee_info_SelectProjects">
+                                  <MultiSelect
+                                    options={options}
+                                    value={getSelectedProject(project)}
+                                    onChange={(e) =>
+                                      editSelectedProject(e, index)
+                                    }
+                                    labelledBy={"Select"}
+                                    isCreatable={true}
+                                  />
+                                  {console.log("Project", ProjectName)}
+                                  <button
+                                    onClick={(e) => EditUserProject(username)}
+                                  >
+                                    Сохранить проект
+                                  </button>
+                                </div>
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              {/* <ProSidebar>
+                              <SidebarContent>
+                                <Menu>
+                                  <SubMenu
+                                    className="employee_create_position employee_create_pproject"
+                                    title={"Выберите проект"}
+                                    ref={innerProject}
+                                  >
+                                    {ProjectName?.map((project) => {
+                                      const { channel_id, channel_name } =
+                                        project;
+                                      return (
+                                        <MenuItem
+                                          onClick={(e) => {
+                                            SelectProjects(e, channel_id);
+                                            setSelectedProject(channel_id);
+                                          }}
+                                        >
+                                          {channel_name}
+                                        </MenuItem>
+                                      );
+                                    })}
+                                  </SubMenu>
+                                </Menu>
+                              </SidebarContent>
+                            </ProSidebar> */}
+                            </li>
+                          </div>
+                          <div>
+                            <button
+                              onClick={(e) => {
+                                let IndexElement = index;
+                                var res = showQuestion.map((e, i) => {
+                                  if (i === IndexElement) {
+                                    return !e;
+                                  } else {
+                                    return e;
+                                  }
+                                });
+                                setShowQuestion(res);
+                              }}
+                            >
+                              <span>Удалить сотрудника</span>{" "}
+                              <i class="bi bi-trash3-fill"></i>
+                            </button>
+                          </div>
+                          <CSSTransition
+                            in={showQuestion[index]}
+                            classNames="alert"
+                            timeout={300}
+                            unmountOnExit
+                          >
+                            <form
+                              className={
+                                mode
+                                  ? "employee_account_list_question light"
+                                  : "employee_account_list_question"
+                              }
+                            >
+                              <p className="employee_account_question">
+                                Вы уверены?
+                              </p>
+                              <p className="employee_account_title">
+                                Впишите в поле “Удалить сотрудника”
+                              </p>
+                              <div className="employee_account_question_input">
+                                <input
+                                  placeholder="..."
+                                  onChange={(e) => {
+                                    setsubmitDelete(e.target.value);
+                                  }}
+                                />
+                                {submitDelete === "Удалить сотрудника" ? (
+                                  <i
+                                    id={username}
+                                    onClick={(e) => {
+                                      SubmitDelete(e);
+                                      setsubmitDelete();
+                                    }}
+                                    className="bi bi-arrow-right-circle-fill submit_delete "
+                                  ></i>
+                                ) : (
+                                  <i
+                                    id={username}
+                                    style={{ opacity: "0.5" }}
+                                    className="bi bi-arrow-right-circle-fill submit_delete "
+                                  ></i>
+                                )}
+                              </div>
+                            </form>
+                          </CSSTransition>
+                        </ul>
+                      </CSSTransition>
+                    </div>
+                  )}
+              </>
+            );
+          })}
 
         <div className="employee_title">
           <p>Обработка</p>
@@ -1152,291 +1519,301 @@ const Employees = ({ position, mode, channel_type }) => {
               <>
                 {(title === "treat_1" ||
                   title === "treat_2" ||
-                  title === "treat_3") && (
-                  <div className="wrapper" key={person + index}>
-                    <button
-                      id={index}
-                      className={
-                        mode
-                          ? "button employee_account light"
-                          : "button employee_account"
-                      }
-                      onClick={(e) => {
-                        let IndexElement = index;
-                        var res = showUser.map((e, i) => {
-                          if (i === IndexElement) {
-                            return !e;
-                          } else {
-                            return e;
-                          }
-                        });
-                        setShowUser(res);
-                      }}
-                    >
-                      <div className="employee_account_left">
-                        <img
-                          src={image ? image : ProfilePhoto1}
-                          alt="ProfilePhoto1"
-                        ></img>
-                        <div>
-                          <p key={first_name.toString()}>
-                            {first_name}
-                            {position !== 3 && (
-                              <i
-                                style={{ color: "#0f82f5" }}
-                                class="bi bi-bookmark-check-fill"
-                              ></i>
-                            )}
-                          </p>
-                          <p className="employee_account_left_position">
-                            {position === 1 && "Админ"}
-                            {position === 2 && "Тимлид"}
-                            {position === 3 && "Сотрудник"}{" "}
-                            <i
-                              className="bi bi-chevron-down"
-                              style={{ fontSize: "12px" }}
-                            ></i>
-                          </p>
-                        </div>
-                      </div>
-                      <div className="employee_account_right">
-                        <p>{agentAnswerTime && agentAnswerTime}</p>
-                        <p>
-                          {position === 3 &&
-                            (agentAnswerTime
-                              ? parseInt(
-                                  parseInt(
-                                    agentAnswerTime.toString().substring(0, 10)
-                                  )
-                                ) + " мин"
-                              : 0 + " мин")}{" "}
-                        </p>
-                        <p>{mmr}MMR</p>
-                        <p className="orange">{ttk}TTK</p>
-                        <p style={{ color: "#AB16CD" }}>₸ {tenge}</p>
-                      </div>
-                    </button>
-                    <CSSTransition
-                      in={showUser[index]}
-                      classNames="alert"
-                      timeout={300}
-                      unmountOnExit
-                    >
-                      <ul
+                  title === "treat_3") &&
+                  position !== "0" &&
+                  position !== "1" && (
+                    <div className="wrapper" key={person + index}>
+                      <button
+                        id={index}
                         className={
                           mode
-                            ? "employee_account_list list light"
-                            : "employee_account_list list"
+                            ? "button employee_account light"
+                            : "button employee_account"
                         }
-                      >
-                        <div style={{ fontWeight: "700" }}>
-                          <li className="list-item employee_info">
-                            <p style={{ color: "orange" }}>Login</p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p style={{ color: "orange" }}>Password</p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p>ФИО</p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p>Дата рождения</p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p>Регистрация в системе</p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p>E-mail</p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p>Номер</p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p>Адрес</p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p>Зарпата</p>
-                          </li>
-
-                          <li className="list-item employee_info">
-                            <p>Проекты</p>
-                          </li>
-                        </div>
-                        <div id="EditEmployeesBlocks">
-                          <li className="list-item employee_info">
-                            <p
-                              key={username.toString()}
-                              value="value"
-                              id="employeeUsername"
-                            >
-                              {username ? username : "(Пусто)"}
-                            </p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p key={pwd.toString()}>{pwd ? pwd : "(Пусто)"}</p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p key={first_name.toString()}>
-                              {last_name || first_name || middle_name
-                                ? last_name +
-                                  " " +
-                                  first_name +
-                                  " " +
-                                  middle_name
-                                : "(Пусто)"}
-                            </p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p key={birth_date.toString()}>
-                              {birth_date ? birth_date : "(Пусто)"}
-                            </p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p key={created_time.toString()}>
-                              {created_time ? formattedDate : "(Пусто)"}
-                            </p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p key={email.toString()}>
-                              {email ? email : "(Пусто)"}
-                            </p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p key={phone.toString()}>
-                              {phone ? phone : "(Пусто)"}
-                            </p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p key={address.toString()}>
-                              {address ? address : "(Пусто)"}
-                            </p>
-                          </li>{" "}
-                          <li className="list-item employee_info">
-                            {statusEditSalary ? (
-                              <>
-                                <input
-                                  onChange={(e) =>
-                                    setEditSalary(e.target.value)
-                                  }
-                                  placeholder={salary}
-                                ></input>
-                                <i
-                                  className="bi bi-check-circle-fill"
-                                  onClick={(el) => EditSubmit(username)}
-                                ></i>
-                                <i
-                                  style={{ marginLeft: "5px" }}
-                                  onClick={(el) => CancelEdit(el)}
-                                  className="bi bi-x-circle-fill"
-                                ></i>
-                              </>
-                            ) : (
-                              <p
-                                onClick={() => setStatusEditSalary(true)}
-                                key={salary}
-                              >
-                                {salary ? salary : "(Пусто)"}
-                              </p>
-                            )}
-                          </li>
-                          <li className="list-item employee_info">
-                            <p
-                              className="employee_info_addProject"
-                              key={project.toString()}
-                            >
-                              {project
-                                ? Project_Name.map((el) => {
-                                    return el.channel_name + ", ";
-                                  })
-                                : "(Пусто)"}
-                              <div className="employee_info_SelectProjects">
-                                <MultiSelect
-                                  options={options}
-                                  value={getSelectedProject(project)}
-                                  onChange={(e) =>
-                                    editSelectedProject(e, index)
-                                  }
-                                  labelledBy={"Select"}
-                                  isCreatable={true}
-                                  style={{ width: "200px !important" }}
-                                />
-                                <button
-                                  onClick={(e) => EditUserProject(username)}
-                                >
-                                  Сохранить проект
-                                </button>
-                              </div>
-                            </p>
-                          </li>
-                          <li className="list-item employee_info"></li>
-                        </div>
-                        <div>
-                          <button
-                            onClick={(e) => {
-                              let IndexElement = index;
-                              var res = showQuestion.map((e, i) => {
-                                if (i === IndexElement) {
-                                  return !e;
-                                } else {
-                                  return e;
-                                }
-                              });
-                              setShowQuestion(res);
-                            }}
-                          >
-                            <span>Удалить сотрудника</span>{" "}
-                            <i class="bi bi-trash3-fill"></i>
-                          </button>
-                        </div>
-                        <CSSTransition
-                          in={showQuestion[index]}
-                          classNames="alert"
-                          timeout={300}
-                          unmountOnExit
-                        >
-                          <form
-                            className={
-                              mode
-                                ? "employee_account_list_question light"
-                                : "employee_account_list_question"
+                        onClick={(e) => {
+                          let IndexElement = index;
+                          var res = showUser.map((e, i) => {
+                            if (i === IndexElement) {
+                              return !e;
+                            } else {
+                              return e;
                             }
-                          >
-                            <p className="employee_account_question">
-                              Вы уверены?
-                            </p>
-                            <p className="employee_account_title">
-                              Впишите в поле “Удалить сотрудника”
-                            </p>
-                            <div className="employee_account_question_input">
-                              <input
-                                placeholder="..."
-                                onChange={(e) => {
-                                  setsubmitDelete(e.target.value);
-                                }}
-                              />
-                              {submitDelete === "Удалить сотрудника" ? (
+                          });
+                          setShowUser(res);
+                        }}
+                      >
+                        <div className="employee_account_left">
+                          <img
+                            src={image ? image : ProfilePhoto1}
+                            alt="ProfilePhoto1"
+                          ></img>
+                          <div>
+                            <p key={first_name.toString()}>
+                              {first_name}
+                              {position !== 3 && (
                                 <i
-                                  id={username}
-                                  onClick={(e) => {
-                                    SubmitDelete(e);
-                                    setsubmitDelete();
-                                  }}
-                                  className="bi bi-arrow-right-circle-fill submit_delete "
-                                ></i>
-                              ) : (
-                                <i
-                                  id={username}
-                                  style={{ opacity: "0.5" }}
-                                  className="bi bi-arrow-right-circle-fill submit_delete "
+                                  style={{ color: "#0f82f5" }}
+                                  class="bi bi-bookmark-check-fill"
                                 ></i>
                               )}
-                            </div>
-                          </form>
-                        </CSSTransition>
-                      </ul>
-                    </CSSTransition>
-                  </div>
-                )}
+                            </p>
+                            <p className="employee_account_left_position">
+                              {position === 1 && "Админ"}
+                              {position === 2 && "Тимлид"}
+                              {position === 3 && "Сотрудник"}{" "}
+                              <i
+                                className="bi bi-chevron-down"
+                                style={{ fontSize: "12px" }}
+                              ></i>
+                            </p>
+                          </div>
+                        </div>
+                        <div className="employee_account_right">
+                          <p>{agentAnswerTime && agentAnswerTime}</p>
+                          <p>
+                            {position === 3 &&
+                              (agentAnswerTime
+                                ? parseInt(
+                                    parseInt(
+                                      agentAnswerTime
+                                        .toString()
+                                        .substring(0, 10)
+                                    )
+                                  ) + " мин"
+                                : 0 + " мин")}{" "}
+                          </p>
+                          <p>{mmr}MMR</p>
+                          <p className="orange">{ttk}TTK</p>
+                          <p style={{ color: "#AB16CD" }}>₸ {tenge}</p>
+                        </div>
+                      </button>
+                      <CSSTransition
+                        in={showUser[index]}
+                        classNames="alert"
+                        timeout={300}
+                        unmountOnExit
+                      >
+                        <ul
+                          className={
+                            mode
+                              ? "employee_account_list list light"
+                              : "employee_account_list list"
+                          }
+                        >
+                          <div style={{ fontWeight: "700" }}>
+                            <li className="list-item employee_info">
+                              <p style={{ color: "orange" }}>Login</p>
+                            </li>
+                            {(EmployeePositionGet == 1 ||
+                              EmployeePositionGet == 0) && (
+                              <li className="list-item employee_info">
+                                <p style={{ color: "orange" }}>Password</p>
+                              </li>
+                            )}
+                            <li className="list-item employee_info">
+                              <p>ФИО</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Дата рождения</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Регистрация в системе</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>E-mail</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Номер</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Адрес</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Зарпата</p>
+                            </li>
+
+                            <li className="list-item employee_info">
+                              <p>Проекты</p>
+                            </li>
+                          </div>
+                          <div id="EditEmployeesBlocks">
+                            <li className="list-item employee_info">
+                              <p
+                                key={username.toString()}
+                                value="value"
+                                id="employeeUsername"
+                              >
+                                {username ? username : "(Пусто)"}
+                              </p>
+                            </li>
+                            {(EmployeePositionGet == 0 ||
+                              EmployeePositionGet == 1) && (
+                              <li className="list-item employee_info">
+                                <p>{pwd ? pwd : "(Пусто)"}</p>
+                              </li>
+                            )}
+                            <li className="list-item employee_info">
+                              <p key={first_name.toString()}>
+                                {last_name || first_name || middle_name
+                                  ? last_name +
+                                    " " +
+                                    first_name +
+                                    " " +
+                                    middle_name
+                                  : "(Пусто)"}
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={birth_date.toString()}>
+                                {birth_date ? birth_date : "(Пусто)"}
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={created_time.toString()}>
+                                {created_time ? formattedDate : "(Пусто)"}
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={email.toString()}>
+                                {email ? email : "(Пусто)"}
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={phone.toString()}>
+                                {phone ? phone : "(Пусто)"}
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={address.toString()}>
+                                {address ? address : "(Пусто)"}
+                              </p>
+                            </li>{" "}
+                            <li className="list-item employee_info">
+                              {statusEditSalary ? (
+                                <>
+                                  <input
+                                    onChange={(e) =>
+                                      setEditSalary(e.target.value)
+                                    }
+                                    placeholder={salary}
+                                  ></input>
+                                  <i
+                                    className="bi bi-check-circle-fill"
+                                    onClick={(el) => EditSubmit(username)}
+                                  ></i>
+                                  <i
+                                    style={{ marginLeft: "5px" }}
+                                    onClick={(el) => CancelEdit(el)}
+                                    className="bi bi-x-circle-fill"
+                                  ></i>
+                                </>
+                              ) : (
+                                <p
+                                  onClick={() => setStatusEditSalary(true)}
+                                  key={salary}
+                                >
+                                  {salary ? salary : "(Пусто)"}
+                                </p>
+                              )}
+                            </li>
+                            <li className="list-item employee_info">
+                              <p
+                                className="employee_info_addProject"
+                                key={project.toString()}
+                              >
+                                {project
+                                  ? Project_Name.map((el) => {
+                                      return el.channel_name + ", ";
+                                    })
+                                  : "(Пусто)"}
+                                <div className="employee_info_SelectProjects">
+                                  <MultiSelect
+                                    options={options}
+                                    value={getSelectedProject(project)}
+                                    onChange={(e) =>
+                                      editSelectedProject(e, index)
+                                    }
+                                    labelledBy={"Select"}
+                                    isCreatable={true}
+                                    style={{ width: "200px !important" }}
+                                  />
+                                  <button
+                                    onClick={(e) => EditUserProject(username)}
+                                  >
+                                    Сохранить проект
+                                  </button>
+                                </div>
+                              </p>
+                            </li>
+                            <li className="list-item employee_info"></li>
+                          </div>
+                          <div>
+                            <button
+                              onClick={(e) => {
+                                let IndexElement = index;
+                                var res = showQuestion.map((e, i) => {
+                                  if (i === IndexElement) {
+                                    return !e;
+                                  } else {
+                                    return e;
+                                  }
+                                });
+                                setShowQuestion(res);
+                              }}
+                            >
+                              <span>Удалить сотрудника</span>{" "}
+                              <i class="bi bi-trash3-fill"></i>
+                            </button>
+                          </div>
+                          <CSSTransition
+                            in={showQuestion[index]}
+                            classNames="alert"
+                            timeout={300}
+                            unmountOnExit
+                          >
+                            <form
+                              className={
+                                mode
+                                  ? "employee_account_list_question light"
+                                  : "employee_account_list_question"
+                              }
+                            >
+                              <p className="employee_account_question">
+                                Вы уверены?
+                              </p>
+                              <p className="employee_account_title">
+                                Впишите в поле “Удалить сотрудника”
+                              </p>
+                              <div className="employee_account_question_input">
+                                <input
+                                  placeholder="..."
+                                  onChange={(e) => {
+                                    setsubmitDelete(e.target.value);
+                                  }}
+                                />
+                                {submitDelete === "Удалить сотрудника" ? (
+                                  <i
+                                    id={username}
+                                    onClick={(e) => {
+                                      SubmitDelete(e);
+                                      setsubmitDelete();
+                                    }}
+                                    className="bi bi-arrow-right-circle-fill submit_delete "
+                                  ></i>
+                                ) : (
+                                  <i
+                                    id={username}
+                                    style={{ opacity: "0.5" }}
+                                    className="bi bi-arrow-right-circle-fill submit_delete "
+                                  ></i>
+                                )}
+                              </div>
+                            </form>
+                          </CSSTransition>
+                        </ul>
+                      </CSSTransition>
+                    </div>
+                  )}
               </>
             );
           })}
@@ -1488,213 +1865,221 @@ const Employees = ({ position, mode, channel_type }) => {
             );
             return (
               <>
-                {title === "contentmaker" && (
-                  <div className="wrapper" key={person + index}>
-                    <button
-                      id={index}
-                      className={
-                        mode
-                          ? "button employee_account light"
-                          : "button employee_account"
-                      }
-                      onClick={(e) => {
-                        let IndexElement = index;
-                        var res = showUser.map((e, i) => {
-                          if (i === IndexElement) {
-                            return !e;
-                          } else {
-                            return e;
-                          }
-                        });
-                        setShowUser(res);
-                      }}
-                    >
-                      <div className="employee_account_left">
-                        <img
-                          src={image ? image : ProfilePhoto1}
-                          alt="ProfilePhoto1"
-                        ></img>
-                        <div>
-                          <p key={first_name.toString()}>
-                            {first_name}{" "}
-                            {position !== 3 && (
-                              <i
-                                style={{ color: "#0f82f5", fontSize: "14px" }}
-                                class="bi bi-bookmark-check-fill"
-                              ></i>
-                            )}
-                          </p>
-                          <p className="employee_account_left_position">
-                            {position === 1 && "Админ"}
-                            {position === 2 && "Тимлид"}
-                            {position === 3 && "Сотрудник"}{" "}
-                            <i
-                              className="bi bi-chevron-down"
-                              style={{ fontSize: "12px" }}
-                            ></i>
-                          </p>
-                        </div>
-                      </div>
-                      <div className="employee_account_right">
-                        <p>{mmr}MMR</p>
-                        <p className="orange">{ttk}TTK</p>
-                        <p style={{ color: "#AB16CD" }}>₸ {tenge}</p>
-                      </div>
-                    </button>
-                    <CSSTransition
-                      in={showUser[index]}
-                      classNames="alert"
-                      timeout={300}
-                      unmountOnExit
-                    >
-                      <ul
+                {title === "contentmaker" &&
+                  position !== "0" &&
+                  position !== "1" && (
+                    <div className="wrapper" key={person + index}>
+                      <button
+                        id={index}
                         className={
                           mode
-                            ? "employee_account_list list light"
-                            : "employee_account_list list"
+                            ? "button employee_account light"
+                            : "button employee_account"
                         }
+                        onClick={(e) => {
+                          let IndexElement = index;
+                          var res = showUser.map((e, i) => {
+                            if (i === IndexElement) {
+                              return !e;
+                            } else {
+                              return e;
+                            }
+                          });
+                          setShowUser(res);
+                        }}
                       >
-                        <div style={{ fontWeight: "700" }}>
-                          <li className="list-item employee_info">
-                            <p style={{ color: "orange" }}>Login</p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p style={{ color: "orange" }}>Password</p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p>ФИО</p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p>Дата рождения</p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p>Регистрация в системе</p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p>E-mail</p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p>Номер</p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p>Адрес</p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p>Зарпата</p>
-                          </li>
-
-                          <li className="list-item employee_info">
-                            <p>Проекты</p>
-                          </li>
-                        </div>
-                        <div id="EditEmployeesBlocks">
-                          <li className="list-item employee_info">
-                            <p
-                              key={username.toString()}
-                              value="value"
-                              id="employeeUsername"
-                            >
-                              {username ? username : "(Пусто)"}
-                            </p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p key={pwd.toString()}>{pwd ? pwd : "(Пусто)"}</p>
-                          </li>
-                          <li className="list-item employee_info">
+                        <div className="employee_account_left">
+                          <img
+                            src={image ? image : ProfilePhoto1}
+                            alt="ProfilePhoto1"
+                          ></img>
+                          <div>
                             <p key={first_name.toString()}>
-                              {last_name || first_name || middle_name
-                                ? last_name +
-                                  " " +
-                                  first_name +
-                                  " " +
-                                  middle_name
-                                : "(Пусто)"}
-                            </p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p key={birth_date.toString()}>
-                              {birth_date ? birth_date : "(Пусто)"}
-                            </p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p key={created_time.toString()}>
-                              {created_time ? formattedDate : "(Пусто)"}
-                            </p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p key={email.toString()}>
-                              {email ? email : "(Пусто)"}
-                            </p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p key={phone.toString()}>
-                              {phone ? phone : "(Пусто)"}
-                            </p>
-                          </li>
-                          <li className="list-item employee_info">
-                            <p key={address.toString()}>
-                              {address ? address : "(Пусто)"}
-                            </p>
-                          </li>{" "}
-                          <li className="list-item employee_info">
-                            {statusEditSalary ? (
-                              <>
-                                <input
-                                  onChange={(e) =>
-                                    setEditSalary(e.target.value)
-                                  }
-                                  placeholder={salary}
-                                ></input>
+                              {first_name}{" "}
+                              {position !== 3 && (
                                 <i
-                                  className="bi bi-check-circle-fill"
-                                  onClick={(el) => EditSubmit(username)}
+                                  style={{ color: "#0f82f5", fontSize: "14px" }}
+                                  class="bi bi-bookmark-check-fill"
                                 ></i>
-                                <i
-                                  style={{ marginLeft: "5px" }}
-                                  onClick={(el) => CancelEdit(el)}
-                                  className="bi bi-x-circle-fill"
-                                ></i>
-                              </>
-                            ) : (
-                              <p
-                                onClick={() => setStatusEditSalary(true)}
-                                key={salary}
-                              >
-                                {salary ? salary : "(Пусто)"}
-                              </p>
+                              )}
+                            </p>
+                            <p className="employee_account_left_position">
+                              {position === 1 && "Админ"}
+                              {position === 2 && "Тимлид"}
+                              {position === 3 && "Сотрудник"}{" "}
+                              <i
+                                className="bi bi-chevron-down"
+                                style={{ fontSize: "12px" }}
+                              ></i>
+                            </p>
+                          </div>
+                        </div>
+                        <div className="employee_account_right">
+                          <p>{mmr}MMR</p>
+                          <p className="orange">{ttk}TTK</p>
+                          <p style={{ color: "#AB16CD" }}>₸ {tenge}</p>
+                        </div>
+                      </button>
+                      <CSSTransition
+                        in={showUser[index]}
+                        classNames="alert"
+                        timeout={300}
+                        unmountOnExit
+                      >
+                        <ul
+                          className={
+                            mode
+                              ? "employee_account_list list light"
+                              : "employee_account_list list"
+                          }
+                        >
+                          <div style={{ fontWeight: "700" }}>
+                            <li className="list-item employee_info">
+                              <p style={{ color: "orange" }}>Login</p>
+                            </li>
+                            {(EmployeePositionGet == 1 ||
+                              EmployeePositionGet == 0) && (
+                              <li className="list-item employee_info">
+                                <p style={{ color: "orange" }}>Password</p>
+                              </li>
                             )}
-                          </li>
-                          <li className="list-item employee_info">
-                            <p
-                              className="employee_info_addProject"
-                              key={project.toString()}
-                            >
-                              {project
-                                ? Project_Name.map((el) => {
-                                    return el.channel_name + ", ";
-                                  })
-                                : "(Пусто)"}
-                              <div className="employee_info_SelectProjects">
-                                <MultiSelect
-                                  options={options}
-                                  value={getSelectedProject(project)}
-                                  onChange={(e) =>
-                                    editSelectedProject(e, index)
-                                  }
-                                  labelledBy={"Select"}
-                                  isCreatable={true}
-                                />
-                                {console.log("Project", ProjectName)}
-                                <button
-                                  onClick={(e) => EditUserProject(username)}
+                            <li className="list-item employee_info">
+                              <p>ФИО</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Дата рождения</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Регистрация в системе</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>E-mail</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Номер</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Адрес</p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p>Зарпата</p>
+                            </li>
+
+                            <li className="list-item employee_info">
+                              <p>Проекты</p>
+                            </li>
+                          </div>
+                          <div id="EditEmployeesBlocks">
+                            <li className="list-item employee_info">
+                              <p
+                                key={username.toString()}
+                                value="value"
+                                id="employeeUsername"
+                              >
+                                {username ? username : "(Пусто)"}
+                              </p>
+                            </li>
+                            {(EmployeePositionGet == 1 ||
+                              EmployeePositionGet == 0) && (
+                              <li className="list-item employee_info">
+                                <p>{pwd ? pwd : "(Пусто)"}</p>
+                              </li>
+                            )}
+                            <li className="list-item employee_info">
+                              <p key={first_name.toString()}>
+                                {last_name || first_name || middle_name
+                                  ? last_name +
+                                    " " +
+                                    first_name +
+                                    " " +
+                                    middle_name
+                                  : "(Пусто)"}
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={birth_date.toString()}>
+                                {birth_date ? birth_date : "(Пусто)"}
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={created_time.toString()}>
+                                {created_time ? formattedDate : "(Пусто)"}
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={email.toString()}>
+                                {email ? email : "(Пусто)"}
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={phone.toString()}>
+                                {phone ? phone : "(Пусто)"}
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              <p key={address.toString()}>
+                                {address ? address : "(Пусто)"}
+                              </p>
+                            </li>{" "}
+                            <li className="list-item employee_info">
+                              {statusEditSalary ? (
+                                <>
+                                  <input
+                                    onChange={(e) =>
+                                      setEditSalary(e.target.value)
+                                    }
+                                    placeholder={salary}
+                                  ></input>
+                                  <i
+                                    className="bi bi-check-circle-fill"
+                                    onClick={(el) => EditSubmit(username)}
+                                  ></i>
+                                  <i
+                                    style={{ marginLeft: "5px" }}
+                                    onClick={(el) => CancelEdit(el)}
+                                    className="bi bi-x-circle-fill"
+                                  ></i>
+                                </>
+                              ) : (
+                                <p
+                                  onClick={() => setStatusEditSalary(true)}
+                                  key={salary}
                                 >
-                                  Сохранить проект
-                                </button>
-                              </div>
-                            </p>
-                          </li>
-                          <li className="list-item employee_info">
-                            {/* <ProSidebar>
+                                  {salary ? salary : "(Пусто)"}
+                                </p>
+                              )}
+                            </li>
+                            <li className="list-item employee_info">
+                              <p
+                                className="employee_info_addProject"
+                                key={project.toString()}
+                              >
+                                {project
+                                  ? Project_Name.map((el) => {
+                                      return el.channel_name + ", ";
+                                    })
+                                  : "(Пусто)"}
+                                <div className="employee_info_SelectProjects">
+                                  <MultiSelect
+                                    options={options}
+                                    value={getSelectedProject(project)}
+                                    onChange={(e) =>
+                                      editSelectedProject(e, index)
+                                    }
+                                    labelledBy={"Select"}
+                                    isCreatable={true}
+                                  />
+                                  {console.log("Project", ProjectName)}
+                                  <button
+                                    onClick={(e) => EditUserProject(username)}
+                                  >
+                                    Сохранить проект
+                                  </button>
+                                </div>
+                              </p>
+                            </li>
+                            <li className="list-item employee_info">
+                              {/* <ProSidebar>
                               <SidebarContent>
                                 <Menu>
                                   <SubMenu
@@ -1720,75 +2105,75 @@ const Employees = ({ position, mode, channel_type }) => {
                                 </Menu>
                               </SidebarContent>
                             </ProSidebar> */}
-                          </li>
-                        </div>
-                        <div>
-                          <button
-                            onClick={(e) => {
-                              let IndexElement = index;
-                              var res = showQuestion.map((e, i) => {
-                                if (i === IndexElement) {
-                                  return !e;
-                                } else {
-                                  return e;
-                                }
-                              });
-                              setShowQuestion(res);
-                            }}
+                            </li>
+                          </div>
+                          <div>
+                            <button
+                              onClick={(e) => {
+                                let IndexElement = index;
+                                var res = showQuestion.map((e, i) => {
+                                  if (i === IndexElement) {
+                                    return !e;
+                                  } else {
+                                    return e;
+                                  }
+                                });
+                                setShowQuestion(res);
+                              }}
+                            >
+                              <span>Удалить сотрудника</span>{" "}
+                              <i class="bi bi-trash3-fill"></i>
+                            </button>
+                          </div>
+                          <CSSTransition
+                            in={showQuestion[index]}
+                            classNames="alert"
+                            timeout={300}
+                            unmountOnExit
                           >
-                            <span>Удалить сотрудника</span>{" "}
-                            <i class="bi bi-trash3-fill"></i>
-                          </button>
-                        </div>
-                        <CSSTransition
-                          in={showQuestion[index]}
-                          classNames="alert"
-                          timeout={300}
-                          unmountOnExit
-                        >
-                          <form
-                            className={
-                              mode
-                                ? "employee_account_list_question light"
-                                : "employee_account_list_question"
-                            }
-                          >
-                            <p className="employee_account_question">
-                              Вы уверены?
-                            </p>
-                            <p className="employee_account_title">
-                              Впишите в поле “Удалить сотрудника”
-                            </p>
-                            <div className="employee_account_question_input">
-                              <input
-                                placeholder="..."
-                                onChange={(e) => {
-                                  setsubmitDelete(e.target.value);
-                                }}
-                              />
-                              {submitDelete === "Удалить сотрудника" ? (
-                                <i
-                                  id={username}
-                                  onClick={(e) => {
-                                    SubmitDelete(e);
-                                    setsubmitDelete();
+                            <form
+                              className={
+                                mode
+                                  ? "employee_account_list_question light"
+                                  : "employee_account_list_question"
+                              }
+                            >
+                              <p className="employee_account_question">
+                                Вы уверены?
+                              </p>
+                              <p className="employee_account_title">
+                                Впишите в поле “Удалить сотрудника”
+                              </p>
+                              <div className="employee_account_question_input">
+                                <input
+                                  placeholder="..."
+                                  onChange={(e) => {
+                                    setsubmitDelete(e.target.value);
                                   }}
-                                  className="bi bi-arrow-right-circle-fill submit_delete "
-                                ></i>
-                              ) : (
-                                <i
-                                  id={username}
-                                  style={{ opacity: "0.5" }}
-                                  className="bi bi-arrow-right-circle-fill submit_delete "
-                                ></i>
-                              )}
-                            </div>
-                          </form>
-                        </CSSTransition>
-                      </ul>
-                    </CSSTransition>
-                  </div>
-                )}
+                                />
+                                {submitDelete === "Удалить сотрудника" ? (
+                                  <i
+                                    id={username}
+                                    onClick={(e) => {
+                                      SubmitDelete(e);
+                                      setsubmitDelete();
+                                    }}
+                                    className="bi bi-arrow-right-circle-fill submit_delete "
+                                  ></i>
+                                ) : (
+                                  <i
+                                    id={username}
+                                    style={{ opacity: "0.5" }}
+                                    className="bi bi-arrow-right-circle-fill submit_delete "
+                                  ></i>
+                                )}
+                              </div>
+                            </form>
+                          </CSSTransition>
+                        </ul>
+                      </CSSTransition>
+                    </div>
+                  )}
               </>
             );
           })}
