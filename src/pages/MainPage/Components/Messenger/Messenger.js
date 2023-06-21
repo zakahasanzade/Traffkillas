@@ -28,7 +28,7 @@ function Messenger({ CloseMessengerWindow, position }) {
       url = `https://api2.traffkillas.kz/api/v1/projects/my`;
     } else if (positionEmployee == 2) {
       url = `https://api2.traffkillas.kz/api/v1/teamlead/availableProjects`;
-    } else if (positionEmployee == 1) {
+    } else if (positionEmployee == 1 || positionEmployee == 0) {
       url = `https://api2.traffkillas.kz/api/v1/admin/availableProjects`;
     }
     fetch(url, {
@@ -72,7 +72,7 @@ function Messenger({ CloseMessengerWindow, position }) {
       url = `https://api2.traffkillas.kz/api/v1/messages/getChats?projectId=${ProjectId}`;
     } else if (positionEmployee == 2) {
       url = `https://api2.traffkillas.kz/api/v1/teamlead/chats?projectId=${ProjectId}`;
-    } else if (positionEmployee == 1) {
+    } else if (positionEmployee == 1 || positionEmployee == 0) {
       url = `https://api2.traffkillas.kz/api/v1/admin/chats?projectId=${ProjectId}`;
     }
     ProjectId &&
@@ -110,7 +110,7 @@ function Messenger({ CloseMessengerWindow, position }) {
       url = `https://api2.traffkillas.kz/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}`;
     } else if (positionEmployee == 2) {
       url = `https://api2.traffkillas.kz/api/v1/teamlead/messages?chat=${NewChatId}&projectId=${ProjectId}`;
-    } else if (positionEmployee == 1) {
+    } else if (positionEmployee == 1 || positionEmployee == 0) {
       url = `https://api2.traffkillas.kz/api/v1/admin/messages?chat=${NewChatId}&projectId=${ProjectId}`;
     }
     NewChatId &&
