@@ -18,6 +18,7 @@ import "./Thread.css";
 
 const Thread = ({
   NewChatId,
+  VisibleChatName,
   messages,
   setMessages,
   stateChat,
@@ -110,7 +111,7 @@ const Thread = ({
     }
   }, [connection]);
   useEffect(() => {
-    console.log(messages);
+    console.log("messages", messages);
   }, [messages]);
   useEffect(() => {
     console.log(messageGet);
@@ -302,7 +303,7 @@ const Thread = ({
               <img src={AccountProfile}></img>
             </div>
             <div className="thread__header_left_info">
-              <h1>{NewChatId}</h1>
+              <h1>{VisibleChatName ? VisibleChatName : NewChatId}</h1>
               <p>service notifications</p>
             </div>
           </div>

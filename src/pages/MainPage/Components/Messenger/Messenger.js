@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 function Messenger({ CloseMessengerWindow, position }) {
   const [NewChatId, setNewChatId] = useState();
+  const [VisibleChatName, UpdateVisibleChatName] = useState();
   const [messages, setMessages] = useState([]);
   const [stateChat, setStateChat] = useState();
   const [closeMessenger, setCloseMesenger] = useState();
@@ -168,6 +169,9 @@ function Messenger({ CloseMessengerWindow, position }) {
     setNewChatId(ChatId);
     console.log(ChatId);
   };
+  const UpdateVisibleName = (visibleName) => {
+    UpdateVisibleChatName(visibleName);
+  };
   const GetStateChat = (StateChat) => {
     setStateChat(StateChat);
   };
@@ -203,10 +207,12 @@ function Messenger({ CloseMessengerWindow, position }) {
         setChangeNavColor={setChangeNavColor}
         ChatFolders={ChatFolders}
         setSortChats={setSortChats}
+        UpdateVisibleName={UpdateVisibleName}
         setActiveChat={setActiveChat}
       />
       <Thread
         NewChatId={NewChatId}
+        VisibleChatName={VisibleChatName}
         messages={messages}
         setMessages={setMessages}
         stateChat={stateChat}

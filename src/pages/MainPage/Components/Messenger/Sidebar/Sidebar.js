@@ -29,6 +29,7 @@ const Sidebar = ({
   ChatFolders,
   setSortChats,
   setActiveChat,
+  UpdateVisibleName,
 }) => {
   // const [openChat, SetOpenChat] = useState(false);
   // const chatRef = useRef();
@@ -172,7 +173,7 @@ const Sidebar = ({
         <div className="sidebar__threads_chats">
           {sortGetChats &&
             sortGetChats?.map((chats, index) => {
-              const { chatId, lastMessage } = chats;
+              const { chatId, visibleName, lastMessage } = chats;
               const standartFormat = new Date(lastMessage.sendTime);
               const lastTime =
                 (standartFormat.getHours().toLocaleString().length === 1
@@ -198,6 +199,7 @@ const Sidebar = ({
                     onClick={(e) => {
                       ChatId = document.querySelector(`.chat_${index}`).id;
                       UpdateChatId(ChatId);
+                      UpdateVisibleName(visibleName);
                       // GetChatMessages();
                       var res = navColor.map((e, i) => {
                         if (i === index) {
@@ -214,7 +216,7 @@ const Sidebar = ({
                       <img src={AccountProfile} alt="AccountProfile"></img>
                       <div className="sidebar_accounts_info">
                         <div className="sidebar_accounts_info_title">
-                          {chatId}
+                          {visibleName ? visibleName : chatId}
                         </div>
                         <div className="sidebar_accounts_info_message">
                           {lastMessage.text}
