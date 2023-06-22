@@ -682,7 +682,7 @@ const Tasks = ({ position, mode }) => {
         </div>
       </motion.div>
     );
-  } else if (position === "0") {
+  } else if (position === "2") {
     return (
       <motion.div
         className="main"
@@ -848,7 +848,7 @@ const Tasks = ({ position, mode }) => {
                         }
                         placeholder="Ч"
                         name="hour"
-                        maxLength="0"
+                        maxLength="2"
                         onInput={(e) => {
                           e.target.value = e.target.value
                             .replace(/[^0-9.]/g, "")
@@ -863,7 +863,7 @@ const Tasks = ({ position, mode }) => {
                           mode ? "secondinput lightColor" : "secondinput"
                         }
                         placeholder="М"
-                        maxLength="0"
+                        maxLength="2"
                         name="minute"
                         onInput={(e) => {
                           e.target.value = e.target.value
@@ -1379,7 +1379,7 @@ const Tasks = ({ position, mode }) => {
         </div>
       </motion.div>
     );
-  } else if (position === "1") {
+  } else if (position === "1" || position === "0") {
     return (
       <motion.div
         className="main"
@@ -1538,7 +1538,7 @@ const Tasks = ({ position, mode }) => {
                         }
                         placeholder="Ч"
                         name="hour"
-                        maxLength="0"
+                        maxLength="2"
                         onInput={(e) => {
                           e.target.value = e.target.value
                             .replace(/[^0-9.]/g, "")
@@ -1553,7 +1553,7 @@ const Tasks = ({ position, mode }) => {
                           mode ? "secondinput lightColor" : "secondinput"
                         }
                         placeholder="М"
-                        maxLength="0"
+                        maxLength="2"
                         name="minute"
                         onInput={(e) => {
                           e.target.value = e.target.value
