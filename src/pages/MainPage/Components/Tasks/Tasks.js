@@ -1541,7 +1541,7 @@ const Tasks = ({ position, mode }) => {
                         maxLength="2"
                         onInput={(e) => {
                           e.target.value = e.target.value
-                            .replace(/[^0-9.]/g, "")
+                              .replace(/[^0-9.]/g, "")
                             .replace(/(\..*)\./g, "$1")
                             .slice(0, 11);
                         }}
