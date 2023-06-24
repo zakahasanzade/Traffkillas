@@ -821,7 +821,7 @@ const Employees = ({ position, mode, channel_type }) => {
                         ></img>
                         <div>
                           <p key={first_name.toString()}>
-                            {first_name}{" "}
+                            {username}{" "}
                             {position !== 3 && (
                               <i
                                 style={{ color: "#0f82f5", fontSize: "14px" }}
@@ -1183,7 +1183,7 @@ const Employees = ({ position, mode, channel_type }) => {
                           ></img>
                           <div>
                             <p key={first_name.toString()}>
-                              {first_name}{" "}
+                              {username}{" "}
                               {position !== 3 && (
                                 <i
                                   style={{ color: "#0f82f5", fontSize: "14px" }}
@@ -1549,7 +1549,7 @@ const Employees = ({ position, mode, channel_type }) => {
                           ></img>
                           <div>
                             <p key={first_name.toString()}>
-                              {first_name}
+                              {username}
                               {position !== 3 && (
                                 <i
                                   style={{ color: "#0f82f5" }}
@@ -1895,7 +1895,7 @@ const Employees = ({ position, mode, channel_type }) => {
                           ></img>
                           <div>
                             <p key={first_name.toString()}>
-                              {first_name}{" "}
+                              {username}{" "}
                               {position !== 3 && (
                                 <i
                                   style={{ color: "#0f82f5", fontSize: "14px" }}

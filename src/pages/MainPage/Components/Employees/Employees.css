@@ -181,8 +181,8 @@
   gap: 5px;
 }
 .employee_account_left img {
-  max-width: 64px;
-  max-height: 64px;
+  width: 64px;
+  height: 64px;
   border-radius: 100%;
 }
 .employee_account_right {
@@ -433,8 +433,8 @@
 }
 @media screen and (min-width: 0px) and (max-width: 768px) {
   .employee_account_left img {
-    max-width: 48px;
-    max-height: 48px;
+    width: 48px;
+    height: 48px;
   }
   .employee_account_left_position {
     font-size: 16px;
