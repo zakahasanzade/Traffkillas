@@ -83,20 +83,17 @@ const Authorization = () => {
       }),
     })
       .then((response) => {
-        console.log(response);
         if (response.status != 200) {
           throw new Error("Wrong user or password");
         }
         return response.text();
       })
       .then((result) => {
-        console.log(result);
         localStorage.setItem("token", JSON.parse(result).token);
         localStorage.setItem("position", JSON.parse(result).position);
         localStorage.setItem("channel_type", JSON.parse(result).channel_type);
         localStorage.setItem("mode", false);
         navigate("/MainPage");
-        // console.log("CHanel_Type",c)
       })
       .catch((err) => {
         createNotification("error");
@@ -108,7 +105,6 @@ const Authorization = () => {
     ).innerHTML = `${e.target.textContent}`;
     document.querySelector(`.pro-item-content`).style.color = "black";
     document.querySelector(`.pro-item-content`).style.fontWeight = 700;
-    console.log(document.querySelector(".pro-item-content").textContent);
   };
 
   return (

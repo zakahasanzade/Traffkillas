@@ -280,8 +280,14 @@ const Statistics = ({ statisticsRole, position, mode }) => {
         var SumDep = null;
         var SumReg = null;
         var SumTick = null;
-        let channelId = JSON.parse(result)["data"][0].channel_id;
+        let channelId = null;
+        JSON.parse(result)["data"].map((el) => {
+          if (el.channel_id === channel_id) {
+            channelId = el.channel_id;
+          }
+        });
         let channelStat = JSON.parse(result)["data"][0].stat;
+
         channelStat.map((el) => {
           SumReg += el.reg;
           SumDep += el.dep;
@@ -296,12 +302,12 @@ const Statistics = ({ statisticsRole, position, mode }) => {
             el.weekly_ticket = SumTick;
           }
         });
-        console.log(JSON.parse(result)["data"][0].stat);
+        // console.log(JSON.parse(result)["data"][0].stat);
 
-        console.log(SumReg);
-        // StatisticsArray[0] = JSON.parse(result)["data"];
-        // setGraph(new Array(StatisticsArray[0].length).fill(false));
-        // setStatistics(StatisticsArray[0]);
+        // console.log(SumReg);
+        // // StatisticsArray[0] = JSON.parse(result)["data"];
+        // // setGraph(new Array(StatisticsArray[0].length).fill(false));
+        // // setStatistics(StatisticsArray[0]);
         setTimeInterval(false);
       })
       .catch((err) => {

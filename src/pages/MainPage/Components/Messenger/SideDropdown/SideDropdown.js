@@ -38,7 +38,6 @@ const SideDropdown = ({
                     return el;
                   });
                   editChatsFlipped(temp);
-                  console.log(chatsFlipped[index]);
                 }}
                 style={
                   chatsFlipped[index]

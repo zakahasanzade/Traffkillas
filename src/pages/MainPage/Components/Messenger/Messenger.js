@@ -18,8 +18,8 @@ function Messenger({ CloseMessengerWindow, position }) {
     setChatsFlipped(el);
   };
   const GetProjectId = (ChatId) => {
+    
     setProjcetId(ChatId);
-    console.log(ChatId);
   };
   var url = null;
   const GetAllProjects = () => {
@@ -44,8 +44,6 @@ function Messenger({ CloseMessengerWindow, position }) {
       .then((result) => {
         setAllChats(JSON.parse(result));
         setChatsFlipped(Array(JSON.parse(result).length).fill(false));
-        console.log(result);
-        console.log(positionEmployee);
         setMessages();
       });
   };
@@ -75,6 +73,7 @@ function Messenger({ CloseMessengerWindow, position }) {
     } else if (positionEmployee == 1 || positionEmployee == 0) {
       url = `https://api2.traffkillas.kz/api/v1/admin/chats?projectId=${ProjectId}`;
     }
+    console.log("ProjectId", ProjectId);
     ProjectId &&
       fetch(url, {
         method: "GET",
@@ -128,7 +127,7 @@ function Messenger({ CloseMessengerWindow, position }) {
           // UserMessagesArr = JSON.parse(result);
           // setUserMessages(UserMessagesArr);
           setMessages(JSON.parse(result));
-          console.log(messages);
+          console.log("TestMessages", messages);
           // SetOpenChat(true);
           // GetStateChat(openChat);
           // StopRendering("lkdfnmc");
@@ -151,9 +150,7 @@ function Messenger({ CloseMessengerWindow, position }) {
       .then((response) => {
         return response.text();
       })
-      .then((result) => {
-        console.log(result);
-      });
+      .then((result) => {});
   };
 
   useEffect(() => {
@@ -167,7 +164,6 @@ function Messenger({ CloseMessengerWindow, position }) {
   };
   const UpdateChatId = (ChatId) => {
     setNewChatId(ChatId);
-    console.log(ChatId);
   };
   const UpdateVisibleName = (visibleName) => {
     UpdateVisibleChatName(visibleName);
@@ -178,7 +174,6 @@ function Messenger({ CloseMessengerWindow, position }) {
   const CloseMessenger = (window) => {
     setCloseMesenger(window);
     CloseMessengerWindow(window);
-    console.log(closeMessenger);
   };
   const RenderChats = (chats) => {
     setOnceUpdate("chats");
@@ -186,6 +181,9 @@ function Messenger({ CloseMessengerWindow, position }) {
   const StopRendering = (hook) => {
     setOnceUpdate(hook);
   };
+  useEffect(() => {
+    console.log("GetProjectId", ProjectId);
+  }, [ProjectId]);
   return (
     <div className="telegram">
       <SideDropdown

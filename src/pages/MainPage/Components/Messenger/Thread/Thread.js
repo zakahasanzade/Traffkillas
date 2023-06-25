@@ -52,7 +52,6 @@ const Thread = ({
   //     })
   //     .then((result) => {
   //       UserMessagesArr = JSON.parse(result);
-  //       console.log(messages);
   //       setMessages(UserMessagesArr);
   //       // GetchatMessage(UserMessagesArr);
   //       // SetOpenChat(true);
@@ -70,7 +69,6 @@ const Thread = ({
       .build();
 
     setConnection(newConnection);
-    console.log(messageGet);
   }, []);
   // useEffect(() => {
   //   GetChatMessages();
@@ -85,36 +83,30 @@ const Thread = ({
       connection
         .start()
         .then(() => {
-          console.log("SignalR connected");
           connection
             .invoke("join")
             .then(() => {
-              console.log("Message sent");
               // setMessage("");
             })
             .catch((error) => console.error(error));
           connection.on("messageNotification", (user, message) => {
             // const newMessage = `${user}: ${message}`;
             // setMessages((messages) => [...messages, newMessage]);
-            // console.log(user.messageText);
             // UserArr = [...user.messageText];
             setMessageGet(user.messageText);
             setMessageGetId(user.chatId);
             setMessageGetDirection(user.direction);
             // AppendRecievedMessage(user);
             //  setMessages([...messages, newMessage]);
-            console.log(user);
-            console.log(messages);
           });
         })
         .catch((error) => console.error(error));
     }
   }, [connection]);
+  // useEffect(() => {
+  //   console.log("TestMessages", messages);
+  // }, [messages]);
   useEffect(() => {
-    console.log("messages", messages);
-  }, [messages]);
-  useEffect(() => {
-    console.log(messageGet);
     let sendTime = new Date().getTime();
     let newMessage = {
       chatId: NewChatId,
@@ -122,7 +114,8 @@ const Thread = ({
       sendTime: sendTime,
       text: messageGet,
     };
-    setMessages([...messages, newMessage]);
+    // setMessages([...messages, newMessage]);
+    console.log(messages);
   }, [messageGet]);
 
   const CurrentTimeForSending =
@@ -167,10 +160,6 @@ const Thread = ({
           </div>`;
 
     messageBox.append(message);
-    console.log(user.messageText);
-    console.log(user.chatId);
-    console.log(messageBox);
-    console.log(NewChatId);
   };
 
   const sendMessage = (e) => {
@@ -182,15 +171,15 @@ const Thread = ({
         // RenderChats(true);
 
         // AppendSendingMessage();
-        // let sendTime = new Date().getTime();
+        let sendTime = new Date().getTime();
         // console.log(messages, "Hello1");
-        // let newMessage = {
-        //   chatId: NewChatId,
-        //   direction: 1,
-        //   sendTime: sendTime,
-        //   text: typeMessage,
-        // };
-        // setMessages([...messages, newMessage]);
+        let newMessage = {
+          chatId: NewChatId,
+          direction: 1,
+          sendTime: sendTime,
+          text: typeMessage,
+        };
+        setMessages([...messages, newMessage]);
         // console.log(typeMessage, "Hello2");
 
         // console.log(messageGetId);
@@ -212,11 +201,9 @@ const Thread = ({
   };
   const TemplateText = useRef(null);
   const AppendText = () => {
-    console.log(TemplateText.current.textContent);
     document.querySelector(".thread__input_type_input").value +=
       TemplateText.current.textContent;
     SetTypeMessage(document.querySelector(".thread__input_type_input").value);
-    console.log(typeMessage);
   };
 
   const [chatTemplates, setChatTemplates] = useState([]);
@@ -233,11 +220,9 @@ const Thread = ({
       })
       .then((result) => {
         setChatTemplates(JSON.parse(result));
-        console.log(chatTemplates);
       });
   };
   const SetChatTemplates = (e) => {
-    console.log(chatTemplates);
     // e.preventDefault();
     fetch("https://api2.traffkillas.kz/api/v1/templates/add", {
       method: "POST",
@@ -255,7 +240,6 @@ const Thread = ({
         return response.text();
       })
       .then((result) => {
-        console.log(result);
         GetChatTemplates();
       })
       .catch((err) => {

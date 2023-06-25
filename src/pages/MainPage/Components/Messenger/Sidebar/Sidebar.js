@@ -141,10 +141,10 @@ const Sidebar = ({
         <ul>
           <li
             className="sidebar__threads_navbar_all"
-            onClick={(e) => {
-              setActiveChat("All");
-              StyleNav(e);
-            }}
+            // onClick={(e) => {
+            //   setActiveChat("All");
+            //   StyleNav(e);
+            // }}
           >
             Все
           </li>

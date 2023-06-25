@@ -906,7 +906,6 @@ const Employees = ({ position, mode, channel_type }) => {
                               {username ? username : "(Пусто)"}
                             </p>
                           </li>
-                          {console.log("Type", position)}
                           {(EmployeePositionGet == 1 ||
                             EmployeePositionGet == 0) && (
                             <li className="list-item employee_info">
@@ -997,7 +996,6 @@ const Employees = ({ position, mode, channel_type }) => {
                                   labelledBy={"Select"}
                                   isCreatable={true}
                                 />
-                                {console.log("Project", ProjectName)}
                                 <button
                                   onClick={(e) => EditUserProject(username)}
                                 >
@@ -1268,7 +1266,6 @@ const Employees = ({ position, mode, channel_type }) => {
                                 {username ? username : "(Пусто)"}
                               </p>
                             </li>
-                            {console.log("Type", position)}
                             {(EmployeePositionGet == 1 ||
                               EmployeePositionGet == 0) && (
                               <li className="list-item employee_info">
@@ -1359,7 +1356,6 @@ const Employees = ({ position, mode, channel_type }) => {
                                     labelledBy={"Select"}
                                     isCreatable={true}
                                   />
-                                  {console.log("Project", ProjectName)}
                                   <button
                                     onClick={(e) => EditUserProject(username)}
                                   >
