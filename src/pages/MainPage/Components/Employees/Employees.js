@@ -27,7 +27,7 @@ const Employees = ({ position, mode, channel_type }) => {
   const [employee, SetEmployee] = useState();
   const [submitDelete, setsubmitDelete] = useState();
   const [enableCreate, setEnableCreate] = useState(true);
-
+  const positionOfEmployee = position;
   const GetEmployeeData = () => {
     fetch("https://api1.traffkillas.kz/get_users", {
       method: "GET",
@@ -969,22 +969,24 @@ const Employees = ({ position, mode, channel_type }) => {
                                     return el.channel_name + ", ";
                                   })
                                 : "(Пусто)"}
-                              <div className="employee_info_SelectProjects">
-                                <MultiSelect
-                                  options={options}
-                                  value={getSelectedProject(project)}
-                                  onChange={(e) =>
-                                    editSelectedProject(e, index)
-                                  }
-                                  labelledBy={"Select"}
-                                  isCreatable={true}
-                                />
-                                <button
-                                  onClick={(e) => EditUserProject(username)}
-                                >
-                                  Сохранить проект
-                                </button>
-                              </div>
+                              {positionOfEmployee == 1 && (
+                                <div className="employee_info_SelectProjects">
+                                  <MultiSelect
+                                    options={options}
+                                    value={getSelectedProject(project)}
+                                    onChange={(e) =>
+                                      editSelectedProject(e, index)
+                                    }
+                                    labelledBy={"Select"}
+                                    isCreatable={true}
+                                  />
+                                  <button
+                                    onClick={(e) => EditUserProject(username)}
+                                  >
+                                    Сохранить проект
+                                  </button>
+                                </div>
+                              )}
                             </p>
                           </li>
                           <li className="list-item employee_info">
@@ -1158,13 +1160,13 @@ const Employees = ({ position, mode, channel_type }) => {
                         }}
                       >
                         <div className="employee_account_left">
-                        <div className="employee_account_left_pictureAvatar">
-                          {" "}
-                          <img
-                            src={image ? image : ProfilePhoto1}
-                            alt="ProfilePhoto1"
-                          ></img>
-                        </div>
+                          <div className="employee_account_left_pictureAvatar">
+                            {" "}
+                            <img
+                              src={image ? image : ProfilePhoto1}
+                              alt="ProfilePhoto1"
+                            ></img>
+                          </div>
                           <div>
                             <p key={first_name.toString()}>
                               {username}{" "}
@@ -1332,22 +1334,24 @@ const Employees = ({ position, mode, channel_type }) => {
                                       return el.channel_name + ", ";
                                     })
                                   : "(Пусто)"}
-                                <div className="employee_info_SelectProjects">
-                                  <MultiSelect
-                                    options={options}
-                                    value={getSelectedProject(project)}
-                                    onChange={(e) =>
-                                      editSelectedProject(e, index)
-                                    }
-                                    labelledBy={"Select"}
-                                    isCreatable={true}
-                                  />
-                                  <button
-                                    onClick={(e) => EditUserProject(username)}
-                                  >
-                                    Сохранить проект
-                                  </button>
-                                </div>
+                                {positionOfEmployee == 1 && (
+                                  <div className="employee_info_SelectProjects">
+                                    <MultiSelect
+                                      options={options}
+                                      value={getSelectedProject(project)}
+                                      onChange={(e) =>
+                                        editSelectedProject(e, index)
+                                      }
+                                      labelledBy={"Select"}
+                                      isCreatable={true}
+                                    />
+                                    <button
+                                      onClick={(e) => EditUserProject(username)}
+                                    >
+                                      Сохранить проект
+                                    </button>
+                                  </div>
+                                )}
                               </p>
                             </li>
                             <li className="list-item employee_info">
@@ -1525,13 +1529,13 @@ const Employees = ({ position, mode, channel_type }) => {
                         }}
                       >
                         <div className="employee_account_left">
-                        <div className="employee_account_left_pictureAvatar">
-                          {" "}
-                          <img
-                            src={image ? image : ProfilePhoto1}
-                            alt="ProfilePhoto1"
-                          ></img>
-                        </div>
+                          <div className="employee_account_left_pictureAvatar">
+                            {" "}
+                            <img
+                              src={image ? image : ProfilePhoto1}
+                              alt="ProfilePhoto1"
+                            ></img>
+                          </div>
                           <div>
                             <p key={first_name.toString()}>
                               {username}
@@ -1711,23 +1715,24 @@ const Employees = ({ position, mode, channel_type }) => {
                                       return el.channel_name + ", ";
                                     })
                                   : "(Пусто)"}
-                                <div className="employee_info_SelectProjects">
-                                  <MultiSelect
-                                    options={options}
-                                    value={getSelectedProject(project)}
-                                    onChange={(e) =>
-                                      editSelectedProject(e, index)
-                                    }
-                                    labelledBy={"Select"}
-                                    isCreatable={true}
-                                    style={{ width: "200px !important" }}
-                                  />
-                                  <button
-                                    onClick={(e) => EditUserProject(username)}
-                                  >
-                                    Сохранить проект
-                                  </button>
-                                </div>
+                                {positionOfEmployee == 1 && (
+                                  <div className="employee_info_SelectProjects">
+                                    <MultiSelect
+                                      options={options}
+                                      value={getSelectedProject(project)}
+                                      onChange={(e) =>
+                                        editSelectedProject(e, index)
+                                      }
+                                      labelledBy={"Select"}
+                                      isCreatable={true}
+                                    />
+                                    <button
+                                      onClick={(e) => EditUserProject(username)}
+                                    >
+                                      Сохранить проект
+                                    </button>
+                                  </div>
+                                )}
                               </p>
                             </li>
                             <li className="list-item employee_info"></li>
@@ -1874,13 +1879,13 @@ const Employees = ({ position, mode, channel_type }) => {
                         }}
                       >
                         <div className="employee_account_left">
-                        <div className="employee_account_left_pictureAvatar">
-                          {" "}
-                          <img
-                            src={image ? image : ProfilePhoto1}
-                            alt="ProfilePhoto1"
-                          ></img>
-                        </div>
+                          <div className="employee_account_left_pictureAvatar">
+                            {" "}
+                            <img
+                              src={image ? image : ProfilePhoto1}
+                              alt="ProfilePhoto1"
+                            ></img>
+                          </div>
                           <div>
                             <p key={first_name.toString()}>
                               {username}{" "}
@@ -2047,22 +2052,25 @@ const Employees = ({ position, mode, channel_type }) => {
                                       return el.channel_name + ", ";
                                     })
                                   : "(Пусто)"}
-                                <div className="employee_info_SelectProjects">
-                                  <MultiSelect
-                                    options={options}
-                                    value={getSelectedProject(project)}
-                                    onChange={(e) =>
-                                      editSelectedProject(e, index)
-                                    }
-                                    labelledBy={"Select"}
-                                    isCreatable={true}
-                                  />
-                                  <button
-                                    onClick={(e) => EditUserProject(username)}
-                                  >
-                                    Сохранить проект
-                                  </button>
-                                </div>
+
+                                {positionOfEmployee == 1 && (
+                                  <div className="employee_info_SelectProjects">
+                                    <MultiSelect
+                                      options={options}
+                                      value={getSelectedProject(project)}
+                                      onChange={(e) =>
+                                        editSelectedProject(e, index)
+                                      }
+                                      labelledBy={"Select"}
+                                      isCreatable={true}
+                                    />
+                                    <button
+                                      onClick={(e) => EditUserProject(username)}
+                                    >
+                                      Сохранить проект
+                                    </button>
+                                  </div>
+                                )}
                               </p>
                             </li>
                             <li className="list-item employee_info">

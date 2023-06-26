@@ -162,9 +162,15 @@ const Profile = ({ position, mode }) => {
     const form = document.getElementById("form");
     const formData = new FormData(form);
     let fullName = document.querySelector(".form_fullName").value.split(" ");
-    formData.append("last_name", fullName[0]);
-    formData.append("first_name", fullName[1]);
-    formData.append("middle_name", fullName[2]);
+    fullName[0]
+      ? formData.append("last_name", fullName[0])
+      : formData.append("last_name", "");
+    fullName[1]
+      ? formData.append("first_name", fullName[1])
+      : formData.append("first_name", "");
+    fullName[2]
+      ? formData.append("middle_name", fullName[2])
+      : formData.append("middle_name", "");
 
     axios
       .post("https://api1.traffkillas.kz/edit_profile_info", formData, {
@@ -177,8 +183,7 @@ const Profile = ({ position, mode }) => {
         form.reset();
         GetProfileData();
       })
-      .catch((error) => {
-      });
+      .catch((error) => {});
   };
   const ChangeText = (el) => {
     document.querySelector(`.default_${el.target.id}`).style.display = "none";
@@ -267,8 +272,7 @@ const Profile = ({ position, mode }) => {
       .then((res) => {
         GetProfileData();
       })
-      .catch((error) => {
-      });
+      .catch((error) => {});
     form.reset();
   };
   const handleLabelClick = (e) => {
