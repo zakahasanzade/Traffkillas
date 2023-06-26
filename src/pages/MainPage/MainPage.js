@@ -33,7 +33,6 @@ const MainPage = ({ editStatRole, position, ModeChange, mode }) => {
   };
   const CloseMessengerWindow = (window) => {
     setShowMessenger(window);
-    console.log(window);
   };
   const ChangeMode = () => {
     ModeChange();
@@ -55,7 +54,6 @@ const MainPage = ({ editStatRole, position, ModeChange, mode }) => {
       .then((result) => {
         x = JSON.parse(result)["data"];
         SetHeaderData(x);
-        console.log(x);
       });
   };
   const SetShowProfileInfo = () => {

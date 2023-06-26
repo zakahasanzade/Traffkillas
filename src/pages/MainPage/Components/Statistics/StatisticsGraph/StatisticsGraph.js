@@ -30,7 +30,6 @@ const StatisticsGraph = ({ dep_chart, reg_chart, signalGraph }) => {
         },
       },
     });
-    console.log(dep_chart);
   }, [signalGraph]);
   const [chartData, setChartData] = useState({
     series: [

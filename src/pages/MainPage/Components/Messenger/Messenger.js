@@ -24,10 +24,10 @@ function Messenger({ CloseMessengerWindow, position }) {
   var url = null;
   const GetAllProjects = () => {
     const positionEmployee = localStorage.position;
-    if (positionEmployee == 3) {
+    if (positionEmployee == 3 || positionEmployee == 2) {
       url = `https://api2.traffkillas.kz/api/v1/projects/my`;
-    } else if (positionEmployee == 2) {
-      url = `https://api2.traffkillas.kz/api/v1/teamlead/availableProjects`;
+    // } else if (positionEmployee == 2) {
+    //   url = `https://api2.traffkillas.kz/api/v1/teamlead/availableProjects`;
     } else if (positionEmployee == 1 || positionEmployee == 0) {
       url = `https://api2.traffkillas.kz/api/v1/admin/availableProjects`;
     }
@@ -66,14 +66,13 @@ function Messenger({ CloseMessengerWindow, position }) {
   }, [sortChats]);
   useEffect(() => {
     const positionEmployee = localStorage.position;
-    if (positionEmployee == 3) {
+    if (positionEmployee == 3 || positionEmployee == 2) {
       url = `https://api2.traffkillas.kz/api/v1/messages/getChats?projectId=${ProjectId}`;
-    } else if (positionEmployee == 2) {
-      url = `https://api2.traffkillas.kz/api/v1/teamlead/chats?projectId=${ProjectId}`;
+    // } else if (positionEmployee == 2) {
+    //   url = `https://api2.traffkillas.kz/api/v1/teamlead/chats?projectId=${ProjectId}`;
     } else if (positionEmployee == 1 || positionEmployee == 0) {
       url = `https://api2.traffkillas.kz/api/v1/admin/chats?projectId=${ProjectId}`;
     }
-    console.log("ProjectId", ProjectId);
     ProjectId &&
       fetch(url, {
         method: "GET",
@@ -105,10 +104,10 @@ function Messenger({ CloseMessengerWindow, position }) {
   }, [activeChat]);
   useEffect(() => {
     const positionEmployee = localStorage.position;
-    if (positionEmployee == 3) {
+    if (positionEmployee == 3 || positionEmployee == 2) {
       url = `https://api2.traffkillas.kz/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}`;
-    } else if (positionEmployee == 2) {
-      url = `https://api2.traffkillas.kz/api/v1/teamlead/messages?chat=${NewChatId}&projectId=${ProjectId}`;
+    // } else if (positionEmployee == 2) {
+    //   url = `https://api2.traffkillas.kz/api/v1/teamlead/messages?chat=${NewChatId}&projectId=${ProjectId}`;
     } else if (positionEmployee == 1 || positionEmployee == 0) {
       url = `https://api2.traffkillas.kz/api/v1/admin/messages?chat=${NewChatId}&projectId=${ProjectId}`;
     }
@@ -127,14 +126,12 @@ function Messenger({ CloseMessengerWindow, position }) {
           // UserMessagesArr = JSON.parse(result);
           // setUserMessages(UserMessagesArr);
           setMessages(JSON.parse(result));
-          console.log("TestMessages", messages);
           // SetOpenChat(true);
           // GetStateChat(openChat);
           // StopRendering("lkdfnmc");
         });
   }, [NewChatId]);
   useEffect(() => {
-    console.log(messages);
   }, [messages]);
   const ChatFolders = () => {
     fetch(
@@ -182,7 +179,6 @@ function Messenger({ CloseMessengerWindow, position }) {
     setOnceUpdate(hook);
   };
   useEffect(() => {
-    console.log("GetProjectId", ProjectId);
   }, [ProjectId]);
   return (
     <div className="telegram">
@@ -244,18 +240,15 @@ export default Messenger;
 //       connection
 //         .start()
 //         .then(() => {
-//           console.log("SignalR connected");
 //           connection
 //             .invoke("join")
 //             .then(() => {
-//               console.log("Message sent");
 //               setMessage("");
 //             })
 //             .catch((error) => console.error(error));
 //           connection.on("messageNotification", (user, message) => {
 //             const newMessage = `${user}: ${message}`;
 //             setMessages((messages) => [...messages, newMessage]);
-//             console.log(typeof user);
 //           });
 //         })
 //         .catch((error) => console.error(error));

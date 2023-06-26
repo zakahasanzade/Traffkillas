@@ -64,7 +64,6 @@ const Employees = ({ position, mode, channel_type }) => {
       })
       .then((result) => {
         SetEmployeeGiftData(JSON.parse(result)["data"]);
-        console.log(JSON.parse(result)["data"]);
       })
       .catch((err) => {
         alert("Акшин исправь баг милый мой");
@@ -87,11 +86,8 @@ const Employees = ({ position, mode, channel_type }) => {
       )
       .then((res) => {
         GetEmployeeGifts();
-        console.log(res);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   };
 
   const submitCreate = (e) => {
@@ -125,7 +121,6 @@ const Employees = ({ position, mode, channel_type }) => {
         },
       })
       .then((res) => {
-        console.log(res);
         form.reset();
         document.querySelector(".pro-item-content").innerHTML =
           "<div>Выберите должность</div>";
@@ -134,10 +129,7 @@ const Employees = ({ position, mode, channel_type }) => {
         setCreateEmployee(false);
         setSelectedNewUserProject([]);
       })
-      .catch((error) => {
-        console.log(error);
-      });
-    console.log("formDAta", formData);
+      .catch((error) => {});
   };
 
   // let employeeUsername = document.getElementById("employeeUsername");
@@ -162,7 +154,6 @@ const Employees = ({ position, mode, channel_type }) => {
       .catch((err) => {
         alert(err);
       });
-    console.log(e.target.id);
   };
 
   const EnableCreateButton = () => {
@@ -174,11 +165,10 @@ const Employees = ({ position, mode, channel_type }) => {
         "Выберите должность"
     ) {
       setEnableCreate(false);
-      console.log("kdsjnfosdj");
     } else {
       setEnableCreate(true);
     }
-    // console.log(
+    //
     //   document.querySelector(".employee_create_employee_input").value
     // );
   };
@@ -188,7 +178,6 @@ const Employees = ({ position, mode, channel_type }) => {
       ".pro-item-content"
     ).innerHTML = `${e.target.textContent}`;
     document.querySelector(".pro-inner-item").style.opacity = 1;
-    console.log(document.querySelector(".pro-item-content").textContent);
   };
 
   useEffect(() => {
@@ -209,7 +198,6 @@ const Employees = ({ position, mode, channel_type }) => {
   //   innerProject.current.style.color = "black";
   //   innerProject.current.style.fontWeight = 700;
   //   innerProject.current.style.paddingLeft = "20px";
-  //   console.log(innerProject.current.textContent);
   // };
 
   const [ProjectName, SetProjectName] = useState([]);
@@ -262,13 +250,10 @@ const Employees = ({ position, mode, channel_type }) => {
     })
       .then((response) => {
         if (response.status === 200) {
-          console.log(selectedUserProject);
         }
         return response.text();
       })
-      .then((result) => {
-        console.log(result);
-      });
+      .then((result) => {});
   };
   const [statusEditSalary, setStatusEditSalary] = useState(false);
   const [editSalary, setEditSalary] = useState();
@@ -288,7 +273,6 @@ const Employees = ({ position, mode, channel_type }) => {
         return response.text();
       })
       .then((result) => {
-        console.log(result);
         fetch("https://api1.traffkillas.kz/get_users", {
           method: "GET",
           headers: {
@@ -309,10 +293,7 @@ const Employees = ({ position, mode, channel_type }) => {
         setStatusEditSalary(false);
       });
   };
-  useEffect(() => {
-    console.log("Changed");
-    console.log(employee);
-  }, [employee]);
+  useEffect(() => {}, [employee]);
   const CancelEdit = () => {
     setStatusEditSalary(false);
   };
@@ -320,7 +301,6 @@ const Employees = ({ position, mode, channel_type }) => {
     SetEmployee(
       employee.map((el, i) => {
         if (i === index) {
-          console.log(el.project);
           el.project = e.map((element) => {
             return element.value;
           });
@@ -328,7 +308,6 @@ const Employees = ({ position, mode, channel_type }) => {
         return el;
       })
     );
-    console.log("Employee", employee);
   };
   const EmployeePositionGet = localStorage.position;
   const getSelectedProject = (projects) => {
@@ -815,10 +794,14 @@ const Employees = ({ position, mode, channel_type }) => {
                       }}
                     >
                       <div className="employee_account_left">
-                        <img
-                          src={image ? image : ProfilePhoto1}
-                          alt="ProfilePhoto1"
-                        ></img>
+                        <div className="employee_account_left_pictureAvatar">
+                          {" "}
+                          <img
+                            src={image ? image : ProfilePhoto1}
+                            alt="ProfilePhoto1"
+                          ></img>
+                        </div>
+
                         <div>
                           <p key={first_name.toString()}>
                             {username}{" "}
@@ -1175,10 +1158,13 @@ const Employees = ({ position, mode, channel_type }) => {
                         }}
                       >
                         <div className="employee_account_left">
+                        <div className="employee_account_left_pictureAvatar">
+                          {" "}
                           <img
                             src={image ? image : ProfilePhoto1}
                             alt="ProfilePhoto1"
                           ></img>
+                        </div>
                           <div>
                             <p key={first_name.toString()}>
                               {username}{" "}
@@ -1539,10 +1525,13 @@ const Employees = ({ position, mode, channel_type }) => {
                         }}
                       >
                         <div className="employee_account_left">
+                        <div className="employee_account_left_pictureAvatar">
+                          {" "}
                           <img
                             src={image ? image : ProfilePhoto1}
                             alt="ProfilePhoto1"
                           ></img>
+                        </div>
                           <div>
                             <p key={first_name.toString()}>
                               {username}
@@ -1885,10 +1874,13 @@ const Employees = ({ position, mode, channel_type }) => {
                         }}
                       >
                         <div className="employee_account_left">
+                        <div className="employee_account_left_pictureAvatar">
+                          {" "}
                           <img
                             src={image ? image : ProfilePhoto1}
                             alt="ProfilePhoto1"
                           ></img>
+                        </div>
                           <div>
                             <p key={first_name.toString()}>
                               {username}{" "}
@@ -2065,7 +2057,6 @@ const Employees = ({ position, mode, channel_type }) => {
                                     labelledBy={"Select"}
                                     isCreatable={true}
                                   />
-                                  {console.log("Project", ProjectName)}
                                   <button
                                     onClick={(e) => EditUserProject(username)}
                                   >

@@ -90,8 +90,26 @@ const Thread = ({
             })
             .catch((error) => console.error(error));
           connection.on("messageNotification", (user, message) => {
-            // const newMessage = `${user}: ${message}`;
-            // setMessages((messages) => [...messages, newMessage]);
+            let sendTime = new Date().getTime();
+            let newMessage = {
+              chatId: NewChatId,
+              direction: messageGetDirection,
+              sendTime: sendTime,
+              text: user.messageText,
+            };
+            setMessages((messages) => [...messages, user]);
+//             chatId
+// : 
+// "671533966"
+// direction
+// : 
+// 0
+// messageText
+// : 
+// "Tt"
+// projectId
+// : 
+// "aa8f5d59-0a04-4784-a3c3-b5f2161f49ba"
             // UserArr = [...user.messageText];
             setMessageGet(user.messageText);
             setMessageGetId(user.chatId);
@@ -103,9 +121,7 @@ const Thread = ({
         .catch((error) => console.error(error));
     }
   }, [connection]);
-  // useEffect(() => {
-  //   console.log("TestMessages", messages);
-  // }, [messages]);
+ 
   useEffect(() => {
     let sendTime = new Date().getTime();
     let newMessage = {
@@ -115,7 +131,6 @@ const Thread = ({
       text: messageGet,
     };
     // setMessages([...messages, newMessage]);
-    console.log(messages);
   }, [messageGet]);
 
   const CurrentTimeForSending =
@@ -172,7 +187,6 @@ const Thread = ({
 
         // AppendSendingMessage();
         let sendTime = new Date().getTime();
-        // console.log(messages, "Hello1");
         let newMessage = {
           chatId: NewChatId,
           direction: 1,
@@ -180,10 +194,7 @@ const Thread = ({
           text: typeMessage,
         };
         setMessages([...messages, newMessage]);
-        // console.log(typeMessage, "Hello2");
 
-        // console.log(messageGetId);
-        // console.log(NewChatId);
         TestState && (chatRef.current.scrollTop = chatRef.current.scrollHeight);
         SetTypeMessage();
       })
@@ -395,7 +406,6 @@ const Thread = ({
             sendMessage(e);
             // RenderChats("true");
 
-            // console.log(messageGetId);
           }}
           className="thread__input_send"
         >

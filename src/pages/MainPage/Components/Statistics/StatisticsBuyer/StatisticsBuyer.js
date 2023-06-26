@@ -84,7 +84,6 @@ const StatisticsBuyer = ({ position, mode }) => {
         GetStatisticsData();
       })
       .catch((error) => {
-        console.log(error);
       });
     form.reset();
   };
@@ -215,7 +214,6 @@ const StatisticsBuyer = ({ position, mode }) => {
   };
 
   const handleSelect = (ranges) => {
-    console.log(ranges);
     // {
     //   selection: {
     //     startDate: [native Date Object],
@@ -223,8 +221,6 @@ const StatisticsBuyer = ({ position, mode }) => {
     //   }
     // }
     setSelectionRange(ranges.selection);
-    console.log(selectionRange.startDate);
-    console.log(selectionRange.endDate);
   };
   const EditCalendar = (channel_id) => {
     formatStartDate(selectionRange.startDate);
@@ -259,15 +255,12 @@ const StatisticsBuyer = ({ position, mode }) => {
         Statistics.map((el) => {
           if (el.channel_id == channelId) {
             el.stat = JSON.parse(result)["data"][0].stat;
-            console.log(el);
             el.weekly_reg = SumReg;
             el.weekly_dep = SumDep;
             el.weekly_ticket = SumTick;
           }
         });
-        console.log(JSON.parse(result)["data"][0].stat);
 
-        console.log(SumReg);
         // StatisticsArray[0] = JSON.parse(result)["data"];
         // setGraph(new Array(StatisticsArray[0].length).fill(false));
         // setStatistics(StatisticsArray[0]);

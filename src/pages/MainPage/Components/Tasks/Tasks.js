@@ -25,7 +25,6 @@ import "./Tasks.css";
 const Tasks = ({ position, mode }) => {
   const sendTask = (e) => {
     e.preventDefault();
-    console.log(CalendarValue.getMonth() + 1);
     const form = document.getElementById("form");
     const formData = new FormData(form);
     formData.append(
@@ -34,9 +33,6 @@ const Tasks = ({ position, mode }) => {
     );
     formData.append(
       "date",
-      CalendarValue.getMonth() + 1 + CalendarValue.toDateString().slice(7)
-    );
-    console.log(
       CalendarValue.getMonth() + 1 + CalendarValue.toDateString().slice(7)
     );
 
@@ -53,17 +49,11 @@ const Tasks = ({ position, mode }) => {
         getManageData();
         getWorkData();
       })
-      .catch((error) => {
-        console.log(error);
-      });
-    console.log(formData);
-    console.log(CalendarValue.toDateString().slice(4, 10));
-    console.log(Currency);
+      .catch((error) => {});
     ChangeCalendar(new Date());
     setSelected([]);
     document.querySelector(".PrivateSwitchBase-input").checked = false;
 
-    console.log(CalendarValue);
     form.reset();
   };
   const ConfirmAvailableTask = (e) => {
@@ -175,8 +165,6 @@ const Tasks = ({ position, mode }) => {
       .catch((err) => {
         alert(err);
       });
-
-    console.log(e.target.id);
   };
   let WorkDataArr = [];
   const [WorkData, SetWorkData] = useState();
@@ -195,7 +183,6 @@ const Tasks = ({ position, mode }) => {
       .then((result) => {
         WorkDataArr = [JSON.parse(result).work];
         SetWorkData(JSON.parse(result).work);
-        console.log(WorkDataArr);
       })
       .catch((err) => {
         alert(err);
@@ -229,7 +216,6 @@ const Tasks = ({ position, mode }) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const GetCalendarData = () => {
     var Date = CalendarValue.toDateString().slice(4);
-    console.log(Date);
   };
 
   var arr = [0];
@@ -245,7 +231,6 @@ const Tasks = ({ position, mode }) => {
 
       if (distance < 0) {
         clearInterval(arr[id - 1]);
-        console.log("EXPIRED");
         getManageData();
         getWorkData();
       }
@@ -294,7 +279,6 @@ const Tasks = ({ position, mode }) => {
   };
   const closeDropdown = () => {
     SetCurrency(false);
-    console.log(TextCurrency);
   };
   // const [selectDrop, setSelectDrop] = useState(false);
   const [Currency, SetCurrency] = useState(false);
@@ -466,7 +450,6 @@ const Tasks = ({ position, mode }) => {
                             placeholder="Оставьте отзыв"
                             onChange={(e) => {
                               TextArea = e.target.value;
-                              console.log(TextArea);
                             }}
                           />
                         </div>
@@ -534,7 +517,6 @@ const Tasks = ({ position, mode }) => {
                             placeholder="Оставьте отзыв"
                             onChange={(e) => {
                               TextArea = e.target.value;
-                              console.log(TextArea);
                             }}
                           />
                         </div>
@@ -702,7 +684,6 @@ const Tasks = ({ position, mode }) => {
             className={mode ? "task_sendData light" : "task_sendData"}
             onSubmit={(e) => {
               sendTask(e);
-              console.log("Hello");
             }}
             id="form"
           >
@@ -904,7 +885,6 @@ const Tasks = ({ position, mode }) => {
                           onClick={(e) => {
                             e.stopPropagation();
                             SetCurrency(!Currency);
-                            console.log(Currency);
                           }}
                         >
                           {TextCurrency}
@@ -945,9 +925,7 @@ const Tasks = ({ position, mode }) => {
                       <Checkbox
                         size="small"
                         className="feedback"
-                        onChange={(e) => {
-                          console.log(e.target.checked);
-                        }}
+                        onChange={(e) => {}}
                       />
                     </p>
                   </div>
@@ -1033,7 +1011,6 @@ const Tasks = ({ position, mode }) => {
                             placeholder="Оставьте отзыв"
                             onChange={(e) => {
                               TextArea = e.target.value;
-                              console.log(TextArea);
                             }}
                           />
                         </div>
@@ -1082,7 +1059,6 @@ const Tasks = ({ position, mode }) => {
                           </p>
                         </div>
                       </div>
-                      {console.log(feedback)}
                       {feedback == "true" ? (
                         <div className="tasks_content">
                           <TextareaAutosize
@@ -1101,7 +1077,6 @@ const Tasks = ({ position, mode }) => {
                             placeholder="Оставьте отзыв"
                             onChange={(e) => {
                               TextArea = e.target.value;
-                              console.log(TextArea);
                             }}
                           />
                         </div>
@@ -1215,7 +1190,6 @@ const Tasks = ({ position, mode }) => {
                               id={_id}
                               onClick={(e) => {
                                 DeletePost(e);
-                                console.log("lajsdfb");
                               }}
                               className="bi bi-trash3-fill"
                             ></i>
@@ -1399,7 +1373,6 @@ const Tasks = ({ position, mode }) => {
             className={mode ? "task_sendData light" : "task_sendData"}
             onSubmit={(e) => {
               sendTask(e);
-              console.log("Hello");
             }}
             id="form"
           >
@@ -1541,7 +1514,7 @@ const Tasks = ({ position, mode }) => {
                         maxLength="2"
                         onInput={(e) => {
                           e.target.value = e.target.value
-                              .replace(/[^0-9.]/g, "")
+                            .replace(/[^0-9.]/g, "")
                             .replace(/(\..*)\./g, "$1")
                             .slice(0, 11);
                         }}
@@ -1594,7 +1567,6 @@ const Tasks = ({ position, mode }) => {
                           onClick={(e) => {
                             e.stopPropagation();
                             SetCurrency(!Currency);
-                            console.log(Currency);
                           }}
                         >
                           {TextCurrency}
@@ -1635,9 +1607,7 @@ const Tasks = ({ position, mode }) => {
                       <Checkbox
                         size="small"
                         className="feedback"
-                        onChange={(e) => {
-                          console.log(e.target.checked);
-                        }}
+                        onChange={(e) => {}}
                       />
                     </p>
                   </div>

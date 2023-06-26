@@ -25,7 +25,6 @@ const AnimatedPage = ({ ChangeMode, mode }) => {
   // })
   //   .then((response) => response.text())
   //   .then((result) => {
-  //     console.log(result)
   //   });
   const position = localStorage.position;
   const channel_type = localStorage.channel_type;
@@ -36,11 +35,9 @@ const AnimatedPage = ({ ChangeMode, mode }) => {
   const [statisticsRole, setStatisticsRole] = useState("баинг");
   const editStatRole = (role) => {
     setStatisticsRole(role);
-    console.log(role);
   };
 
   useEffect(() => {
-    console.log(statisticsRole);
   }, [statisticsRole]);
   return (
     <AnimatePresence exitBeforeEnter>

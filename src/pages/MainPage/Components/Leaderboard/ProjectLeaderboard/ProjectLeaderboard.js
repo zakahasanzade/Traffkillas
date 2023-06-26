@@ -22,7 +22,6 @@ const ProjectLeaderboard = ({ position, mode }) => {
       })
       .then((result) => {
         setProjectLeaderboard(JSON.parse(result)["data"]);
-        console.log(JSON.parse(result)["data"]);
       });
   };
   const GetProjectLeaderboardForWeek = () => {
@@ -38,8 +37,6 @@ const ProjectLeaderboard = ({ position, mode }) => {
       })
       .then((result) => {
         setProjectLeaderboard(JSON.parse(result)["data"]);
-
-        console.log(JSON.parse(result)["data"]);
       });
   };
   const GetProjectLeaderboardForTwoWeek = () => {
@@ -55,8 +52,6 @@ const ProjectLeaderboard = ({ position, mode }) => {
       })
       .then((result) => {
         setProjectLeaderboard(JSON.parse(result)["data"]);
-
-        console.log(JSON.parse(result)["data"]);
       });
   };
   const [statisticsState, setStatisticsState] = useState("one_day_dep");

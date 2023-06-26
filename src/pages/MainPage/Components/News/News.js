@@ -12,7 +12,7 @@ const News = ({ position, mode }) => {
   // CREATE A NEW BLOCK WITH THE RECEIVED DATA   //
   const [tags, setTags] = useState([]);
   let getArray = [];
-  const [post, setPost] = useState();
+  const [post, setPost] = useState([]);
   const [Color, SetColor] = useState();
   const btnRef = useRef();
   // SEND VALUES FROM ELEMENT TO SERVER //
@@ -42,7 +42,6 @@ const News = ({ position, mode }) => {
     // document.querySelector(".newsTitle").value = "";
     const newsTag = tags;
     // setTags([]);
-    // console.log(tags);
     // const newsContent = document.querySelector(".newsContent").value;
     // document.querySelector(".newsContent").value = "";
     const newsColor = getComputedStyle(
@@ -113,10 +112,9 @@ const News = ({ position, mode }) => {
         alert(err);
       });
 
-    console.log(e.target.id);
   };
   useEffect(() => {
-    getData();
+    // getData();
 
     const closeDropdown = (e) => {
       if (e.srcElement.className !== "back") {
@@ -140,6 +138,37 @@ const News = ({ position, mode }) => {
   //     ? (document.querySelector(".rti--input").className = "rti--input light")
   //     : (document.querySelector(".rti--input").className = "rti--input");
   // }, [mode]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [fetching, setFetching] = useState(true);
+  const scrollHandler = (e) => {
+    if (
+      e.target.documentElement.scrollHeight -
+        (e.target.documentElement.scrollTop + window.innerHeight) <
+      100
+    ) {
+      setFetching(true);
+    }
+  };
+  useEffect(() => {
+    if (fetching) {
+      axios
+        .get(
+          `https://api1.traffkillas.kz/get_news?_limit=10&_page=${currentPage}`
+        )
+        .then((response) => {
+          setPost([...post, ...response.data.data]);
+          setCurrentPage((prevState) => prevState + 1);
+        })
+        .finally(() => setFetching(false));
+    }
+  }, [fetching]);
+  useEffect(() => {
+    document.addEventListener("scroll", scrollHandler);
+    return function () {
+      document.removeEventListener("scroll", scrollHandler);
+    };
+  }, []);
   useEffect(() => {
     if (position !== "3") {
       document.querySelector(".rti--input").style.color = mode
@@ -156,7 +185,6 @@ const News = ({ position, mode }) => {
   const setBack = (col) => {
     document.querySelector(".back").style.backgroundColor = col;
   };
-  console.log(typeof post);
   return (
     <motion.div
       className="main"
@@ -397,7 +425,6 @@ const News = ({ position, mode }) => {
                     >
                       {date.substring(0, 2)}{" "}
                       {now.toLocaleString("ru-ru", { month: "short" })}
-                      {console.log(now)}
                     </p>
                   ) : null}
                   <div

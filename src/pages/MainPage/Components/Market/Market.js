@@ -58,13 +58,10 @@ const Market = ({ mode, position }) => {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log(res);
         getAssets();
       })
       .catch((error) => {
-        console.log(error);
       });
-    console.log(formData);
     form.reset();
   }
   const DeletePost = (e) => {
@@ -89,7 +86,6 @@ const Market = ({ mode, position }) => {
         alert(err);
       });
 
-    console.log("e.target");
   };
   const headers = new Headers();
   headers.append("Cookie", "name1=value1; name2=value2");
@@ -129,7 +125,6 @@ const Market = ({ mode, position }) => {
       body: JSON.stringify({ _id: PoductId }),
     })
       .then((response) => {
-        console.log(response);
         if (response.status !== 200) {
           throw new Error();
         }
@@ -165,7 +160,6 @@ const Market = ({ mode, position }) => {
       return el;
     });
     setIsFlipped(temp);
-    console.log(isFlipped);
   };
   const ReturnCard = () => {
     var temp = isFlipped.map((el, i) => {
@@ -177,7 +171,6 @@ const Market = ({ mode, position }) => {
   const SubmitPurchase = (e, index) => {
     BuyProduct(e, index);
 
-    console.log(SubmitProduct);
   };
 
   return (
@@ -340,7 +333,7 @@ const Market = ({ mode, position }) => {
                     <div
                       className="ProofBuy"
                       onClick={(e) => ReturnCard(e, index)}
-                      style={{ width: "240px" }}
+                      style={{ width: "212px" }}
                     >
                       <p
                         className="ProofBuy_content"
@@ -378,7 +371,6 @@ const Market = ({ mode, position }) => {
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
-                              console.log("kdjfg");
                               // e.stopPropagation();
                               SubmitPurchase(e, index);
                               // BuyProduct();

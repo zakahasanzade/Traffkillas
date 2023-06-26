@@ -79,7 +79,6 @@ const Sidebar = ({
   // };
 
   const StyleNav = (e) => {
-    console.log(e.target.className);
     if (e.target.className === "sidebar__threads_navbar_all") {
       document.querySelector(`.${e.target.className}`).style.borderBottom =
         "2px solid #EA9127";
@@ -209,7 +208,6 @@ const Sidebar = ({
                         }
                       });
                       setChangeNavColor(res);
-                      console.log(navColor);
                     }}
                   >
                     <div className="sidebar_accounts_img">

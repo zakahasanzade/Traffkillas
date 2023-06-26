@@ -25,7 +25,6 @@ const AllChats = ({ GetChat }) => {
                       className="sidebar_sidebar_acoounts"
                       onClick={(e) => {
                         ChatsId(e);
-                        console.log(ChatsId(e));
                       }}
                     >
                       <div className="sidebar_accounts_img">

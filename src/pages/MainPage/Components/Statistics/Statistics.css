@@ -149,10 +149,10 @@
   margin-right: 0;
 } */
 .statistics_submenu_div_edit {
-  width: 100px;
+  width: 90px;
 }
 .statistics_submenu_div_edit:nth-child(1) {
-  width: 170px;
+  width: 200px;
 }
 .pro-item-content .statistics_submenu .statistics_submenu_div {
   width: 10%;

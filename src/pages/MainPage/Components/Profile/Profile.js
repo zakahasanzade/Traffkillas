@@ -96,9 +96,6 @@ const Profile = ({ position, mode }) => {
       usernameCheck && passwordCheck
         ? SetButtonEnable(false)
         : SetButtonEnable(true);
-      console.log(usernameCheck);
-      console.log(passwordCheck);
-      console.log(repeatPasswordCheck);
       SubButt.style.opacity = 1;
     } else {
       SetRepeatPassword(false);
@@ -127,7 +124,6 @@ const Profile = ({ position, mode }) => {
       .then((result) => {
         ProfileInf = JSON.parse(result).data;
         SetProfileInformation(ProfileInf);
-        console.log(ProfileInf);
       })
       .catch((err) => {
         alert(err);
@@ -149,8 +145,6 @@ const Profile = ({ position, mode }) => {
       .then((result) => {
         AdminArr[0] = JSON.parse(result)["data"];
         SetAdminInfo(AdminArr);
-        console.log(AdminInfo);
-        console.log(JSON.parse(result)["data"]);
       })
       .catch((err) => {
         alert(err);
@@ -171,7 +165,6 @@ const Profile = ({ position, mode }) => {
     formData.append("last_name", fullName[0]);
     formData.append("first_name", fullName[1]);
     formData.append("middle_name", fullName[2]);
-    console.log(formData);
 
     axios
       .post("https://api1.traffkillas.kz/edit_profile_info", formData, {
@@ -181,16 +174,13 @@ const Profile = ({ position, mode }) => {
         },
       })
       .then((res) => {
-        console.log(res.data.status);
         form.reset();
         GetProfileData();
       })
       .catch((error) => {
-        console.log(error);
       });
   };
   const ChangeText = (el) => {
-    console.log(document.querySelector(`.default_${el.target.id}`));
     document.querySelector(`.default_${el.target.id}`).style.display = "none";
     document.querySelector(`.onclick_${el.target.id}`).style.display = "block";
   };
@@ -278,13 +268,11 @@ const Profile = ({ position, mode }) => {
         GetProfileData();
       })
       .catch((error) => {
-        console.log(error);
       });
     form.reset();
   };
   const handleLabelClick = (e) => {
     document.querySelector("#profileImage").click();
-    // console.log(e.target.id);
   };
   return (
     <div
@@ -394,7 +382,6 @@ const Profile = ({ position, mode }) => {
                         defaultValue={profileInformation?.username}
                         onChange={(e) => {
                           // InputData.username = e.target.value;
-                          // console.log(InputData);
                           checkLogin(e);
                         }}
                         name="username"
@@ -489,7 +476,6 @@ const Profile = ({ position, mode }) => {
                         //   InputData.first_name = fullName[0];
                         //   InputData.middle_name = fullName[1];
                         //   InputData.last_name = fullName[2];
-                        //   console.log(InputData);
                         // }}
                       />
                     </li>
@@ -501,7 +487,6 @@ const Profile = ({ position, mode }) => {
                         defaultValue={profileInformation?.birth_date}
                         // onChange={(e) => {
                         //   InputData.birth_date = e.target.value;
-                        //   console.log(InputData);
                         // }}
                         name="birth_date"
                       />
@@ -514,7 +499,6 @@ const Profile = ({ position, mode }) => {
                         defaultValue={profileInformation?.email}
                         // onChange={(e) => {
                         //   InputData.email = e.target.value;
-                        //   console.log(InputData);
                         // }}
                         name="email"
                       />
@@ -527,7 +511,6 @@ const Profile = ({ position, mode }) => {
                         defaultValue={profileInformation?.phone}
                         // onChange={(e) => {
                         //   InputData.phone = e.target.value;
-                        //   console.log(InputData);
                         // }}
                         name="phone"
                       />
@@ -540,7 +523,6 @@ const Profile = ({ position, mode }) => {
                         defaultValue={profileInformation?.address}
                         // onChange={(e) => {
                         //   InputData.address = e.target.value;
-                        //   console.log(InputData);
                         // }}
                         name="address"
                       />

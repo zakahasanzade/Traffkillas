@@ -21,7 +21,6 @@ const EmployerLeaderboard = ({ position, mode }) => {
       .then((result) => {
         setEmployerLeaderboard(JSON.parse(result)["data"]);
 
-        console.log(JSON.parse(result)["data"]);
       });
   };
   const GetEmployerLeaderboardForWeek = () => {
@@ -39,7 +38,6 @@ const EmployerLeaderboard = ({ position, mode }) => {
       .then((result) => {
         setEmployerLeaderboard(JSON.parse(result)["data"]);
 
-        console.log(JSON.parse(result)["data"]);
       });
   };
   const GetEmployerLeaderboardForTwoWeek = () => {
@@ -57,7 +55,6 @@ const EmployerLeaderboard = ({ position, mode }) => {
       .then((result) => {
         setEmployerLeaderboard(JSON.parse(result)["data"]);
 
-        console.log(JSON.parse(result)["data"]);
       });
   };
   const [statisticsState, setStatisticsState] = useState("one_day_dep");

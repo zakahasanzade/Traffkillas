@@ -11,7 +11,6 @@ const App = () => {
 
   const ChangeMode = () => {
     setMode(!mode);
-    console.log(mode);
   };
 
   useEffect(() => {

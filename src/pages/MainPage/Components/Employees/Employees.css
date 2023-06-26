@@ -182,7 +182,15 @@
 }
 .employee_account_left img {
   width: 64px;
+  /* max-height: 64px; */
+}
+.employee_account_left_pictureAvatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
   height: 64px;
+  overflow: hidden;
   border-radius: 100%;
 }
 .employee_account_right {
