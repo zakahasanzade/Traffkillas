@@ -93,6 +93,7 @@
   overflow: hidden !important;
 }
 .sidebar__threads_chats {
+  overflow: hidden;
   overflow-y: scroll;
 }
 .sidebar__threads_chats::-webkit-scrollbar-thumb:hover {

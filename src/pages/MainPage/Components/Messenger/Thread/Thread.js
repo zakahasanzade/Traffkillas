@@ -24,6 +24,8 @@ const Thread = ({
   stateChat,
   RenderChats,
   ProjectId,
+  editChatMessages,
+  setMessageGetFromUser,
 }) => {
   // const [messages, setMessages] = useState([]);
   // const [user, setUser] = useState("");
@@ -77,6 +79,9 @@ const Thread = ({
   const [messageGet, setMessageGet] = useState();
   const [messageGetId, setMessageGetId] = useState();
   const [messageGetDirection, setMessageGetDirection] = useState();
+  const [messageGetTime, setMessageGetTime] = useState();
+  const [messageVisibleName, setMessageVisibleName] = useState();
+  const [messageUserId, setMessageUserId] = useState();
   const [TestState, setTestState] = useState(true);
   useEffect(() => {
     if (connection) {
@@ -91,46 +96,43 @@ const Thread = ({
             .catch((error) => console.error(error));
           connection.on("messageNotification", (user, message) => {
             let sendTime = new Date().getTime();
-            let newMessage = {
-              chatId: NewChatId,
-              direction: messageGetDirection,
-              sendTime: sendTime,
-              text: user.messageText,
-            };
-            setMessages((messages) => [...messages, user]);
-//             chatId
-// : 
-// "671533966"
-// direction
-// : 
-// 0
-// messageText
-// : 
-// "Tt"
-// projectId
-// : 
-// "aa8f5d59-0a04-4784-a3c3-b5f2161f49ba"
-            // UserArr = [...user.messageText];
+            // let newMessage = {
+            //   chatId: NewChatId,
+            //   direction: messageGetDirection,
+            //   sendTime: sendTime,
+            //   text: user.messageText,
+            // };
+            // messages.push(user);
+            // setMessages([...messages, newMessage]);
+            console.log(user);
+            console.log(NewChatId);
+            setMessageGetFromUser(user);
             setMessageGet(user.messageText);
             setMessageGetId(user.chatId);
             setMessageGetDirection(user.direction);
+            setMessageGetTime(user.sendTime);
+            setMessageVisibleName(user.visibleName);
+            setMessageUserId(user.chatId);
+
             // AppendRecievedMessage(user);
-            //  setMessages([...messages, newMessage]);
           });
         })
         .catch((error) => console.error(error));
     }
   }, [connection]);
- 
   useEffect(() => {
-    let sendTime = new Date().getTime();
+    let getTime = new Date().getTime();
     let newMessage = {
       chatId: NewChatId,
       direction: messageGetDirection,
-      sendTime: sendTime,
+      sendTime: getTime,
       text: messageGet,
+      visibleName: messageVisibleName,
     };
-    // setMessages([...messages, newMessage]);
+    console.log(messages);
+    messages &&
+      messageUserId === NewChatId &&
+      setMessages([...messages, newMessage]);
   }, [messageGet]);
 
   const CurrentTimeForSending =
@@ -193,7 +195,7 @@ const Thread = ({
           sendTime: sendTime,
           text: typeMessage,
         };
-        setMessages([...messages, newMessage]);
+        messages && setMessages([...messages, newMessage]);
 
         TestState && (chatRef.current.scrollTop = chatRef.current.scrollHeight);
         SetTypeMessage();
@@ -405,7 +407,6 @@ const Thread = ({
           onClick={(e) => {
             sendMessage(e);
             // RenderChats("true");
-
           }}
           className="thread__input_send"
         >

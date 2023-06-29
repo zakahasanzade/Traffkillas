@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 function Messenger({ CloseMessengerWindow, position }) {
   const [NewChatId, setNewChatId] = useState();
   const [VisibleChatName, UpdateVisibleChatName] = useState();
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState();
   const [stateChat, setStateChat] = useState();
   const [closeMessenger, setCloseMesenger] = useState();
   const [OnceUpdate, setOnceUpdate] = useState();
@@ -43,7 +43,7 @@ function Messenger({ CloseMessengerWindow, position }) {
       .then((result) => {
         setAllChats(JSON.parse(result));
         setChatsFlipped(Array(JSON.parse(result).length).fill(false));
-        setMessages();
+        // setMessages();
       });
   };
   const [GetChat, setGetChat] = useState([]);
@@ -125,29 +125,54 @@ function Messenger({ CloseMessengerWindow, position }) {
           // UserMessagesArr = JSON.parse(result);
           // setUserMessages(UserMessagesArr);
           setMessages(JSON.parse(result));
+
           // SetOpenChat(true);
           // GetStateChat(openChat);
           // StopRendering("lkdfnmc");
         });
   }, [NewChatId]);
   useEffect(() => {}, [messages]);
-  const ChatFolders = () => {
-    fetch(
-      `https://api2.traffkillas.kz/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    )
-      .then((response) => {
-        return response.text();
-      })
-      .then((result) => {});
-  };
+  // const ChatFolders = () => {
+  //   fetch(
+  //     `https://api2.traffkillas.kz/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}`,
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     }
+  //   )
+  //     .then((response) => {
+  //       return response.text();
+  //     })
+  //     .then((result) => {});
+  // };
 
+  const [messageGetFromUser, setMessageGetFromUser] = useState();
+  useEffect(() => {
+    console.log(sortGetChats);
+    let newChat = {
+      category: "None",
+      chatId: messageGetFromUser?.chatId,
+      lastMessage: {
+        chatId: messageGetFromUser?.chatId,
+        direction: messageGetFromUser?.direction,
+        projectId: null,
+        sendTime: messageGetFromUser?.sendTime,
+        text: messageGetFromUser?.messageText,
+        visibleName: messageGetFromUser?.visibleName,
+      },
+      visibleName: messageGetFromUser?.visibleName,
+    };
+    ProjectId && !sortChats && setSortGetChats([newChat, ...sortGetChats]);
+    // var res = navColor?.map((e, i) => {
+    //   if (e === true) {
+    //     e === false;
+    //   }
+    // });
+    // setChangeNavColor(res);
+  }, [messageGetFromUser]);
   useEffect(() => {
     GetAllProjects();
   }, []);
@@ -196,7 +221,7 @@ function Messenger({ CloseMessengerWindow, position }) {
         ProjectId={ProjectId}
         navColor={navColor}
         setChangeNavColor={setChangeNavColor}
-        ChatFolders={ChatFolders}
+        // ChatFolders={ChatFolders}
         setSortChats={setSortChats}
         UpdateVisibleName={UpdateVisibleName}
         setActiveChat={setActiveChat}
@@ -209,6 +234,7 @@ function Messenger({ CloseMessengerWindow, position }) {
         stateChat={stateChat}
         RenderChats={RenderChats}
         ProjectId={ProjectId}
+        setMessageGetFromUser={setMessageGetFromUser}
       />
     </div>
   );
