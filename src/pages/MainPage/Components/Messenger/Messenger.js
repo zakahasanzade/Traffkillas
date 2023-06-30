@@ -93,17 +93,25 @@ function Messenger({ CloseMessengerWindow, position }) {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [fetching, setFetching] = useState(false);
-  const scrollHandler = (e) => {
-    if (
-      e.target.documentElement.scrollHeight -
-        (e.target.documentElement.scrollTop + window.innerHeight) <
-      100
-    ) {
+  // const scrollHandler = (e) => {
+  //   if (
+  //     e.target.documentElement.scrollHeight -
+  //       (e.target.documentElement.scrollTop + window.innerHeight) <
+  //     100
+  //   ) {
+  //     setFetching(true);
+  //     console.log("Fetching");
+  //   }
+  // };
+
+  const scrollHandler = () => {
+    const el = document.querySelector(".sidebar__threads_chats");
+    if (el.scrollHeight - (el.scrollTop + el.clientHeight) < 100) {
+      // Perform your desired action here when scroll position is within 100 pixels from the bottom
       setFetching(true);
+      console.log("Reached near the bottom of the page!");
     }
   };
-
-  useEffect(() => {}, [ProjectId]);
 
   useEffect(() => {
     const headers = {
@@ -133,9 +141,11 @@ function Messenger({ CloseMessengerWindow, position }) {
     }
   }, [fetching, ProjectId]);
   useEffect(() => {
-    document.addEventListener("scroll", scrollHandler);
+    document.querySelector(".sidebar__threads_chats").addEventListener("scroll", scrollHandler);
+    console.log("scrollHandlerStart", scrollHandler);
     return function () {
-      document.removeEventListener("scroll", scrollHandler);
+      document.querySelector(".sidebar__threads_chats").removeEventListener("scroll", scrollHandler);
+      console.log("scrollHandlerEnd", scrollHandler);
     };
   }, []);
 
