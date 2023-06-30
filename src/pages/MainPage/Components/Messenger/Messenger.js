@@ -91,7 +91,7 @@ function Messenger({ CloseMessengerWindow, position }) {
   //       });
   // }, [ProjectId]);
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [fetching, setFetching] = useState(false);
   // const scrollHandler = (e) => {
   //   if (
@@ -108,15 +108,9 @@ function Messenger({ CloseMessengerWindow, position }) {
     const { scrollHeight, scrollTop, clientHeight } = document.querySelector(
       ".sidebar__threads_chats"
     );
-    // if (scrollHeight - (scrollTop + clientHeight) < 100) {
-    //   // Perform your desired action here when scroll position is within 100 pixels from the bottom
-    //   setFetching(true);
-    //   console.log("Reached near the bottom of the page!");
-    // }
-    const scrollPercentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
-    if (scrollPercentage > 90) {
+    if (scrollHeight - (scrollTop + clientHeight) < 100) {
+      // Perform your desired action here when scroll position is within 100 pixels from the bottom
       setFetching(true);
-      // Perform your desired action here when scroll position is near the bottom (over 90%)
       console.log("Reached near the bottom of the page!");
     }
   };
@@ -128,11 +122,11 @@ function Messenger({ CloseMessengerWindow, position }) {
     };
     const positionEmployee = localStorage.position;
     if (positionEmployee == 3 || positionEmployee == 2) {
-      url = `https://api2.traffkillas.kz/api/v1/messages/getChats?projectId=${ProjectId}&page=${currentPage}&limit=10`;
+      url = `https://api2.traffkillas.kz/api/v1/messages/getChats?projectId=${ProjectId}&page=${currentPage}&limit=15`;
       // } else if (positionEmployee == 2) {
       //   url = `https://api2.traffkillas.kz/api/v1/teamlead/chats?projectId=${ProjectId}`;
     } else if (positionEmployee == 1 || positionEmployee == 0) {
-      url = `https://api2.traffkillas.kz/api/v1/admin/chats?projectId=${ProjectId}&page=${currentPage}&limit=10`;
+      url = `https://api2.traffkillas.kz/api/v1/admin/chats?projectId=${ProjectId}&page=${currentPage}&limit=15`;
     }
     if (fetching || ProjectId) {
       axios
