@@ -105,10 +105,18 @@ function Messenger({ CloseMessengerWindow, position }) {
   // };
 
   const scrollHandler = () => {
-    const el = document.querySelector(".sidebar__threads_chats");
-    if (el.scrollHeight - (el.scrollTop + el.clientHeight) < 100) {
-      // Perform your desired action here when scroll position is within 100 pixels from the bottom
+    const { scrollHeight, scrollTop, clientHeight } = document.querySelector(
+      ".sidebar__threads_chats"
+    );
+    // if (scrollHeight - (scrollTop + clientHeight) < 100) {
+    //   // Perform your desired action here when scroll position is within 100 pixels from the bottom
+    //   setFetching(true);
+    //   console.log("Reached near the bottom of the page!");
+    // }
+    const scrollPercentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
+    if (scrollPercentage > 90) {
       setFetching(true);
+      // Perform your desired action here when scroll position is near the bottom (over 90%)
       console.log("Reached near the bottom of the page!");
     }
   };
@@ -141,11 +149,13 @@ function Messenger({ CloseMessengerWindow, position }) {
     }
   }, [fetching, ProjectId]);
   useEffect(() => {
-    document.querySelector(".sidebar__threads_chats").addEventListener("scroll", scrollHandler);
+    document
+      .querySelector(".sidebar__threads_chats")
+      .addEventListener("scroll", scrollHandler);
     console.log("scrollHandlerStart", scrollHandler);
     return function () {
-      document.querySelector(".sidebar__threads_chats").removeEventListener("scroll", scrollHandler);
-      console.log("scrollHandlerEnd", scrollHandler);
+      // document.querySelector(".sidebar__threads_chats").removeEventListener("scroll", scrollHandler);
+      // console.log("scrollHandlerEnd", scrollHandler);
     };
   }, []);
 
