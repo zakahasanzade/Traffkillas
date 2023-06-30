@@ -1350,6 +1350,111 @@ const Tasks = ({ position, mode }) => {
               }
               return null;
             })}
+          {WorkData &&
+            WorkData.map((block, index) => {
+              const {
+                date,
+                feedback,
+                messages,
+                state,
+                title,
+                worker_username,
+                _id,
+              } = block;
+
+              if (state === 4) {
+                return (
+                  <>
+                    <div
+                      key={block + index}
+                      className={
+                        mode ? "tasks_page_div light" : "tasks_page_div"
+                      }
+                    >
+                      <div className="tasks_div tasks_completedTask">
+                        <div className="tasks_div_gap">
+                          <div className="tasks_div_complete">
+                            <p
+                              className="tasks_header"
+                              style={{ display: "flex" }}
+                            >
+                              {title}
+                            </p>
+
+                            <i
+                              id={_id}
+                              onClick={(e) => {
+                                DeletePost(e);
+                              }}
+                              className="bi bi-trash3-fill"
+                              style={{ color: "red" }}
+                            ></i>
+                          </div>
+                          <p className="tasks_header_worker">
+                            {worker_username}{" "}
+                            <i
+                              id={_id}
+                              onClick={(e) => {
+                                DeletePost(e);
+                              }}
+                              className="bi bi-trash3-fill"
+                              style={{ color: "red" }}
+                            ></i>
+                          </p>
+                        </div>
+                        {state === 2 && (
+                          <div className="tasks_div_complete_submit">
+                            <p
+                              className="second_task_time"
+                              style={{ backgroundColor: "#EA9127" }}
+                            >
+                              <p className="timer">Доработать </p>
+                              <i
+                                className="bi bi-exclamation-circle-fill"
+                                id={_id}
+                                onClick={(e) => ReopenCompleteTask(e)}
+                              ></i>
+                            </p>
+                            <p
+                              className="second_task_time"
+                              style={{ backgroundColor: "#16C784" }}
+                            >
+                              <p className="timer">Принять </p>
+                              <i
+                                id={_id}
+                                className="bi bi-check-circle-fill"
+                                onClick={(e) => FinishInProcessTask(e)}
+                              ></i>
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      {feedback && messages && (
+                        <div className="tasks_content">
+                          <p
+                            className="tasks_content_p"
+                            style={
+                              mode
+                                ? {
+                                    color: "#bcbec0",
+                                    backgroundColor: "#ebedf0",
+                                  }
+                                : {
+                                    color: "#8a8a8a",
+                                    backgroundColor: "#222226",
+                                  }
+                            }
+                          >
+                            {messages}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </>
+                );
+              }
+              return null;
+            })}
         </div>
       </motion.div>
     );

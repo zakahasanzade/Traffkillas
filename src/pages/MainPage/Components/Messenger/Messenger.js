@@ -4,6 +4,7 @@ import "./Messenger.css";
 import Thread from "./Thread/Thread.js";
 import SideDropdown from "./SideDropdown/SideDropdown";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Messenger({ CloseMessengerWindow, position }) {
   const [NewChatId, setNewChatId] = useState();
@@ -52,7 +53,95 @@ function Messenger({ CloseMessengerWindow, position }) {
   const [sortChats, setSortChats] = useState();
   const [sortGetChats, setSortGetChats] = useState(GetChat);
 
+  // useEffect(() => {
+  //   if (ProjectId) {
+  //     let CopyGetChat = GetChat;
+  //     const ResGetChats = CopyGetChat.filter((el) => {
+  //       if (el.visibleName.toLowerCase().includes(sortChats.toLowerCase())) {
+  //         return el;
+  //       }
+  //     });
+  //     setSortGetChats(ResGetChats);
+  //   }
+  // }, [sortChats]);
+  // useEffect(() => {
+  //   const positionEmployee = localStorage.position;
+  //   if (positionEmployee == 3 || positionEmployee == 2) {
+  //     url = `https://api2.traffkillas.kz/api/v1/messages/getChats?projectId=${ProjectId}&page=1&limit=10`;
+  //     // } else if (positionEmployee == 2) {
+  //     //   url = `https://api2.traffkillas.kz/api/v1/teamlead/chats?projectId=${ProjectId}`;
+  //   } else if (positionEmployee == 1 || positionEmployee == 0) {
+  //     url = `https://api2.traffkillas.kz/api/v1/admin/chats?projectId=${ProjectId}&page=1&limit=10`;
+  //   }
+  //   ProjectId &&
+  //     fetch(url, {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     })
+  //       .then((response) => {
+  //         return response.text();
+  //       })
+  //       .then((result) => {
+  //         setGetChat(JSON.parse(result));
+  //         setSortGetChats(JSON.parse(result));
+  //         setNavColor(Array(JSON.parse(result).length).fill(false));
+  //       });
+  // }, [ProjectId]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [fetching, setFetching] = useState(false);
+  const scrollHandler = (e) => {
+    if (
+      e.target.documentElement.scrollHeight -
+        (e.target.documentElement.scrollTop + window.innerHeight) <
+      100
+    ) {
+      setFetching(true);
+    }
+  };
+
+  useEffect(() => {}, [ProjectId]);
+
   useEffect(() => {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+    const positionEmployee = localStorage.position;
+    if (positionEmployee == 3 || positionEmployee == 2) {
+      url = `https://api2.traffkillas.kz/api/v1/messages/getChats?projectId=${ProjectId}&page=${currentPage}&limit=10`;
+      // } else if (positionEmployee == 2) {
+      //   url = `https://api2.traffkillas.kz/api/v1/teamlead/chats?projectId=${ProjectId}`;
+    } else if (positionEmployee == 1 || positionEmployee == 0) {
+      url = `https://api2.traffkillas.kz/api/v1/admin/chats?projectId=${ProjectId}&page=${currentPage}&limit=10`;
+    }
+    if (fetching || ProjectId) {
+      axios
+        .get(url, { headers })
+        .then((response) => {
+          setGetChat(response.data);
+          setSortGetChats([...sortGetChats, ...response.data]);
+          setCurrentPage((prevState) => prevState + 1);
+          console.log(response.data);
+          setNavColor(Array(response.data.length).fill(false));
+        })
+
+        .finally(() => setFetching(false));
+    }
+  }, [fetching, ProjectId]);
+  useEffect(() => {
+    document.addEventListener("scroll", scrollHandler);
+    return function () {
+      document.removeEventListener("scroll", scrollHandler);
+    };
+  }, []);
+
+  const [activeChat, setActiveChat] = useState("All");
+  useEffect(() => {
+    console.log(GetChat);
     if (ProjectId) {
       let CopyGetChat = GetChat;
       const ResGetChats = CopyGetChat.filter((el) => {
@@ -63,44 +152,6 @@ function Messenger({ CloseMessengerWindow, position }) {
       setSortGetChats(ResGetChats);
     }
   }, [sortChats]);
-  useEffect(() => {
-    const positionEmployee = localStorage.position;
-    if (positionEmployee == 3 || positionEmployee == 2) {
-      url = `https://api2.traffkillas.kz/api/v1/messages/getChats?projectId=${ProjectId}`;
-      // } else if (positionEmployee == 2) {
-      //   url = `https://api2.traffkillas.kz/api/v1/teamlead/chats?projectId=${ProjectId}`;
-    } else if (positionEmployee == 1 || positionEmployee == 0) {
-      url = `https://api2.traffkillas.kz/api/v1/admin/chats?projectId=${ProjectId}`;
-    }
-    ProjectId &&
-      fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-        .then((response) => {
-          return response.text();
-        })
-        .then((result) => {
-          setGetChat(JSON.parse(result));
-          setSortGetChats(JSON.parse(result));
-          setNavColor(Array(JSON.parse(result).length).fill(false));
-        });
-  }, [ProjectId]);
-  const [activeChat, setActiveChat] = useState("All");
-  useEffect(() => {
-    if (ProjectId) {
-      let CopyGetChat = GetChat;
-      const ResGetChats = CopyGetChat.filter((el) => {
-        if (el.chatId.toLowerCase().includes(sortChats.toLowerCase())) {
-          return el;
-        }
-      });
-      setSortGetChats(ResGetChats);
-    }
-  }, [activeChat]);
   useEffect(() => {
     const positionEmployee = localStorage.position;
     if (positionEmployee == 3 || positionEmployee == 2) {
@@ -131,7 +182,6 @@ function Messenger({ CloseMessengerWindow, position }) {
           // StopRendering("lkdfnmc");
         });
   }, [NewChatId]);
-  useEffect(() => {}, [messages]);
   // const ChatFolders = () => {
   //   fetch(
   //     `https://api2.traffkillas.kz/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}`,
@@ -151,7 +201,6 @@ function Messenger({ CloseMessengerWindow, position }) {
 
   const [messageGetFromUser, setMessageGetFromUser] = useState();
   useEffect(() => {
-    console.log(sortGetChats);
     let newChat = {
       category: "None",
       chatId: messageGetFromUser?.chatId,
@@ -165,7 +214,16 @@ function Messenger({ CloseMessengerWindow, position }) {
       },
       visibleName: messageGetFromUser?.visibleName,
     };
-    ProjectId && !sortChats && setSortGetChats([newChat, ...sortGetChats]);
+    const ChangeNavColor = () => {
+      const ChangeNavArr = navColor;
+      ChangeNavArr.pop();
+      ChangeNavArr.unshift();
+      setNavColor(ChangeNavArr);
+    };
+    ProjectId &&
+      !sortChats &&
+      ChangeNavColor() &&
+      setSortGetChats([newChat, ...sortGetChats]);
     // var res = navColor?.map((e, i) => {
     //   if (e === true) {
     //     e === false;
@@ -201,7 +259,6 @@ function Messenger({ CloseMessengerWindow, position }) {
   const StopRendering = (hook) => {
     setOnceUpdate(hook);
   };
-  useEffect(() => {}, [ProjectId]);
   return (
     <div className="telegram">
       <SideDropdown
@@ -209,6 +266,7 @@ function Messenger({ CloseMessengerWindow, position }) {
         allChats={allChats}
         GetProjectId={GetProjectId}
         editChatsFlipped={editChatsFlipped}
+        setSortGetChats={setSortGetChats}
       />
       <Sidebar
         // GetchatMessage={GetchatMessage}

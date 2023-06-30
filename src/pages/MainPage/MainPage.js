@@ -166,7 +166,7 @@ const MainPage = ({ editStatRole, position, ModeChange, mode }) => {
                 Инструменты
               </CustomLink>
             )}
-            {position !== "3" && (
+            {(position == "1" || position == "0") && (
               <CustomLink className="CustomLink" to="/MainPage/Employees">
                 Сотрудники
               </CustomLink>

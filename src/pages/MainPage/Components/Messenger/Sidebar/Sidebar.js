@@ -121,6 +121,9 @@ const Sidebar = ({
   // if (OnceUpdate === "chats") {
   //   GetChatMessages();
   // }
+  useEffect(() => {
+    console.log("sortGetChats", sortGetChats);
+  }, [sortGetChats]);
   return (
     <div className="sidebar">
       <div className="sidebar__header">
@@ -140,10 +143,10 @@ const Sidebar = ({
         <ul>
           <li
             className="sidebar__threads_navbar_all"
-            // onClick={(e) => {
-            //   setActiveChat("All");
-            //   StyleNav(e);
-            // }}
+            onClick={(e) => {
+              setActiveChat("All");
+              StyleNav(e);
+            }}
           >
             Все
           </li>
@@ -174,6 +177,7 @@ const Sidebar = ({
             sortGetChats?.map((chats, index) => {
               const { chatId, visibleName, lastMessage } = chats;
               const standartFormat = new Date(lastMessage.sendTime);
+
               const lastTime =
                 (standartFormat.getHours().toLocaleString().length === 1
                   ? "0" + standartFormat.getHours()

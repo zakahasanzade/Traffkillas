@@ -132,7 +132,7 @@ const Thread = ({
     console.log(messages);
     messages &&
       messageUserId === NewChatId &&
-      setMessages([...messages, newMessage]);
+      setMessages([...messages, newMessage]); 
   }, [messageGet]);
 
   const CurrentTimeForSending =

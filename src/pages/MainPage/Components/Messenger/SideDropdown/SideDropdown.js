@@ -9,6 +9,7 @@ const SideDropdown = ({
   allChats,
   GetProjectId,
   editChatsFlipped,
+  setSortGetChats,
 }) => {
   return (
     <SideNav
@@ -28,6 +29,7 @@ const SideDropdown = ({
               <NavItem
                 // eventKey="home"
                 onClick={() => {
+                  setSortGetChats([]);
                   GetProjectId(id);
                   var temp = chatsFlipped.map((el, i) => {
                     if (i === index) {

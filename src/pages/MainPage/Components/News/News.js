@@ -111,7 +111,6 @@ const News = ({ position, mode }) => {
       .catch((err) => {
         alert(err);
       });
-
   };
   useEffect(() => {
     // getData();
@@ -154,7 +153,7 @@ const News = ({ position, mode }) => {
     if (fetching) {
       axios
         .get(
-          `https://api1.traffkillas.kz/get_news?_limit=10&_page=${currentPage}`
+          `https://api1.traffkillas.kz/get_news?limit=10&page=${currentPage}`
         )
         .then((response) => {
           setPost([...post, ...response.data.data]);

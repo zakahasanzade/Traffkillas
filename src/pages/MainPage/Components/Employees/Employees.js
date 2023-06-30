@@ -969,7 +969,8 @@ const Employees = ({ position, mode, channel_type }) => {
                                     return el.channel_name + ", ";
                                   })
                                 : "(Пусто)"}
-                              {positionOfEmployee == 1 && (
+                              {(positionOfEmployee == 1 ||
+                                positionOfEmployee == 0) && (
                                 <div className="employee_info_SelectProjects">
                                   <MultiSelect
                                     options={options}
@@ -1334,7 +1335,8 @@ const Employees = ({ position, mode, channel_type }) => {
                                       return el.channel_name + ", ";
                                     })
                                   : "(Пусто)"}
-                                {positionOfEmployee == 1 && (
+                                {(positionOfEmployee == 1 ||
+                                  positionOfEmployee == 0) && (
                                   <div className="employee_info_SelectProjects">
                                     <MultiSelect
                                       options={options}
@@ -1715,7 +1717,8 @@ const Employees = ({ position, mode, channel_type }) => {
                                       return el.channel_name + ", ";
                                     })
                                   : "(Пусто)"}
-                                {positionOfEmployee == 1 && (
+                                {(positionOfEmployee == 1 ||
+                                  positionOfEmployee == 0) && (
                                   <div className="employee_info_SelectProjects">
                                     <MultiSelect
                                       options={options}
@@ -2053,7 +2056,8 @@ const Employees = ({ position, mode, channel_type }) => {
                                     })
                                   : "(Пусто)"}
 
-                                {positionOfEmployee == 1 && (
+                                {(positionOfEmployee == 1 ||
+                                  positionOfEmployee == 0) && (
                                   <div className="employee_info_SelectProjects">
                                     <MultiSelect
                                       options={options}

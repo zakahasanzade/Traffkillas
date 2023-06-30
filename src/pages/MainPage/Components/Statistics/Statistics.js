@@ -51,7 +51,6 @@ const Statistics = ({ statisticsRole, position, mode }) => {
         return 0;
       }
     });
-
   };
   const GetStatisticsData = () => {
     let admin = `https://api1.traffkillas.kz/get_statistic?channel_type=${statisticsRole}`;
@@ -107,8 +106,7 @@ const Statistics = ({ statisticsRole, position, mode }) => {
       .then((res) => {
         GetStatisticsData();
       })
-      .catch((error) => {
-      });
+      .catch((error) => {});
     form.reset();
   };
 
@@ -999,6 +997,7 @@ const Statistics = ({ statisticsRole, position, mode }) => {
                                       {" "}
                                       {StatisticsInfo ? (
                                         <input
+                                          type="number"
                                           defaultValue={reg}
                                           onChange={(e) => {
                                             e.preventDefault();
@@ -1012,9 +1011,9 @@ const Statistics = ({ statisticsRole, position, mode }) => {
                                                     el.date ===
                                                     dateTime + ".2023"
                                                   ) {
-                                                    el.reg = parseInt(
-                                                      e.target.value
-                                                    );
+                                                    el.reg = e.target.value
+                                                      ? parseInt(e.target.value)
+                                                      : 0;
                                                   }
                                                 });
                                               }
@@ -1063,6 +1062,7 @@ const Statistics = ({ statisticsRole, position, mode }) => {
                                     >
                                       {StatisticsInfo ? (
                                         <input
+                                          type="number"
                                           defaultValue={dep}
                                           onChange={(e) => {
                                             e.preventDefault();
@@ -1076,9 +1076,9 @@ const Statistics = ({ statisticsRole, position, mode }) => {
                                                     el.date ===
                                                     dateTime + ".2023"
                                                   ) {
-                                                    el.dep = parseInt(
-                                                      e.target.value
-                                                    );
+                                                    el.dep = e.target.value
+                                                      ? parseInt(e.target.value)
+                                                      : 0;
                                                   }
                                                 });
                                               }
