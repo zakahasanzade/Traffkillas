@@ -25,11 +25,11 @@ function Messenger({ CloseMessengerWindow, position }) {
   const GetAllProjects = () => {
     const positionEmployee = localStorage.position;
     if (positionEmployee == 3 || positionEmployee == 2) {
-      url = `https://api2.traffkillas.kz/api/v1/projects/my`;
+      url = `https://api2.tkcrmsystem.com/api/v1/projects/my`;
       // } else if (positionEmployee == 2) {
-      //   url = `https://api2.traffkillas.kz/api/v1/teamlead/availableProjects`;
+      //   url = `https://api2.tkcrmsystem.com/api/v1/teamlead/availableProjects`;
     } else if (positionEmployee == 1 || positionEmployee == 0) {
-      url = `https://api2.traffkillas.kz/api/v1/admin/availableProjects`;
+      url = `https://api2.tkcrmsystem.com/api/v1/admin/availableProjects`;
     }
     fetch(url, {
       method: "GET",
@@ -67,11 +67,11 @@ function Messenger({ CloseMessengerWindow, position }) {
   // useEffect(() => {
   //   const positionEmployee = localStorage.position;
   //   if (positionEmployee == 3 || positionEmployee == 2) {
-  //     url = `https://api2.traffkillas.kz/api/v1/messages/getChats?projectId=${ProjectId}&page=1&limit=10`;
+  //     url = `https://api2.tkcrmsystem.com/api/v1/messages/getChats?projectId=${ProjectId}&page=1&limit=10`;
   //     // } else if (positionEmployee == 2) {
-  //     //   url = `https://api2.traffkillas.kz/api/v1/teamlead/chats?projectId=${ProjectId}`;
+  //     //   url = `https://api2.tkcrmsystem.com/api/v1/teamlead/chats?projectId=${ProjectId}`;
   //   } else if (positionEmployee == 1 || positionEmployee == 0) {
-  //     url = `https://api2.traffkillas.kz/api/v1/admin/chats?projectId=${ProjectId}&page=1&limit=10`;
+  //     url = `https://api2.tkcrmsystem.com/api/v1/admin/chats?projectId=${ProjectId}&page=1&limit=10`;
   //   }
   //   ProjectId &&
   //     fetch(url, {
@@ -122,11 +122,11 @@ function Messenger({ CloseMessengerWindow, position }) {
     };
     const positionEmployee = localStorage.position;
     if (positionEmployee == 3 || positionEmployee == 2) {
-      url = `https://api2.traffkillas.kz/api/v1/messages/getChats?projectId=${ProjectId}&page=${currentPage}&limit=15`;
+      url = `https://api2.tkcrmsystem.com/api/v1/messages/getChats?projectId=${ProjectId}&page=${currentPage}&limit=15`;
       // } else if (positionEmployee == 2) {
-      //   url = `https://api2.traffkillas.kz/api/v1/teamlead/chats?projectId=${ProjectId}`;
+      //   url = `https://api2.tkcrmsystem.com/api/v1/teamlead/chats?projectId=${ProjectId}`;
     } else if (positionEmployee == 1 || positionEmployee == 0) {
-      url = `https://api2.traffkillas.kz/api/v1/admin/chats?projectId=${ProjectId}&page=${currentPage}&limit=15`;
+      url = `https://api2.tkcrmsystem.com/api/v1/admin/chats?projectId=${ProjectId}&page=${currentPage}&limit=15`;
     }
     if (fetching || ProjectId) {
       axios
@@ -169,11 +169,11 @@ function Messenger({ CloseMessengerWindow, position }) {
   useEffect(() => {
     const positionEmployee = localStorage.position;
     if (positionEmployee == 3 || positionEmployee == 2) {
-      url = `https://api2.traffkillas.kz/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}`;
+      url = `https://api2.tkcrmsystem.com/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}`;
       // } else if (positionEmployee == 2) {
-      //   url = `https://api2.traffkillas.kz/api/v1/teamlead/messages?chat=${NewChatId}&projectId=${ProjectId}`;
+      //   url = `https://api2.tkcrmsystem.com/api/v1/teamlead/messages?chat=${NewChatId}&projectId=${ProjectId}`;
     } else if (positionEmployee == 1 || positionEmployee == 0) {
-      url = `https://api2.traffkillas.kz/api/v1/admin/messages?chat=${NewChatId}&projectId=${ProjectId}`;
+      url = `https://api2.tkcrmsystem.com/api/v1/admin/messages?chat=${NewChatId}&projectId=${ProjectId}`;
     }
     NewChatId &&
       fetch(url, {
@@ -198,7 +198,7 @@ function Messenger({ CloseMessengerWindow, position }) {
   }, [NewChatId]);
   // const ChatFolders = () => {
   //   fetch(
-  //     `https://api2.traffkillas.kz/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}`,
+  //     `https://api2.tkcrmsystem.com/api/v1/messages/fromChat?chat=${NewChatId}&projectId=${ProjectId}`,
   //     {
   //       method: "GET",
   //       headers: {
