@@ -65,7 +65,7 @@ const Thread = ({
 
   useEffect(() => {
     const newConnection = new HubConnectionBuilder()
-      .withUrl(`https://api2.tkcrmsystem.com/hubs/messenger?token=${token}`)
+      .withUrl(`https://api2.traffkillas.kz/hubs/messenger?token=${token}`)
       // .withHubProtocol(protocol)
       .withAutomaticReconnect()
       .build();
@@ -221,7 +221,7 @@ const Thread = ({
 
   const [chatTemplates, setChatTemplates] = useState([]);
   const GetChatTemplates = () => {
-    fetch(`https://api2.tkcrmsystem.com/api/v1/templates`, {
+    fetch(`https://api2.traffkillas.kz/api/v1/templates`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -237,7 +237,7 @@ const Thread = ({
   };
   const SetChatTemplates = (e) => {
     // e.preventDefault();
-    fetch("https://api2.tkcrmsystem.com/api/v1/templates/add", {
+    fetch("https://api2.traffkillas.kz/api/v1/templates/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -261,7 +261,7 @@ const Thread = ({
   };
   const DeleteChatTemplates = (e) => {
     fetch(
-      `https://api2.tkcrmsystem.com/api/v1/templates/delete/${e.target.id}`,
+      `https://api2.traffkillas.kz/api/v1/templates/delete/${e.target.id}`,
       {
         method: "DELETE",
         headers: {

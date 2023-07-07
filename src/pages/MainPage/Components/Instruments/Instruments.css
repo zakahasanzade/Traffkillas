@@ -1,0 +1,84 @@
+.Instruments_general {
+  background-color: white;
+  padding: 16px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 384px;
+}
+.Instruments_general p {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+.Instruments_form {
+  display: flex;
+  flex-direction: column;
+}
+.Instruments_form label {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.304px;
+  color: var(--main-black-30, rgba(0, 0, 0, 0.3));
+  margin-bottom: 4px;
+  width: 100%;
+}
+.Instruments_form label small {
+  color: var(--accent-blue, #0f82f5);
+  float: right;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.304px;
+}
+.Instruments_form > input {
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  outline: none;
+  margin-bottom: 10px;
+  color: var(--main-text, #000);
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+  letter-spacing: -0.38px;
+  padding: 4px 4px 4px 10px;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+}
+.Instruments_form_checkbox {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  gap: 5px;
+}
+.Instruments_form_checkbox label {
+  color: var(--main-text, #000);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.304px;
+}
+.Instruments_form button {
+  display: flex;
+  padding: 8px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  background: var(--accent-blue, #0f82f5);
+  color: white;
+  border: 0;
+  outline: none;
+  font-size: 16px;
+  font-weight: 700;
+}
+.Instruments_form button i {
+  margin-left: 4px;
+}
+.Instruments_form_checkbox input {
+  width: 16px;
+  height: 16px;
+  border-radius: 100%;
+}
