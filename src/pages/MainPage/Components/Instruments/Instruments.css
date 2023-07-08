@@ -2,7 +2,7 @@
   background-color: white;
   padding: 16px;
   border-radius: 16px;
-  width: 100%;
+  width: 100vw;
   max-width: 384px;
 }
 .Instruments_general p {
@@ -24,15 +24,19 @@
   margin-bottom: 4px;
   width: 100%;
 }
-.Instruments_form label small {
+.Instruments_form label a,
+.Instruments_form label span {
   color: var(--accent-blue, #0f82f5);
   float: right;
   font-size: 16px;
   font-weight: 500;
   line-height: 100%;
   letter-spacing: -0.304px;
+  cursor: pointer;
 }
-.Instruments_form > input {
+.Instruments_form input,
+.Instruments_form .form-control,
+.Instruments_form_selection {
   border: 1px solid #e5e5e5;
   border-radius: 16px;
   outline: none;
@@ -47,7 +51,11 @@
   padding: 4px 4px 4px 10px;
   justify-content: space-between;
   align-items: center;
-  align-self: stretch;
+  width: 100%;
+}
+
+.Instruments_form .special-label {
+  display: none;
 }
 .Instruments_form_checkbox {
   display: flex;
@@ -74,6 +82,9 @@
   font-size: 16px;
   font-weight: 700;
 }
+.Instruments_form_checkbox input {
+  cursor: pointer;
+}
 .Instruments_form button i {
   margin-left: 4px;
 }
@@ -81,4 +92,21 @@
   width: 16px;
   height: 16px;
   border-radius: 100%;
+}
+.Instruments_general_lastStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.Instruments_general_lastStep .Instruments_general span {
+  color: #000;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 120%;
+  letter-spacing: -0.38px;
+}
+.Instruments_general_lastStep .Instruments_general button:nth-child(1) {
+  margin-top: 24px;
 }
