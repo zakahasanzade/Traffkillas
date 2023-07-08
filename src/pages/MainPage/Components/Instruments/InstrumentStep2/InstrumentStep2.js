@@ -3,14 +3,7 @@ import "../Instruments.css";
 import { motion } from "framer-motion/dist/framer-motion";
 import InstrumentStep3 from "../InstrumentStep3/InstrumentStep3";
 
-const InstrumentStep2 = ({ ChangeStepState }) => {
-  const [selectedType, setSelectedType] = useState([]);
-
-  const handleSelectChangeType = (event) => {
-    const selectedType = event.target.value;
-    setSelectedType(selectedType);
-  };
-
+const InstrumentStep2 = ({ ChangeStepState, SendRequest }) => {
   return (
     <motion.div
       className="main"
@@ -22,7 +15,7 @@ const InstrumentStep2 = ({ ChangeStepState }) => {
     >
       <div className="Instruments_general">
         <p>Шаг 2</p>
-        <form className="Instruments_form">
+        <form id="InstrumentForm" className="Instruments_form">
           <label>Тип канала</label>
           <select className="Instruments_form_selection" name="typeChannel">
             <option value="">Выберите тип канала</option>
@@ -41,6 +34,7 @@ const InstrumentStep2 = ({ ChangeStepState }) => {
             type="submit"
             onClick={(e) => {
               e.preventDefault();
+              SendRequest(e);
               ChangeStepState(<InstrumentStep3 />);
             }}
           >

@@ -1,17 +1,26 @@
 import React, { useState } from "react";
 import "./Instruments.css";
 import { motion } from "framer-motion/dist/framer-motion";
+import { sendCodeRequest } from "./InstrumentsRequest";
 import InstrumentStep1 from "./InstrumentStep1/InstrumentStep1";
 import InstrumentStep2 from "./InstrumentStep2/InstrumentStep2";
 import InstrumentStep3 from "./InstrumentStep3/InstrumentStep3";
 
 const Instruments = () => {
+  const SendRequest = (e) => {
+    e.preventDefault();
+    const form = document.getElementById("InstrumentForm");
+    const formData = new FormData(form);
+    sendCodeRequest(formData);
+  };
   const ChangeStepState = (state) => {
     setStepState(state);
-    console.log(state);
   };
   const [stepState, setStepState] = useState(
-    <InstrumentStep1 ChangeStepState={ChangeStepState} />
+    <InstrumentStep1
+      ChangeStepState={ChangeStepState}
+      SendRequest={SendRequest}
+    />
   );
 
   return (

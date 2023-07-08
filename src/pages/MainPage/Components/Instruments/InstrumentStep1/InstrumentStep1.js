@@ -4,10 +4,14 @@ import { motion } from "framer-motion/dist/framer-motion";
 import PhoneInput from "react-phone-input-2";
 import InstrumentStep2 from "../InstrumentStep2/InstrumentStep2";
 
-const InstrumentStep1 = ({ ChangeStepState }) => {
+const InstrumentStep1 = ({ ChangeStepState, SendRequest }) => {
   const checkbox = useRef();
   const [useProxy, setUseProxy] = useState(false);
 
+  useEffect(() => {
+    const element = document.querySelector(".form-control ");
+    element.name = "phone";
+  }, []);
   return (
     <motion.div
       className="main"
@@ -19,7 +23,7 @@ const InstrumentStep1 = ({ ChangeStepState }) => {
     >
       <div className="Instruments_general">
         <p>Шаг 1</p>
-        <form className="Instruments_form">
+        <form className="Instruments_form" id="InstrumentForm">
           <label>
             API ID{" "}
             <a href="https://my.telegram.org/auth?to=apps/" target="_blank">
@@ -64,27 +68,35 @@ const InstrumentStep1 = ({ ChangeStepState }) => {
           {useProxy && (
             <span>
               <label>Scheme</label>
-              <select className="Instruments_form_selection" name="typeChannel">
+              <select className="Instruments_form_selection" name="proxyScheme">
                 <option value="">Выберите схему</option>
                 <option value="Баинг">scheme1</option>
                 <option value="Продакшн">scheme2</option>
               </select>
               <label>Host </label>
-              <input type="text" name="host" placeholder="185.70.185.101" />
+              <input
+                type="text"
+                name="proxyHostname"
+                placeholder="185.70.185.101"
+              />
               <label>Port </label>
-              <input type="text" name="port" placeholder="61118" />
+              <input type="text" name="proxyPort" placeholder="61118" />
               <label>User </label>
-              <input type="text" name="device" />
+              <input type="text" name="proxyUsername" />
               <label>Password </label>
-              <input type="password" name="password" />
+              <input type="password" name="proxyPassword" />
             </span>
           )}
           <button
             type="submit"
             onClick={(e) => {
               e.preventDefault();
+              SendRequest(e);
               ChangeStepState(
-                <InstrumentStep2 ChangeStepState={ChangeStepState} />
+                <InstrumentStep2
+                  ChangeStepState={ChangeStepState}
+                  SendRequest={SendRequest}
+                />
               );
             }}
           >
