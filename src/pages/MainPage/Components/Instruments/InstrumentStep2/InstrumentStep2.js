@@ -1,9 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../Instruments.css";
 import { motion } from "framer-motion/dist/framer-motion";
 import InstrumentStep3 from "../InstrumentStep3/InstrumentStep3";
+import { submitCodeRequest } from "../InstrumentsRequest";
+import { getChannels } from "../InstrumentsRequest";
 
-const InstrumentStep2 = ({ ChangeStepState, SendRequest }) => {
+const InstrumentStep2 = ({ ChangeStepState }) => {
+  // useEffect(() => {
+  //   getChannels();
+  // }, []);
+  const [channels, setChannels] = useState([]);
+  const [selectedChannel, setSelectedChannel] = useState();
+  async function getChannelsOfProject(e) {
+    if (e !== "") {
+      const channels = await getChannels(e);
+      setChannels(channels);
+    } else {
+      setChannels("");
+    }
+  }
   return (
     <motion.div
       className="main"
@@ -17,24 +32,42 @@ const InstrumentStep2 = ({ ChangeStepState, SendRequest }) => {
         <p>Шаг 2</p>
         <form id="InstrumentForm" className="Instruments_form">
           <label>Тип канала</label>
-          <select className="Instruments_form_selection" name="typeChannel">
+          <select
+            onChange={(e) => getChannelsOfProject(e.target.value)}
+            className="Instruments_form_selection"
+            name="channelType"
+          >
             <option value="">Выберите тип канала</option>
-            <option value="Баинг">Баинг</option>
-            <option value="Продакшн">Продакшн</option>
+            <option value="баинг">баинг</option>
+            <option value="инфлюенс">инфлюенс</option>
+            <option value="баинг астана">баинг астана</option>
           </select>
           <label>
-            Канал <span target="_blank">скопировать ID в буфер</span>
+            Канал{" "}
+            <span
+              target="_blank"
+              onClick={() =>
+                navigator.clipboard.writeText("Copy this text to clipboard")
+              }
+            >
+              скопировать ID в буфер
+            </span>
           </label>
-          <select className="Instruments_form_selection" name="typeChannel">
+          <select
+            className="Instruments_form_selection"
+            id="Instruments_form_channel"
+          >
             <option value="">Выберите канал</option>
-            <option value="Баинг">Канал-каналович</option>
-            <option value="Продакшн">Тим-тимович</option>
+            {channels?.map((el) => {
+              const { channelType, name, channelId } = el;
+              return <option value={name + ":;:;" + channelId}>{name}</option>;
+            })}
           </select>
           <button
             type="submit"
             onClick={(e) => {
               e.preventDefault();
-              SendRequest(e);
+              submitCodeRequest(selectedChannel);
               ChangeStepState(<InstrumentStep3 />);
             }}
           >

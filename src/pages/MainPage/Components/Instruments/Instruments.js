@@ -17,7 +17,7 @@ const Instruments = () => {
     setStepState(state);
   };
   const [stepState, setStepState] = useState(
-    <InstrumentStep1
+    <InstrumentStep2
       ChangeStepState={ChangeStepState}
       SendRequest={SendRequest}
     />

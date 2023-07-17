@@ -70,8 +70,9 @@ const InstrumentStep1 = ({ ChangeStepState, SendRequest }) => {
               <label>Scheme</label>
               <select className="Instruments_form_selection" name="proxyScheme">
                 <option value="">Выберите схему</option>
-                <option value="Баинг">scheme1</option>
-                <option value="Продакшн">scheme2</option>
+                <option value="http">http</option>
+                <option value="socks4">socks4</option>
+                <option value="socks5">socks5</option>
               </select>
               <label>Host </label>
               <input
