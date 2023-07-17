@@ -1,13 +1,26 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import "../Instruments.css";
 import { motion } from "framer-motion/dist/framer-motion";
 import PhoneInput from "react-phone-input-2";
 import InstrumentStep2 from "../InstrumentStep2/InstrumentStep2";
+import { useNavigate } from "react-router-dom";
+import { submitCodeRequest } from "../InstrumentsRequest";
+import { getChannels } from "../InstrumentsRequest";
 
-const InstrumentStep3 = ({ ChangeStepState2 }) => {
+const InstrumentStep3 = ({ ChangeStepState2, UserPhoneRes }) => {
   const navigate = useNavigate();
+  const [channels, setChannels] = useState([]);
   const [codeSent, setCodeSent] = useState(false);
+  async function getChannelsOfProject(e) {
+    if (e !== "") {
+      const channels = await getChannels(e);
+      setChannels(channels);
+    } else {
+      setChannels("");
+    }
+  }
+
   return (
     <motion.div
       className="main"
@@ -17,30 +30,52 @@ const InstrumentStep3 = ({ ChangeStepState2 }) => {
       exit={{ opacity: 0, x: -100 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="Instruments_general_lastStep">
-        <div className="Instruments_general">
-          <p>Шаг 3</p>
-          <form className="Instruments_form">
-            <label>Код</label>
-            <input type="text" name="apiHash" />
-            <label>Пароль </label>
-            <input
-              type="text"
-              name="appVersion"
-              placeholder="не заполнять если нет"
-            />
-
-            <button
-              type="submit"
-              onClick={(e) => {
-                e.preventDefault();
-                setCodeSent(true);
-              }}
+      <div className="Instruments_general">
+        <p>Шаг 3</p>
+        <form id="InstrumentForm" className="Instruments_form">
+          <label>Тип канала</label>
+          <select
+            onChange={(e) => getChannelsOfProject(e.target.value)}
+            className="Instruments_form_selection"
+          >
+            <option value="">Выберите тип канала</option>
+            <option value="баинг">баинг</option>
+            <option value="инфлюенс">инфлюенс</option>
+            <option value="баинг астана">баинг астана</option>
+          </select>
+          <label>
+            Канал{" "}
+            <span
+              target="_blank"
+              onClick={() =>
+                navigator.clipboard.writeText("Copy this text to clipboard")
+              }
             >
-              Отправить код <i class="bi bi-check-circle-fill"></i>
-            </button>
-          </form>
-        </div>
+              скопировать ID в буфер
+            </span>
+          </label>
+          <select
+            className="Instruments_form_selection"
+            id="Instruments_form_channel"
+          >
+            <option value="">Выберите канал</option>
+            {channels?.map((el) => {
+              const { channelType, name, channelId } = el;
+              return <option value={channelId}>{name}</option>;
+            })}
+          </select>
+          <button
+            type="submit"
+            onClick={(e) => {
+              e.preventDefault();
+              setCodeSent(true);
+              submitCodeRequest(UserPhoneRes);
+            }}
+          >
+            Подтвердить выбор канала{" "}
+            <i class="bi bi-arrow-right-circle-fill"></i>
+          </button>
+        </form>
         {codeSent && (
           <div className="Instruments_general">
             <p>Успешно!</p>

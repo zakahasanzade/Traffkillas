@@ -9,9 +9,10 @@ const InstrumentStep1 = ({ ChangeStepState, SendRequest }) => {
   const checkbox = useRef();
   const [useProxy, setUseProxy] = useState(false);
   const CodeRequest = (e) => {
+    e.preventDefault()
     const UserPhone = document.querySelector(".form-control ").value;
     const UserPhoneRes = UserPhone.replace(/[^0-9]/g, "");
-    SendRequest(e);
+    SendRequest(UserPhoneRes);
     ChangeStepState(
       <InstrumentStep2
         ChangeStepState={ChangeStepState}
@@ -20,12 +21,7 @@ const InstrumentStep1 = ({ ChangeStepState, SendRequest }) => {
       />
     );
   };
-  useEffect(() => {
-    const element = document.querySelector(".form-control ");
-    element.name = "phone";
 
-    // element.addEventListener("change", handleChangePhone);
-  }, []);
   return (
     <motion.div
       className="main"

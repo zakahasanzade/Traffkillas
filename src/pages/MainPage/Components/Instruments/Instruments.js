@@ -7,10 +7,10 @@ import InstrumentStep2 from "./InstrumentStep2/InstrumentStep2";
 import InstrumentStep3 from "./InstrumentStep3/InstrumentStep3";
 
 const Instruments = () => {
-  const SendRequest = (e) => {
-    e.preventDefault();
+  const SendRequest = (UserPhoneRes) => {
     const form = document.getElementById("InstrumentForm");
     const formData = new FormData(form);
+    formData.append("phone", UserPhoneRes);
     sendCodeRequest(formData);
   };
   const ChangeStepState = (state) => {
