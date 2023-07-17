@@ -3,14 +3,28 @@ import "../Instruments.css";
 import { motion } from "framer-motion/dist/framer-motion";
 import PhoneInput from "react-phone-input-2";
 import InstrumentStep2 from "../InstrumentStep2/InstrumentStep2";
+import { submitCodeRequest } from "../InstrumentsRequest";
 
 const InstrumentStep1 = ({ ChangeStepState, SendRequest }) => {
   const checkbox = useRef();
   const [useProxy, setUseProxy] = useState(false);
-
+  const CodeRequest = (e) => {
+    const UserPhone = document.querySelector(".form-control ").value;
+    const UserPhoneRes = UserPhone.replace(/[^0-9]/g, "");
+    SendRequest(e);
+    ChangeStepState(
+      <InstrumentStep2
+        ChangeStepState={ChangeStepState}
+        SendRequest={SendRequest}
+        UserPhoneRes={UserPhoneRes}
+      />
+    );
+  };
   useEffect(() => {
     const element = document.querySelector(".form-control ");
     element.name = "phone";
+
+    // element.addEventListener("change", handleChangePhone);
   }, []);
   return (
     <motion.div
@@ -52,6 +66,7 @@ const InstrumentStep1 = ({ ChangeStepState, SendRequest }) => {
             disableSearchIcon={false}
             enableSearch={true}
             enableTerritories={true}
+            onChange={console.log("sjd")}
           />
 
           <div className="Instruments_form_checkbox">
@@ -92,13 +107,7 @@ const InstrumentStep1 = ({ ChangeStepState, SendRequest }) => {
             type="submit"
             onClick={(e) => {
               e.preventDefault();
-              SendRequest(e);
-              ChangeStepState(
-                <InstrumentStep2
-                  ChangeStepState={ChangeStepState}
-                  SendRequest={SendRequest}
-                />
-              );
+              CodeRequest(e);
             }}
           >
             Запросить код <i class="bi bi-arrow-right-circle-fill"></i>

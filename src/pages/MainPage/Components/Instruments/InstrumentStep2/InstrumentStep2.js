@@ -5,7 +5,7 @@ import InstrumentStep3 from "../InstrumentStep3/InstrumentStep3";
 import { submitCodeRequest } from "../InstrumentsRequest";
 import { getChannels } from "../InstrumentsRequest";
 
-const InstrumentStep2 = ({ ChangeStepState }) => {
+const InstrumentStep2 = ({ ChangeStepState, UserPhoneRes }) => {
   // useEffect(() => {
   //   getChannels();
   // }, []);
@@ -35,7 +35,6 @@ const InstrumentStep2 = ({ ChangeStepState }) => {
           <select
             onChange={(e) => getChannelsOfProject(e.target.value)}
             className="Instruments_form_selection"
-            name="channelType"
           >
             <option value="">Выберите тип канала</option>
             <option value="баинг">баинг</option>
@@ -60,14 +59,14 @@ const InstrumentStep2 = ({ ChangeStepState }) => {
             <option value="">Выберите канал</option>
             {channels?.map((el) => {
               const { channelType, name, channelId } = el;
-              return <option value={name + ":;:;" + channelId}>{name}</option>;
+              return <option value={channelId}>{name}</option>;
             })}
           </select>
           <button
             type="submit"
             onClick={(e) => {
               e.preventDefault();
-              submitCodeRequest(selectedChannel);
+              submitCodeRequest(UserPhoneRes);
               ChangeStepState(<InstrumentStep3 />);
             }}
           >

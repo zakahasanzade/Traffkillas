@@ -28,13 +28,13 @@ export async function getChannels(value) {
   }
 }
 
-export async function submitCodeRequest(e) {
+export async function submitCodeRequest(userPhone) {
   const form = document.getElementById("InstrumentForm");
   const getChannelValue = document.querySelector("#Instruments_form_channel");
-  const channelValues = getChannelValue.value.split(":;:;");
+
   const formData = new FormData(form);
-  formData.append("name", channelValues[0]);
-  formData.append("channelId", channelValues[1]);
+  formData.append("channelId", getChannelValue.value);
+  formData.append("userPhone", userPhone);
   await axios.post(`${messengerEndpoint}/api/v1/projects/assign`, formData, {
     headers: {
       "Content-Type": "application/json",
