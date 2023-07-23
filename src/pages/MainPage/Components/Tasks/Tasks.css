@@ -250,7 +250,7 @@ hr {
 }
 .sendData_task_responsiveTop .dropdown-container {
   color: black !important;
-  background: transparent;
+  background: transparent !important;
 }
 .sendData_task_responsiveTop .rmsc .dropdown-container {
   border: 0;
