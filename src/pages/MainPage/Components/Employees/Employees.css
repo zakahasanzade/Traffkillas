@@ -434,13 +434,19 @@
 @media screen and (min-width: 768px) and (max-width: 1000px) {
 }
 @media screen and (min-width: 480px) and (max-width: 768px) {
+  .employee .wrapper .list .rmsc .dropdown-heading {
+    width: 167px;
+  }
 }
 @media screen and (min-width: 0px) and (max-width: 480px) {
   .employee_header_navbar_responsive {
     font-size: 12px;
   }
-  .wrapper .list .rmsc .dropdown-heading {
-    width: 167px;
+  .employee .wrapper .list .rmsc .dropdown-heading {
+    width: 145px;
+  }
+  .employee_account_list button {
+    font-size: smaller;
   }
 }
 @media screen and (min-width: 0px) and (max-width: 768px) {
@@ -479,9 +485,7 @@
   .employee_info {
     font-size: 16px;
   }
-  .employee_account_list button {
-    content: "spdf";
-  }
+  
   .employee_account_list button span {
     display: none;
   }
