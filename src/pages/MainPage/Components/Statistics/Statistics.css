@@ -417,6 +417,9 @@
   .statistics_submenu_div_edit {
     width: 50px;
   }
+  .statistics_submenu_div_edit:nth-child(1) {
+    width: initial;
+  }
 }
 @media screen and (min-width: 0px) and (max-width: 480px) {
   .statistics_account_left_img img {
@@ -467,6 +470,9 @@
   }
   .statistics_submenu_div_edit {
     width: 50px;
+  }
+  .statistics_submenu_div_edit:nth-child(1) {
+    width: initial;
   }
 }
 @media screen and (min-width: 0px) and (max-width: 560px) {
