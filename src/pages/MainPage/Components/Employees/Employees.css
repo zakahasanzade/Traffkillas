@@ -437,7 +437,7 @@
 }
 @media screen and (min-width: 0px) and (max-width: 480px) {
   .employee_header_navbar_responsive {
-    font-size: 14px;
+    font-size: 12px;
   }
   .wrapper .list .rmsc .dropdown-heading {
     width: 167px;
@@ -448,7 +448,9 @@
     width: 48px;
     max-height: 48px;
   }
-
+  .employee .rmsc .dropdown-container {
+    background: transparent;
+  }
   .employee_info_SelectProjects {
     flex-direction: column;
   }
