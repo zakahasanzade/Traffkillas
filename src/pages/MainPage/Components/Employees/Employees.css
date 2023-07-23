@@ -172,6 +172,7 @@
   gap: 5px;
   display: flex;
   align-items: center;
+  overflow-wrap: anywhere;
 }
 .employee_account_left_position {
   font-size: 20px;
@@ -438,9 +439,20 @@
   .employee_header_navbar_responsive {
     font-size: 14px;
   }
+  .wrapper .list .rmsc .dropdown-heading {
+    width: 167px;
+  }
 }
 @media screen and (min-width: 0px) and (max-width: 768px) {
   .employee_account_left img {
+    width: 48px;
+    max-height: 48px;
+  }
+
+  .employee_info_SelectProjects {
+    flex-direction: column;
+  }
+  .employee_account_left_pictureAvatar {
     width: 48px;
     height: 48px;
   }

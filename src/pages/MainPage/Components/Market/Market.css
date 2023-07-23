@@ -18,6 +18,7 @@
 .market_product {
   max-width: 212px;
   padding: 15px 10px;
+  cursor: pointer;
 }
 .market_product img {
   width: 170px;
@@ -37,6 +38,7 @@
   flex-direction: column;
   justify-content: space-between;
   color: white;
+  cursor: pointer;
 }
 .ProofBuy_content {
   font-size: 24px;
@@ -100,7 +102,7 @@
   line-height: 150%;
 }
 .market_product img {
-  width: 197px;
+  width: 190px;
   height: 208px;
 }
 .market_send {
@@ -293,6 +295,9 @@
     width: 170px;
     height: 190px;
   }
+  .ProofBuy {
+    min-height: 340px;
+  }
 }
 @media screen and (min-width: 473px) and (max-width: 695px) {
   .market_products {
@@ -305,6 +310,9 @@
   .market_product img {
     width: 170px;
     height: 190px;
+  }
+  .ProofBuy {
+    min-height: 340px;
   }
 }
 @media screen and (min-width: 0px) and (max-width: 473px) {
