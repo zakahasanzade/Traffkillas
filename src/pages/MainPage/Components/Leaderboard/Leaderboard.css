@@ -189,13 +189,11 @@
   }
   .leader_img img {
     width: 48px;
-    max-height: 48px;
   }
   .leader_img {
     margin-right: 8px;
     width: 48px;
     height: 48px;
-    
   }
   .leader_info_footer {
     font-size: 16px;
