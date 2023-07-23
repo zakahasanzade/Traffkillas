@@ -14,6 +14,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { CSSTransition } from "react-transition-group";
+import { MultiSelect } from "react-multi-select-component";
 import { MenuProps, useStyles, options, App } from "./Utilities/utils";
 // import Accordion from "@mui/material/Accordion";
 // import AccordionSummary from "@mui/material/AccordionSummary";
@@ -36,6 +37,8 @@ const Tasks = ({ position, mode }) => {
       CalendarValue.getMonth() + 1 + CalendarValue.toDateString().slice(7)
     );
 
+    console.log(selected);
+
     formData.append("worker", selected);
     formData.append("type", TextCurrency);
 
@@ -46,6 +49,8 @@ const Tasks = ({ position, mode }) => {
         },
       })
       .then((res) => {
+        setSelected([]);
+        setSelectedEmployers([]);
         getManageData();
         getWorkData();
       })
@@ -261,18 +266,18 @@ const Tasks = ({ position, mode }) => {
   const isAllSelected =
     options.length > 0 && selected.length === options.length;
 
-  const handleChange = (event) => {
-    const value = event.target.value;
-    if (value[value.length - 1] === "all") {
-      setSelected(
-        selected.length === options.length
-          ? []
-          : options.map((block) => block._id)
-      );
-      return;
-    }
-    setSelected(value);
-  };
+  // const handleChange = (event) => {
+  //   const value = event.target.value;
+  //   if (value[value.length - 1] === "all") {
+  //     setSelected(
+  //       selected.length === options.length
+  //         ? []
+  //         : options.map((block) => block._id)
+  //     );
+  //     return;
+  //   }
+  //   setSelected(value);
+  // };
 
   const isSelected = (id) => {
     return selected.indexOf(id) > -1;
@@ -307,6 +312,8 @@ const Tasks = ({ position, mode }) => {
     for (i = 0; i < WorkerSelect.length; i++) {
       ChangeColor(WorkerSelect[i]);
     }
+    const formControl = document.querySelector(".dropdown-heading");
+    formControl.style.color = mode ? "black" : "white";
     // const firstinput = document.querySelectorAll(".firstinput");
     // for (var i = 0; i < firstinput.length; i++) {
     //   ChangeColor(firstinput[i]);
@@ -355,6 +362,7 @@ const Tasks = ({ position, mode }) => {
       setShowCalendar(false);
     };
     document.body.addEventListener("click", CloseCalendar);
+    fetchEmployeersData();
   }, []);
   // useEffect(() => {
   //   const WorkerSelect = document.querySelectorAll(".makeStyles-inputLabel-2");
@@ -373,13 +381,44 @@ const Tasks = ({ position, mode }) => {
   const CompltetedScroll = () => {
     CompletedRef.current.scrollIntoView({ behavior: "smooth" });
   };
+  // useEffect(() => {
+  //   if (position === "1" || position === "0") {
+  //     document.querySelector(".MuiSelect-select").style.color = mode
+  //       ? "black"
+  //       : "white";
+  //   }
+  // }, [mode]);
+  const [employeerOptions, setEmployeerOptions] = useState([]);
+  const [selectedEmployers, setSelectedEmployers] = useState([]);
   useEffect(() => {
-    if (position === "1" || position === "0") {
-      document.querySelector(".MuiSelect-select").style.color = mode
-        ? "black"
-        : "white";
+    const EmplList = selectedEmployers.map((el) => {
+      return el.value;
+    });
+    setSelected(EmplList);
+  }, [selectedEmployers]);
+
+  const fetchEmployeersData = async () => {
+    const headers = {
+      "Content-Type": "application/json",
+      token: localStorage.getItem("token"),
+    };
+    try {
+      const response = await axios.get(
+        "https://api1.traffkillas.kz/get_workers",
+        { headers }
+      );
+      setEmployeerOptions(
+        response.data.data.map((item) => ({
+          value: item._id,
+          label: item.username,
+        }))
+      );
+      console.log("Response:", response.data.data);
+      console.log("Arr:", employeerOptions);
+    } catch (error) {
+      console.log(error);
     }
-  }, [mode]);
+  };
   if (position === "3") {
     return (
       <motion.div
@@ -750,7 +789,7 @@ const Tasks = ({ position, mode }) => {
                         <Typography>I'm also JS developer</Typography>
                       </AccordionDetails>
                     </Accordion> */}
-                      <FormControl
+                      {/* <FormControl
                         className={classes.formControl}
                         onClick={(e) => e.stopPropagation()}
                         style={
@@ -819,7 +858,7 @@ const Tasks = ({ position, mode }) => {
                             </MenuItem>
                           ))}
                         </Select>
-                      </FormControl>
+                      </FormControl> */}
                     </div>
                     <div className="senData_task_inputsForm">
                       <input
@@ -1544,7 +1583,7 @@ const Tasks = ({ position, mode }) => {
                         <Typography>I'm also JS developer</Typography>
                       </AccordionDetails>
                     </Accordion> */}
-                      <FormControl
+                      {/* <FormControl
                         className={
                           mode
                             ? classes.formControl + " light"
@@ -1606,7 +1645,16 @@ const Tasks = ({ position, mode }) => {
                             </MenuItem>
                           ))}
                         </Select>
-                      </FormControl>
+                      </FormControl> */}
+                      <MultiSelect
+                        options={employeerOptions}
+                        value={selectedEmployers}
+                        onChange={(e) => {
+                          setSelectedEmployers(e);
+                        }}
+                        labelledBy={"Select"}
+                        isCreatable={true}
+                      />
                     </div>
                     <div className="senData_task_inputsForm">
                       <input

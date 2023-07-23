@@ -245,6 +245,16 @@ hr {
   font-size: 16px;
   gap: 13px;
 }
+.sendData_task_responsiveTop .dropdown-heading {
+  max-width: 110px;
+}
+.sendData_task_responsiveTop .dropdown-container {
+  color: black !important;
+  background: transparent;
+}
+.sendData_task_responsiveTop .rmsc .dropdown-container {
+  border: 0;
+}
 .sendData_task_responsiveBottom {
   display: flex;
   justify-content: space-between;
