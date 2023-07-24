@@ -41,7 +41,7 @@ const MainPage = ({ editStatRole, position, ModeChange, mode }) => {
   const [show, setShow] = useState(false);
   const getHeaderData = () => {
     let x = null;
-    fetch("https://api1.traffkillas.kz/get_profile_info", {
+    fetch("https://api1.tkcrmsystem.com/get_profile_info", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

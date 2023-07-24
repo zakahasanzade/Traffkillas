@@ -7,7 +7,7 @@ import { CSSTransition } from "react-transition-group";
 const EmployerLeaderboard = ({ position, mode }) => {
   const [employerLeaderboard, setEmployerLeaderboard] = useState([]);
   const GetEmployerLeaderboard = () => {
-    fetch(`https://api1.traffkillas.kz/get_leaderboard_users`, {
+    fetch(`https://api1.tkcrmsystem.com/get_leaderboard_users`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +24,7 @@ const EmployerLeaderboard = ({ position, mode }) => {
       });
   };
   const GetEmployerLeaderboardForWeek = () => {
-    fetch(`https://api1.traffkillas.kz/get_leaderboard_users`, {
+    fetch(`https://api1.tkcrmsystem.com/get_leaderboard_users`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +41,7 @@ const EmployerLeaderboard = ({ position, mode }) => {
       });
   };
   const GetEmployerLeaderboardForTwoWeek = () => {
-    fetch(`https://api1.traffkillas.kz/get_leaderboard_users`, {
+    fetch(`https://api1.tkcrmsystem.com/get_leaderboard_users`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -90,7 +90,7 @@ const EmployerLeaderboard = ({ position, mode }) => {
   };
   const EditCalendarValue = (channel_id) => {
     fetch(
-      `https://api1.traffkillas.kz/get_statistic?from_time=${ChangeFormatDate(
+      `https://api1.tkcrmsystem.com/get_statistic?from_time=${ChangeFormatDate(
         selectionRange.startDate
       )}&to_time=${ChangeFormatDate(selectionRange.endDate)}`,
       {

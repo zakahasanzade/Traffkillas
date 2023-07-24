@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const crmEndpoint = "https://api2.traffkillas.kz";
-const messengerEndpoint = "https://api2.traffkillas.kz";
+const crmEndpoint = "https://api2.tkcrmsystem.com";
+const messengerEndpoint = "https://api2.tkcrmsystem.com";
 export async function sendCodeRequest(e) {
   await axios.post(`${crmEndpoint}/request_code`, e, {
     headers: {

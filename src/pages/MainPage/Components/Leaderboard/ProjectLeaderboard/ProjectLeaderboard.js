@@ -10,7 +10,7 @@ import { CSSTransition } from "react-transition-group";
 const ProjectLeaderboard = ({ position, mode }) => {
   const [projectLeaderboard, setProjectLeaderboard] = useState([]);
   const GetProjectLeaderboard = () => {
-    fetch(`https://api1.traffkillas.kz/get_leaderboard?sort=${true}`, {
+    fetch(`https://api1.tkcrmsystem.com/get_leaderboard?sort=${true}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -25,7 +25,7 @@ const ProjectLeaderboard = ({ position, mode }) => {
       });
   };
   const GetProjectLeaderboardForWeek = () => {
-    fetch(`https://api1.traffkillas.kz/get_leaderboard?sort=${true}`, {
+    fetch(`https://api1.tkcrmsystem.com/get_leaderboard?sort=${true}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -40,7 +40,7 @@ const ProjectLeaderboard = ({ position, mode }) => {
       });
   };
   const GetProjectLeaderboardForTwoWeek = () => {
-    fetch(`https://api1.traffkillas.kz/get_leaderboard?sort=${true}`, {
+    fetch(`https://api1.tkcrmsystem.com/get_leaderboard?sort=${true}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -87,7 +87,7 @@ const ProjectLeaderboard = ({ position, mode }) => {
   };
   const EditCalendarValue = (channel_id) => {
     fetch(
-      `https://api1.traffkillas.kz/get_leaderboard?from_time=${ChangeFormatDate(
+      `https://api1.tkcrmsystem.com/get_leaderboard?from_time=${ChangeFormatDate(
         selectionRange.startDate
       )}&to_time=${ChangeFormatDate(selectionRange.endDate)}`,
       {

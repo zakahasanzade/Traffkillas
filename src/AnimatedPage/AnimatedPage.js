@@ -17,7 +17,7 @@ import StatisticsInfluencer from "../pages/MainPage/Components/Statistics/Statis
 import { AnimatePresence } from "framer-motion/dist/framer-motion";
 
 const AnimatedPage = ({ ChangeMode, mode }) => {
-  // fetch("https://api1.traffkillas.kz/login", {
+  // fetch("https://api1.tkcrmsystem.com/login", {
   //   method: "GET",
   //   headers: {
   //     "Token": localStorage.getItem("token"),

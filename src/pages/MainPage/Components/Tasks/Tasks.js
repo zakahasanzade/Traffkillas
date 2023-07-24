@@ -43,7 +43,7 @@ const Tasks = ({ position, mode }) => {
     formData.append("type", TextCurrency);
 
     axios
-      .post("https://api1.traffkillas.kz/post_task", formData, {
+      .post("https://api1.tkcrmsystem.com/post_task", formData, {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -63,7 +63,7 @@ const Tasks = ({ position, mode }) => {
   };
   const ConfirmAvailableTask = (e) => {
     e.preventDefault();
-    fetch("https://api1.traffkillas.kz/confirm_task", {
+    fetch("https://api1.tkcrmsystem.com/confirm_task", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -84,7 +84,7 @@ const Tasks = ({ position, mode }) => {
   };
   const CompleteInProcessTask = (e, TextArea) => {
     e.preventDefault();
-    fetch("https://api1.traffkillas.kz/complate_task", {
+    fetch("https://api1.tkcrmsystem.com/complate_task", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -108,7 +108,7 @@ const Tasks = ({ position, mode }) => {
   };
   const ReopenCompleteTask = (e) => {
     e.preventDefault();
-    fetch("https://api1.traffkillas.kz/reopen_task", {
+    fetch("https://api1.tkcrmsystem.com/reopen_task", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -129,7 +129,7 @@ const Tasks = ({ position, mode }) => {
   };
   const FinishInProcessTask = (e) => {
     e.preventDefault();
-    fetch("https://api1.traffkillas.kz/finish_task", {
+    fetch("https://api1.tkcrmsystem.com/finish_task", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -150,7 +150,7 @@ const Tasks = ({ position, mode }) => {
   };
   const DeletePost = (e) => {
     e.preventDefault();
-    fetch("https://api1.traffkillas.kz/delete_task", {
+    fetch("https://api1.tkcrmsystem.com/delete_task", {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
@@ -175,7 +175,7 @@ const Tasks = ({ position, mode }) => {
   const [WorkData, SetWorkData] = useState();
 
   const getWorkData = () => {
-    fetch("https://api1.traffkillas.kz/get_task", {
+    fetch("https://api1.tkcrmsystem.com/get_task", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -197,7 +197,7 @@ const Tasks = ({ position, mode }) => {
   // let ManageDataArr = [];
   const [ManageData, SetManageData] = useState();
   const getManageData = () => {
-    fetch("https://api1.traffkillas.kz/get_task", {
+    fetch("https://api1.tkcrmsystem.com/get_task", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -404,7 +404,7 @@ const Tasks = ({ position, mode }) => {
     };
     try {
       const response = await axios.get(
-        "https://api1.traffkillas.kz/get_workers",
+        "https://api1.tkcrmsystem.com/get_workers",
         { headers }
       );
       setEmployeerOptions(

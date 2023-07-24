@@ -16,7 +16,7 @@ const Market = ({ mode, position }) => {
   const [assets, SetAssets] = useState();
   const getAssets = () => {
     document.cookie = "test=hello;";
-    fetch("https://api1.traffkillas.kz/get_market", {
+    fetch("https://api1.tkcrmsystem.com/get_market", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,7 @@ const Market = ({ mode, position }) => {
     const formData = new FormData(form);
     axios
       .post(
-        "https://api1.traffkillas.kz/add_market",
+        "https://api1.tkcrmsystem.com/add_market",
         formData,
         {
           headers: {
@@ -66,7 +66,7 @@ const Market = ({ mode, position }) => {
   }
   const DeletePost = (e) => {
     // e.preventDefault();
-    fetch("https://api1.traffkillas.kz/delete_market", {
+    fetch("https://api1.tkcrmsystem.com/delete_market", {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
@@ -114,7 +114,7 @@ const Market = ({ mode, position }) => {
     }
   };
   const BuyProduct = (e, index) => {
-    fetch("https://api1.traffkillas.kz/buy_market", {
+    fetch("https://api1.tkcrmsystem.com/buy_market", {
       method: "POST",
       credentials: "include",
       headers: {

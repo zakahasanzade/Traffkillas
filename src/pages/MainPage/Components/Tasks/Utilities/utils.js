@@ -55,7 +55,7 @@ const MenuProps = {
 let WorkersData = null;
 let options = [];
 const App = () => {
-  fetch("https://api1.traffkillas.kz/get_workers", {
+  fetch("https://api1.tkcrmsystem.com/get_workers", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

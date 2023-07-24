@@ -18,7 +18,7 @@ const News = ({ position, mode }) => {
   // SEND VALUES FROM ELEMENT TO SERVER //
 
   const getData = () => {
-    fetch("https://api1.traffkillas.kz/get_news", {
+    fetch("https://api1.tkcrmsystem.com/get_news", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +59,7 @@ const News = ({ position, mode }) => {
     formData.append("color", newsColor);
     formData.append("hashtag", newsTag);
     axios
-      .post("https://api1.traffkillas.kz/post_news", formData, {
+      .post("https://api1.tkcrmsystem.com/post_news", formData, {
         headers: {
           Token: localStorage.getItem("token"),
         },
@@ -72,7 +72,7 @@ const News = ({ position, mode }) => {
         alert(error);
       });
     form.reset();
-    // fetch("https://api1.traffkillas.kz/post_news", {
+    // fetch("https://api1.tkcrmsystem.com/post_news", {
     //   method: "POST",
     //   headers: {
     //     "Content-type": "application/json",
@@ -92,7 +92,7 @@ const News = ({ position, mode }) => {
   };
   const DeletePost = (e) => {
     e.preventDefault();
-    fetch("https://api1.traffkillas.kz/delete_news", {
+    fetch("https://api1.tkcrmsystem.com/delete_news", {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
@@ -153,7 +153,7 @@ const News = ({ position, mode }) => {
     if (fetching) {
       axios
         .get(
-          `https://api1.traffkillas.kz/get_news?limit=10&page=${currentPage}`
+          `https://api1.tkcrmsystem.com/get_news?limit=10&page=${currentPage}`
         )
         .then((response) => {
           setPost([...post, ...response.data.data]);

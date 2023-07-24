@@ -73,7 +73,7 @@ const Authorization = () => {
     const headers = {
       "Content-type": "application/json",
     };
-    fetch("https://api1.traffkillas.kz/login", {
+    fetch("https://api1.tkcrmsystem.com/login", {
       method: "POST",
       headers: headers,
       withCredentials: true,

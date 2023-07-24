@@ -111,7 +111,7 @@ const Profile = ({ position, mode }) => {
   var ProfileArr = [];
   const [profileInfo, SetProfileInfo] = useState();
   const GetProfileData = () => {
-    fetch("https://api1.traffkillas.kz/get_profile_info", {
+    fetch("https://api1.tkcrmsystem.com/get_profile_info", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -132,7 +132,7 @@ const Profile = ({ position, mode }) => {
   var AdminArr = [];
   const [AdminInfo, SetAdminInfo] = useState();
   const GetAdminData = () => {
-    fetch("https://api1.traffkillas.kz/get_admin_panel", {
+    fetch("https://api1.tkcrmsystem.com/get_admin_panel", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -173,7 +173,7 @@ const Profile = ({ position, mode }) => {
       : formData.append("middle_name", "");
 
     axios
-      .post("https://api1.traffkillas.kz/edit_profile_info", formData, {
+      .post("https://api1.tkcrmsystem.com/edit_profile_info", formData, {
         headers: {
           "Content-type": "application/json",
           token: localStorage.getItem("token"),
@@ -194,7 +194,7 @@ const Profile = ({ position, mode }) => {
     let element = el.target.id;
     let data = `{"${element}": "${EditElement}"}`;
 
-    fetch("https://api1.traffkillas.kz/edit_admin_panel", {
+    fetch("https://api1.tkcrmsystem.com/edit_admin_panel", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -217,7 +217,7 @@ const Profile = ({ position, mode }) => {
   };
   const [notifications, setNotifications] = useState([]);
   const GetNotifications = () => {
-    fetch("https://api1.traffkillas.kz/get_notifications", {
+    fetch("https://api1.tkcrmsystem.com/get_notifications", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -264,7 +264,7 @@ const Profile = ({ position, mode }) => {
     const form = document.querySelector(`.profile_header_right_img`);
     const formData = new FormData(form);
     axios
-      .post("https://api1.traffkillas.kz/edit_profile_photo", formData, {
+      .post("https://api1.tkcrmsystem.com/edit_profile_photo", formData, {
         headers: {
           token: localStorage.getItem("token"),
         },

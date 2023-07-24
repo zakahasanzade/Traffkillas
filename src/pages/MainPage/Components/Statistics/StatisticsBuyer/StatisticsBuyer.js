@@ -41,7 +41,7 @@ const StatisticsBuyer = ({ position, mode }) => {
   const [Statistics, setStatistics] = useState();
   const [filerStatistics, setFilterStatistics] = useState(Statistics);
   const GetStatisticsData = () => {
-    fetch("https://api1.traffkillas.kz/get_statistic", {
+    fetch("https://api1.tkcrmsystem.com/get_statistic", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const StatisticsBuyer = ({ position, mode }) => {
     formData.append("channel_id", e.target.id);
     axios
       .post(
-        "https://api1.traffkillas.kz/add_project_image",
+        "https://api1.tkcrmsystem.com/add_project_image",
         formData,
         {
           headers: {
@@ -114,7 +114,7 @@ const StatisticsBuyer = ({ position, mode }) => {
       SetStatisticsInfo(!StatisticsInfo);
     } else if (StatisticsInfo == true) {
       e.preventDefault();
-      fetch("https://api1.traffkillas.kz/add_dep_reg", {
+      fetch("https://api1.tkcrmsystem.com/add_dep_reg", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -149,7 +149,7 @@ const StatisticsBuyer = ({ position, mode }) => {
           return response.text();
         })
         .then((result) => {
-          fetch("https://api1.traffkillas.kz/get_statistic", {
+          fetch("https://api1.tkcrmsystem.com/get_statistic", {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -229,7 +229,7 @@ const StatisticsBuyer = ({ position, mode }) => {
   };
   const EditCalendarValue = (channel_id) => {
     fetch(
-      `https://api1.traffkillas.kz/get_statistic?from_time=${from_time}&to_time=${to_time}&channel_id=${channel_id}`,
+      `https://api1.tkcrmsystem.com/get_statistic?from_time=${from_time}&to_time=${to_time}&channel_id=${channel_id}`,
       {
         method: "GET",
         headers: {
@@ -294,7 +294,7 @@ const StatisticsBuyer = ({ position, mode }) => {
   }, [statisticsState]);
   const setChecked = (channel_id, e) => {
     e.preventDefault();
-    fetch("https://api1.traffkillas.kz/change_active", {
+    fetch("https://api1.tkcrmsystem.com/change_active", {
       method: "POST",
       headers: {
         "Content-type": "application/json",

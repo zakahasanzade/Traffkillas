@@ -29,7 +29,7 @@ const Employees = ({ position, mode, channel_type }) => {
   const [enableCreate, setEnableCreate] = useState(true);
   const positionOfEmployee = position;
   const GetEmployeeData = () => {
-    fetch("https://api1.traffkillas.kz/get_users", {
+    fetch("https://api1.tkcrmsystem.com/get_users", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +52,7 @@ const Employees = ({ position, mode, channel_type }) => {
   };
   const [employeeGiftData, SetEmployeeGiftData] = useState();
   const GetEmployeeGifts = () => {
-    fetch("https://api1.traffkillas.kz/get_orders", {
+    fetch("https://api1.tkcrmsystem.com/get_orders", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const Employees = ({ position, mode, channel_type }) => {
     const ElementId = e.target.id;
     axios
       .post(
-        "https://api1.traffkillas.kz/accept_order",
+        "https://api1.tkcrmsystem.com/accept_order",
         { _id: ElementId },
         {
           headers: {
@@ -114,7 +114,7 @@ const Employees = ({ position, mode, channel_type }) => {
     });
     formData.append("project", Array.from(TestArr));
     axios
-      .post("https://api1.traffkillas.kz/create_user", formData, {
+      .post("https://api1.tkcrmsystem.com/create_user", formData, {
         headers: {
           token: localStorage.getItem("token"),
           "Content-type": "application/json",
@@ -135,7 +135,7 @@ const Employees = ({ position, mode, channel_type }) => {
   // let employeeUsername = document.getElementById("employeeUsername");
   const SubmitDelete = (e) => {
     e.preventDefault();
-    fetch("https://api1.traffkillas.kz/delete_user", {
+    fetch("https://api1.tkcrmsystem.com/delete_user", {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
@@ -203,7 +203,7 @@ const Employees = ({ position, mode, channel_type }) => {
   const [ProjectName, SetProjectName] = useState([]);
   const [selectedProject, setSelectedProject] = useState();
   const GetProjectName = () => {
-    fetch("https://api1.traffkillas.kz/get_statistic_name", {
+    fetch("https://api1.tkcrmsystem.com/get_statistic_name", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -237,7 +237,7 @@ const Employees = ({ position, mode, channel_type }) => {
         ResultEditProject.push(el.project);
       }
     });
-    fetch("https://api1.traffkillas.kz/edit_project", {
+    fetch("https://api1.tkcrmsystem.com/edit_project", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -258,7 +258,7 @@ const Employees = ({ position, mode, channel_type }) => {
   const [statusEditSalary, setStatusEditSalary] = useState(false);
   const [editSalary, setEditSalary] = useState();
   const EditSubmit = (username) => {
-    fetch("https://api1.traffkillas.kz/edit_salary", {
+    fetch("https://api1.tkcrmsystem.com/edit_salary", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -273,7 +273,7 @@ const Employees = ({ position, mode, channel_type }) => {
         return response.text();
       })
       .then((result) => {
-        fetch("https://api1.traffkillas.kz/get_users", {
+        fetch("https://api1.tkcrmsystem.com/get_users", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
