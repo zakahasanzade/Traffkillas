@@ -62,8 +62,36 @@
   .thread__input {
     margin: 10px 5px !important;
   }
+ 
 }
 @media screen and (min-width: 0px) and (max-width: 480px) {
+  .sidebar_accounts_img img {
+    max-width: 30px;
+    max-height: 30px;
+  }
+  .sidebar_accounts_info_title {
+    font-size: 12px;
+  }
+  .sidebar_accounts_info_message {
+    font-size: 10px;
+    width: 80px;
+  }
+  .sidebar_accounts_notification_time {
+    font-size: 8px;
+  }
+  .thread__input_template i {
+    font-size: 22px !important;
+  }
+  .thread__input_template {
+    background-color: transparent !important;
+    padding: 2px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .thread__input {
+    margin: 10px 5px !important;
+  }
 }
 @media screen and (min-width: 0px) and (max-width: 1000px) {
   .thread__input {

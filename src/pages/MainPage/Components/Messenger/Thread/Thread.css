@@ -362,6 +362,56 @@ li.repaly .time {
 @media screen and (min-width: 768px) and (max-width: 1000px) {
 }
 @media screen and (min-width: 480px) and (max-width: 768px) {
+  .thread__header_left_picture img {
+    max-width: 35px;
+    max-height: 35px;
+  }
+  .thread__header_left_info h1 {
+    font-size: 15px;
+  }
+  .thread__header_left_info p {
+    font-size: 10px;
+  }
+  .thread__header_right i {
+    font-size: 15px;
+  }
+  .thread__input_send i {
+    font-size: 20px;
+  }
+  .thread__messages .modal-body {
+    padding: 3px 0.5em;
+  }
+  .thread__messages .msg-body ul li.sender p {
+    font-size: 13px;
+  }
+  .thread__messages .msg-body ul li.repaly p {
+    font-size: 13px;
+  }
 }
 @media screen and (min-width: 0px) and (max-width: 480px) {
+  .thread__header_left_picture img {
+    max-width: 35px;
+    max-height: 35px;
+  }
+  .thread__header_left_info h1 {
+    font-size: 15px;
+  }
+  .thread__header_left_info p {
+    font-size: 10px;
+  }
+  .thread__header_right i {
+    font-size: 15px;
+  }
+  .thread__input_send i {
+    font-size: 20px;
+  }
+  .thread__messages .modal-body {
+    padding: 3px 0.5em;
+  }
+  .thread__messages .msg-body ul li.sender p {
+    font-size: 13px;
+  }
+  .thread__messages .msg-body ul li.repaly p {
+    font-size: 13px;
+  }
 }
