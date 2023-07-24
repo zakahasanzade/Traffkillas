@@ -66,6 +66,12 @@ const MainPage = ({ editStatRole, position, ModeChange, mode }) => {
   const ViewProfile = () => {
     navigate("/MainPage/Profile");
   };
+  const [showNav, setShowNav] = useState(false);
+  const OpenNavBar = () => {
+    if (window.innerWidth <= 1000) {
+      setShowNav(!showNav);
+    }
+  };
 
   return (
     <>
@@ -82,6 +88,8 @@ const MainPage = ({ editStatRole, position, ModeChange, mode }) => {
             ViewProfile={ViewProfile}
             SetShowProfileInfo={SetShowProfileInfo}
             position={position}
+            OpenNavBar={OpenNavBar}
+            showNav={showNav}
           />
         }
       </div>
@@ -174,94 +182,97 @@ const MainPage = ({ editStatRole, position, ModeChange, mode }) => {
           </ul>
         </nav>
       </div>
-      <nav
-        style={
-          mode
-            ? { backgroundColor: "white", color: "black" }
-            : { backgroundColor: "black", color: "white" }
-        }
-        className="responsive_nav"
-      >
-        <div className="responsive_nav_top">
-          <div className="header_profile_buttons">
-            {mode ? (
-              <i onClick={ChangeMode} className="bi bi-sun-fill"></i>
-            ) : (
-              <i onClick={ChangeMode} className="bi bi-moon-stars-fill"></i>
-            )}
-            <i onClick={OpeanMessenger} className="bi bi-chat-quote-fill"></i>
-          </div>
-          <button
-            style={mode ? { color: "black" } : { color: "white" }}
-            id="profile_button"
-          >
-            <p>{show ? HeaderData?.first_name : HeaderData?.first_name}</p>
-            <img
-              src={HeaderData?.image}
-              alt="ProfilePhoto"
-              onClick={(e) => {
-                e.stopPropagation();
-                ViewProfile();
-              }}
-            />
-          </button>
-        </div>
-        <ul
-          className={
-            mode ? "header_navbar_ul light_navbar_ul" : "header_navbar_ul "
+      {showNav && (
+        <nav
+          style={
+            mode
+              ? { backgroundColor: "white", color: "black" }
+              : { backgroundColor: "black", color: "white" }
           }
+          className="responsive_nav"
         >
-          <CustomLink className="CustomLink" to="/MainPage/">
-            Новости
-          </CustomLink>
-          <CustomLink className="CustomLink" to="/MainPage/Tasks">
-            Задания
-          </CustomLink>
-          <CustomLink className="CustomLink" to="/MainPage/Statistics">
-            Статистика
-          </CustomLink>
-          <div className="custom_dropdown">
-            <p
-              className={
-                dropdown
-                  ? "navbar_dropdown_active navbar_dropdonw_Li"
-                  : "navbar_dropdonw_Li"
-              }
+          <div className="responsive_nav_top">
+            <div className="header_profile_buttons">
+              {mode ? (
+                <i onClick={ChangeMode} className="bi bi-sun-fill"></i>
+              ) : (
+                <i onClick={ChangeMode} className="bi bi-moon-stars-fill"></i>
+              )}
+              <i onClick={OpeanMessenger} className="bi bi-chat-quote-fill"></i>
+            </div>
+            <button
               style={mode ? { color: "black" } : { color: "white" }}
+              id="profile_button"
             >
-              Лидерборд
-            </p>
-            <ul className="navbar_dropdown_menu">
-              <Link to="/MainPage/ProjectLeaderboard">Проекты</Link>
-              <Link to="/MainPage/EmployerLeaderboard">Cоотрудники</Link>
-            </ul>
+              <p>{show ? HeaderData?.first_name : HeaderData?.first_name}</p>
+              <img
+                src={HeaderData?.image}
+                alt="ProfilePhoto"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  ViewProfile();
+                }}
+              />
+            </button>
           </div>
-          <CustomLink className="CustomLink" to="/MainPage/Market">
-            Маркет
-          </CustomLink>
-          {position !== "3" && (
-            <CustomLink className="CustomLink" to="/MainPage/Instruments">
-              Инструменты
+          <ul
+            className={
+              mode ? "header_navbar_ul light_navbar_ul" : "header_navbar_ul "
+            }
+          >
+            <CustomLink className="CustomLink" to="/MainPage/">
+              Новости
             </CustomLink>
-          )}
-          {position !== "3" && (
-            <CustomLink className="CustomLink" to="/MainPage/Employees">
-              Сотрудники
+            <CustomLink className="CustomLink" to="/MainPage/Tasks">
+              Задания
             </CustomLink>
-          )}
-        </ul>
-        <ul className="profile_button_info" id="time">
-          <li className="profile_button_info_li">
-            <p className="red">₸ {HeaderData?.tenge} </p>
-          </li>
-          <li className="profile_button_info_li">
-            <p>{HeaderData?.mmr}MMR</p>
-          </li>
-          <li className="profile_button_info_li">
-            <p className="orange">{HeaderData?.ttk}TTK</p>
-          </li>
-        </ul>
-      </nav>
+            <CustomLink className="CustomLink" to="/MainPage/Statistics">
+              Статистика
+            </CustomLink>
+            <div className="custom_dropdown">
+              <p
+                className={
+                  dropdown
+                    ? "navbar_dropdown_active navbar_dropdonw_Li"
+                    : "navbar_dropdonw_Li"
+                }
+                style={mode ? { color: "black" } : { color: "white" }}
+              >
+                Лидерборд
+              </p>
+              <ul className="navbar_dropdown_menu">
+                <Link to="/MainPage/ProjectLeaderboard">Проекты</Link>
+                <Link to="/MainPage/EmployerLeaderboard">Cоотрудники</Link>
+              </ul>
+            </div>
+            <CustomLink className="CustomLink" to="/MainPage/Market">
+              Маркет
+            </CustomLink>
+            {position !== "3" && (
+              <CustomLink className="CustomLink" to="/MainPage/Instruments">
+                Инструменты
+              </CustomLink>
+            )}
+            {position !== "3" && (
+              <CustomLink className="CustomLink" to="/MainPage/Employees">
+                Сотрудники
+              </CustomLink>
+            )}
+          </ul>
+          <ul className="profile_button_info" id="time">
+            <li className="profile_button_info_li">
+              <p className="red">₸ {HeaderData?.tenge} </p>
+            </li>
+            <li className="profile_button_info_li">
+              <p>{HeaderData?.mmr}MMR</p>
+            </li>
+            <li className="profile_button_info_li">
+              <p className="orange">{HeaderData?.ttk}TTK</p>
+            </li>
+          </ul>
+        </nav>
+      )}
+
       <Outlet />
     </>
   );

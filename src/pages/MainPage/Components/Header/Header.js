@@ -19,6 +19,8 @@ const Header = ({
   show,
   SetShowProfileInfo,
   position,
+  OpenNavBar,
+  
 }) => {
   const ChangeMode = () => {
     // setMode(!mode);
@@ -29,7 +31,11 @@ const Header = ({
     <>
       <div className="header">
         <div className="header_logo">
-          <img src={mode ? MainLogoLight : MainLogo} alt="MainLogo" />
+          <img
+            onClick={() => OpenNavBar()}
+            src={mode ? MainLogoLight : MainLogo}
+            alt="MainLogo"
+          />
         </div>
         <div className="header_profile">
           <div
