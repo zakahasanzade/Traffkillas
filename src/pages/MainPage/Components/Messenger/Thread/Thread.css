@@ -414,4 +414,10 @@ li.repaly .time {
   .thread__messages .msg-body ul li.repaly p {
     font-size: 13px;
   }
+  .thread {
+    width: 40%;
+  }
+  .thread__header_left_picture {
+    display: none;
+  }
 }
