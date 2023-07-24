@@ -387,7 +387,7 @@ const Thread = ({
           <i className="bi bi-chat-text-fill"></i>
         </div>
         <form className="thread__input_type">
-          <i className="bi bi-emoji-smile"></i>
+          {/* <i className="bi bi-emoji-smile"></i> */}
           <input
             className="thread__input_type_input"
             onKeyDown={(event) => handleEnterKeyPress(event)}
@@ -397,10 +397,10 @@ const Thread = ({
               SetTypeMessage(e.target.value);
             }}
           />
-          <i
+          {/* <i
             className="bi bi-paperclip"
             style={{ transform: "rotate(45deg)" }}
-          ></i>
+          ></i> */}
         </form>
 
         <div
