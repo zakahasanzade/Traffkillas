@@ -129,7 +129,7 @@ const MainPage = ({ editStatRole, position, ModeChange, mode }) => {
                     }}
                     to="/MainPage/Statistics"
                   >
-                    Media Buyer
+                    Buyer Almata
                   </Link>
                   <Link
                     onClick={(e) => {
@@ -139,6 +139,15 @@ const MainPage = ({ editStatRole, position, ModeChange, mode }) => {
                     to="/MainPage/Statistics"
                   >
                     Influencer
+                  </Link>
+                  <Link
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      editStatRole("баинг астана");
+                    }}
+                    to="/MainPage/Statistics"
+                  >
+                    Buying Astana
                   </Link>
                 </ul>
               </div>
