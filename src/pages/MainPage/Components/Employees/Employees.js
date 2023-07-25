@@ -227,7 +227,10 @@ const Employees = ({ position, mode, channel_type }) => {
   const [selectedNewUserProject, setSelectedNewUserProject] = useState([]);
 
   const options = ProjectName?.map((el) => {
-    return { label: el.channel_name, value: el.channel_id };
+    return {
+      label: el.channel_name + ", " + el.channel_id,
+      value: el.channel_id,
+    };
   });
 
   const EditUserProject = (username) => {
@@ -628,6 +631,7 @@ const Employees = ({ position, mode, channel_type }) => {
                   labelledBy={"Select"}
                   isCreatable={true}
                 />
+
                 <button
                   disabled={enableCreate && true}
                   style={enableCreate ? { opacity: "0.5" } : { opacity: "1" }}

@@ -534,7 +534,7 @@ const Statistics = ({ statisticsRole, position, mode }) => {
                                 }
                           }
                         >
-                          {channel_name}
+                          {channel_name + ", " + channel_id}
                         </p>
                         <p
                           className="statistics_up"
